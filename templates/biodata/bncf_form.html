@@ -1,0 +1,1332 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNC & BNF Application Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .side-logo-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100vw;
+            min-height: 100vh;
+        }
+        .sub-logos {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 32px;
+            margin-right: 32px;
+            margin-top: 0;
+            min-width: 60px;
+            z-index: 2;
+        }
+        .sub-logos img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            filter: grayscale(30%) brightness(0.95);
+            transition: filter 0.3s, transform 0.3s;
+            background: transparent;
+        }
+        .sub-logos img:hover {
+            filter: none;
+            transform: scale(1.08);
+        }
+        @media (max-width: 900px) {
+            .side-logo-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .sub-logos {
+                flex-direction: row;
+                gap: 18px;
+                margin: 0 0 18px 0;
+                min-width: unset;
+            }
+            .sub-logos img {
+                height: 32px;
+            }
+        }
+        @media (max-width: 600px) {
+            .sub-logos {
+                gap: 10px;
+            }
+            .sub-logos img {
+                height: 24px;
+            }
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            width: 100%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(0.8); opacity: 0.5; }
+        }
+
+        .form-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-body {
+            padding: 25px 20px;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 15px;
+            top: 42px;
+            color: #7f8c8d;
+            transition: all 0.3s ease;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .form-control:focus {
+            border-color: #3498db;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        .form-control:focus + i {
+            color: #3498db;
+        }
+
+        /* Enhanced Radio Button Styles */
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            position: relative;
+            cursor: pointer;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .radio-option .radio-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border: 2px solid #e1e8ed;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: 500;
+            color: #7f8c8d;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-height: 50px;
+        }
+
+        .radio-option .radio-label i {
+            position: static;
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        .radio-option input[type="radio"]:checked ~ .radio-label {
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            color: white;
+            border-color: #1a2a6c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 42, 108, 0.3);
+        }
+
+        .radio-option input[type="radio"]:checked ~ .radio-label i {
+            color: white;
+        }
+
+        .radio-option:hover .radio-label {
+            border-color: #3498db;
+            background: #e9ecef;
+        }
+
+        .radio-option input[type="radio"]:checked ~ .radio-label:hover {
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 35px auto 0;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(26, 42, 108, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 42, 108, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+
+        .form-footer {
+            background: #f1f3f5;
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+
+        /* Mobile-specific enhancements */
+        .progress-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .progress-indicator::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e1e8ed;
+            z-index: 1;
+        }
+
+        .progress-step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e1e8ed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active {
+            background: #3498db;
+        }
+
+        .progress-step.completed {
+            background: #2ecc71;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .nav-btn {
+            background: #f8f9fa;
+            border: 2px solid #e1e8ed;
+            color: #7f8c8d;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-btn:hover {
+            background: #e9ecef;
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        .nav-btn i {
+            margin: 0 8px;
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            color: white;
+            border: none;
+        }
+
+        .nav-btn.next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 42, 108, 0.4);
+        }
+
+        .floating-action-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .floating-action-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .floating-action-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #333;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transform: translateY(-100px);
+            transition: transform 0.3s ease;
+            max-width: 90%;
+            display: flex;
+            align-items: center;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+        }
+
+        .notification i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .notification.success {
+            border-left: 4px solid #2ecc71;
+        }
+
+        .notification.success i {
+            color: #2ecc71;
+        }
+
+        .notification.error {
+            border-left: 4px solid #e74c3c;
+        }
+
+        .notification.error i {
+            color: #e74c3c;
+        }
+
+        .notification.info {
+            border-left: 4px solid #3498db;
+        }
+
+        .notification.info i {
+            color: #3498db;
+        }
+
+        /* Touch-friendly adjustments */
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+        }
+
+        select, input, button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        /* Mobile-specific animations */
+        @media (max-width: 480px) {
+            .form-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .form-body {
+                padding: 20px 15px;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .radio-option {
+                min-width: 100%;
+            }
+        }
+
+        /* Date input specific styles */
+        .date-input-hint {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* Preview Section Styles */
+        .preview-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .preview-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .preview-title i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+
+        .preview-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e1e8ed;
+        }
+
+        .preview-item:last-child {
+            border-bottom: none;
+        }
+
+        .preview-label {
+            font-weight: 600;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .preview-value {
+            color: #2c3e50;
+            font-weight: 500;
+            text-align: right;
+            max-width: 60%;
+        }
+
+        /* Confirmation Page Styles */
+        .confirmation-container {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        .success-icon i {
+            font-size: 3rem;
+            color: white;
+        }
+
+        .confirmation-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .confirmation-message {
+            color: #7f8c8d;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .confirmation-details {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .confirmation-id {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .confirmation-id strong {
+            color: #2c3e50;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(26, 42, 108, 0.4);
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 42, 108, 0.5);
+        }
+
+        .restart-btn i {
+            margin-left: 10px;
+        }
+            .footer-section {
+                background: #f8f9fa;
+                padding: 40px 0 20px 0;
+                text-align: center;
+                border-top: 2px solid #e1e8ed;
+            }
+            .footer-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 30px;
+                margin-bottom: 20px;
+            }
+            .office-box {
+                background: #fff;
+                border-radius: 15px;
+                box-shadow: 0 4px 18px rgba(44, 62, 80, 0.08);
+                padding: 25px 30px;
+                min-width: 260px;
+                max-width: 320px;
+                flex: 1 1 260px;
+            }
+            .office-header {
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: #1a2a6c;
+                margin-bottom: 10px;
+                letter-spacing: 1px;
+            }
+            .office-header hr {
+                border: none;
+                border-top: 2px solid #e1e8ed;
+                margin: 8px 0 0 0;
+            }
+            .office-details {
+                font-size: 0.95rem;
+                color: #7f8c8d;
+                line-height: 1.7;
+            }
+            @media (max-width: 900px) {
+                .footer-container {
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 20px;
+                }
+                .office-box {
+                    min-width: 220px;
+                    max-width: 95%;
+                    padding: 18px 12px;
+                }
+            }
+        .image-container-card {
+            width: 100%;
+            max-width: 1100px;
+            margin: 40px auto 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .image-container-content {
+            width: 100%;
+            background: linear-gradient(135deg, #ffffff, #f3f6fb);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-container-content:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        .placeholder-team img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        /* ===============================
+        IMAGE CARD – MOBILE
+        ================================ */
+
+        @media (max-width: 768px) {
+            .image-container-card {
+                padding: 15px;
+                margin-top: 25px;
+            }
+
+            .image-container-content {
+                border-radius: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .image-container-card {
+                padding: 10px;
+            }
+
+            .image-container-content {
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="side-logo-container">
+        <div class="sub-logos">
+            <img id="subLogoLeft" src="{% static 'images/img3.png' %}" alt="Left Logo" class="logo-responsive">
+            <img id="subLogoCenter" src="{% static 'images/img4.png' %}" alt="Center Logo" class="logo-responsive">
+            <img id="subLogoRight1" src="{% static 'images/img5.png' %}" alt="Right Logo 1" class="logo-responsive">
+        </div>
+        <div class="form-container">
+        <div class="form-header">
+            <h1>BNC & BNF Application</h1>
+            <p>
+ગુજરાત - ભારત કે Globally, જે ભૂદેવ બહેનો કે ભાઈઓ ને, પોતાના City - 
+Area મા પોતાના ઘરે કે ઓફિસ મા ભૂદેવ નેટવર્ક સેન્ટર (BNC kendra) ઓપન 
+કરીને બુકલેટ વિતરણ, મેરેજ સર્વિસ, Work From Home, IT Services, Travels,
+ Event Management Services, Insurance Franchisee, વગેરે નું કાર્ય કરવામાં 
+ interest હોય તેઓ નીચે આપેલ ફોર્મ ભરીને, 20-02-2026 સુધી સબમિટ કરશો. 
+ ભૂદેવ નેટવર્ક સંસ્થા સાથે જોડાઈને તમે સારુ કાર્ય કરશો તો તમને અનેક પ્રકારના લાભ થશે. 
+ જેમ કે સામાજિક લાભ, આર્થિક લાભ, સેવાકીય લાભ, Personality Development,  Free Business Seminars, Picnic, Travels વગેરે.</p>
+        </div>
+        
+        <div class="form-body">
+            <div class="progress-indicator">
+                <div class="progress-step active">1</div>
+                <div class="progress-step">2</div>
+                <div class="progress-step">3</div>
+                <div class="progress-step">4</div>
+                <div class="progress-step">5</div>
+            </div>
+            
+            <form id="applicationForm">
+                <!-- Section 1: Personal Information -->
+                <div class="form-section active" id="section1">
+                    <div class="form-group">
+                        <label for="fullName">(1) Full Name</label>
+                        <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+                        <i class="fas fa-user"></i>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>(2) Gender</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="male" name="gender" value="Male" required>
+                                <label for="male" class="radio-label">
+                                    <i class="fas fa-mars"></i> Male
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="female" name="gender" value="Female">
+                                <label for="female" class="radio-label">
+                                    <i class="fas fa-venus"></i> Female
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dob">(3) Date of Birth</label>
+                        <input type="text" id="dob" class="form-control" placeholder="DD-MM-YYYY" maxlength="10" required>
+                        <i class="fas fa-calendar-alt"></i>
+                        <div class="date-input-hint">Format: DD-MM-YYYY (dashes will appear automatically)</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="maritalStatus">(4) Marriage Status</label>
+                        <select id="maritalStatus" class="form-control" required>
+                            <option value="">Select status</option>
+                            <option value="Married">Married</option>
+                            <option value="Unmarried">Unmarried</option>
+                            <option value="Divorce">Divorce</option>
+                            <option value="Widow">Widow</option>
+                        </select>
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <div></div>
+                        <button type="button" class="nav-btn next" onclick="nextSection()">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Section 2: Contact Information -->
+                <div class="form-section" id="section2">
+                    <div class="form-group">
+                        <label for="whatsapp">(5) WhatsApp Number</label>
+                        <input type="tel" id="whatsapp" class="form-control" placeholder="+91 xxxxxxxxx" required>
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">(6) Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="+91 xxxxxxxxx" required>
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="city">(7) Current City</label>
+                        <input type="text" id="city" class="form-control" placeholder="City you currently live in" required>
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="area">(8) Area Name</label>
+                        <input type="text" id="area" class="form-control" placeholder="Your area or locality name" required>
+                        <i class="fas fa-map-pin"></i>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">(9) Home Address</label>
+                        <input type="text" id="address" class="form-control" placeholder="Your complete residential address" required>
+                        <i class="fas fa-home"></i>
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <button type="button" class="nav-btn" onclick="prevSection()">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button type="button" class="nav-btn next" onclick="nextSection()">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Section 3: Professional Information -->
+                <div class="form-section" id="section3">
+                    <div class="form-group">
+                        <label for="education">(10) Education</label>
+                        <input type="text" id="education" class="form-control" placeholder="Highest degree obtained" required>
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="occupation">(11)Occupation</label>
+                        <input type="text" id="occupation" class="form-control" placeholder="Your current job title" required>
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <button type="button" class="nav-btn" onclick="prevSection()">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button type="button" class="nav-btn next" onclick="goToPreview()">
+                            Preview <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Section 4: Preview -->
+                <div class="form-section" id="section4">
+                    <h2 style="text-align: center; margin-bottom: 25px; color: #2c3e50;">
+                        <i class="fas fa-search" style="margin-right: 10px; color: #3498db;"></i>
+                        Application Preview
+                    </h2>
+                    
+                    <div class="preview-section">
+                        <div class="preview-title">
+                            <i class="fas fa-user"></i> Personal Information
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">Full Name</span>
+                            <span class="preview-value" id="preview-fullName">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">Gender</span>
+                            <span class="preview-value" id="preview-gender">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">Date of Birth</span>
+                            <span class="preview-value" id="preview-dob">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">Marriage Status</span>
+                            <span class="preview-value" id="preview-maritalStatus">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <div class="preview-title">
+                            <i class="fas fa-address-book"></i> Contact Information
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">WhatsApp Number</span>
+                            <span class="preview-value" id="preview-whatsapp">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">Phone Number</span>
+                            <span class="preview-value" id="preview-phone">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">Current City</span>
+                            <span class="preview-value" id="preview-city">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">Area Name</span>
+                            <span class="preview-value" id="preview-area">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">Home Address</span>
+                            <span class="preview-value" id="preview-address">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <div class="preview-title">
+                            <i class="fas fa-briefcase"></i> Professional Information
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">Education</span>
+                            <span class="preview-value" id="preview-education">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">Occupation</span>
+                            <span class="preview-value" id="preview-occupation">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <button type="button" class="nav-btn" onclick="prevSection()">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button type="button" class="nav-btn next" onclick="submitApplication()">
+                            Submit Application <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Section 5: Confirmation -->
+                <div class="form-section" id="section5">
+                    <div class="confirmation-container">
+                        <div class="success-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        
+                        <h2 class="confirmation-title">Application Submitted Successfully!</h2>
+                        
+                        <p class="confirmation-message">
+                            Thank you for applying to BNC & BNF. We have received your application and will review it shortly. You will receive a confirmation email with your application details.
+                        </p>
+                        
+                        <div class="confirmation-details">
+                            <div class="confirmation-id">
+                                <!-- <strong>Application ID:</strong> <span id="applicationId">BNCBNF-2023-</span> -->
+                            </div>
+                            <div class="confirmation-id">
+                                <strong>Submission Date:</strong> <span id="submissionDate"></span>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="restart-btn" onclick="restartApplication()">
+                            Start New Application <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Second Image Container -->
+        <div class="image-container-card">
+            <div class="image-container-content">
+                <div class="placeholder-team" style="display: block; border-radius: 15px; overflow: hidden; background: #fff;">
+                    <img src="{% static 'images/team.jpg' %}" alt="Team Members" style="display:block; width: 100%; height: auto; object-fit: contain; border-radius: 15px;">
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="footer-section">
+            <!-- Optional decorative divider above the site logos -->
+            <div class="footer-container">
+                <div class="office-box vadodara-office">
+                    <div class="office-header">
+                        VADODARA
+                        <hr>
+                    </div>
+                    <div class="office-details">
+                        601, 602, 603, 604 A, 6th Floor<br>Galav Chambers, Dairy Den Circle, Sayajiganj
+                        Vadodara - 390020 <br>
+                        9099798986, 9081522111
+                    </div>
+                </div>
+
+                <div class="office-box amdavad-office">
+                    <div class="office-header">
+                        AMDAVAD (NAVRANGPURA)
+                        <hr>
+                    </div>
+                    <div class="office-details">
+                        A-703, 7th Floor,Nar -Naryan Complex,Near<br>
+                        Swastik Char Rasta, Opp Navrangpura Post office, Navrangpura Amdavad - 380009 <br>
+                        9099798986, 9081522111
+                    </div>
+                </div>
+
+                <div class="office-box maninagar-office">
+                    <div class="office-header">
+                        AMDAVAD (MANINAGAR)
+                        <hr>
+                    </div>
+                    <div class="office-details">
+                        S/9, Shukun Plaza, Second Floor, <br> Opp. Nagar Farsan, Near Pruthvi Hotels, Maninagar,
+                        Amdavad 380008<br>9099798986, 9081522111
+                    </div>
+                </div>
+            </div>
+        </div>
+         {% include 'biodata/employa_footer.html' %}
+        
+        <div class="form-footer">
+            <p>© 2023 BNC & BNF Organization. All rights reserved.</p>
+           
+        </div>
+    </div>
+    
+    <div class="floating-action-btn" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        let currentSection = 1;
+        const totalSections = 5;
+        
+        // Date of Birth formatting
+        const dobInput = document.getElementById('dob');
+        
+        dobInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove all non-digits
+            let formattedValue = '';
+            
+            if (value.length >= 1) {
+                formattedValue = value.substring(0, 2);
+                if (value.length >= 3) {
+                    formattedValue += '-' + value.substring(2, 4);
+                    if (value.length >= 5) {
+                        formattedValue += '-' + value.substring(4, 8);
+                    }
+                }
+            }
+            
+            e.target.value = formattedValue;
+        });
+        
+        // Validate date format on blur
+        dobInput.addEventListener('blur', function(e) {
+            const value = e.target.value;
+            const dateRegex = /^(\d{2})-(\d{2})-(\d{4})$/;
+            
+            if (value && !dateRegex.test(value)) {
+                showNotification('Please enter a valid date in DD-MM-YYYY format', 'error');
+                e.target.focus();
+            } else if (value) {
+                // Validate if it's a real date
+                const [day, month, year] = value.split('-').map(Number);
+                const date = new Date(year, month - 1, day);
+                
+                if (date.getFullYear() !== year || 
+                    date.getMonth() !== month - 1 || 
+                    date.getDate() !== day) {
+                    showNotification('Please enter a valid date', 'error');
+                    e.target.focus();
+                }
+            }
+        });
+        
+        function updateProgress() {
+            // Update progress indicators
+            for (let i = 1; i <= totalSections; i++) {
+                const step = document.querySelector(`.progress-step:nth-child(${i})`);
+                if (i < currentSection) {
+                    step.classList.add('completed');
+                    step.classList.remove('active');
+                } else if (i === currentSection) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                } else {
+                    step.classList.remove('active', 'completed');
+                }
+            }
+        }
+        
+        function showSection(sectionNumber) {
+            // Hide all sections
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show current section
+            document.getElementById(`section${sectionNumber}`).classList.add('active');
+            
+            // Update progress
+            updateProgress();
+            
+            // Scroll to top of form
+            document.querySelector('.form-body').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function nextSection() {
+            if (validateCurrentSection()) {
+                if (currentSection < totalSections) {
+                    currentSection++;
+                    showSection(currentSection);
+                }
+            }
+        }
+        
+        function prevSection() {
+            if (currentSection > 1) {
+                currentSection--;
+                showSection(currentSection);
+            }
+        }
+        
+        function goToPreview() {
+            if (validateCurrentSection()) {
+                // Populate preview data
+                populatePreview();
+                currentSection = 4;
+                showSection(currentSection);
+            }
+        }
+        
+        function populatePreview() {
+            document.getElementById('preview-fullName').textContent = document.getElementById('fullName').value;
+            document.getElementById('preview-gender').textContent = document.querySelector('input[name="gender"]:checked')?.value || '-';
+            document.getElementById('preview-dob').textContent = document.getElementById('dob').value;
+            document.getElementById('preview-maritalStatus').textContent = document.getElementById('maritalStatus').value;
+            document.getElementById('preview-whatsapp').textContent = document.getElementById('whatsapp').value;
+            document.getElementById('preview-phone').textContent = document.getElementById('phone').value;
+            document.getElementById('preview-city').textContent = document.getElementById('city').value;
+            document.getElementById('preview-area').textContent = document.getElementById('area').value;
+            document.getElementById('preview-address').textContent = document.getElementById('address').value;
+            document.getElementById('preview-education').textContent = document.getElementById('education').value;
+            document.getElementById('preview-occupation').textContent = document.getElementById('occupation').value;
+        }
+        
+        function validateCurrentSection() {
+            const currentSectionElement = document.getElementById(`section${currentSection}`);
+            const requiredFields = currentSectionElement.querySelectorAll('[required]');
+            
+            for (let field of requiredFields) {
+                if (!field.value.trim()) {
+                    showNotification('Please fill in all required fields', 'error');
+                    field.focus();
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+        
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let cookie of cookies) {
+                    cookie = cookie.trim();
+                    if (cookie.startsWith(name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function submitApplication() {
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                gender: document.querySelector('input[name="gender"]:checked')?.value,
+                dob: document.getElementById('dob').value,
+                maritalStatus: document.getElementById('maritalStatus').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                phone: document.getElementById('phone').value,
+                education: document.getElementById('education').value,
+                occupation: document.getElementById('occupation').value,
+                city: document.getElementById('city').value,
+                area: document.getElementById('area').value,
+                address: document.getElementById('address').value
+            };
+
+            fetch('/bncf-application/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+                // Try to parse JSON, but catch if it's not JSON
+                return response.json().catch(() => {
+                    throw new Error('Server did not return valid JSON.');
+                });
+            })
+            .then(data => {
+                if (data.success) {
+                    showNotification('Application submitted successfully!', 'success');
+                    // Show confirmation section
+                    currentSection = 5;
+                    showSection(currentSection);
+                    // Set confirmation details if available
+                    if (data.application_id) {
+                        document.getElementById('applicationId').textContent = data.application_id;
+                    }
+                    if (data.submission_date) {
+                        document.getElementById('submissionDate').textContent = data.submission_date;
+                    } else {
+                        // fallback to current date
+                        document.getElementById('submissionDate').textContent = new Date().toLocaleDateString();
+                    }
+                } else {
+                    showNotification('Error: ' + (data.error || 'Could not submit form'), 'error');
+                }
+            })
+            .catch(error => {
+                showNotification('Error: ' + error.message, 'error');
+            });
+        }
+        
+        function restartApplication() {
+            // Reset form
+            document.getElementById('applicationForm').reset();
+            currentSection = 1;
+            showSection(currentSection);
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Notification system
+        function showNotification(message, type) {
+            // Remove existing notifications
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notif => {
+                notif.classList.remove('show');
+                setTimeout(() => notif.remove(), 300);
+            });
+            
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            let iconClass = 'fa-info-circle';
+            if (type === 'success') iconClass = 'fa-check-circle';
+            if (type === 'error') iconClass = 'fa-exclamation-circle';
+            
+            notification.innerHTML = `
+                <i class="fas ${iconClass}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Hide notification
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentNode === document.body) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        // Initialize form
+        updateProgress();
+        
+        // Add touch feedback for mobile
+        document.querySelectorAll('button, .radio-option, input, select').forEach(element => {
+            element.addEventListener('touchstart', function() {
+                this.style.opacity = '0.8';
+            });
+            
+            element.addEventListener('touchend', function() {
+                this.style.opacity = '1';
+            });
+        });
+    </script>
+   
+</body>
+</html>

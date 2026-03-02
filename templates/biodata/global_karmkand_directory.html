@@ -1,0 +1,1847 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Karmkand - Registration Form</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Gujarati:wght@400;500;600;700;800&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Merriweather:wght@300;400;700;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #374151;
+            background: linear-gradient(135deg, #fef7ed 0%, #fefce8 50%, #fef2f2 100%);
+            min-height: 100vh;
+            font-weight: 400;
+        }
+
+        /* Header Styles */
+        .header {
+            position: relative;
+            height: 16rem;
+            background: linear-gradient(90deg, #ea580c 0%, #cc9b07 50%, #dc2626 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1715876722520-02ccc9248dab?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwyfHxoaW5kdSUyMHRlbXBsZXxlbnwwfHx8fDE3NTUyNDIzNjZ8MA&ixlib=rb-4.1.0&q=85');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', 'Noto Sans Gujarati', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle-gujarati {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            color: #fed7aa;
+            font-weight: 600;
+            font-family: 'Noto Sans Gujarati', sans-serif;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.01em;
+        }
+
+        .subtitle-english {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            color: #fdba74;
+            margin-top: 0.5rem;
+            font-family: 'Lora', 'Crimson Text', serif;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        /* Container and Card */
+        .container {
+            max-width: 64rem;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-radius: 0.75rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 2px solid #fed7aa;
+            overflow: hidden;
+        }
+
+        /* Form Header */
+        .form-header {
+            background: linear-gradient(90deg, #ea580c, #eab308);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+
+        .form-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            font-family: 'Playfair Display', 'Merriweather', serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .star-icon {
+            font-size: 2rem;
+        }
+
+        .form-subtitle {
+            color: #fed7aa;
+            margin-top: 0.5rem;
+            font-family: 'Lora', 'Inter', sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        /* Form Content */
+        .form-content {
+            padding: clamp(1.5rem, 4vw, 2rem);
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid;
+        }
+
+        .personal-section {
+            background: linear-gradient(90deg, #fef7ed, #fefce8);
+            border-color: #fed7aa;
+        }
+
+        .experience-section {
+            background: linear-gradient(90deg, #fefce8, #fef7ed);
+            border-color: #fde047;
+        }
+
+        .service-section {
+            background: linear-gradient(90deg, #fef2f2, #fef7ed);
+            border-color: #fca5a5;
+        }
+
+        .upload-section {
+            background: linear-gradient(90deg, #fef7ed, #fef2f2);
+            border-color: #fed7aa;
+        }
+
+        .terms-section {
+            background: linear-gradient(90deg, #fefce8, #fef2f2);
+            border-color: #fde047;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #9a3412;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Poppins', 'Inter', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        .section-icon {
+            font-size: 1.25rem;
+        }
+
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Form Groups */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            color: #9a3412;
+            font-weight: 600;
+            font-size: 0.875rem;
+            font-family: 'Poppins', 'Inter', sans-serif;
+            letter-spacing: 0.01em;
+        }
+
+        /* Input Styles */
+        .form-input {
+            padding: 0.75rem 1rem;
+            border: 2px solid #fed7aa;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+            background: white;
+            font-family: 'Inter', 'Poppins', sans-serif;
+            font-weight: 400;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ea580c;
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+        }
+
+        .form-input.with-icon {
+            padding-left: 2.5rem;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            color: #ea580c;
+            pointer-events: none;
+        }
+
+        .form-textarea {
+            padding: 0.75rem 1rem;
+            border: 2px solid #fed7aa;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+            background: white;
+            resize: vertical;
+            font-family: 'Inter', 'Poppins', sans-serif;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: #ea580c;
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+        }
+
+        /* Checkbox Styles */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .checkbox-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .checkbox-item.multiline {
+            align-items: flex-start;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-custom {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #fed7aa;
+            border-radius: 0.25rem;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked+.checkbox-custom {
+            background-color: #ea580c;
+            border-color: #ea580c;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked+.checkbox-custom::after {
+            content: '✓';
+            color: white;
+            font-size: 0.875rem;
+            font-weight: bold;
+        }
+
+        .checkbox-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            line-height: 1.5;
+            font-family: 'Inter', 'Poppins', sans-serif;
+        }
+
+        /* File Upload Styles */
+        .form-file-input {
+            display: none;
+        }
+
+        .file-upload-area {
+            border: 2px dashed #fed7aa;
+            border-radius: 0.375rem;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .file-upload-area:hover {
+            border-color: #ea580c;
+            background: #fef7ed;
+        }
+
+        .file-upload-area.dragover {
+            border-color: #ea580c;
+            background: #fef7ed;
+        }
+
+        .upload-text {
+            color: #9a3412;
+            font-weight: 500;
+        }
+
+        .file-name {
+            margin-top: 0.5rem;
+            color: #374151;
+            font-size: 0.875rem;
+        }
+
+        /* Terms Checkbox */
+        .terms-checkbox {
+            padding: 1rem;
+        }
+
+        .terms-checkbox .checkbox-label {
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* Submit Button */
+        .submit-section {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .submit-button {
+            background: linear-gradient(90deg, #ea580c, #dc2626);
+            color: white;
+            font-weight: 700;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            cursor: pointer;
+            box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+            font-family: 'Poppins', 'Inter', sans-serif;
+            letter-spacing: 0.01em;
+            transition: all 0.3s;
+            transform: scale(1);
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(90deg, #c2410c, #b91c1c);
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        .submit-button:disabled:hover {
+            background: linear-gradient(90deg, #ea580c, #dc2626);
+            transform: scale(1);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: white;
+            border: 1px solid #fed7aa;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+            min-width: 300px;
+            max-width: 500px;
+            padding: 1rem;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-color: #86efac;
+            background: #f0fdf4;
+        }
+
+        .toast.error {
+            border-color: #fca5a5;
+            background: #fef2f2;
+        }
+
+        .toast-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            color: #374151;
+            font-family: 'Poppins', 'Inter', sans-serif;
+        }
+
+        .toast-message {
+            font-size: 0.875rem;
+            color: #6b7280;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.4;
+        }
+
+        .toast-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #9ca3af;
+            line-height: 1;
+            padding: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toast-close:hover {
+            color: #374151;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                height: 12rem;
+            }
+
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .subtitle-gujarati {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .form-content {
+                padding: 1rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-header {
+                padding: 1rem;
+            }
+
+            .form-title {
+                font-size: 1.5rem;
+            }
+
+            .section {
+                padding: 1rem;
+            }
+
+            .toast {
+                top: auto;
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+                max-width: none;
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                height: 10rem;
+            }
+
+            .main-title {
+                font-size: 1.75rem;
+            }
+
+            .container {
+                padding: 0.5rem;
+            }
+
+            .form-content {
+                padding: 0.75rem;
+            }
+
+            .section {
+                padding: 0.75rem;
+            }
+
+            .submit-button {
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .header {
+                height: auto;
+                background: none;
+                color: black;
+                padding: 1rem 0;
+            }
+
+            .header-bg {
+                display: none;
+            }
+
+            .main-title,
+            .subtitle-gujarati,
+            .subtitle-english {
+                color: black;
+            }
+
+            .form-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+
+            .form-header {
+                background: none;
+                color: black;
+                border-bottom: 2px solid #ccc;
+            }
+
+            .section {
+                background: none;
+                border: 1px solid #ccc;
+                margin-bottom: 1rem;
+            }
+
+            .submit-button {
+                display: none;
+            }
+
+            .toast {
+                display: none;
+            }
+        }
+
+        /* Advanced Typography Enhancements */
+
+        /* Better text rendering */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* Improved heading hierarchy */
+        h1,
+        .main-title {
+            font-optical-sizing: auto;
+            text-rendering: geometricPrecision;
+        }
+
+        h2,
+        .form-title {
+            font-optical-sizing: auto;
+        }
+
+        h3,
+        .section-title {
+            font-optical-sizing: auto;
+        }
+
+        /* Enhanced readability for body text */
+        p,
+        .checkbox-label,
+        .form-label {
+            font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* Better spacing for Gujarati text */
+        .subtitle-gujarati,
+        .form-label:lang(gu),
+        .checkbox-label:lang(gu) {
+            font-feature-settings: "kern" 1;
+            line-height: 1.7;
+        }
+
+        /* Improved focus states with better typography */
+        .form-input:focus,
+        .form-textarea:focus {
+            font-weight: 500;
+        }
+
+        /* Enhanced button typography */
+        .submit-button {
+            text-transform: none;
+            font-feature-settings: "kern" 1;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* Better spacing for headings */
+        .main-title {
+            line-height: 1.1;
+            text-wrap: balance;
+        }
+
+        .form-title {
+            line-height: 1.2;
+            text-wrap: balance;
+        }
+
+        .section-title {
+            line-height: 1.3;
+            text-wrap: balance;
+        }
+
+        /* Improved readability for form elements */
+        .form-input,
+        .form-textarea {
+            line-height: 1.5;
+            font-feature-settings: "kern" 1, "liga" 1;
+        }
+
+        /* Better contrast and readability */
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            font-weight: 400;
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        /* Enhanced typography for different screen sizes */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+                /* Prevents zoom on iOS */
+            }
+
+            .main-title {
+                line-height: 1.15;
+            }
+
+            .form-title {
+                line-height: 1.25;
+            }
+        }
+
+        /* High DPI display optimizations */
+        @media (-webkit-min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi) {
+
+            .main-title,
+            .form-title,
+            .section-title {
+                font-weight: 600;
+                /* Slightly lighter on high DPI */
+            }
+        }
+
+        /* Dark mode typography improvements (for future implementation) */
+        @media (prefers-color-scheme: dark) {
+            body {
+                font-weight: 400;
+                /* Maintain readability in dark mode */
+            }
+
+            .main-title,
+            .form-title,
+            .section-title {
+                font-weight: 700;
+                /* Slightly bolder in dark mode */
+            }
+        }
+
+        /* Footer styles */
+        .footer-section {
+            margin: 2rem auto;
+            padding: 1.25rem 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 0.75rem;
+            border: 1px solid #fed7aa;
+            box-shadow: 0 10px 25px -10px rgba(0,0,0,0.15);
+            max-width: 64rem;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .office-box {
+            background: #ffffff;
+            border: 1px solid #fde68a;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 6px 16px -8px rgba(0,0,0,0.2);
+        }
+
+        .office-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #9a3412;
+            text-align: center;
+        }
+
+        .office-header hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, #ea580c, #eab308);
+            margin: 0.5rem auto;
+            border-radius: 2px;
+            width: 120px;
+        }
+
+        .office-details {
+            color: #374151;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-container {
+                flex-direction: row;
+            }
+            .office-box { flex: 1; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header with Traditional Image -->
+    <div class="header">
+        <div class="header-bg"></div>
+        <div class="header-content">
+            <h1 class="main-title">Global Karmkand</h1>
+            <p class="subtitle-gujarati">ગ્લોબલ કર્મકાંડ બ્રાહ્મણ નેટવર્ક</p>
+            <p class="subtitle-english">Traditional Vedic Services Worldwide</p>
+        </div>
+    </div>
+
+    <!-- Form Container -->
+    <div class="container">
+        <div class="form-card">
+            <!-- Form Header -->
+            <div class="form-header">
+                <div class="form-title">
+                    <span class="star-icon">⭐</span>
+                    <span>Registration Form</span>
+                    <span class="star-icon">⭐</span>
+                </div>
+                <p class="form-subtitle">Join the Global Karmkandi-Brahman Network (GKBD)</p>
+            </div>
+
+            <!-- Form Content -->
+            <div class="form-content">
+                <form id="registrationForm" class="form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- Personal Information -->
+                    <div class="section personal-section">
+                        <h3 class="section-title">
+                            <span class="section-icon">👤</span>
+                            Personal Information / વ્યક્તિગત માહિતી
+                        </h3>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="name" class="form-label">
+                                    Name (આપનું નામ) *
+                                </label>
+                                <input id="name" type="text" class="form-input" placeholder="Enter your full name"
+                                    name="name" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dob" class="form-label">
+                                    Date of Birth (જન્મ-તારીખ) *
+                                </label>
+                                <div class="input-with-icon">
+                                    <input id="dob" name="dob" type="text" class="form-input" placeholder="DD-MM-YYYY" required />
+                                    
+                                    <span class="input-icon"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="location" class="form-label">
+                                    Current City & Country (હાલ નું રહેઠાણ ગામ / શહેર નું નામ) *
+                                </label>
+                                <div class="input-with-icon">
+                                    <input id="location" type="text" class="form-input with-icon"
+                                        name="location" placeholder="City, State, Country" required />
+                                    <span class="input-icon">📍</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone1" class="form-label">
+                                    Phone / WhatsApp Number 1 *
+                                </label>
+                                <div class="input-with-icon">
+                                    <input id="phone1" type="tel" class="form-input with-icon"
+                                        name="phone1" placeholder="+91 XXXXXXXXXX" required />
+                                    <span class="input-icon">📞</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone2" class="form-label">
+                                    Phone / WhatsApp Number 2
+                                </label>
+                                <div class="input-with-icon">
+                                    <input id="phone2" type="tel" class="form-input with-icon"
+                                        name="phone2" placeholder="+91 XXXXXXXXXX (Optional)" />
+                                    <span class="input-icon">📞</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience & Skills -->
+                    <div class="section experience-section">
+                        <h3 class="section-title">
+                            <span class="section-icon">🏆</span>
+                            Experience & Skills / અનુભવ અને કૌશલ્ય
+                        </h3>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                નીચે આપેલ કઈ બ્રાહ્મણ-પ્રવૃત્તિ માં આપનો અનુભવ છે *
+                            </label>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="brahman_activities" value="karmkand">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">🟠કર્મકાંડ અને ક્રિયા-કર્મ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="brahman_activities" value="astrology">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">🔵જ્યોતિષ-શાસ્ત્ર (Astrology)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="brahman_activities" value="temple">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">🟡 મંદિર પૂજારી (ટેમ્પલ મેનેજમેન્ટ)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="brahman_activities" value="kathakaar">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">🟢 કથાકાર</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="brahman_activities" value="vaastu">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">🟣 વાસ્તુ-શાસ્ત્ર</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="brahman_activities" value="numerology">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">🟤Numerology , etc</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="experience" class="form-label">
+                                Experience in Years (ઉપરોક્ત પ્રવૃત્તિ માં કેટલા વર્ષ નો અનુભવ છે ?) *
+                            </label>
+                            <input id="experience" type="number" min="0" max="50" class="form-input"
+                                name="experience_years" placeholder="Years of experience" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="skills" class="form-label">
+                                અન્ય SKILL કે આવડત હોય તો અહીં લખો
+                            </label>
+                            <textarea id="skills" class="form-textarea"
+                                name="other_skills" placeholder="Eg. English, Computer, Music (tabla, dhol, manjira, bhajan), classical dance, etc" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Service Preferences -->
+                    <div class="section service-section">
+                        <h3 class="section-title">
+                            Service Preferences / સેવા પસંદગીઓ
+                        </h3>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                આપ કયા સ્તરે / સ્થાને સેવા-કાર્ય કરવાની ઈચ્છા ધરાવો છો ? *
+                            </label>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="serviceLevel" value="city">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">Own City & District - Area Only</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="serviceLevel" value="state">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">State (Gujarat level)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="serviceLevel" value="india">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">All India Level</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="serviceLevel" value="international">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">NRI / International Level</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                Employment Status / વ્યવસાય સ્થિતિ *
+                            </label>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item multiline">
+                                    <input type="checkbox" name="employmentStatus" value="self">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">Self - Employed (પોતાની મેળે ક્રિયા-કર્મ , Jyotish, etc
+                                        Work કરું છું)</span>
+                                </label>
+                                <label class="checkbox-item multiline">
+                                    <input type="checkbox" name="employmentStatus" value="job">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">Doing Job in some Organization or Temple / કોઈ સંસ્થા
+                                        કે મંદિર માં JOB કરું છું</span>
+                                </label>
+                                <label class="checkbox-item multiline">
+                                    <input type="checkbox" name="employmentStatus" value="business">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">Running Own Temple or Business Office (Astrology ,
+                                        Vaastu etc) / પોતાનું મંદિર / Office છે</span>
+                                </label>
+                                <label class="checkbox-item multiline">
+                                    <input type="checkbox" name="employmentStatus" value="searching">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">Searching Job / Overseas Opportunity (વિદેશ માં
+                                        કર્મકાંડ ક્રિયા ની તક શોધું છું)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File Uploads -->
+                    <div class="section upload-section">
+                        <h3 class="section-title">
+                            <span class="section-icon">📎</span>
+                            Document Upload / દસ્તાવેજ અપલોડ
+                        </h3>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="photo" class="form-label">
+                                    Please Upload Your Photo *
+                                </label>
+                                <input id="photo" name="photo" type="file" class="form-file-input" accept="image/*" required />
+                                
+                                <div class="file-upload-area" id="photoUploadArea">
+                                    <span class="upload-text">Click to upload photo</span>
+                                    <img id="photoPreview" src="#" alt="Photo Preview" style="display:none;max-width:100px;max-height:100px;margin-top:10px;border-radius:8px;" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="visitingCard" class="form-label">
+                                    Upload Visiting Card (વિઝિટિંગ કાર્ડ) - Optional
+                                </label>
+                                <input id="visitingCard" name="visitingCard" type="file" class="form-file-input" accept="image/*,.pdf" />
+                                
+                                <div class="file-upload-area" id="visitingCardUploadArea">
+                                    <span class="upload-text">Click to upload visiting card</span>
+                                    <img id="visitingCardPreview" src="#" alt="Visiting Card Preview" style="display:none;max-width:100px;max-height:100px;margin-top:10px;border-radius:8px;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms & Conditions -->
+                    <div class="section terms-section">
+                        <label class="checkbox-item terms-checkbox">
+                            <input type="checkbox" name="terms_agreed" id="terms" required>
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">
+                                I agree to the T&C and Code of Conduct of Bhudev Network.
+                                Kindly give me membership of Global Karmkandi-Brahman Network (GKBD) *
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="submit-section">
+                        <button type="submit" class="submit-button" id="submitBtn">
+                            Submit Registration / નોંધણી સબમિટ કરો
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <div class="toast-title" id="toastTitle"></div>
+            <div class="toast-message" id="toastMessage"></div>
+        </div>
+        <button class="toast-close" id="toastClose">&times;</button>
+    </div>
+
+    <script>
+        // Image preview for photo
+        document.addEventListener('DOMContentLoaded', function() {
+            var photoInput = document.getElementById('photo');
+            var photoPreview = document.getElementById('photoPreview');
+            if (photoInput) {
+                photoInput.addEventListener('change', function(event) {
+                    var file = event.target.files[0];
+                    if (file && file.type.startsWith('image/')) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            photoPreview.src = e.target.result;
+                            photoPreview.style.display = 'block';
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        photoPreview.src = '#';
+                        photoPreview.style.display = 'none';
+                    }
+                });
+            }
+            var visitingCardInput = document.getElementById('visitingCard');
+            var visitingCardPreview = document.getElementById('visitingCardPreview');
+            if (visitingCardInput) {
+                visitingCardInput.addEventListener('change', function(event) {
+                    var file = event.target.files[0];
+                    if (file && file.type.startsWith('image/')) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            visitingCardPreview.src = e.target.result;
+                            visitingCardPreview.style.display = 'block';
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        visitingCardPreview.src = '#';
+                        visitingCardPreview.style.display = 'none';
+                    }
+                });
+            }
+        });
+        // Auto-format DOB field to insert '-' after day and month
+        document.addEventListener('DOMContentLoaded', function() {
+            var dobInput = document.getElementById('dob');
+            if (dobInput) {
+                dobInput.addEventListener('input', function(e) {
+                    let v = dobInput.value.replace(/[^0-9]/g, '');
+                    if (v.length > 2 && v[2] !== '-') {
+                        v = v.slice(0,2) + '-' + v.slice(2);
+                    }
+                    if (v.length > 5 && v[5] !== '-') {
+                        v = v.slice(0,5) + '-' + v.slice(5);
+                    }
+                    // Only update if different to avoid cursor jump
+                    if (dobInput.value !== v) dobInput.value = v;
+                });
+            }
+        });
+        class GlobalKarmkandForm {
+            constructor() {
+                this.form = document.getElementById('registrationForm');
+                this.submitBtn = document.getElementById('submitBtn');
+                this.toast = document.getElementById('toast');
+                this.toastTitle = document.getElementById('toastTitle');
+                this.toastMessage = document.getElementById('toastMessage');
+                this.toastClose = document.getElementById('toastClose');
+
+                // Form data storage
+                this.formData = {
+                    name: '',
+                    dateOfBirth: '',
+                    currentLocation: '',
+                    phone1: '',
+                    phone2: '',
+                    brahman_activities: [],
+                    experienceYears: '',
+                    otherSkills: '',
+                    serviceLevel: [],
+                    employmentStatus: [],
+                    photo: null,
+                    visitingCard: null,
+                    terms_agreed: false
+                };
+
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.setupFileUpload();
+                this.setupFormValidation();
+            }
+
+            bindEvents() {
+                // Form submission
+                // this.form.addEventListener('submit', (e) => this.handleSubmit(e)); // Disabled to allow default HTML form submission
+
+                // Toast close
+                this.toastClose.addEventListener('click', () => this.hideToast());
+
+                // Auto hide toast after 5 seconds
+                let toastTimer;
+
+                // Input change tracking
+                this.form.addEventListener('input', (e) => this.handleInputChange(e));
+                this.form.addEventListener('change', (e) => this.handleInputChange(e));
+
+                // Phone number formatting
+                const phoneInputs = ['phone1', 'phone2'];
+                phoneInputs.forEach(id => {
+                    const input = document.getElementById(id);
+                    if (input) {
+                        input.addEventListener('input', (e) => this.formatPhoneNumber(e));
+                    }
+                });
+            }
+
+            handleInputChange(e) {
+                const { name, type, value, checked } = e.target;
+
+                if (type === 'checkbox') {
+                    if (name === 'terms_agreed') {
+                        this.formData.terms_agreed = checked;
+                    } else {
+                        // Handle array checkboxes
+                        if (!this.formData[name]) {
+                            this.formData[name] = [];
+                        }
+
+                        if (checked) {
+                            if (!this.formData[name].includes(value)) {
+                                this.formData[name].push(value);
+                            }
+                        } else {
+                            this.formData[name] = this.formData[name].filter(item => item !== value);
+                        }
+                    }
+                } else {
+                    // Handle regular inputs
+                    const fieldName = e.target.id || name;
+                    if (fieldName && this.formData.hasOwnProperty(fieldName)) {
+                        this.formData[fieldName] = value;
+                    } else if (fieldName) {
+                        this.formData[fieldName] = value;
+                    }
+                }
+            }
+
+            formatPhoneNumber(e) {
+                let value = e.target.value.replace(/\D/g, '');
+
+                // Add +91 prefix if not present and number is 10 digits
+                if (value.length === 10 && !value.startsWith('91')) {
+                    value = '91' + value;
+                }
+
+                // Format as +91 XXXXX XXXXX
+                if (value.length >= 12) {
+                    value = value.substring(0, 12);
+                    const formatted = `+${value.substring(0, 2)} ${value.substring(2, 7)} ${value.substring(7)}`;
+                    e.target.value = formatted;
+                } else if (value.length >= 2) {
+                    const formatted = `+${value.substring(0, 2)} ${value.substring(2)}`;
+                    e.target.value = formatted;
+                } else if (value.length > 0) {
+                    e.target.value = `+${value}`;
+                }
+            }
+
+            setupFileUpload() {
+                const fileInputs = [
+                    { input: 'photo', area: 'photoUploadArea' },
+                    { input: 'visitingCard', area: 'visitingCardUploadArea' }
+                ];
+
+                fileInputs.forEach(({ input, area }) => {
+                    const inputElement = document.getElementById(input);
+                    const areaElement = document.getElementById(area);
+
+                    if (inputElement && areaElement) {
+                        // Click to upload
+                        areaElement.addEventListener('click', () => inputElement.click());
+
+                        // File selection
+                        inputElement.addEventListener('change', (e) => {
+                            this.handleFileUpload(e, areaElement, input);
+                        });
+
+                        // Drag and drop
+                        areaElement.addEventListener('dragover', (e) => {
+                            e.preventDefault();
+                            areaElement.classList.add('dragover');
+                        });
+
+                        areaElement.addEventListener('dragleave', () => {
+                            areaElement.classList.remove('dragover');
+                        });
+
+                        areaElement.addEventListener('drop', (e) => {
+                            e.preventDefault();
+                            areaElement.classList.remove('dragover');
+
+                            const files = e.dataTransfer.files;
+                            if (files.length > 0) {
+                                inputElement.files = files;
+                                this.handleFileUpload({ target: inputElement }, areaElement, input);
+                            }
+                        });
+                    }
+                });
+            }
+
+            handleFileUpload(e, uploadArea, fieldName) {
+                const file = e.target.files[0];
+                if (file) {
+                    // Validate file size (5MB limit)
+                    if (file.size > 5 * 1024 * 1024) {
+                        this.showToast('File Too Large', 'Please select a file smaller than 5MB.', 'error');
+                        e.target.value = '';
+                        return;
+                    }
+
+                    // Validate file type
+                    const allowedTypes = fieldName === 'photo'
+                        ? ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+                        : ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf'];
+
+                    if (!allowedTypes.includes(file.type)) {
+                        const allowedStr = fieldName === 'photo'
+                            ? 'JPEG, PNG, or GIF images'
+                            : 'JPEG, PNG, GIF images or PDF files';
+                        this.showToast('Invalid File Type', `Please select ${allowedStr}.`, 'error');
+                        e.target.value = '';
+                        return;
+                    }
+
+                    // Update UI
+                    const uploadText = uploadArea.querySelector('.upload-text');
+                    const existingFileName = uploadArea.querySelector('.file-name');
+
+                    if (existingFileName) {
+                        existingFileName.remove();
+                    }
+
+                    uploadText.textContent = 'File selected:';
+                    const fileName = document.createElement('div');
+                    fileName.className = 'file-name';
+                    fileName.textContent = file.name;
+                    uploadArea.appendChild(fileName);
+
+                    // Store file
+                    this.formData[fieldName] = file;
+                }
+            }
+
+            setupFormValidation() {
+                // Real-time validation feedback
+                const requiredFields = ['name', 'dob', 'location', 'phone1', 'experience'];
+
+                requiredFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    if (field) {
+                        field.addEventListener('blur', () => this.validateField(field));
+                        field.addEventListener('input', () => {
+                            if (field.classList.contains('error')) {
+                                this.validateField(field);
+                            }
+                        });
+                    }
+                });
+            }
+
+            validateField(field) {
+                const value = field.value.trim();
+                let isValid = true;
+                let errorMessage = '';
+
+                if (field.hasAttribute('required') && !value) {
+                    isValid = false;
+                    errorMessage = 'This field is required';
+                } else if (field.type === 'email' && value && !this.isValidEmail(value)) {
+                    isValid = false;
+                    errorMessage = 'Please enter a valid email address';
+                } else if (field.type === 'tel' && value && !this.isValidPhone(value)) {
+                    isValid = false;
+                    errorMessage = 'Please enter a valid phone number';
+                }
+
+                if (isValid) {
+                    field.classList.remove('error');
+                    this.removeErrorMessage(field);
+                } else {
+                    field.classList.add('error');
+                    this.showFieldError(field, errorMessage);
+                }
+
+                return isValid;
+            }
+
+            showFieldError(field, message) {
+                this.removeErrorMessage(field);
+
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'field-error';
+                errorDiv.textContent = message;
+                errorDiv.style.color = '#dc2626';
+                errorDiv.style.fontSize = '0.875rem';
+                errorDiv.style.marginTop = '0.25rem';
+
+                field.parentNode.appendChild(errorDiv);
+            }
+
+            removeErrorMessage(field) {
+                const existingError = field.parentNode.querySelector('.field-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+            }
+
+            isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            isValidPhone(phone) {
+                const cleanPhone = phone.replace(/\D/g, '');
+                return cleanPhone.length >= 10;
+            }
+
+            async handleSubmit(e) {
+                e.preventDefault();
+
+                if (!this.validateForm()) {
+                    return;
+                }
+
+                this.setLoading(true);
+
+                try {
+                    const result = await this.submitForm(this.formData);
+                    this.showToast(
+                        'Registration Successful! 🙏',
+                        `Welcome to GKBD Network! Your application ID: ${result.applicationId}`,
+                        'success'
+                    );
+                    this.resetForm();
+                } catch (error) {
+                    this.showToast(
+                        'Submission Failed',
+                        error.message || 'Please try again later',
+                        'error'
+                    );
+                } finally {
+                    this.setLoading(false);
+                }
+            }
+
+            validateForm() {
+                let isValid = true;
+                const errors = [];
+
+                // Required field validation
+                const requiredFields = [
+                    { id: 'name', name: 'Name' },
+                    { id: 'dob', name: 'Date of Birth' },
+                    { id: 'location', name: 'Current Location' },
+                    { id: 'phone1', name: 'Phone Number' },
+                    { id: 'experience', name: 'Experience Years' }
+                ];
+
+                requiredFields.forEach(field => {
+                    const element = document.getElementById(field.id);
+                    if (element && !element.value.trim()) {
+                        errors.push(`${field.name} is required`);
+                        element.focus();
+                        isValid = false;
+                    }
+                });
+
+                // Checkbox validations
+                if (this.formData.brahman_activities.length === 0) {
+                    errors.push('Please select at least one Brahman activity');
+                    isValid = false;
+                }
+
+                if (this.formData.serviceLevel.length === 0) {
+                    errors.push('Please select at least one service level');
+                    isValid = false;
+                }
+
+                if (this.formData.employmentStatus.length === 0) {
+                    errors.push('Please select at least one employment status');
+                    isValid = false;
+                }
+
+                // Photo required
+                const photoInput = document.getElementById('photo');
+                if (!photoInput.files[0]) {
+                    errors.push('Photo upload is required');
+                    isValid = false;
+                }
+
+                // Terms agreement
+                if (!this.formData.terms_agreed) {
+                    errors.push('Please agree to the Terms & Conditions');
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    this.showToast(
+                        'Please complete all required fields',
+                        errors[0],
+                        'error'
+                    );
+                }
+
+                return isValid;
+            }
+
+            async submitForm(formData) {
+                // Simulate API call with mock data
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        // Simulate 90% success rate
+                        if (Math.random() > 0.1) {
+                            const applicationId = this.generateApplicationId();
+                            resolve({
+                                success: true,
+                                applicationId,
+                                message: 'Registration submitted successfully. You will receive confirmation via WhatsApp.',
+                                submissionDetails: {
+                                    name: formData.name,
+                                    phone: formData.phone1,
+                                    experienceAreas: formData.brahmanActivities,
+                                    serviceLevel: formData.serviceLevel,
+                                    submittedAt: new Date().toISOString()
+                                }
+                            });
+                        } else {
+                            reject(new Error('Server temporarily unavailable. Please try again.'));
+                        }
+                    }, 1500); // Simulate network delay
+                });
+            }
+
+            generateApplicationId() {
+                const prefix = 'GKBD';
+                const timestamp = Date.now().toString().slice(-6);
+                const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+                return `${prefix}${timestamp}${random}`;
+            }
+
+            setLoading(isLoading) {
+                if (isLoading) {
+                    this.submitBtn.disabled = true;
+                    this.submitBtn.innerHTML = '<span class="loading"></span>Submitting...';
+                } else {
+                    this.submitBtn.disabled = false;
+                    this.submitBtn.innerHTML = 'Submit Registration / નોંધણી સબમિટ કરો';
+                }
+            }
+
+            showToast(title, message, type = 'success') {
+                this.toastTitle.textContent = title;
+                this.toastMessage.textContent = message;
+
+                // Reset classes
+                this.toast.classList.remove('success', 'error');
+                this.toast.classList.add(type);
+
+                // Show toast
+                this.toast.classList.add('show');
+
+                // Auto hide after 5 seconds
+                clearTimeout(this.toastTimer);
+                this.toastTimer = setTimeout(() => {
+                    this.hideToast();
+                }, 5000);
+            }
+
+            hideToast() {
+                this.toast.classList.remove('show');
+                clearTimeout(this.toastTimer);
+            }
+
+            resetForm() {
+                // Reset form data
+                this.formData = {
+                    name: '',
+                    dateOfBirth: '',
+                    currentLocation: '',
+                    phone1: '',
+                    phone2: '',
+                    brahmanActivities: [],
+                    experienceYears: '',
+                    otherSkills: '',
+                    serviceLevel: [],
+                    employmentStatus: [],
+                    photo: null,
+                    visitingCard: null,
+                    termsAgreed: false
+                };
+
+                // Reset form element
+                this.form.reset();
+
+                // Reset file upload areas
+                const uploadAreas = ['photoUploadArea', 'visitingCardUploadArea'];
+                uploadAreas.forEach(areaId => {
+                    const area = document.getElementById(areaId);
+                    if (area) {
+                        const uploadText = area.querySelector('.upload-text');
+                        const fileName = area.querySelector('.file-name');
+
+                        if (uploadText) {
+                            uploadText.textContent = areaId === 'photoUploadArea'
+                                ? 'Click to upload photo'
+                                : 'Click to upload visiting card';
+                        }
+
+                        if (fileName) {
+                            fileName.remove();
+                        }
+                    }
+                });
+
+                // Remove validation errors
+                const errorElements = document.querySelectorAll('.field-error');
+                errorElements.forEach(error => error.remove());
+
+                const errorInputs = document.querySelectorAll('.error');
+                errorInputs.forEach(input => input.classList.remove('error'));
+            }
+        }
+
+        // Utility Functions
+        class Utils {
+            static formatDate(date) {
+                return new Intl.DateTimeFormat('en-IN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }).format(new Date(date));
+            }
+
+            static formatPhone(phone) {
+                const clean = phone.replace(/\D/g, '');
+                if (clean.length === 12) {
+                    return `+${clean.substring(0, 2)} ${clean.substring(2, 7)} ${clean.substring(7)}`;
+                }
+                return phone;
+            }
+
+            static debounce(func, delay) {
+                let timeoutId;
+                return function (...args) {
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(() => func.apply(this, args), delay);
+                };
+            }
+
+            static throttle(func, limit) {
+                let inThrottle;
+                return function () {
+                    const args = arguments;
+                    const context = this;
+                    if (!inThrottle) {
+                        func.apply(context, args);
+                        inThrottle = true;
+                        setTimeout(() => inThrottle = false, limit);
+                    }
+                };
+            }
+        }
+
+        // Analytics and Tracking (Mock)
+        class Analytics {
+            static track(event, properties = {}) {
+                console.log('Analytics Event:', event, properties);
+                // Here you would integrate with Google Analytics, Facebook Pixel, etc.
+            }
+
+            static trackFormStart() {
+                this.track('form_started', {
+                    form_name: 'global_karmkand_registration',
+                    timestamp: new Date().toISOString()
+                });
+            }
+
+            static trackFormSubmit(success, applicationId = null) {
+                this.track('form_submitted', {
+                    form_name: 'global_karmkand_registration',
+                    success,
+                    application_id: applicationId,
+                    timestamp: new Date().toISOString()
+                });
+            }
+
+            static trackFieldError(fieldName, errorType) {
+                this.track('form_field_error', {
+                    field_name: fieldName,
+                    error_type: errorType,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }
+
+        // Initialize the form when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = new GlobalKarmkandForm();
+
+            // Track form initialization
+            Analytics.trackFormStart();
+
+            // Add some visual enhancements
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+
+            // Add smooth scroll behavior for form sections
+            const sections = document.querySelectorAll('.section');
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Add CSS for animations
+            const style = document.createElement('style');
+            style.textContent = `
+        body { opacity: 0; transition: opacity 0.3s; }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .error {
+            border-color: #dc2626 !important;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
+        }
+    `;
+            document.head.appendChild(style);
+        });
+
+        // Export for potential module use
+        if (typeof module !== 'undefined' && module.exports) {
+            module.exports = { GlobalKarmkandForm, Utils, Analytics };
+        }
+
+
+    </script>
+
+
+ <div class="image-container-card">
+        <div class="image-container-content">
+            <div class="placeholder-team" style="display: block; border-radius: 15px; overflow: hidden; background: #fff;">
+                <img src="{% static 'images/team.jpg' %}" alt="Team Members" style="display:block; width: 100%; height: auto; object-fit: contain; border-radius: 15px;">
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Footer -->
+    <div class="footer-section">
+        <div class="footer-container">
+            <div class="office-box vadodara-office">
+                <div class="office-header">
+                    VADODARA
+                    <hr>
+                </div>
+                <div class="office-details">
+                    601, 602, 603, 604 A, 6th Floor<br>
+                    Galav Chambers, Dairy Den Circle, Sayajiganj<br>
+                    Vadodara - 390020 <br>
+                    9099798986, 9081522111
+                </div>
+            </div>
+
+            <div class="office-box amdavad-office">
+                <div class="office-header">
+                    AMDAVAD (NAVRANGPURA)
+                    <hr>
+                </div>
+                <div class="office-details">
+                    A-703, 7th Floor, Nar-Naryan Complex, Near<br>
+                    Swastik Char Rasta, Opp Navrangpura Post Office, Navrangpura<br>
+                    Amdavad - 380009 <br>
+                    9099798986, 9081522111
+                </div>
+            </div>
+
+            <div class="office-box maninagar-office">
+                <div class="office-header">
+                    AMDAVAD (MANINAGAR)
+                    <hr>
+                </div>
+                <div class="office-details">
+                    S/9, Shukun Plaza, Second Floor, <br>
+                    Opp. Nagar Farsan, Near Pruthvi Hotels, Maninagar, Amdavad 380008<br>
+                    9099798986, 9081522111
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

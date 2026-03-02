@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Submitted Successfully</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            text-align: center;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 50px;
+        }
+
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: inline-block;
+            background: white;
+            position: relative;
+            animation: scaleIn 0.5s ease-out 0.2s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .checkmark::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .details-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #d5dce8;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .detail-value {
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn-home {
+            display: inline-block;
+            padding: 14px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .message {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .message p {
+            color: #2e7d32;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                border-radius: 16px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">
+            <div class="checkmark"></div>
+        </div>
+
+        <div class="content">
+            <div style="background:linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%);border-radius:12px;padding:18px 16px 14px 16px;margin-bottom:22px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-left:4px solid #667eea;">
+                <div style="font-weight:700;color:#764ba2;font-size:17px;margin-bottom:6px;">34મુ ભુદેવ જીવનસાથી પરિચય સંમેલન</div>
+                <div style="color:#444;font-size:15px;margin-bottom:10px;">25/01/2026, આણંદ.</div>
+                <hr style="margin:10px 0;">
+                <div style="font-size:15px;color:#333;line-height:1.7;">
+                    Thank you for submitting your payment. You will receive a confirmation phone call in 3 days.<br>
+                    <span style="color:#764ba2;font-weight:500;">આપનું પેમેન્ટ ચૅક અને કન્ફર્મ કરવા માટે તમને અમારી ઓફિસ થી 3 દિવસ મા ફૉન આવશે. ધન્યવાદ.</span>
+                </div>
+            </div>
+
+            <div class="details-box">
+                <div class="detail-row">
+                    <span class="detail-label">Name:</span>
+                    <span class="detail-value">{{ payment.name }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Date of Birth:</span>
+                    <span class="detail-value">{{ payment.date_of_birth }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Mobile Number:</span>
+                    <span class="detail-value">{{ payment.mobile_number }}</span>
+                </div>
+                    <!-- Candidate Email row removed -->
+                <div class="detail-row">
+                    <span class="detail-label">Marital Status:</span>
+                    <span class="detail-value">{{ payment.marital_status }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Submission Date:</span>
+                    <span class="detail-value">{{ payment.created_at|date:"d M Y, h:i A" }}</span>
+                </div>
+            </div>
+
+            <a href="{% url 'home_page' %}" class="btn-home">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

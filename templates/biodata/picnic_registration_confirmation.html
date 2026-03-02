@@ -1,0 +1,375 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Picnic Registration - Confirmation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #E3F2FD 0%, #B3E5FC 50%, #E1F5FE 100%),
+                  repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(30, 136, 229, 0.03) 35px, rgba(30, 136, 229, 0.03) 70px);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .confirmation-card {
+      background: #F8FDFF;
+      border-radius: 24px;
+      padding: 50px 40px;
+      box-shadow: 0 20px 60px rgba(30, 136, 229, 0.2);
+      text-align: center;
+      animation: slideUp 0.6s ease-out;
+      border: 3px solid #BBDEFB;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .confirmation-card::before {
+      content: '💧 🌊 ✨';
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      opacity: 0.3;
+      letter-spacing: 12px;
+    }
+
+    .confirmation-card::after {
+      content: '🌴 🏖️ 💙';
+      position: absolute;
+      bottom: 15px;
+      left: 20px;
+      font-size: 24px;
+      opacity: 0.3;
+      letter-spacing: 12px;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .checkmark {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 30px;
+      background: linear-gradient(135deg, #1E88E5, #00BCD4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: scaleIn 0.6s ease-out 0.2s both;
+      box-shadow: 0 10px 30px rgba(30, 136, 229, 0.3);
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .checkmark svg {
+      width: 50px;
+      height: 50px;
+      stroke: white;
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: drawCheckmark 0.6s ease-out 0.4s forwards;
+    }
+
+    @keyframes drawCheckmark {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    h1 {
+      background: linear-gradient(135deg, #1E88E5, #00BCD4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 32px;
+      margin-bottom: 15px;
+      animation: fadeIn 0.8s ease-out 0.3s both;
+      font-weight: 800;
+    }
+
+    .message {
+      color: #0D47A1;
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 30px;
+      animation: fadeIn 0.8s ease-out 0.4s both;
+      font-weight: 500;
+    }
+
+    .confirmation-details {
+      background: linear-gradient(135deg, #E3F2FD, #F1F8FB);
+      border-radius: 14px;
+      padding: 25px;
+      margin-bottom: 30px;
+      text-align: left;
+      animation: fadeIn 0.8s ease-out 0.5s both;
+      border: 2px solid #BBDEFB;
+    }
+
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #BBDEFB;
+      align-items: center;
+    }
+
+    .detail-item:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      font-weight: 700;
+      color: #0D47A1;
+      font-size: 15px;
+    }
+
+    .detail-value {
+      color: #1E88E5;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeIn 0.8s ease-out 0.6s both;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1E88E5, #00BCD4);
+      color: white;
+      box-shadow: 0 10px 25px rgba(30, 136, 229, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(30, 136, 229, 0.4);
+      background: linear-gradient(135deg, #1565C0, #0097A7);
+    }
+    
+    .btn-primary:active {
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #B3E5FC;
+      color: #1E88E5;
+      font-weight: 700;
+      border: 2px solid #1E88E5;
+    }
+
+    .btn-secondary:hover {
+      background: #81D4FA;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(30, 136, 229, 0.2);
+    }
+    
+    .btn-secondary:active {
+      transform: translateY(0);
+    }
+
+    .divider {
+      height: 2px;
+      background: linear-gradient(to right, transparent, #BBDEFB, transparent);
+      margin: 30px 0;
+    }
+    }
+
+    .emoji-icon {
+      font-size: 40px;
+      margin-bottom: 20px;
+      display: block;
+      animation: bounce 1s ease-in-out 0.6s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .confirmation-card {
+        padding: 35px 25px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .message {
+        font-size: 14px;
+      }
+
+      .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .detail-label {
+        font-size: 13px;
+      }
+
+      .detail-value {
+        font-size: 13px;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="confirmation-card">
+      <span class="emoji-icon">🎉</span>
+
+      <div class="checkmark">
+        <svg viewBox="0 0 52 52">
+          <circle cx="26" cy="26" r="25" fill="none"></circle>
+          <path fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"></path>
+        </svg>
+      </div>
+
+      <h1>Registration Confirmed!</h1>
+
+      <p class="message">
+        Thank you for registering for the picnic! We've received your registration and will contact you soon with more details.
+      </p>
+
+      <p class="message" style="color: #1E88E5; background: #E3F2FD; padding: 15px; border-radius: 8px; border-left: 4px solid #1E88E5;">
+        Email confirmation has been sent to your registered email id with below given information submitted by you.
+      </p>
+
+      {% if picnic_data %}
+      <div class="confirmation-details">
+        <h3 style="margin-bottom: 15px; color: #333;">Your Registration Details</h3>
+        
+        {% if picnic_data.filler_name %}
+        <div class="detail-item">
+          <span class="detail-label">👤 Person Filling Form:</span>
+          <span class="detail-value">{{ picnic_data.filler_name }}</span>
+        </div>
+        {% endif %}
+
+        {% if picnic_data.contact_number %}
+        <div class="detail-item">
+          <span class="detail-label">📞 Contact Number:</span>
+          <span class="detail-value">{{ picnic_data.contact_number }}</span>
+        </div>
+        {% endif %}
+
+        {% if picnic_data.email_address %}
+        <div class="detail-item">
+          <span class="detail-label">📧 Email Address:</span>
+          <span class="detail-value">{{ picnic_data.email_address }}</span>
+        </div>
+        {% endif %}
+
+        {% if picnic_data.candidate_name %}
+        <div class="detail-item">
+          <span class="detail-label">🎤 Candidate Name:</span>
+          <span class="detail-value">{{ picnic_data.candidate_name }}</span>
+        </div>
+        {% endif %}
+
+        {% if picnic_data.persons %}
+        <div class="detail-item">
+          <span class="detail-label">👨‍👩‍👧‍👦 Number of Persons:</span>
+          <span class="detail-value">{{ picnic_data.persons }}</span>
+        </div>
+        {% endif %}
+
+        {% if picnic_data.dob %}
+        <div class="detail-item">
+          <span class="detail-label">🎂 Date of Birth:</span>
+          <span class="detail-value">{{ picnic_data.dob }}</span>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <div class="divider"></div>
+
+      <div class="button-group">
+        <a href="https://chat.whatsapp.com/C91Mr4HFnIV6eqvAuCUKVi?mode=gi_t" class="btn btn-primary">Join Our Picnic Group</a>
+        <a href="{% url 'picnic_registration_form' %}" class="btn btn-secondary">Register Another</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

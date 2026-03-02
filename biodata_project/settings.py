@@ -24,16 +24,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-please-replace-this-with-your-own-secret-key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Add your PythonAnywhere domain or IP address here
-ALLOWED_HOSTS = ['Shivani19.pythonanywhere.com', '127.0.0.1', 'www.yourdomain.com','localhost', 'bhudevnetwork.pythonanywhere.com']
+
 
 
 # Remove CSRF_TRUSTED_ORIGINS if not using ngrok or multiple domains
-# CSRF_TRUSTED_ORIGINS = [
-#  'https://cb65-2405-201-2012-4046-f98d-de04-55f0-17e0.ngrok-free.app'
-# ]
+CSRF_TRUSTED_ORIGINS = [
+    "https://5f8e-103-241-224-105.ngrok-free.app",
+    "https://3093-103-241-224-69.ngrok-free.app",
+]
 
 # Application definition
 
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'biodata',
     'widget_tweaks',
+    
     # Removed cloudinary apps for PythonAnywhere free plan compatibility
     # 'cloudinary',
     # 'cloudinary_storage',
@@ -97,6 +99,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+APPEND_SLASH = True
 
 ROOT_URLCONF = 'biodata_project.urls'
 
@@ -190,19 +194,32 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
+# Do NOT store secrets in source. Provide EMAIL_HOST_USER and EMAIL_HOST_PASSWORD via environment variables
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'bhudevnetwork@gmail.com')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'jpwq lijx afrc yamb')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'ecnr sesd dbwt nkle')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Toggle automatic outgoing emails (useful to disable all automatic confirmation mails)
+# Set environment variable EMAIL_SEND_AUTOMATIC='False' to stop automated sends in this project.
+EMAIL_SEND_AUTOMATIC = os.environ.get('EMAIL_SEND_AUTOMATIC', 'True') == 'True'
 
 
 
 # Public base URL for media files - set to your current ngrok URL
 # Removed ngrok URL as it is no longer needed
-# PUBLIC_BASE_URL = 'https://cb65-2405-201-2012-4046-f98d-de04-55f0-17e0.ngrok-free.app'
+PUBLIC_BASE_URL = 'https://3093-103-241-224-69.ngrok-free.app'
 
 # ALLOWED_HOSTS setup for current domain
-ALLOWED_HOSTS = ['Shivani19.pythonanywhere.com','127.0.0.1' ,'localhost', 'bhudevnetwork.pythonanywhere.com']
-
+ALLOWED_HOSTS = [
+    'Shivani19.pythonanywhere.com',
+    '127.0.0.1',
+    'localhost',
+    'bhudevnetwork.pythonanywhere.com',
+    '5f8e-103-241-224-105.ngrok-free.app',
+    'af8c-2405-201-2012-408a-bc7f-ef33-5b1b-cbeb.ngrok-free.app',
+    '3093-103-241-224-69.ngrok-free.app',
+]
+    
 #import cloudinary
 
 #cloudinary.config(

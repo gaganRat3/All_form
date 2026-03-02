@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Successful - Booklet Library</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .success-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .success-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .success-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transform: translate(100px, -100px);
+    }
+
+    .checkmark {
+      position: relative;
+      z-index: 1;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      border: 4px solid white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .success-header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .success-header p {
+      font-size: 16px;
+      opacity: 0.95;
+      position: relative;
+      z-index: 1;
+    }
+
+    .success-body {
+      padding: 50px 40px;
+    }
+
+    .success-message {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .success-message h2 {
+      color: #1e293b;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .success-message p {
+      color: #64748b;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .info-box {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 30px 0;
+    }
+
+    .info-box p {
+      color: #333;
+      font-size: 15px;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .info-box strong {
+      color: #667eea;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .details-box {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 24px;
+      margin: 30px 0;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 20px;
+      padding: 16px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      font-weight: 600;
+      color: #667eea;
+      font-size: 14px;
+    }
+
+    .detail-value {
+      color: #1e293b;
+      font-size: 15px;
+    }
+
+    .cta-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 2px solid #e2e8f0;
+    }
+
+    .btn {
+      padding: 14px 24px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+
+    .btn-secondary:hover {
+      background: #f0f4ff;
+      transform: translateY(-2px);
+    }
+
+    .success-footer {
+      background: #f8f9fa;
+      padding: 30px 40px;
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .success-footer p {
+      margin: 8px 0;
+    }
+
+    @media (max-width: 768px) {
+      .success-header {
+        padding: 40px 30px;
+      }
+
+      .success-header h1 {
+        font-size: 26px;
+      }
+
+      .success-body {
+        padding: 30px 20px;
+      }
+
+      .success-message h2 {
+        font-size: 20px;
+      }
+
+      .details-box {
+        padding: 16px;
+      }
+
+      .detail-row {
+        grid-template-columns: 100px 1fr;
+        gap: 16px;
+        padding: 12px 0;
+      }
+
+      .cta-buttons {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+
+      .success-header {
+        padding: 30px 20px;
+      }
+
+      .checkmark {
+        width: 70px;
+        height: 70px;
+        font-size: 40px;
+      }
+
+      .success-header h1 {
+        font-size: 24px;
+      }
+
+      .success-header p {
+        font-size: 14px;
+      }
+
+      .success-body {
+        padding: 20px 16px;
+      }
+
+      .success-message h2 {
+        font-size: 18px;
+      }
+
+      .success-message p {
+        font-size: 14px;
+      }
+
+      .info-box {
+        padding: 16px;
+        margin: 20px 0;
+      }
+
+      .details-box {
+        padding: 12px;
+        margin: 20px 0;
+      }
+
+      .detail-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 12px 0;
+      }
+
+      .detail-label {
+        font-size: 12px;
+      }
+
+      .detail-value {
+        font-size: 14px;
+      }
+
+      .success-footer {
+        padding: 20px 16px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="success-card">
+      <div class="success-header">
+        <div class="checkmark">✓</div>
+        <h1>Registration Successful!</h1>
+        <p>Your registration has been submitted successfully</p>
+      </div>
+
+      <div class="success-body">
+        <div class="success-message">
+          <h2>Welcome to Booklet Library</h2>
+          <p>Thank you for registering! Your submission has been received and processed.</p>
+        </div>
+
+        <div class="info-box">
+          <strong>📧 What's Next?</strong>
+          <p>You will receive a confirmation email shortly with a PDF link and access details to the Booklet Library.</p>
+        </div>
+
+        {% if submission %}
+        <div class="details-box">
+          <div style="text-align: center; margin-bottom: 20px; color: #667eea; font-weight: 600; font-size: 16px;">
+            Your Registration Details
+          </div>
+
+          {% if submission.name %}
+          <div class="detail-row">
+            <div class="detail-label">Name:</div>
+            <div class="detail-value">{{ submission.name }}</div>
+          </div>
+          {% endif %}
+
+          {% if submission.dob %}
+          <div class="detail-row">
+            <div class="detail-label">Date of Birth:</div>
+            <div class="detail-value">{{ submission.dob }}</div>
+          </div>
+          {% endif %}
+
+          {% if submission.gender %}
+          <div class="detail-row">
+            <div class="detail-label">Gender:</div>
+            <div class="detail-value">{{ submission.gender }}</div>
+          </div>
+          {% endif %}
+
+          {% if submission.city %}
+          <div class="detail-row">
+            <div class="detail-label">City:</div>
+            <div class="detail-value">{{ submission.city }}</div>
+          </div>
+          {% endif %}
+
+          {% if submission.whatsapp %}
+          <div class="detail-row">
+            <div class="detail-label">WhatsApp:</div>
+            <div class="detail-value">{{ submission.whatsapp }}</div>
+          </div>
+          {% endif %}
+
+          {% if submission.email %}
+          <div class="detail-row">
+            <div class="detail-label">Email:</div>
+            <div class="detail-value">{{ submission.email }}</div>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="info-box">
+          <strong>⏰ Important Information</strong>
+          <p>Your booklet PDF will be sent to the WhatsApp number and email address you provided within 24 hours.</p>
+        </div>
+
+        <div class="cta-buttons">
+          <a href="{% url 'home_page' %}" class="btn btn-primary">← Back to Home</a>
+          <a href="{% url 'booklet_library' %}" class="btn btn-secondary">Register Again</a>
+        </div>
+      </div>
+
+      <div class="success-footer">
+        <p>📞 For any queries, contact us at: 9662766565, 9099798986, 6352144677</p>
+        <p>© 2026 Bhudev Network. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,847 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>33rd Mega Booklet Data Correction Form</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .animate-pulse-custom {
+            animation: pulse 2s infinite;
+        }
+
+        .animate-shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .floating-label {
+            position: relative;
+        }
+
+        .floating-label input,
+        .floating-label textarea {
+            padding-top: 1.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .floating-label label {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            color: #6B7280;
+            font-size: 1rem;
+        }
+
+        .floating-label textarea + label {
+            top: 1.5rem;
+            transform: translateY(0);
+        }
+
+        .floating-label input:focus + label,
+        .floating-label input:not(:placeholder-shown) + label,
+        .floating-label textarea:focus + label,
+        .floating-label textarea:not(:placeholder-shown) + label {
+            top: 0.5rem;
+            transform: translateY(0);
+            font-size: 0.75rem;
+            color: #2563EB;
+            font-weight: 500;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .form-gradient {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .loading-spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #2563EB;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Enhanced Responsive Preview Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            margin: 0 auto;
+            padding: 0;
+            width: 100%;
+            max-width: 600px;
+            max-height: calc(100vh - 2rem);
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: translateY(50px) scale(0.9);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .preview-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .preview-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex-grow: 1;
+            min-height: 0;
+        }
+
+        .preview-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .preview-item:last-child {
+            border-bottom: none;
+        }
+
+        .preview-label {
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.875rem;
+        }
+
+        .preview-value {
+            color: #6b7280;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+
+        .preview-actions {
+            padding: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .banner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+        flex-wrap: wrap;
+        }
+        .banner img {
+        width: 100px;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+        }
+        .banner img:hover {
+        transform: scale(1.05);
+        }
+        .banner-text {
+        text-align: left;
+        flex: 1;
+        }
+        .banner-text h1 {
+        margin: 0;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #d9534f;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (min-width: 640px) {
+            .modal-overlay {
+                padding: 2rem;
+            }
+            
+            .modal-content {
+                margin: 2rem auto;
+                max-height: calc(100vh - 4rem);
+            }
+            
+            .preview-item {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .preview-label {
+                min-width: 140px;
+                flex-shrink: 0;
+            }
+            
+            .preview-value {
+                text-align: right;
+            }
+            
+            .preview-actions {
+                flex-direction: row;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .preview-header {
+                padding: 2rem;
+            }
+            
+            .preview-body {
+                padding: 2rem;
+            }
+            
+            .preview-actions {
+                padding: 2rem;
+            }
+        }
+
+        /* Touch-friendly buttons on mobile */
+        @media (max-width: 639px) {
+            .preview-actions button {
+                min-height: 48px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fmelabookl7385back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)"/>
+        </svg>
+    </div>
+
+
+    <!-- Main Container -->
+    <div class="relative min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-2xl">
+            <!-- Header Section -->
+             <div class="row justify-content-center">
+            <div class="col-lg-8">
+                    <div class="row mb-3">
+                        <div class="col-12 text-center">
+                            <img src="{% static 'images/logo11.jpeg' %}" alt="Logo 1" class="logo-img">
+                        </div>
+                    </div>
+                    
+                <br>
+            </div>
+
+            <!-- Form Card -->
+            <div class="card card-hover bg-white/95 backdrop-blur-sm p-8 animate-fade-in-up" style="animation-delay: 0.2s;">
+<form id="correctionForm" class="space-y-6" method="post" action="{% url 'mega_booklet_correction_form' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div>
+                        <h2 class="text-s font text-center mb-6">33મુ ભુદેવ જીવનસાથી પરિચય સંમેલન, 20/07/2025, મણિનગર - અમદાવાદ.
+
+                                              Latest Biodata info Corrections Form / સુધારા નું ફોર્મ 
+
+                                             (લેટેસ્ટ બુકલેટ મા તમારા કેન્ડીડેટ નો બાયોડેટા મા કોઈ ચેન્જીસ / કરેક્શન / સુધારો ની Request આપવી હોય, તો નીચે પ્રમાણે Form ભરીને સબમિટ કરશો)</h2>
+                    </div>
+                    <!-- Candidate Name -->
+                    <div class="floating-label">
+                        <input type="text" id="id_candidate_name" name="candidate_name" placeholder=" " class="form-field w-full micro-interaction focus-visible" required value="{{ form.candidate_name.value|default_if_none:'' }}" />
+                        <label for="id_candidate_name">Candidate Name *</label>
+                        <div class="error-message text-error text-sm mt-1 hidden"></div>
+                    </div>
+                    <!-- Date of Birth -->
+                    <div class="floating-label">
+                        <input type="text" id="dob" name="dob" placeholder=" " class="form-field w-full micro-interaction focus-visible" required />
+                        <label for="dob">Date of Birth *</label>
+                        <div class="error-message text-error text-sm mt-1 hidden"></div>
+                    </div>
+
+                    <!-- City -->
+                    <div class="floating-label">
+                        <input type="text" id="city" name="city" placeholder=" " class="form-field w-full micro-interaction focus-visible" required />
+                        <label for="city">City *</label>
+                        <div class="error-message text-error text-sm mt-1 hidden"></div>
+                    </div>
+
+                    <!-- WhatsApp Number -->
+                    <div class="floating-label">
+                    <input type="text" id="whatsapp_number" name="whatsapp_number" placeholder="" class="form-field w-full micro-interaction focus-visible" required />
+                        <label for="whatsappNumber">WhatsApp Number *</label>
+                        <div class="error-message text-error text-sm mt-1 hidden"></div>
+                        <div class="text-text-secondary text-xs mt-1"></div>
+                    </div>
+
+                    <!-- Booklet Serial Number -->
+                    <div class="floating-label">
+                        <input type="text" id="booklet_serial" name="booklet_serial" placeholder=" " class="form-field w-full micro-interaction focus-visible" required />
+                        <label for="bookletSerial">Booklet Serial Number *</label>
+                        <div class="error-message text-error text-sm mt-1 hidden"></div>
+                    </div>
+
+                    <!-- Booklet Name -->
+                    <div class="floating-label">
+                        <input type="text" id="booklet_name" name="booklet_name" placeholder=" " class="form-field w-full micro-interaction focus-visible" required />
+                        <label for="bookletName">Booklet Name *</label>
+                        <div class="error-message text-error text-sm mt-1 hidden"></div>
+                    </div>
+
+                    <!-- Correction Request Description -->
+                    <div class="floating-label">
+                        <textarea id="correction_description" name="correction_description" placeholder=" " rows="4" class="form-field w-full micro-interaction focus-visible resize-none" required></textarea>
+                        <label for="correctionDescription">Correction Request Description *</label>
+                        <div class="error-message text-error text-sm mt-1 hidden"></div>
+                        <div class="text-text-secondary text-xs mt-1" style="display: block; margin-bottom: 6px; font-size: 16px;">Please describe the corrections needed in detail</div>
+                    </div>
+<!-- Photo Upload (optional) -->
+<div class="floating-label" style="font-size: 16px; margin-bottom: 4px;">
+   
+    <input type="file" id="id_photo_upload" name="photo_upload"
+        class="form-field w-full micro-interaction focus-visible"
+        style="font-size: 16px; padding: 8px; border: 1px solid #ccc; border-radius: 5px; width: 100%;" />
+</div>
+     <label for="id_photo_upload" style="display: block; margin-bottom: 6px; font-size: 16px;"> optional: if you want to replace photo in booklet</label>
+
+<!-- Form Actions -->
+<div class="flex flex-col sm:flex-row gap-4 pt-4" style="margin-bottom: 24px;">
+    <button type="button" id="previewBtn"
+        class="btn-primary flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+        <span>Preview & Submit</span>
+    </button>
+
+    <button type="button" id="resetBtn"
+        class="btn-secondary flex-1 bg-gray-100 text-gray-700 font-medium py-4 px-6 rounded-xl border-2 border-gray-200 hover:bg-gray-200 hover:border-gray-300 transition-all duration-300">
+        Reset Form
+    </button>
+</div>
+
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="hidden mt-6 p-6 bg-error-50 border border-error-100 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-error" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <h3 class="text-error font-semibold text-lg">Submission Failed</h3>
+                            <p class="text-error-500 text-sm mt-1" id="errorText">Please check your information and try again.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center mt-8 text-white/70 animate-fade-in-up" style="animation-delay: 0.4s;">
+                <p class="text-sm">
+                    Need help? Contact us at 
+                    <a href="mailto:bhudevnetwork@gmail.com" class="text-white underline hover:text-white/90 transition-colors">
+                        bhudevnetwork@gmail.com
+                    </a>
+                </p>
+                <p class="text-xs mt-2">© 2025 33rd Mela Event. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="previewModalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <div class="preview-header">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xl font-bold">Review Your Information</h3>
+                    <button id="closePreviewBtn" class="text-white hover:text-gray-200 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <p class="text-white/80 text-sm mt-2">Please verify all information before submitting your request</p>
+            </div>
+            
+            <div class="preview-body">
+                <div id="previewContent">
+                    <!-- Preview content will be populated here -->
+                </div>
+            </div>
+            
+            <div class="preview-actions">
+                <button id="editFormBtn" class="flex-1 bg-gray-100 text-gray-700 font-medium py-3 px-4 rounded-lg border-2 border-gray-200 hover:bg-gray-200 hover:border-gray-300 transition-all duration-300">
+                    <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                    Edit Form
+                </button>
+                <button id="confirmSubmitBtn" class="flex-1 form-gradient text-white font-semibold py-3 px-4 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Confirm & Submit
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form validation and submission
+        const form = document.getElementById('correctionForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const submitSpinner = document.getElementById('submitSpinner');
+        const resetBtn = document.getElementById('resetBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const previewBtn = document.getElementById('previewBtn');
+        const previewModalOverlay = document.getElementById('previewModalOverlay');
+        const confirmSubmitBtn = document.getElementById('confirmSubmitBtn');
+        const editFormBtn = document.getElementById('editFormBtn');
+        const closePreviewBtn = document.getElementById('closePreviewBtn');
+
+        // Real-time validation
+        const inputs = form.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', validateField);
+            input.addEventListener('input', clearError);
+        });
+
+        function validateField(e) {
+            const field = e.target;
+            const errorDiv = field.parentNode.querySelector('.error-message');
+            let isValid = true;
+            let errorText = '';
+
+            // Remove previous error styling
+            field.classList.remove('border-error', 'animate-shake');
+            if (errorDiv) errorDiv.classList.add('hidden');
+
+            // Validation rules
+            if (field.hasAttribute('required') && !field.value.trim()) {
+                isValid = false;
+                errorText = 'This field is required';
+            } else if (field.type === 'tel' && field.value) {
+                const phoneRegex = /^[0-9]{10}$/;
+                if (!phoneRegex.test(field.value.replace(/\D/g, ''))) {
+                    isValid = false;
+                    errorText = 'Please enter a valid 10-digit mobile number';
+                }
+            } else if (field.name === 'candidateName' && field.value) {
+                if (field.value.length < 2) {
+                    isValid = false;
+                    errorText = 'Name must be at least 2 characters long';
+                }
+            }
+
+            if (!isValid) {
+                field.classList.add('border-error', 'animate-shake');
+                if (errorDiv) {
+                    errorDiv.textContent = errorText;
+                    errorDiv.classList.remove('hidden');
+                }
+            }
+
+            return isValid;
+        }
+
+        function clearError(e) {
+            const field = e.target;
+            const errorDiv = field.parentNode.querySelector('.error-message');
+            field.classList.remove('border-error', 'animate-shake');
+            if (errorDiv) errorDiv.classList.add('hidden');
+        }
+        // Format phone number
+        const whatsappInput = document.getElementById('whatsapp_number');
+        if (whatsappInput) {
+            whatsappInput.addEventListener('input', function(e) {
+                let value = e.target.value;
+                // Allow only digits and an optional leading '+'
+                // Remove all characters except digits and '+'
+                value = value.replace(/[^+\d]/g, '');
+                // Ensure only one '+' at the start
+                if (value.startsWith('+')) {
+                    // Remove any other '+' signs
+                    value = '+' + value.slice(1).replace(/\+/g, '');
+                } else {
+                    // Remove any '+' signs if not at start
+                    value = value.replace(/\+/g, '');
+                }
+                // Limit length to 15 characters
+                if (value.length > 15) {
+                    value = value.slice(0, 15);
+                }
+                e.target.value = value;
+            });
+        }
+
+        // Enhanced Preview functionality
+        function showPreview() {
+            // Validate all fields first
+            let isFormValid = true;
+            inputs.forEach(input => {
+                if (!validateField({ target: input })) {
+                    isFormValid = false;
+                }
+            });
+
+            if (!isFormValid) {
+                return;
+            }
+
+            // Populate preview data
+            const formData = new FormData(form);
+            const previewData = [
+                { label: 'Candidate Name', value: formData.get('candidate_name') },
+                { label: 'Date of Birth', value: formData.get('dob') },
+                { label: 'City', value: formData.get('city') },
+                { label: 'WhatsApp Number', value: formData.get('whatsapp_number') },
+                { label: 'Booklet Serial Number', value: formData.get('booklet_serial') },
+                { label: 'Booklet Name', value: formData.get('booklet_name') },
+                { label: 'Correction Description', value: formData.get('correction_description') }
+            ];
+
+            // Handle photo upload preview
+            const photoFile = formData.get('photo_upload');
+            if (photoFile && photoFile.size > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgHtml = `
+                        <div class="preview-item">
+                            <span class="preview-label">Uploaded Photo:</span>
+                            <span class="preview-value"><img src="${e.target.result}" alt="Uploaded Photo" class="max-w-xs rounded-md shadow-md" /></span>
+                        </div>
+                    `;
+                    previewContent.insertAdjacentHTML('beforeend', imgHtml);
+                };
+                reader.readAsDataURL(photoFile);
+            }
+
+            const previewContent = document.getElementById('previewContent');
+            previewContent.innerHTML = previewData.map(item => `
+                <div class="preview-item">
+                    <span class="preview-label">${item.label}:</span>
+                    <span class="preview-value">${item.value || 'Not provided'}</span>
+                </div>
+            `).join('');
+
+            // Show modal with proper responsive behavior
+            previewModalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Focus management for accessibility
+            closePreviewBtn.focus();
+        }
+
+        function hidePreview() {
+            previewModalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            previewBtn.focus(); // Return focus to preview button
+        }
+
+        // Store form data for confirmation page
+        function storeFormData() {
+            const formData = new FormData(form);
+            const data = {
+                candidateName: formData.get('candidateName'),
+                city: formData.get('city'),
+                whatsappNumber: formData.get('whatsappNumber'),
+                bookletSerial: formData.get('bookletSerial'),
+                bookletName: formData.get('bookletName'),
+                correctionDescription: formData.get('correctionDescription'),
+                submissionTime: new Date().toLocaleString(),
+                requestId: 'CR' + Date.now().toString().slice(-6)
+            };
+            
+            sessionStorage.setItem('correctionFormData', JSON.stringify(data));
+        }
+
+        // Preview button event
+        if (previewBtn) {
+            previewBtn.addEventListener('click', showPreview);
+        }
+
+        // Modal close events
+        if (editFormBtn) {
+            editFormBtn.addEventListener('click', hidePreview);
+        }
+        if (closePreviewBtn) {
+            closePreviewBtn.addEventListener('click', hidePreview);
+        }
+        if (previewModalOverlay) {
+            previewModalOverlay.addEventListener('click', function(e) {
+                if (e.target === previewModalOverlay) {
+                    hidePreview();
+                }
+            });
+        }
+
+        // Enhanced keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && previewModalOverlay.classList.contains('active')) {
+                hidePreview();
+            }
+        });
+
+        // Confirm submission from preview - now redirects to confirmation page
+        confirmSubmitBtn.addEventListener('click', async function() {
+            hidePreview();
+            
+            // Hide previous messages
+            errorMessage.classList.add('hidden');
+
+            // Show loading state
+            confirmSubmitBtn.disabled = true;
+            const originalText = confirmSubmitBtn.innerHTML;
+            confirmSubmitBtn.innerHTML = `
+                <div class="loading-spinner inline-block mr-2"></div>
+                Submitting...
+            `;
+
+            try {
+                // Prepare form data
+                const formData = new FormData(form);
+
+                // Send POST request to backend
+                const response = await fetch("{% url 'mega_booklet_correction_form' %}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Store form data and redirect to confirmation page
+                    storeFormData();
+                    window.location.href = '/mega-booklet-correction-confirmation/' + result.requestId;
+                } else {
+                    throw new Error(result.message || 'Submission failed');
+                }
+            } catch (error) {
+                // Show error message
+                document.getElementById('errorText').textContent = error.message || 'An unexpected error occurred. Please try again.';
+                errorMessage.classList.remove('hidden');
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Reset button state
+                confirmSubmitBtn.disabled = false;
+                confirmSubmitBtn.innerHTML = originalText;
+            }
+        });
+
+        // Form submission (now disabled, replaced by preview)
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showPreview();
+        });
+
+        // Reset form
+        resetBtn.addEventListener('click', function() {
+            form.reset();
+            errorMessage.classList.add('hidden');
+            
+            // Clear all error states
+            inputs.forEach(input => {
+                clearError({ target: input });
+            });
+            
+            // Reset floating labels
+            inputs.forEach(input => {
+                input.dispatchEvent(new Event('input'));
+            });
+        });
+
+        // Add smooth scroll behavior for better UX
+        document.documentElement.style.scrollBehavior = 'smooth';
+
+        // Add entrance animations on page load
+        window.addEventListener('load', function() {
+            const animatedElements = document.querySelectorAll('.animate-fade-in-up');
+            animatedElements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Handle viewport changes for responsive modal
+        function handleViewportChange() {
+            if (previewModalOverlay.classList.contains('active')) {
+                // Recalculate modal positioning on orientation change
+                setTimeout(() => {
+                    const modalContent = document.querySelector('.modal-content');
+                    if (modalContent) {
+                        modalContent.style.transform = 'translateY(0) scale(1)';
+                    }
+                }, 100);
+            }
+        }
+
+        window.addEventListener('orientationchange', handleViewportChange);
+        window.addEventListener('resize', handleViewportChange);
+
+        // Auto-insert dashes in Date of Birth input (format: DD-MM-YYYY)
+        const dobInput = document.getElementById('dob');
+        if (dobInput) {
+            dobInput.addEventListener('input', function(e) {
+                let value = e.target.value;
+                let cursorPosition = e.target.selectionStart;
+                let prevLength = e.target.getAttribute('data-prev-length') || 0;
+                prevLength = parseInt(prevLength);
+
+                // Remove all non-digit characters
+                value = value.replace(/\D/g, '');
+
+                if (value.length > 8) {
+                    value = value.slice(0, 8);
+                }
+
+                if (value.length === 0) {
+                    e.target.value = '';
+                    e.target.setAttribute('data-prev-length', 0);
+                    return;
+                }
+
+                if (value.length <= 2) {
+                    if (value.length === 2) {
+                        e.target.value = value + '-';
+                        if (cursorPosition === prevLength) {
+                            e.target.selectionStart = e.target.selectionEnd = cursorPosition + 1;
+                        }
+                    } else {
+                        e.target.value = value;
+                    }
+                    e.target.setAttribute('data-prev-length', e.target.value.length);
+                    return;
+                }
+
+                if (value.length <= 4) {
+                    if (value.length === 4) {
+                        e.target.value = value.slice(0, 2) + '-' + value.slice(2) + '-';
+                        if (cursorPosition === prevLength) {
+                            e.target.selectionStart = e.target.selectionEnd = cursorPosition + 1;
+                        }
+                    } else {
+                        e.target.value = value.slice(0, 2) + '-' + value.slice(2);
+                    }
+                    e.target.setAttribute('data-prev-length', e.target.value.length);
+                    return;
+                }
+
+                if (value.length > 4) {
+                    e.target.value = value.slice(0, 2) + '-' + value.slice(2, 4) + '-' + value.slice(4);
+                    e.target.setAttribute('data-prev-length', e.target.value.length);
+                }
+            });
+
+            dobInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace') {
+                    let cursorPos = e.target.selectionStart;
+                    if (cursorPos > 0) {
+                        let value = e.target.value;
+                        // If the character before cursor is a dash, remove it and move cursor back
+                        if (value[cursorPos - 1] === '-') {
+                            e.preventDefault();
+                            e.target.value = value.slice(0, cursorPos - 1) + value.slice(cursorPos);
+                            e.target.selectionStart = e.target.selectionEnd = cursorPos - 1;
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+{% include 'biodata/employa_footer.html' %}
+</body>
+</html>

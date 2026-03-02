@@ -1,0 +1,295 @@
+  {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Astrology Form</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: rgb(245, 243, 243);
+      color: #222;
+    }
+    .container {
+      display: flex;
+      max-width: 980px;
+      margin: 40px auto;
+      background: #a36363;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      overflow: hidden;
+      min-height: 400px;
+    }
+    .left-side {
+      flex: 1;
+      background-image: url("{% static 'images/img1.jpg' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 30px 25px 40px 25px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1.2;
+      border-radius: 15px 0 0 15px;
+      min-height: 400px;
+    }
+    .left-overlay {
+      background: rgba(43, 52, 94, 0.4);
+      max-width: 250px;
+      padding: 20px 15px;
+      border-radius: 6px;
+      line-height: 1.3;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+    .left-subtext {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      background: #fff;
+      padding: 5px 12px;
+      color: #222;
+      border-radius: 6px;
+      box-shadow: 0 3px 7px rgba(0,0,0,0.12);
+    }
+    .right-side {
+      flex: 1.2;
+      background: linear-gradient(to right, #d85f85, #a7487a);
+      padding: 45px 55px;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      border-radius: 0 15px 15px 0;
+    }
+    .top-bar {
+      font-weight: 600;
+      font-size: 14px;
+      text-align: right;
+      margin-bottom: 25px;
+    }
+    .top-bar a {
+      color: #efc0d6;
+      text-decoration: none;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .top-bar a:hover {
+      text-decoration: underline;
+    }
+    h2 {
+      margin-bottom: 26px;
+      font-weight: 800;
+      color: #1a1b4b;
+      font-size: 26px;
+    }
+    form {
+      flex-grow: 1;
+    }
+    .form-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+    .form-row.single {
+      display: block;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 16px;
+      color: #4a4063;
+      margin-bottom: 8px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1.5px solid #2c3e50;
+      background: #f8f7fa;
+      box-shadow: inset 1px 1px 4px #ddd8e9;
+      font-weight: 600;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      background: #fff;
+      box-shadow: 0 0 5px #d46b8c;
+    }
+    textarea {
+      min-height: 8px;
+      resize: vertical;
+    }
+    .checkbox-row {
+      margin: 20px 0 28px 0;
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      font-size: 23px;
+      color: #4a4063;
+    }
+    .checkbox-row input[type="checkbox"] {
+      margin-right: 9px;
+      accent-color: #bc4b74;
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+    }
+    .checkbox-row a {
+      color: #bc4b74;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .checkbox-row a:hover {
+      color: #872c50;
+      text-decoration: none;
+    }
+    button.submit-btn {
+      background-color: #2b345e;
+      color: white;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      box-shadow: 0 5px 10px rgba(43, 52, 94, 0.35);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-bottom: 15px;
+    }
+    button.submit-btn:hover {
+      background-color: #1b2343;
+      transform: translateY(-2px);
+    }
+    .social-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    @media (max-width: 860px) {
+      .container {
+        flex-direction: column;
+        max-width: 450px;
+        margin: 20px auto;
+        border-radius: 15px;
+      }
+      .left-side {
+        border-radius: 15px 15px 0 0;
+        height: 300px;
+        font-size: 24px;
+        padding-bottom: 50px;
+        min-height: auto;
+        justify-content: flex-end;
+      }
+      .left-overlay {
+        max-width: 320px;
+        font-size: 26px;
+      }
+      .left-subtext {
+        position: absolute;
+        bottom: 12px;
+        right: 15px;
+      }
+      .right-side {
+        border-radius: 0 0 15px 15px;
+        padding: 35px 25px;
+      }
+      .form-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Astrology form">
+    <section class="left-side" aria-hidden="true">
+      <div class="left-overlay" aria-label="Motivational text">
+        Let's Make it Happen Together!
+      </div>
+      <div class="left-subtext">Ping us for any inquiries!</div>
+    </section>
+
+    <section class="right-side">
+      <h2 tabIndex="-1">Astrology Form</h2>
+
+      {% if errors %}
+        <div style="color: red; margin-bottom: 15px;">
+          <ul>
+            {% for field, error_list in errors.items %}
+              {% for error in error_list %}
+                <li>{{ field }}: {{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <form method="post" novalidate aria-describedby="formInstructions">
+        {% csrf_token %}
+        <p id="formInstructions" hidden>
+          Please fill in all the required fields below.
+        </p>
+        <div class="form-row">
+          <div style="flex: 1;">
+            <label for="{{ form.name.id_for_label }}">Name</label>
+            {{ form.name }}
+          </div>
+          <div style="flex: 1;">
+            <label for="{{ form.whatsapp.id_for_label }}">WhatsApp Number</label>
+            {{ form.whatsapp }}
+          </div>
+        </div>
+
+        <div class="form-row single">
+          <label for="{{ form.city.id_for_label }}">City</label>
+          {{ form.city }}
+        </div>
+
+        <div class="form-row">
+          <div style="flex: 1;">
+            <label for="{{ form.candidateName.id_for_label }}">Candidate Name</label>
+            {{ form.candidateName }}
+          </div>
+          <div style="flex: 1;">
+            <label for="{{ form.candidateDOB.id_for_label }}">Candidate DOB</label>
+            <textarea id="{{ form.candidateDOB.id_for_label }}" name="{{ form.candidateDOB.html_name }}" placeholder="" rows="1" style="width: 100%;"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div style="flex: 1;">
+            <label for="{{ form.candidateBirthTime.id_for_label }}">Candidate Birth Time</label>
+            <textarea id="{{ form.candidateBirthTime.id_for_label }}" name="{{ form.candidateBirthTime.html_name }}" placeholder="" rows="1" style="width: 100%;"></textarea>
+          </div>
+          <div style="flex: 1;">
+            <label for="{{ form.candidateBirthPlace.id_for_label }}">Candidate Birth Place</label>
+            {{ form.candidateBirthPlace }}
+          </div>
+        </div>
+
+        <div class="form-row single">
+          <label for="{{ form.description.id_for_label }}">Description of your problem or request</label>
+          {{ form.description }}
+        </div>
+
+        <button class="submit-btn" type="submit" aria-label="Create Astrology form account">
+          Submit Request
+        </button>
+      </form>
+    </section>
+  </div>
+</body>
+</html>

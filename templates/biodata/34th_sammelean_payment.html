@@ -1,0 +1,946 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>34th Sammelan Payment Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0e8f8 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #a8d8ff 0%, #d4c5f9 100%);
+            padding: 40px 30px;
+            text-align: center;
+            color: #333;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .form-container {
+            padding: 40px 30px;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            letter-spacing: 0.3px;
+        }
+
+        .form-label .required {
+            color: #e74c3c;
+            margin-left: 3px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 15px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background: #f8fafb;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #a8d8ff;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(168, 216, 255, 0.2);
+        }
+
+        .form-control:hover {
+            border-color: #a8d8ff;
+        }
+
+        select.form-control {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a8d8ff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+
+        .qr-section {
+            background: linear-gradient(135deg, #f0f8ff 0%, #f5f0ff 100%);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 28px;
+            border: 2px dashed #a8d8ff;
+        }
+
+        .qr-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .qr-image {
+            max-width: 250px;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: white;
+            padding: 12px;
+        }
+
+        .upload-area {
+            position: relative;
+            border: 2px dashed #a8d8ff;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #f0f8ff 0%, #f5f0ff 100%);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #e8f4f8 0%, #ede8f5 100%);
+        }
+
+        .upload-area.dragover {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #dae8f5 0%, #e5def5 100%);
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 12px;
+        }
+
+        .upload-text {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .upload-hint {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+
+        .file-preview {
+            margin-top: 16px;
+            display: none;
+        }
+
+        .file-preview img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-name {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.25);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .input-icon {
+            position: relative;
+        }
+
+        .input-icon i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .input-icon .form-control {
+            padding-left: 45px;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                border-radius: 16px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Loading spinner */
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Event Header Styles */
+        .event-header {
+            margin: 0;
+            padding: 0;
+        }
+
+        .event-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 24px;
+            line-height: 1.4;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            letter-spacing: 0.3px;
+        }
+
+        .event-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .event-item {
+            color: #2c3e50;
+            font-size: 13px;
+            line-height: 1.6;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .event-item strong {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #667eea;
+        }
+
+        .event-item small {
+            font-size: 11px;
+            opacity: 0.85;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .event-join {
+            background: linear-gradient(135deg, #fff4e6 0%, #ffe8cc 100%);
+            padding: 18px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+        }
+
+        .event-join > div {
+            color: #2c3e50;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .event-join strong {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #e67e22;
+        }
+
+        .event-join strong:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Image Container Styles */
+        .image-container-card {
+            width: 100%;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .image-container-card:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .image-container-content {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .placeholder-poster {
+            width: 100%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f0f8ff 0%, #f5f0ff 100%);
+        }
+
+        .placeholder-poster img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            max-height: none;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 640px) {
+            .image-container-card {
+                padding: 12px;
+            }
+
+            .placeholder-poster img {
+                width: 100%;
+                height: auto;
+            }
+        }
+            .event-title {
+                font-size: 18px;
+                margin-bottom: 16px;
+            }
+
+            .event-details {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 16px;
+            }
+
+            .event-item {
+                font-size: 12px;
+            }
+
+            .event-join > div {
+                font-size: 12px;
+                line-height: 1.6;
+            }
+        
+
+         /* Footer Styles */
+      .footer-section {
+        background: linear-gradient(135deg, #ffffff, #f1f5f9);
+        padding: 40px 0;
+        margin-top: 40px;
+        color: #1f2937;
+        border-top: 1px solid var(--border-color);
+      }
+      .offices-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+      .office-box {
+        background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+        border-radius: 16px;
+        padding: 24px;
+        border: 1.5px solid var(--border-color);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .office-box::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, var(--accent-1), var(--accent-3));
+      }
+      
+      .office-box:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        border-color: var(--accent-1);
+      }
+      
+      .vadodara-office {
+        background: linear-gradient(135deg, #dbeafe 0%, #f0f9ff 100%);
+        border-color: rgba(37, 99, 235, 0.2);
+      }
+      
+      .vadodara-office::before {
+        background: linear-gradient(90deg, #2563eb, #0284c7);
+      }
+      
+      .vadodara-office .office-header {
+        color: #1e40af;
+      }
+      
+      .amdavad-office {
+        background: linear-gradient(135deg, #fef08a 0%, #fefce8 100%);
+        border-color: rgba(251, 191, 36, 0.3);
+      }
+      
+      .amdavad-office::before {
+        background: linear-gradient(90deg, #f59e0b, #d97706);
+      }
+      
+      .amdavad-office .office-header {
+        color: #92400e;
+      }
+      
+      .maninagar-office {
+        background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 100%);
+        border-color: rgba(34, 197, 94, 0.2);
+      }
+      
+      .maninagar-office::before {
+        background: linear-gradient(90deg, #10b981, #059669);
+      }
+      
+      .maninagar-office .office-header {
+        color: #065f46;
+      }
+      .office-header {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        letter-spacing: 0.5px;
+      }
+      .office-header hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent-1), var(--accent-3));
+        margin: 8px 0 0 0;
+        opacity: 0.5;
+      }
+      .office-details {
+        font-size: 0.9rem;
+        line-height: 1.55;
+        color: #475569;
+      }
+      @media (max-width: 768px) {
+        .offices-container {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .footer-section {
+          padding: 30px 0;
+        }
+        .office-box {
+          padding: 16px;
+        }
+        .office-header {
+          font-size: 1rem;
+        }
+        .office-details {
+          font-size: 0.85rem;
+        }
+      }
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="header">
+            <!-- Event Header -->
+            <div class="event-header">
+                <div class="event-title">
+                    34મુ સમસ્ત બ્રાહ્મણ - ભુદેવ જીવનસાથી પસંદગી સંમેલન
+                </div>
+
+                <div class="event-details">
+                    <div class="event-item">
+                        <strong>📅 સંમેલન તારીખ</strong>
+                        25-01-2026 (રવિવાર)
+                    </div>
+                    <div class="event-item">
+                        <strong>⏰ સમય</strong>
+                        9 AM to 4 PM
+                    </div>
+                    <div class="event-item">
+                        <strong>📍 સ્થળ</strong>
+                        Sardar Patel AC Banquet Hall & Party Plot Near Smart Bazar, Anand - Vidyanagar Road, Anand, Gujarat 388001
+                    </div>
+                    <div class="event-item">
+                        <strong>🏢 આયોજક</strong>
+                        Bhudev Network Foundation
+                        <small>(Gov. Reg. Amd/120129)</small>
+                    </div>
+                </div>
+
+                <div class="event-join">
+                    <div>
+                        <strong>✅ All-in-1 Booklet Package</strong>
+                        <strong>📋 Registration + Printing + 1 Booklet = Rs 700</strong>
+                        <strong>💰 Rs 700 Refundable after Marriage from this Booklet</strong>
+                        <strong>👥 For All Male - Female Candidates</strong>
+                        <strong>📌 Last Date: 15/01/2026</strong>
+                    </div>
+                </div>
+            </div>
+<br>
+            <h1>34th Sammelan Payment Form</h1>
+            <p>Complete your registration with payment details</p>
+        </div>
+
+        <div class="form-container">
+            <form id="paymentForm" method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                <div style="background: #fee; border-left: 4px solid #e74c3c; padding: 16px; margin-bottom: 20px; border-radius: 8px;">
+                    <p style="color: #c0392b; font-weight: 600; margin-bottom: 8px;">Please correct the errors below:</p>
+                    {{ form.errors }}
+                </div>
+                {% endif %}
+                
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label class="form-label">Candidate Full Name<span class="required">*</span></label>
+                    <input type="text" 
+                           class="form-control" 
+                           name="name" 
+                           id="name" 
+                           placeholder="Enter your full name" 
+                           required>
+                    <div class="error-message" id="nameError">Please enter your name</div>
+                </div>
+
+                <!-- Date of Birth Field -->
+                <div class="form-group">
+                    <label class="form-label">Candidate Date of Birth<span class="required">*</span></label>
+                    <input type="text" 
+                           class="form-control dob-input" 
+                           name="date_of_birth" 
+                           id="dob" 
+                           placeholder="DD-MM-YYYY" 
+                           maxlength="10" 
+                           required>
+                    <div class="error-message" id="dobError">Please enter a valid date (DD-MM-YYYY)</div>
+                </div>
+
+                <!-- Mobile Number Field -->
+                <div class="form-group">
+                    <label class="form-label">Parents Mobile Number<span class="required">*</span></label>
+                    <input type="tel" 
+                           class="form-control" 
+                           name="mobile_number" 
+                           id="mobile" 
+                           placeholder="Enter your mobile number" 
+                           maxlength="15" 
+                           required>
+                    <div class="error-message" id="mobileError">Please enter a valid mobile number</div>
+                </div>
+
+
+
+                <!-- Marital Status Field -->
+                <div class="form-group">
+                    <label class="form-label">Marital Status<span class="required">*</span></label>
+                    <input type="text" 
+                           class="form-control" 
+                           name="marital_status" 
+                           id="marital_status" 
+                           placeholder="Enter your marital status (e.g., Never Married, Married, Divorced, Widowed)" 
+                           required>
+                    <div class="error-message" id="maritalError">Please enter your marital status</div>
+                </div>
+
+                <!-- QR Code Section -->
+                <div class="qr-section">
+                    <div class="qr-title">Scan QR Code to Pay</div>
+                    
+                    <img src="{% static 'images/payment_qr.jpeg' %}" 
+                         alt="Payment QR Code" 
+                         class="qr-image">
+                    <p style="margin-top: 12px; font-size: 20px; color: #070707;">Scan above QR code for Payment
+                    Pay by Mobile Number : 7990208986 (Bhudev Network)</p>
+                </div>
+
+                <!-- Payment Screenshot Upload -->
+                <div class="form-group">
+                    <label class="form-label">Upload Payment Screenshot<span class="required">*</span></label>
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📤</div>
+                        <div class="upload-text">Click to upload or drag & drop</div>
+                        <div class="upload-hint">PNG, JPG up to 10MB</div>
+                        <input type="file" 
+                               class="file-input" 
+                               name="payment_screenshot" 
+                               id="paymentScreenshot" 
+                               accept="image/*" 
+                               required>
+                    </div>
+                    <div class="file-preview" id="filePreview">
+                        <img id="previewImage" src="" alt="Preview">
+                        <div class="file-name" id="fileName"></div>
+                    </div>
+                    <div class="error-message" id="fileError">Please upload payment screenshot</div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    Submit Payment Form
+                    <span class="spinner" id="spinner"></span>
+                </button>
+                
+                <div class="image-container-card">
+                    <div class="image-container-content">
+                        <div class="placeholder-poster">
+                            <img src="{% static 'images/Sammelan_new.jpeg' %}" alt="Event Poster">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-container-card">
+                    <div class="image-container-content">
+                        <div class="placeholder-poster">
+                            <img src="{% static 'images/team.jpg' %}" alt="team Poster">
+                        </div>
+                    </div>
+                </div>
+
+             <!-- Footer Section -->
+    <footer class="footer-section">
+      <div class="container">
+        <div class="offices-container">
+          <div class="office-box vadodara-office">
+            <div class="office-header">
+              VADODARA (bhudevnetworkvivah / Employa Technologies )
+              <hr />
+            </div>
+            <div class="office-details">
+              601, 602, 603, 604 A, 6th Floor<br />Galav Chambers, Dairy Den
+              Circle, Sayajiganj Vadodara - 390020 <br />9099798986, 9081522111
+            </div>
+          </div>
+          <div class="office-box amdavad-office">
+            <div class="office-header">
+              AMDAVAD (NAVRANGPURA) (bhudevnetworkvivah / Employa Technologies )
+              <hr />
+            </div>
+            <div class="office-details">
+              A-703, 7th Floor,Nar -Naryan Complex,Near<br />Swastik Char Rasta,
+              Opp Navrangpura Post office, Navrangpura Amdavad - 380009
+              <br />9099798986, 9081522111
+            </div>
+          </div>
+          <div class="office-box maninagar-office">
+            <div class="office-header">
+              AMDAVAD (MANINAGAR) (bhudevnetworkvivah / Employa Technologies )
+              <hr />
+            </div>
+            <div class="office-details">
+              S/9, Shukun Plaza, Second Floor, <br />
+              Opp. Nagar Farsan, Near Pruthvi Hotels, Maninagar, Amdavad 380008
+              <br />9099798986, 9081522111
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+   
+
+            </form>
+        </div>
+    </div>
+    
+
+     </div>
+    </div>
+    
+
+    <script>
+        // Auto-format DOB with dashes (DD-MM-YYYY)
+        const dobInput = document.getElementById('dob');
+        
+        dobInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^0-9]/g, ''); // Remove non-digits
+            let formattedValue = '';
+            
+            if (value.length > 0) {
+                formattedValue = value.substring(0, 2); // DD
+                if (value.length >= 3) {
+                    formattedValue += '-' + value.substring(2, 4); // MM
+                    if (value.length >= 5) {
+                        formattedValue += '-' + value.substring(4, 8); // YYYY
+                    }
+                }
+            }
+            
+            e.target.value = formattedValue;
+        });
+
+        // File upload handling
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('paymentScreenshot');
+        const filePreview = document.getElementById('filePreview');
+        const previewImage = document.getElementById('previewImage');
+        const fileName = document.getElementById('fileName');
+
+        uploadArea.addEventListener('click', (e) => {
+            if (e.target !== fileInput) {
+                fileInput.click();
+            }
+        });
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                handleFileSelect(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+
+        function handleFileSelect(file) {
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImage.src = e.target.result;
+                    fileName.textContent = file.name;
+                    filePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Form validation
+        const form = document.getElementById('paymentForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const spinner = document.getElementById('spinner');
+
+        form.addEventListener('submit', function(e) {
+            // Reset error messages
+            document.querySelectorAll('.error-message').forEach(el => el.classList.remove('show'));
+            
+            let isValid = true;
+            
+            // Validate name
+            const name = document.getElementById('name').value.trim();
+            if (name === '') {
+                document.getElementById('nameError').classList.add('show');
+                isValid = false;
+            }
+            
+            // Validate DOB
+            const dob = document.getElementById('dob').value;
+            const dobPattern = /^\d{2}-\d{2}-\d{4}$/;
+            if (!dobPattern.test(dob)) {
+                document.getElementById('dobError').classList.add('show');
+                isValid = false;
+            }
+            
+            // Validate mobile
+            const mobile = document.getElementById('mobile').value.trim();
+            if (mobile.length < 10) {
+                document.getElementById('mobileError').classList.add('show');
+                isValid = false;
+            }
+            
+            // Validate marital status
+            const maritalStatus = document.getElementById('marital_status').value.trim();
+            if (maritalStatus === '') {
+                document.getElementById('maritalError').classList.add('show');
+                isValid = false;
+            }
+            
+            // Validate file
+            if (fileInput.files.length === 0) {
+                document.getElementById('fileError').classList.add('show');
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Show loading state
+                submitBtn.disabled = true;
+                spinner.style.display = 'inline-block';
+                
+                // Form will submit normally with CSRF token
+            } else {
+                // Prevent submission if validation fails
+                e.preventDefault();
+            }
+        });
+
+        // Real-time validation feedback
+        document.getElementById('name').addEventListener('blur', function() {
+            if (this.value.trim() === '') {
+                document.getElementById('nameError').classList.add('show');
+            } else {
+                document.getElementById('nameError').classList.remove('show');
+            }
+        });
+
+        document.getElementById('mobile').addEventListener('blur', function() {
+            if (this.value.trim().length < 10) {
+                document.getElementById('mobileError').classList.add('show');
+            } else {
+                document.getElementById('mobileError').classList.remove('show');
+            }
+        });
+
+
+        document.getElementById('dob').addEventListener('blur', function() {
+            const dobPattern = /^\d{2}-\d{2}-\d{4}$/;
+            if (!dobPattern.test(this.value)) {
+                document.getElementById('dobError').classList.add('show');
+            } else {
+                document.getElementById('dobError').classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Django makemigrations for biodata",
+			"type": "shell",
+			"command": "python manage.py makemigrations biodata"
+		},
+		{
+			"label": "Django makemigrations for biodata",
+			"type": "shell",
+			"command": "python manage.py makemigrations biodata"
+		},
+		{
+			"label": "Django makemigrations for biodata",
+			"type": "shell",
+			"command": "python manage.py makemigrations biodata"
+		},
+		{
+			"label": "Django makemigrations for biodata",
+			"type": "shell",
+			"command": "python manage.py makemigrations biodata"
+		},
+		{
+			"label": "Django makemigrations for biodata",
+			"type": "shell",
+			"command": "python manage.py makemigrations biodata"
+		},
+		{
+			"label": "Django makemigrations for CourierBooklet35thBooking",
+			"type": "shell",
+			"command": "python manage.py makemigrations biodata"
+		},
+		{
+			"label": "Django makemigrations for CourierBooklet35thBooking",
+			"type": "shell",
+			"command": "python manage.py makemigrations biodata"
+		}
+	]
+}

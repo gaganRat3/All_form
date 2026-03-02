@@ -309,9 +309,32 @@
     <nav class="navbar">
       <div id="js-nav-toggle" class="nav-toggle">&#9776;</div>
       <ul id="js-menu" class="nav-links">
-        <li><a href="{% url 'home_page' %}">Home</a></li>
-        <li><a href="{% url 'gallery_page' %}">Gallery</a></li>
-        <li><a href="{% url 'contact_us_page' %}">Contact Us</a></li>
+  <li><a href="{% url 'home_page' %}">Home</a></li>
+  <li><a href="{% url 'happy_stories' %}">Happy Stories</a></li>
+  <li><a href="{% url 'contact_us_page' %}">Contact Us</a></li>
+  <li><a href="{% url 'bncf_application' %}">BNCF Application Form</a></li>
+  <li><a href="{% url 'advance_pass_booking' %}">Advance Pass </a></li>
+  <li><a href="{% url 'spot_advance_booklet' %}">Advance Booklet</a></li>
+  <li><a href="{% url 'advance_booklet_booking' %}">Courier Booklet</a></li>
+  <li><a href="{% url 'stage_registration' %}">Stage Registration</a></li>
+  <li><a href="{% url 'astrology_form' %}">Astrology Form</a></li>
+  <li><a href="{% url 'zoom_register' %}">Zoom Meeting Registration</a></li>
+  <li><a href="{% url 'mega_booklet_correction_form' %}">33rd Mega Booklet Correction</a></li>
+  <li><a href="/technical-support/">Technical Support</a></li>
+  <li><a href="{% url 'business_directory' %}">Business Directory</a></li>
+  <li><a href="{% url 'global_karmkand_directory' %}">Global Karmkand Directory</a></li>
+  <li><a href="{% url 'garba_form' %}">Garba Pass Registration</a></li>
+  <li><a href="{% url 'audience_form' %}">Audience Ticket Booking</a></li>
+  <li><a href="{% url 'participant_form' %}">Participant Form</a></li>
+  <li><a href="/birthday-form/">Birthday Form</a></li>
+  <li><a href="{% url 'bhudev_sammelan_form' %}">Bhudev Sammelan Form</a></li>
+  <li><a href="{% url 'sammelan_payment_form' %}">34th Sammelan Payment</a></li>
+  <li><a href="/divorce-sammelan-form/">Divorce Sammelan Form</a></li>
+  <li><a href="{% url 'picnic_registration_form' %}">Picnic Registration Form</a></li>
+  <li><a href="{% url '35th_courier_booklet' %}">35th Courier Booklet</a></li>
+  <li><a href="{% url 'booklet_camp_adv_booking' %}">Booklet Camp Advanced Booking</a></li>
+  <li><a href="{% url '40_plus_sammelan_form' %}">40+ Sammelan Form</a></li>
+  <li><a href="{% url 'booklet_library' %}">Booklet Library</a></li>
       </ul>
     </nav>
   </header>
@@ -351,7 +374,7 @@
       text-decoration: none;
       font-weight: 700;
       font-size: 15px;
-      padding: 12px 22px;
+      padding: 12px 10px;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       transition: background-color 0.35s ease, box-shadow 0.35s ease;
@@ -670,124 +693,6 @@ M :  9099798986, 9099828986
             font-weight: 600;
         }
   </style>
-  <div class="form-container">
-    <h1>Free Biodata Online Form</h1>
-    <form method="post" action="{% url 'home_page' %}" enctype="multipart/form-data" novalidate>
-      {% csrf_token %}
-      {% for field in form %}
-        <div class="form-row">
-          <div class="form-group">
-              <div class="field-container" style="display: flex; flex-direction: column; gap: 6px;">
-                <label for="{{ field.id_for_label }}" class="form-label {% if field.name == 'declaration' %}declaration-label{% endif %}" style="margin-bottom: 0;">
-                  <span class="serial-number">{{ forloop.counter }}.</span>
-                  {% if field.name == 'candidate_current_city' %}
-                    Candidate Current City / ઉમેદવાર પોતે હાલ કાયા CITY / શહેર / ગામ માં રહે છે , તે અહીં લખો :
-                  {% elif field.name == 'registrant_mobile' %}
-                    જે આ રેજીસ્ટ્રેશન કરી રહ્યું છે , તે અહીં પોતાનો MOBILE નંબર લખશો // Mention here your own Mobile Number (for Reference & Verification Purpose)
-                  {% elif field.name == 'father_name' %}
-                    Father's Name
-                  {% elif field.name == 'father_mobile' %}
-                    Father's Whatsapp Number
-                  {% elif field.name == 'mother_name' %}
-                    Mother's Name
-                  {% elif field.name == 'mother_mobile' %}
-                    Mother's Whatsapp Number
-                  {% elif field.name == 'siblings' %}
-                    Siblings Details (Brother/Sister)
-                  {% elif field.name == 'partner_education' %}
-                    Choice Of Education (Partner Preference)
-                  {% elif field.name == 'partner_location' %}
-                    Choice Of Location (Partner Preference)
-                  {% elif field.name == 'partner_age_bracket' %}
-                    Choice Of Age Gap/ Difference in Year (Partner Preference)
-                  {% elif field.name == 'other_specific_choice' %}
-                    Any Other Choice (Partner Preference)
-                  {% elif field.name == 'type_of_brahmin' %}
-                    Type of brahmin/ Caste
-                  {% elif field.name == 'kuldevi' %}
-                    Any Disability/ Details
-                  {% else %}
-                    {{ field.label }}
-                  {% endif %}
-                </label>
-                {% if field.field.widget.input_type == "select" %}
-                  <select id="{{ field.id_for_label }}" name="{{ field.html_name }}" class="form-control" required>
-                    <option value="" disabled selected>Select an Option</option>
-                    {% for val, text in field.field.choices %}
-                      {% if val != "" %}
-                        <option value="{{ val }}" {% if field.value == val %}selected{% endif %}>{{ text }}</option>
-                      {% endif %}
-                    {% endfor %}
-                  </select>
-                {% elif field.field.widget.input_type == "checkbox" %}
-                  {{ field|add_class:"form-check-input" }}
-                {% elif field.name == "other_specific_choice" or field.name == "education_details" or field.name == "occupation_details" %}
-                  {{ field|add_class:"form-control small-input" }}
-                {% elif field.name == "photograph" %}
-                  <input type="file" id="{{ field.id_for_label }}" name="{{ field.html_name }}" class="form-control" required />
-                  {% elif field.name == "dob" or field.name == "birth_time" %}
-                  <input type="text" id="{{ field.id_for_label }}" name="{{ field.html_name }}" class="form-control" value="{% if field.value %}{{ field.value|stringformat:'s' }}{% else %}{% endif %}" />
-                {% else %}
-                  {{ field|add_class:"form-control" }}
-                {% endif %}
-                {% if field.help_text %}
-                  <div class="form-text">{{ field.help_text }}</div>
-                {% endif %}
-                {% for error in field.errors %}
-                  <div class="text-danger">{{ error }}</div>
-                {% endfor %}
-              </div>
-          </div>
-        </div>
-      {% endfor %}
-      <button type="submit" class="btn btn-primary btn-lg mt-3">Submit</button>
-    </form>
-  </div>
-  <div class="additional-images-container" style="max-width: 600px; margin: 20px auto; display: flex; flex-direction: column; gap: 15px; justify-content: center;">
-    <div class="image-box" style="width: 100%; border: 1px solid #ccc; border-radius: 8px; overflow: hidden;">
-      <img src="{% static 'images/happy1.png' %}" alt="Image 1" style="width: 100%; height: auto; display: block;">
-    </div>
-    <div class="image-box" style="width: 100%; border: 1px solid #ccc; border-radius: 8px; overflow: hidden;">
-      <img src="{% static 'images/happy2.jpg' %}" alt="Image 2" style="width: 100%; height: auto; display: block;">
-    </div>
-    <div class="image-box" style="width: 100%; border: 1px solid #ccc; border-radius: 8px; overflow: hidden;">
-      <img src="{% static 'images/happy3.png' %}" alt="Image 3" style="width: 100%; height: auto; display: block;">
-    </div>
-    <div class="image-box" style="width: 100%; border: 1px solid #ccc; border-radius: 8px; overflow: hidden;">
-      <img src="{% static 'images/happy4.png' %}" alt="Image 4" style="width: 100%; height: auto; display: block;">
-    </div>
-    <div class="image-box" style="width: 100%; border: 1px solid #ccc; border-radius: 8px; overflow: hidden;">
-      <img src="{% static 'images/happy5.png' %}" alt="Image 5" style="width: 100%; height: auto; display: block;">
-    </div>
-  </div>
-  <script>
-    const toggle = document.getElementById('js-nav-toggle');
-    const menu = document.getElementById('js-menu');
-    toggle.onclick = function() {
-      menu.classList.toggle('show');
-    }
-    // Optional: close menu after click a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.onclick = function(){ menu.classList.remove('show'); }
-    });
 
-    // Scroll to first invalid input field on form submission with errors
-    window.onload = function() {
-      const firstErrorField = document.querySelector('.text-danger');
-      if (firstErrorField) {
-        // Scroll to the parent form-group of the first error field
-        const formGroup = firstErrorField.closest('.form-group');
-        if (formGroup) {
-          formGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          // Optionally, focus the first input inside the form group
-          const input = formGroup.querySelector('input, select, textarea');
-          if (input) {
-            input.focus();
-          }
-        }
-      }
-    };
-  </script>
- 
 </body>
-</html
+</html>

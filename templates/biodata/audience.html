@@ -1,0 +1,1696 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Ticket Purchase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 650px;
+            overflow: hidden;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .poster-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(102,126,234,0.15);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid #764ba2;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .event-date {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .event-date i {
+            margin-right: 8px;
+        }
+
+        .form-content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            border-radius: 3px;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: #667eea;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .form-control:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            background-color: white;
+        }
+
+        .ticket-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ticket-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .ticket-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .ticket-card.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .ticket-card.selected::before {
+            width: 100%;
+            opacity: 0.1;
+        }
+
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .ticket-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .ticket-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .ticket-description {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .ticket-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .feature-tag {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .quantity-section {
+            margin: 25px 0;
+        }
+
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-container:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .quantity-label {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-label i {
+            margin-right: 8px;
+            color: #667eea;
+        }
+
+        .quantity-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-input {
+            width: 80px;
+            padding: 10px 15px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-input:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            background-color: white;
+        }
+
+        .total-row {
+            margin-top: 18px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .total-label {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .total-amount {
+            font-size: 36px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .qr-code-container {
+            text-align: center;
+            margin-top: 20px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-code::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.1) 25%, transparent 25%, transparent 50%, rgba(102, 126, 234, 0.1) 50%, rgba(102, 126, 234, 0.1) 75%, transparent 75%, transparent);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            z-index: 2;
+            max-width: 180px;
+            max-height: 180px;
+        }
+
+        .qr-instructions {
+            font-size: 16px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .qr-amount {
+            font-size: 22px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .qr-steps {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .qr-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 120px;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .step-text {
+            text-align: center;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+
+        .submit-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #2c3e50;
+            padding: 20px 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            max-width: 350px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .notification-content h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .notification-content p {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .close-notification {
+            margin-left: 15px;
+            background: none;
+            border: none;
+            color: #95a5a6;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .form-text {
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .payment-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .payment-title i {
+            margin-right: 10px;
+            color: #667eea;
+        }
+
+        .file-upload-container {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(102, 126, 234, 0.05);
+            border: 2px dashed #667eea;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-container:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .file-upload-container.has-file {
+            border-style: solid;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .file-upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .file-upload-icon {
+            font-size: 32px;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .file-upload-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .file-upload-subtext {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .uploaded-file {
+            display: none;
+            margin-top: 15px;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .uploaded-file.show {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .file-icon {
+            color: #667eea;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .file-name {
+            font-size: 14px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .remove-file {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            /* Responsive Styles */
+            @media (max-width: 768px) {
+                body {
+                    padding: 5px;
+                }
+                .container {
+                    max-width: 100%;
+                    border-radius: 15px;
+                    margin: 5px;
+                }
+                .header {
+                    padding: 20px 15px;
+                }
+                .header h1 {
+                    font-size: 24px;
+                }
+                .header p {
+                    font-size: 14px;
+                }
+                .header img {
+                    max-width: 95% !important;
+                    margin: 0 auto 10px auto !important;
+                    border-radius: 10px !important;
+                }
+                .form-content {
+                    padding: 20px 15px;
+                }
+                .form-row {
+                    flex-direction: column;
+                    gap: 0;
+                }
+                .form-group {
+                    margin-bottom: 15px;
+                }
+                .section-title {
+                    font-size: 18px;
+                }
+                .ticket-card {
+                    padding: 15px;
+                    margin-bottom: 20px;
+                }
+                .ticket-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 10px;
+                }
+                .ticket-title {
+                    font-size: 18px;
+                }
+                .ticket-price {
+                    font-size: 20px;
+                }
+                .ticket-features {
+                    gap: 8px;
+                }
+                .feature-tag {
+                    font-size: 11px;
+                    padding: 4px 8px;
+                }
+                .quantity-container {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 15px;
+                    padding: 12px;
+                }
+                .quantity-input-wrapper {
+                    width: 100%;
+                    justify-content: space-between;
+                }
+                .quantity-input {
+                    width: 80px;
+                }
+                .total-row {
+                    justify-content: center;
+                    margin-top: 15px;
+                }
+                .qr-code-container {
+                    padding: 20px;
+                }
+                .qr-code {
+                    width: 180px;
+                    height: 180px;
+                    padding: 8px;
+                    margin: 0 auto 15px;
+                }
+                .qr-code img {
+                    max-width: 164px;
+                    max-height: 164px;
+                }
+                .qr-steps {
+                    gap: 10px;
+                    flex-wrap: wrap;
+                }
+                .qr-step {
+                    max-width: 90px;
+                }
+                .step-text {
+                    font-size: 12px;
+                }
+                .file-upload-container {
+                    padding: 15px;
+                }
+                .file-upload-icon {
+                    font-size: 28px;
+                }
+                .file-upload-text {
+                    font-size: 14px;
+                }
+                .submit-btn {
+                    padding: 12px 20px;
+                    font-size: 16px;
+                }
+                .notification {
+                    right: 10px;
+                    left: 10px;
+                    max-width: none;
+                    padding: 15px 20px;
+                }
+                .footer-section {
+                    padding: 0 10px;
+                }
+                .office-box {
+                    margin-bottom: 15px;
+                    padding: 15px;
+                }
+            }
+            @media (max-width: 480px) {
+                body {
+                    padding: 5px;
+                }
+                .container {
+                    border-radius: 10px;
+                    margin: 5px;
+                }
+                .header {
+                    padding: 15px 10px;
+                    border-bottom-left-radius: 15px;
+                    border-bottom-right-radius: 15px;
+                }
+                .header h1 {
+                    font-size: 20px;
+                    margin-bottom: 8px;
+                }
+                .header p {
+                    font-size: 12px;
+                }
+                .header img {
+                    max-width: 98% !important;
+                    margin: 0 auto 8px auto !important;
+                    border-radius: 8px !important;
+                }
+                .header::after {
+                    border-left: 10px solid transparent;
+                    border-right: 10px solid transparent;
+                    border-top: 10px solid #764ba2;
+                    bottom: -10px;
+                }
+                .event-date {
+                    flex-direction: column;
+                    gap: 5px;
+                    font-size: 12px;
+                }
+                .form-content {
+                    padding: 15px 10px;
+                }
+                .section {
+                    margin-bottom: 20px;
+                }
+                .section-title {
+                    font-size: 16px;
+                    margin-bottom: 15px;
+                }
+                .section-title i {
+                    font-size: 14px;
+                }
+                .form-control {
+                    font-size: 14px;
+                    padding: 10px 12px;
+                }
+                .ticket-card {
+                    padding: 12px;
+                    margin-bottom: 15px;
+                }
+                .ticket-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 8px;
+                    margin-bottom: 10px;
+                }
+                .ticket-title {
+                    font-size: 16px;
+                }
+                .ticket-price {
+                    font-size: 18px;
+                }
+                .ticket-description {
+                    font-size: 13px;
+                    margin-bottom: 10px;
+                }
+                .ticket-features {
+                    gap: 6px;
+                    margin-bottom: 10px;
+                }
+                .feature-tag {
+                    font-size: 10px;
+                    padding: 3px 6px;
+                }
+                .quantity-container {
+                    flex-direction: column;
+                    align-items: stretch;
+                    gap: 12px;
+                    padding: 10px;
+                }
+                .quantity-label {
+                    font-size: 14px;
+                }
+                .quantity-input-wrapper {
+                    justify-content: center;
+                }
+                .quantity-input {
+                    width: 60px;
+                    padding: 8px 10px;
+                    font-size: 14px;
+                }
+                .total-row {
+                    justify-content: center;
+                    margin-top: 12px;
+                }
+                .total-row span {
+                    font-size: 16px;
+                }
+                .qr-code-container {
+                    padding: 15px;
+                }
+                .qr-code {
+                    width: 160px;
+                    height: 160px;
+                    padding: 6px;
+                    margin: 0 auto 15px;
+                }
+                .qr-code img {
+                    max-width: 148px;
+                    max-height: 148px;
+                }
+                .qr-instructions {
+                    font-size: 12px;
+                    margin-bottom: 12px;
+                }
+                .qr-amount {
+                    font-size: 16px;
+                    padding: 8px;
+                    margin-bottom: 12px;
+                }
+                .qr-steps {
+                    flex-wrap: wrap;
+                    gap: 8px;
+                    justify-content: center;
+                }
+                .qr-step {
+                    max-width: 80px;
+                }
+                .step-number {
+                    width: 30px;
+                    height: 30px;
+                    font-size: 12px;
+                    margin-bottom: 8px;
+                }
+                .step-text {
+                    font-size: 10px;
+                }
+                .payment-title {
+                    font-size: 16px;
+                    margin-bottom: 12px;
+                }
+                .file-upload-container {
+                    padding: 12px;
+                    margin-top: 15px;
+                }
+                .file-upload-icon {
+                    font-size: 24px;
+                    margin-bottom: 8px;
+                }
+                .file-upload-text {
+                    font-size: 13px;
+                    margin-bottom: 4px;
+                }
+                .file-upload-subtext {
+                    font-size: 11px;
+                }
+                .uploaded-file {
+                    padding: 8px 12px;
+                    margin-top: 10px;
+                }
+                .file-name {
+                    font-size: 12px;
+                }
+                .submit-btn {
+                    padding: 12px 20px;
+                    font-size: 14px;
+                    border-radius: 25px;
+                }
+                .form-text {
+                    font-size: 11px;
+                    margin-top: 8px;
+                }
+                .notification {
+                    top: 10px;
+                    right: 5px;
+                    left: 5px;
+                    padding: 12px 15px;
+                }
+                .notification-content h3 {
+                    font-size: 14px;
+                }
+                .notification-content p {
+                    font-size: 12px;
+                }
+                .poster-image {
+                    max-width: 95% !important;
+                    margin: 10px auto !important;
+                    border-radius: 8px !important;
+                }
+                .footer-section {
+                    margin-top: 15px;
+                    padding: 0 5px;
+                }
+                .office-box {
+                    margin-bottom: 12px;
+                    padding: 12px;
+                }
+                .office-header {
+                    font-size: 14px;
+                    margin-bottom: 6px;
+                }
+                .office-details {
+                    font-size: 11px;
+                    line-height: 1.4;
+                }
+            }
+            .footer-container .office-box:last-child {
+            padding-left: 28px;
+            /* nudge a bit more so it clears the border */
+        }
+
+        .footer-container .office-box:last-child .office-details,
+        .footer-container .office-box:last-child .office-header {
+            padding-left: 6px;
+            /* micro-adjust inner content */
+        }
+
+        .vadodara-office {
+            background-color: #8ccfee;
+        }
+
+        .amdavad-office {
+            background-color: #f5d418;
+        }
+
+        .maninagar-office {
+            background-color: #e765b5;
+        }
+
+        .office-header {
+            font-weight: bold;
+            font-size: 17px;
+            /* a bit smaller */
+            margin-bottom: 4px;
+            /* tighter */
+            /* tighter */
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .office-header hr {
+            border: none;
+            border-top: 2px solid white;
+            margin: 3px 0 6px 0;
+            /* tighter */
+            /* reduce whitespace around rule */
+            width: 100%;
+        }
+
+        .office-details {
+            font-size: 13px;
+            text-align: left;
+            line-height: 1.45;
+            /* slightly tighter */
+        }
+
+        .footer-section {
+            margin-top: 20px;
+        }
+            /* Touch and mobile optimizations */
+            @media (max-width: 768px) {
+                /* Improve touch targets */
+                button, .btn, input[type="file"], .quantity-btn {
+                    min-height: 44px;
+                    min-width: 44px;
+                    touch-action: manipulation;
+                }
+                
+                /* Prevent zoom on input focus */
+                input, select, textarea {
+                    font-size: 16px;
+                }
+                
+                /* Better tap areas for quantity controls */
+                .quantity-btn {
+                    padding: 12px;
+                    font-size: 18px;
+                    border-radius: 50%;
+                    width: 44px;
+                    height: 44px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                /* Sticky submit button for mobile */
+                .submit-container {
+                    position: sticky;
+                    bottom: 0;
+                    background: white;
+                    padding: 15px;
+                    border-top: 1px solid #e0e0e0;
+                    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                    z-index: 100;
+                }
+                
+                /* Better file upload on mobile */
+                .file-upload-container {
+                    border: 2px dashed #667eea;
+                    border-radius: 12px;
+                    background: linear-gradient(135deg, rgba(102,126,234,0.02) 0%, rgba(118,75,162,0.02) 100%);
+                    transition: all 0.3s ease;
+                    cursor: pointer;
+                    position: relative;
+                    overflow: hidden;
+                }
+                
+                .file-upload-container:hover {
+                    border-color: #764ba2;
+                    background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%);
+                }
+                
+                /* Improve notification positioning on mobile */
+                .notification {
+                    position: fixed;
+                    z-index: 10000;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                }
+                
+                /* Better form spacing on mobile */
+                .form-row {
+                    margin-bottom: 20px;
+                }
+                
+                .form-group {
+                    margin-bottom: 15px;
+                }
+                
+                /* Improve table responsive behavior */
+                .table-responsive {
+                    border: none;
+                    overflow-x: auto;
+                    -webkit-overflow-scrolling: touch;
+                }
+                
+                /* Better modal behavior on mobile */
+                .modal-dialog {
+                    margin: 10px;
+                    max-width: calc(100vw - 20px);
+                }
+                
+                /* Smooth scrolling for mobile */
+                html {
+                    scroll-behavior: smooth;
+                    -webkit-text-size-adjust: 100%;
+                }
+                
+                /* Prevent horizontal scroll */
+                body {
+                    overflow-x: hidden;
+                }
+                
+                /* Better focus states for accessibility */
+                button:focus, input:focus, select:focus, textarea:focus {
+                    outline: 2px solid #667eea;
+                    outline-offset: 2px;
+                }
+            }
+
+            @media (max-width: 320px) {
+                .container {
+                    margin: 2px;
+                    border-radius: 8px;
+                }
+                .header {
+                    padding: 12px 8px;
+                }
+                .header h1 {
+                    font-size: 18px;
+                    margin-bottom: 6px;
+                }
+                .header p {
+                    font-size: 11px;
+                }
+                .header img {
+                    max-width: 100% !important;
+                    border-radius: 6px !important;
+                }
+                .form-content {
+                    padding: 12px 8px;
+                }
+                .section-title {
+                    font-size: 15px;
+                    margin-bottom: 12px;
+                }
+                .form-control {
+                    font-size: 13px;
+                    padding: 8px 10px;
+                }
+                .ticket-card {
+                    padding: 10px;
+                    margin-bottom: 12px;
+                }
+                .ticket-title {
+                    font-size: 15px;
+                }
+                .ticket-price {
+                    font-size: 16px;
+                }
+                .ticket-description {
+                    font-size: 12px;
+                    margin-bottom: 8px;
+                }
+                .feature-tag {
+                    font-size: 9px;
+                    padding: 2px 4px;
+                }
+                .quantity-container {
+                    padding: 8px;
+                    gap: 10px;
+                }
+                .quantity-input {
+                    width: 50px;
+                    padding: 6px 8px;
+                    font-size: 13px;
+                }
+                .qr-code {
+                    width: 140px;
+                    height: 140px;
+                    padding: 5px;
+                    margin: 0 auto 15px;
+                }
+                .qr-code img {
+                    max-width: 130px;
+                    max-height: 130px;
+                }
+                .qr-instructions {
+                    font-size: 11px;
+                }
+                .qr-amount {
+                    font-size: 14px;
+                    padding: 6px;
+                }
+                .step-number {
+                    width: 25px;
+                    height: 25px;
+                    font-size: 11px;
+                }
+                .step-text {
+                    font-size: 9px;
+                }
+                .file-upload-container {
+                    padding: 10px;
+                }
+                .file-upload-icon {
+                    font-size: 20px;
+                }
+                .file-upload-text {
+                    font-size: 12px;
+                }
+                .file-upload-subtext {
+                    font-size: 10px;
+                }
+                .submit-btn {
+                    padding: 10px 16px;
+                    font-size: 13px;
+                }
+                .office-box {
+                    padding: 10px;
+                    margin-bottom: 10px;
+                }
+                .office-header {
+                    font-size: 13px;
+                }
+                .office-details {
+                    font-size: 10px;
+                }
+            }
+        </style>
+    </head><body>
+    <div class="container">
+        <div class="header">
+            <img src="{% static 'images/header.png' %}" alt="Event Header" style="max-width: 100%; border-radius: 11px; margin-bottom: 15px; box-shadow: 0 4px 16px rgba(102,126,234,0.15); display: block; margin-left: auto; margin-right: auto;">
+            <h1>Audience Tickets Form</h1>
+            <p>Join us for an amazing cultural event</p>
+            <div class="event-date">
+               
+            </div>
+        </div>
+
+    <form class="form-content" enctype="multipart/form-data" method="POST" action="/submit-ticket/">
+            {% csrf_token %}
+            <!-- Personal Information Section -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-user"></i>
+                    <span>Personal Information</span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="first_name" class="form-control" placeholder="Enter your first name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="last_name" class="form-control" placeholder="Enter your last name" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone_number" class="form-control" placeholder="Enter your phone number" required>
+                </div>
+            </div>
+
+            <!-- Ticket Selection Section -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>Ticket Selection</span>
+                </div>
+
+                <div class="ticket-card" id="ticketCard">
+                    <div class="ticket-header">
+                        <div class="ticket-title"></div>
+                        <div class="ticket-date">
+                            
+                        </div>
+                        <div class="ticket-price"> Per Person Amount: Rs:50.00</div>
+                    </div>
+                    <div class="ticket-description">
+                        Access to all talent show performances, music, dance, and entertainment acts.
+                    </div>
+                    <div class="ticket-features">
+                        <span class="feature-tag">🎶 Live Performances</span>
+                        <span class="feature-tag">💃 Dance & Drama Acts</span>
+                        <span class="feature-tag">🎭 Entertainment</span>
+                       
+                    </div>
+
+                    <div class="quantity-section">
+                        <div class="quantity-container">
+                            <div class="quantity-label">
+                                <i class="fas fa-ticket-alt"></i>
+                                <span>Quantity</span>
+                            </div>
+                            <div class="quantity-input-wrapper">
+                                <input type="number" id="quantityInput" name="ticket_quantity" class="quantity-input" value="1" min="1" max="10">
+                                <input type="hidden" id="totalAmountInput" name="total_amount" value="50.00">
+                                <div class="quantity-hint"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="total-row" style="margin-top: 18px; display: flex; justify-content: flex-end; align-items: center;">
+                        <span style="font-weight: 600; color: #667eea; font-size: 1.1em;">Subtotal:</span>
+                        <span id="ticketSubtotal" style="margin-left: 12px; color: #764ba2; font-weight: 700; font-size: 1.2em;">Rs:50.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Information Section -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-qrcode"></i>
+                    <span>Payment Information</span>
+                </div>
+
+                <div class="payment-title">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Scan to Pay</span>
+                </div>
+
+                <div class="qr-code-container">
+                    <div class="qr-code">
+                        <img src="{% static 'images/Graba_QR.jpeg' %}"
+                            alt="Payment QR Code" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="qr-instructions">
+                        Scan this QR code with your mobile payment app to complete the payment
+                    </div>
+                    <div class="qr-amount" id="qrAmount">Amount: Rs:50.00</div>
+
+                    <div class="qr-steps">
+                        <div class="qr-step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Open your payment app</div>
+                        </div>
+                        <div class="qr-step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Scan QR code</div>
+                        </div>
+                        <div class="qr-step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Confirm payment</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload Payment Screenshot -->
+                <div class="file-upload-container" id="fileUploadContainer">
+                    <label for="paymentScreenshot" class="file-upload-label">
+                        <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                        <div class="file-upload-text">Upload Payment Screenshot</div>
+                        <div class="file-upload-subtext">JPG, PNG or PDF</div>
+                        <!-- Clicking this label will always open the file dialog -->
+                    </label>
+                    <input type="file" id="paymentScreenshot" name="payment_screenshot" class="file-input" accept="image/*,.pdf">
+                </div>
+
+                <div class="uploaded-file" id="uploadedFile">
+                    <div class="file-info">
+                        <i class="fas fa-file-image file-icon"></i>
+                        <span class="file-name" id="fileName">payment-screenshot.jpg</span>
+                    </div>
+                    <button type="button" class="remove-file" id="removeFile">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Total Section -->
+           
+            <div class="submit-container">
+                <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                    Purchase Tickets
+                </button>
+                <p class="form-text">By clicking "Purchase Tickets", you agree to our Terms of Service and Privacy Policy.
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <div class="notification" id="notification">
+        <div class="notification-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="notification-content">
+            <h3>Purchase Successful!</h3>
+            <p>Your tickets have been confirmed.</p>
+        </div>
+        <button class="close-notification" id="closeNotification">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <div style="display: flex; justify-content: center; margin-top: 1.5rem;">
+        <img src="{% static 'images/poster.jpeg' %}" alt="Poster" class="poster-image" style="max-width: 500px; border-radius: 10px; box-shadow: 0 4px 16px rgba(102,126,234,0.15);" />
+    </div>
+
+    <br>
+
+    <!-- Footer Section -->
+    <div class="footer-section">
+        <!-- Optional decorative divider above the site logos -->
+        <div class="footer-container">
+            <div class="office-box vadodara-office">
+                <div class="office-header">
+                    VADODARA
+                    <hr>
+                </div>
+                <div class="office-details">
+                    601, 602, 603, 604 A, 6th Floor<br>Galav Chambers, Dairy Den Circle, Sayajiganj
+                    Vadodara - 390020 <br>
+                    9099798986, 9081522111
+                </div>
+            </div>
+
+            <br>
+            <div class="office-box amdavad-office">
+                <div class="office-header">
+                    AMDAVAD (NAVRANGPURA)
+                    <hr>
+                </div>
+                <div class="office-details">
+                    A-703, 7th Floor,Nar -Naryan Complex,Near<br>
+                    Swastik Char Rasta, Opp Navrangpura Post office, Navrangpura Amdavad - 380009 <br>
+                    9099798986, 9081522111
+                </div>
+            </div>
+            <br>
+            <div class="office-box maninagar-office">
+                <div class="office-header">
+                    AMDAVAD (MANINAGAR)
+                    <hr>
+                </div>
+                <div class="office-details">
+                    S/9, Shukun Plaza, Second Floor, <br> Opp. Nagar Farsan, Near Pruthvi Hotels, Maninagar,
+                    Amdavad 380008 9099798986, 9081522111.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Form elements
+            const ticketCard = document.getElementById('ticketCard');
+            const quantityInput = document.getElementById('quantityInput');
+            const qrAmount = document.getElementById('qrAmount');
+            const submitBtn = document.getElementById('submitBtn');
+            const notification = document.getElementById('notification');
+            const closeNotification = document.getElementById('closeNotification');
+            const ticketSubtotal = document.getElementById('ticketSubtotal');
+
+            // Personal information fields
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+            const email = document.getElementById('email');
+            const phone = document.getElementById('phone');
+
+            // File upload elements
+            const fileUploadContainer = document.getElementById('fileUploadContainer');
+            const paymentScreenshot = document.getElementById('paymentScreenshot');
+            const uploadedFile = document.getElementById('uploadedFile');
+            const fileName = document.getElementById('fileName');
+            const removeFile = document.getElementById('removeFile');
+
+            // Constants
+            const ticketPrice = 50;
+            let isFileUploaded = false;
+            let previousValue = '1';
+
+            // Update total amount
+            function updateTotal() {
+                const quantity = parseInt(quantityInput.value) || 1;
+                const total = ticketPrice * quantity;
+                qrAmount.textContent = `Amount: Rs:${total.toFixed(2)}`;
+                if (ticketSubtotal) {
+                    ticketSubtotal.textContent = `Rs:${total.toFixed(2)}`;
+                    ticketSubtotal.style.display = 'inline';
+                }
+                // Update hidden input for backend
+                const totalAmountInput = document.getElementById('totalAmountInput');
+                if (totalAmountInput) {
+                    totalAmountInput.value = total.toFixed(2);
+                }
+                // Debug: show value in console
+                // console.log('Quantity:', quantity, 'Subtotal:', ticketSubtotal.textContent);
+                if (quantity > 0) {
+                    ticketCard.classList.add('selected');
+                } else {
+                    ticketCard.classList.remove('selected');
+                }
+                checkFormValidity();
+            }
+
+            // Check if form is valid
+            function checkFormValidity() {
+                const isPersonalInfoValid =
+                    firstName.value.trim() !== '' &&
+                    lastName.value.trim() !== '' &&
+                    email.value.trim() !== '' &&
+                    phone.value.trim() !== '';
+
+                const quantity = parseInt(quantityInput.value) || 0;
+                const isQuantityValid = quantity > 0 && quantity <= 10;
+
+                if (isPersonalInfoValid && isQuantityValid && isFileUploaded) {
+                    submitBtn.disabled = false;
+                } else {
+                    submitBtn.disabled = true;
+                }
+            }
+
+            // Quantity input keydown event - allow backspace and navigation
+            quantityInput.addEventListener('keydown', function (e) {
+                // Allow backspace, delete, tab, escape, enter
+                if ([8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
+                    // Allow Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+                    (e.keyCode === 65 && e.ctrlKey === true) ||
+                    (e.keyCode === 67 && e.ctrlKey === true) ||
+                    (e.keyCode === 86 && e.ctrlKey === true) ||
+                    (e.keyCode === 88 && e.ctrlKey === true)) {
+                    // Let it happen
+                    return;
+                }
+
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+
+            // Quantity input input event - update total
+                quantityInput.addEventListener('input', function () {
+                updateTotal();
+            });
+            quantityInput.addEventListener('change', updateTotal);
+            quantityInput.addEventListener('keyup', updateTotal);
+            // Always update subtotal on page load and after any change
+            setInterval(updateTotal, 100);
+            // Initial subtotal update
+            updateTotal();
+
+            // Quantity input blur event - validate and correct
+            quantityInput.addEventListener('blur', function () {
+                let value = parseInt(this.value) || 1;
+
+                // Validate range
+                if (value < 1) value = 1;
+                if (value > 10) value = 10;
+
+                this.value = value;
+                updateTotal();
+            });
+
+            // File upload handling
+            fileUploadContainer.addEventListener('click', function () {
+                // No manual .click() needed; label opens file dialog natively
+            });
+
+            paymentScreenshot.addEventListener('change', function (e) {
+                if (e.target.files && e.target.files[0]) {
+                    const file = e.target.files[0];
+
+                    // No file size constraint
+
+                    // Display uploaded file
+                    fileName.textContent = file.name;
+                    uploadedFile.classList.add('show');
+                    fileUploadContainer.classList.add('has-file');
+
+                    // Update state
+                    isFileUploaded = true;
+                    checkFormValidity();
+                }
+            });
+
+            // Remove uploaded file
+            removeFile.addEventListener('click', function (e) {
+                e.stopPropagation();
+
+                // Reset file input
+                paymentScreenshot.value = '';
+
+                // Hide uploaded file display
+                uploadedFile.classList.remove('show');
+                fileUploadContainer.classList.remove('has-file');
+
+                // Update state
+                isFileUploaded = false;
+                checkFormValidity();
+            });
+
+            // Form input validation
+            [firstName, lastName, email, phone].forEach(input => {
+                input.addEventListener('input', checkFormValidity);
+            });
+
+            // Submit button - form submission
+            document.querySelector('.form-content').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const quantity = parseInt(quantityInput.value) || 1;
+                const totalAmount = quantity * 50.00;
+                
+                // Update hidden total amount field
+                formData.set('total_amount', totalAmount.toFixed(2));
+                
+                // Disable submit button
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Processing...';
+
+                // Submit form via fetch
+                fetch('/submit-ticket/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.error || 'Server error');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        // Show success notification
+                        notification.classList.add('show');
+                        
+                        // Redirect after delay
+                        setTimeout(() => {
+                            if (data.redirect_url) {
+                                window.location.href = data.redirect_url;
+                            } else {
+                                window.location.href = '/audience-confirmation/';
+                            }
+                        }, 2000);
+                    } else {
+                        throw new Error(data.error || 'Registration failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Registration failed: ' + error.message);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Purchase Tickets';
+                });
+            });
+
+            // Legacy submit button click (just in case)
+            submitBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const form = document.querySelector('.form-content');
+                form.dispatchEvent(new Event('submit'));
+            });
+
+            // Close notification
+            closeNotification.addEventListener('click', function () {
+                notification.classList.remove('show');
+            });
+
+            // Initialize with default values
+            updateTotal();
+        });
+    </script>
+</body>
+
+</html>

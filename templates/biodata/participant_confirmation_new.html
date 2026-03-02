@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Confirmation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0e7ff 0%, #6a11cb 60%, #2575fc 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .confirmation-container {
+            max-width: 500px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(106, 17, 203, 0.12);
+            padding: 32px 28px 28px 28px;
+            text-align: center;
+        }
+        .confirmation-icon {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        .confirmation-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2575fc;
+            margin-bottom: 10px;
+        }
+        .confirmation-details {
+            margin: 25px 0 10px 0;
+            text-align: left;
+        }
+        .confirmation-details dt {
+            font-weight: 600;
+            color: #6a11cb;
+        }
+        .confirmation-details dd {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .btn-home {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 30px;
+            font-weight: 500;
+            margin-top: 18px;
+            transition: background 0.3s;
+        }
+        .btn-home:hover {
+            background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+        }
+        .confirmation-note {
+            background: #e9f7ef;
+            color: #155724;
+            border-left: 4px solid #28a745;
+            padding: 12px 18px;
+            border-radius: 8px;
+            margin-top: 18px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <i class="bi bi-check-circle confirmation-icon"></i>
+        <div class="confirmation-title">Registration Successful!</div>
+        <p class="mb-3">Thank you for registering. Your details have been received.</p>
+        {% if participant %}
+        <dl class="confirmation-details row">
+            <dt class="col-5">Name:</dt>
+            <dd class="col-7">{{ participant.full_name }}</dd>
+            <dt class="col-5">Email:</dt>
+            <dd class="col-7">{{ participant.email }}</dd>
+            <dt class="col-5">Phone:</dt>
+            <dd class="col-7">{{ participant.phone_number }}</dd>
+            <dt class="col-5">Events:</dt>
+            <dd class="col-7">{{ participant.events_display }}</dd>
+            <dt class="col-5">Total Amount:</dt>
+            <dd class="col-7">Rs {{ participant.subtotal }}</dd>
+            <dt class="col-5">Date:</dt>
+            <dd class="col-7">{{ participant.submission_time|date:"M d, Y H:i" }}</dd>
+        </dl>
+        {% endif %}
+        <div class="confirmation-note">
+            <i class="bi bi-info-circle"></i>
+            Please keep this confirmation for your records. You will receive further instructions by email.
+        </div>
+        <a href="{% url 'home_page' %}" class="btn btn-home mt-4"><i class="bi bi-house"></i> Back to Home</a>
+    </div>
+</body>
+</html>

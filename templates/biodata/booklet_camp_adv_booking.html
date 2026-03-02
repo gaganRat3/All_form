@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booklet Camp Advanced Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 30%, #f093fb 70%, #4facfe 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25),
+                        0 0 1px rgba(255, 255, 255, 0.5) inset,
+                        0 0 40px rgba(255, 255, 255, 0.3) inset;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            width: 100%;
+            max-width: 520px;
+            animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-title {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 35px;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #667eea, #764ba2) border-box;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            color: #2d3748;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="tel"]::placeholder {
+            color: #a0aec0;
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus {
+            outline: none;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #667eea, #f093fb) border-box;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25),
+                        0 0 0 8px rgba(102, 126, 234, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3),
+                        0 0 1px rgba(255, 255, 255, 0.5) inset;
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+            transition: left 0.6s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4),
+                        0 0 1px rgba(255, 255, 255, 0.5) inset;
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3),
+                        0 0 1px rgba(255, 255, 255, 0.5) inset;
+        }
+
+        .poster-container {
+            text-align: center;
+            margin-bottom: 35px;
+            animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s backwards;
+        }
+
+        .poster-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .poster-container img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 25px;
+                border-radius: 16px;
+                max-width: 95vw;
+            }
+
+            .form-title {
+                font-size: 24px;
+                margin-bottom: 25px;
+            }
+
+            .form-group {
+                margin-bottom: 18px;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            input[type="tel"],
+            select {
+                padding: 12px 14px;
+            }
+
+            .submit-btn {
+                padding: 14px;
+                font-size: 15px;
+            }
+
+            .poster-container {
+                margin-bottom: 25px;
+            }
+
+            .poster-container img {
+                max-width: 100%;
+                border-radius: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Booklet Camp Advanced Booking</h1>
+
+        <form id="bookingForm">
+            <!-- Full Name -->
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input 
+                    type="text" 
+                    id="fullName" 
+                    name="fullName" 
+                    placeholder="Enter your full name"
+                    required
+                >
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input 
+                    type="text" 
+                    id="dob" 
+                    name="dateOfBirth"
+                    placeholder="DD/MM/YYYY"
+                    required
+                >
+            </div>
+
+            <!-- Mobile Number -->
+            <div class="form-group">
+                <label for="mobile">Mobile Number</label>
+                <input 
+                    type="tel" 
+                    id="mobile" 
+                    name="mobileNumber" 
+                    placeholder="Enter your mobile number"
+                    pattern="[0-9\-\+\s]+"
+                    required
+                >
+            </div>
+
+            <!-- City -->
+            <div class="form-group">
+                <label for="city">City</label>
+                <input 
+                    type="text" 
+                    id="city" 
+                    name="city" 
+                    placeholder="Enter your city"
+                    required
+                >
+            </div>
+
+            <!-- Which Book -->
+            <div class="form-group">
+                <label for="book">Which Book Do You Want?</label>
+                <input 
+                    type="text" 
+                    id="book" 
+                    name="book" 
+                    placeholder="Enter the book name"
+                    required
+                >
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Complete Booking</button>
+        </form>
+        {% include 'partials/team_poster_actual.html' %}
+        {% include 'partials/footer.html' %}
+        {% include 'biodata/employa_footer.html' %}
+    
+    </div>
+
+    <script>
+        // Format date input as DD-MM-YYYY
+        const dobInput = document.getElementById('dob');
+        dobInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+            
+            if (value.length > 0) {
+                if (value.length <= 2) {
+                    e.target.value = value;
+                } else if (value.length <= 4) {
+                    e.target.value = value.slice(0, 2) + '-' + value.slice(2);
+                } else {
+                    e.target.value = value.slice(0, 2) + '-' + value.slice(2, 4) + '-' + value.slice(4, 8);
+                }
+            }
+        });
+
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetch("{% url 'booklet_camp_adv_booking' %}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => {
+                if (response.headers.get('content-type')?.includes('application/json')) {
+                    return response.json();
+                } else if (response.redirected) {
+                    window.location.href = response.url;
+                    return null;
+                } else {
+                    return response.text();
+                }
+            })
+            .then(data => {
+                if (data && data.success && data.redirect_url) {
+                    window.location.href = data.redirect_url;
+                } else if (data && data.errors) {
+                    alert('Form error: ' + JSON.stringify(data.errors));
+                }
+                // Optionally handle other responses
+            })
+            .catch(error => {
+                alert('An error occurred. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>

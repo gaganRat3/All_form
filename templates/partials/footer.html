@@ -1,0 +1,80 @@
+<!-- templates/partials/footer.html -->
+<footer class="footer-section" style="background:#f8f9fa;padding:30px 0 10px 0;">
+    <style>
+        .offices-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 10px;
+        }
+        .office-box {
+            min-width: 280px;
+            max-width: 400px;
+            flex: 1 1 300px;
+            border-radius: 18px;
+            box-shadow: 0 6px 24px 0 rgba(80,80,120,0.10), 0 1.5px 6px 0 rgba(80,80,120,0.08);
+            padding: 24px 28px 18px 28px;
+            margin-bottom: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff;
+        }
+        .vadodara-office {
+            background: #eaf2ff;
+            border-top: 5px solid #3498fd;
+        }
+        .amdavad-office {
+            background: #fff7db;
+            border-top: 5px solid #ffb300;
+        }
+        .maninagar-office {
+            background: #e6fff3;
+            border-top: 5px solid #00c48c;
+        }
+        .office-header {
+            font-weight: bold;
+            font-size: 1.15rem;
+            color: #222;
+            margin-bottom: 8px;
+            letter-spacing: 0.01em;
+        }
+        .vadodara-office .office-header { color: #1565c0; }
+        .amdavad-office .office-header { color: #b26a00; }
+        .maninagar-office .office-header { color: #008060; }
+        .office-details {
+            font-size: 1rem;
+            color: #222;
+            margin-top: 4px;
+            line-height: 1.6;
+        }
+        @media (max-width: 900px) {
+            .offices-container { flex-direction: column; align-items: center; }
+            .office-box { max-width: 95vw; }
+        }
+    </style>
+    <div class="container">
+        <div class="offices-container">
+            <div class="office-box vadodara-office">
+                <div class="office-header">VADODARA (bhudevnetworkvivah / Employa Technologies )</div>
+                <div class="office-details">
+                    601, 602, 603, 604 A, 6th Floor<br />Galav Chambers, Dairy Den Circle, Sayajiganj Vadodara - 390020 <br />9099798986, 9081522111
+                </div>
+            </div>
+            <div class="office-box amdavad-office">
+                <div class="office-header">AMDAVAD (NAVRANGPURA) (bhudevnetworkvivah / Employa Technologies )</div>
+                <div class="office-details">
+                    A-703, 7th Floor,Nar -Naryan Complex,Near<br />Swastik Char Rasta, Opp Navrangpura Post office, Navrangpura Amdavad - 380009<br />9099798986, 9081522111
+                </div>
+            </div>
+            <div class="office-box maninagar-office">
+                <div class="office-header">AMDAVAD (MANINAGAR) (bhudevnetworkvivah / Employa Technologies )</div>
+                <div class="office-details">
+                    S/9, Shukun Plaza, Second Floor, <br />Opp. Nagar Farsan, Near Pruthvi Hotels, Maninagar, Amdavad 380008<br />9099798986, 9081522111
+                </div>
+            </div>
+        </div>
+        {% comment %} <div style="text-align:center;margin-top:30px;color:#888;font-size:14px;">
+            &copy; {{ year }} bhudevnetworkvivah / Employa Technologies. All rights reserved.
+        </div> {% endcomment %}
+    </div>
+</footer>

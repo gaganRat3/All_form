@@ -1,0 +1,1248 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Story - Share Your Special Day</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Playfair Display", "Georgia", serif;
+        background: linear-gradient(
+          135deg,
+          #ffecd2 0%,
+          #fcb69f 50%,
+          #ff9a9e 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Floating hearts animation */
+      .heart {
+        position: absolute;
+        font-size: 20px;
+        animation: floatHearts 15s infinite;
+        opacity: 0;
+        color: rgba(255, 182, 193, 0.6);
+      }
+
+      @keyframes floatHearts {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .heart:nth-child(1) {
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .heart:nth-child(2) {
+        left: 25%;
+        animation-delay: 3s;
+      }
+      .heart:nth-child(3) {
+        left: 40%;
+        animation-delay: 6s;
+      }
+      .heart:nth-child(4) {
+        left: 60%;
+        animation-delay: 2s;
+      }
+      .heart:nth-child(5) {
+        left: 75%;
+        animation-delay: 8s;
+      }
+      .heart:nth-child(6) {
+        left: 90%;
+        animation-delay: 5s;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        border-radius: 30px;
+        box-shadow: 0 30px 80px rgba(255, 105, 135, 0.3),
+          0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+        max-width: 650px;
+        width: 100%;
+        padding: 50px;
+        animation: slideIn 0.8s ease-out;
+        position: relative;
+        border: 3px solid transparent;
+        background-clip: padding-box;
+      }
+
+      .container::before {
+        content: "";
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        right: -3px;
+        bottom: -3px;
+        background: linear-gradient(45deg, #ff9a9e, #fad0c4, #ffecd2);
+        border-radius: 30px;
+        z-index: -1;
+        opacity: 0.7;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-50px) scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .header-decoration {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .rings-icon {
+        font-size: 3rem;
+        animation: ringFloat 3s ease-in-out infinite;
+        display: inline-block;
+      }
+
+      @keyframes ringFloat {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-10px) rotate(5deg);
+        }
+      }
+
+      .form-title {
+        text-align: center;
+        font-size: 3rem;
+        background: linear-gradient(135deg, #ff6b6b, #ee5a6f, #c44569);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 10px;
+        font-weight: bold;
+        animation: fadeIn 1s ease-out;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Title with side images container */
+      .title-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 10px;
+      }
+
+      .title-image {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        animation: fadeIn 1s ease-out, float 3s ease-in-out infinite;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      /* Responsive title images */
+      @media (max-width: 768px) {
+        .title-image {
+          width: 60px;
+          height: 60px;
+        }
+        .form-title {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .title-image {
+          width: 50px;
+          height: 50px;
+        }
+        .form-title {
+          font-size: 2rem;
+        }
+        .title-container {
+          gap: 15px;
+        }
+      }
+
+      /* Logo styling */
+      .logo-img {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        display: block;
+        margin: 0 auto 20px auto;
+        object-fit: contain;
+        animation: fadeIn 1s ease-out;
+      }
+
+      @media (max-width: 480px) {
+        .logo-img {
+          max-width: 350px;
+        }
+      }
+
+      .form-subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 40px;
+        font-size: 1.1rem;
+        animation: fadeIn 1.2s ease-out;
+        font-style: italic;
+        font-family: "Georgia", serif;
+      }
+
+      .divider {
+        height: 2px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          #ff9a9e,
+          transparent
+        );
+        margin: 30px 0;
+        animation: fadeIn 1.4s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+        animation: slideUp 0.6s ease-out;
+        animation-fill-mode: both;
+      }
+
+      .form-group:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .form-group:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .form-group:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .form-group:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .form-group:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        color: #c44569;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        letter-spacing: 0.5px;
+      }
+
+      label::before {
+        content: "❤️ ";
+        font-size: 0.9rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .form-group:hover label::before {
+        opacity: 1;
+      }
+
+      input[type="text"],
+      input[type="tel"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid #ffd1dc;
+        border-radius: 15px;
+        font-size: 1rem;
+        transition: all 0.4s ease;
+        background: linear-gradient(135deg, #fff 0%, #fff5f8 100%);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+      }
+
+      input[type="text"]:focus,
+      input[type="tel"]:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #ff9a9e;
+        background: white;
+        box-shadow: 0 0 0 5px rgba(255, 154, 158, 0.15),
+          0 8px 20px rgba(255, 105, 135, 0.2);
+        transform: translateY(-3px);
+      }
+
+      input[type="text"]::placeholder,
+      input[type="tel"]::placeholder,
+      textarea::placeholder {
+        color: #ffb6c1;
+        font-style: italic;
+      }
+
+      select {
+        cursor: pointer;
+        appearance: none;
+        background-color: #ffffff;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c44569' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        padding-right: 40px;
+      }
+
+      select:focus {
+        background-color: #ffffff;
+      }
+
+      select option {
+        padding: 10px;
+        background-color: #ffffff;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .file-input-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+      }
+
+      .file-input-wrapper input[type="file"] {
+        position: absolute;
+        left: -9999px;
+      }
+
+      .file-input-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        border: 3px dashed #ff9a9e;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #fff5f8 0%, #ffe5ec 100%);
+        cursor: pointer;
+        transition: all 0.4s ease;
+        color: #c44569;
+        font-weight: 600;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .file-input-label::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 154, 158, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+      }
+
+      .file-input-label:hover::before {
+        width: 400px;
+        height: 400px;
+      }
+
+      .file-input-label:hover {
+        background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 105, 135, 0.4);
+        border-color: #ff6b9d;
+      }
+
+      .file-input-label:active {
+        transform: translateY(0);
+      }
+
+      .file-input-label svg {
+        width: 28px;
+        height: 28px;
+        margin-right: 10px;
+        z-index: 1;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+      }
+
+      .file-name {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: #c44569;
+        font-style: italic;
+        font-weight: 600;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 18px;
+        background: linear-gradient(
+          135deg,
+          #ff6b6b 0%,
+          #ee5a6f 50%,
+          #c44569 100%
+        );
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        margin-top: 30px;
+        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .submit-btn::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+      }
+
+      .submit-btn:hover::before {
+        width: 500px;
+        height: 500px;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(255, 107, 107, 0.5);
+      }
+
+      .submit-btn:active {
+        transform: translateY(-2px);
+      }
+
+      .submit-btn span {
+        position: relative;
+        z-index: 1;
+      }
+
+      .date-hint {
+        font-size: 0.85rem;
+        color: #ff9a9e;
+        margin-top: 8px;
+        font-style: italic;
+      }
+
+      /* Success animation */
+      @keyframes successPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .success {
+        animation: successPulse 0.6s ease;
+      }
+
+      /* Sparkle effect */
+      @keyframes sparkle {
+        0%,
+        100% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .sparkle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: radial-gradient(circle, #fff, #ff9a9e);
+        border-radius: 50%;
+        pointer-events: none;
+        animation: sparkle 1s ease-out;
+      }
+
+      .footer-container .office-box:last-child {
+        padding-left: 28px;
+        /* nudge a bit more so it clears the border */
+      }
+
+      .footer-container .office-box:last-child .office-details,
+      .footer-container .office-box:last-child .office-header {
+        padding-left: 6px;
+        /* micro-adjust inner content */
+      }
+
+      .vadodara-office {
+        background-color: #8ccfee;
+      }
+
+      .amdavad-office {
+        background-color: #f5d418;
+      }
+
+      .maninagar-office {
+        background-color: #e765b5;
+      }
+
+      .office-header {
+        font-weight: bold;
+        font-size: 17px;
+        /* a bit smaller */
+        margin-bottom: 4px;
+        /* tighter */
+        /* tighter */
+        text-align: center;
+        letter-spacing: 0.5px;
+      }
+
+      .office-header hr {
+        border: none;
+        border-top: 2px solid white;
+        margin: 3px 0 6px 0;
+        /* tighter */
+        /* reduce whitespace around rule */
+        width: 100%;
+      }
+
+      .office-details {
+        font-size: 13px;
+        text-align: center;
+        line-height: 1.45;
+        /* slightly tighter */
+      }
+      .yellow-tick {
+        color: yellow !important;
+      }
+
+      .header {
+        text-align: center; /* center title and paragraph */
+        position: relative; /* keep pseudo-element positioning relative to header area */
+        padding: 22px 18px 10px 18px;
+        z-index: 20; /* ensure header text sits above body::before decorative element */
+      }
+
+      /* Logo section styles */
+      .sub-logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 80px;
+        margin-bottom: 20px;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        flex-wrap: nowrap;
+        width: 100%;
+      }
+
+      .logo-responsive {
+        height: 60px;
+        width: auto;
+        max-width: 120px;
+        min-width: 60px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 5px;
+        flex-shrink: 1;
+      }
+
+      .logo-responsive:hover {
+        transform: scale(1.05);
+      }
+
+      /* Responsive logo adjustments - keep in one line */
+      @media (max-width: 768px) {
+        .sub-logos {
+          gap: 40px;
+          padding: 10px;
+        }
+
+        .logo-responsive {
+          height: 50px;
+          max-width: 90px;
+          min-width: 50px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .sub-logos {
+          gap: 25px;
+          padding: 8px;
+        }
+
+        .logo-responsive {
+          height: 45px;
+          max-width: 75px;
+          min-width: 45px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .sub-logos {
+          gap: 15px;
+          padding: 8px;
+        }
+
+        .logo-responsive {
+          height: 40px;
+          max-width: 65px;
+          min-width: 40px;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .sub-logos {
+          gap: 10px;
+          padding: 5px;
+        }
+
+        .logo-responsive {
+          height: 35px;
+          max-width: 55px;
+          min-width: 35px;
+        }
+      }
+
+      /* Radio button styles */
+      .radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 10px;
+      }
+
+      .radio-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 12px 15px;
+        border: 2px solid #ffd1dc;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #fff 0%, #fff5f8 100%);
+      }
+
+      .radio-label:hover {
+        border-color: #ff9a9e;
+        background: white;
+        transform: translateX(5px);
+        box-shadow: 0 4px 12px rgba(255, 154, 158, 0.2);
+      }
+
+      .radio-label input[type="radio"] {
+        margin-right: 12px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        accent-color: #ff6b6b;
+      }
+
+      .radio-label input[type="radio"]:checked + span {
+        color: #ff6b6b;
+        font-weight: 600;
+      }
+
+      .radio-label:has(input[type="radio"]:checked) {
+        border-color: #ff6b6b;
+        background: linear-gradient(135deg, #fff5f8 0%, #ffe5ec 100%);
+        box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+      }
+
+      .radio-text {
+        color: #333;
+        font-weight: 500;
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Floating hearts -->
+    <div class="heart">💕</div>
+    <div class="heart">💖</div>
+    <div class="heart">💗</div>
+    <div class="heart">💝</div>
+    <div class="heart">💕</div>
+    <div class="heart">💖</div>
+
+    <div class="container">
+      <!-- Header Section -->
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="row mb-3">
+            <div class="col-12 text-center">
+              <img src="{% static 'images/logo11.jpeg' %}" alt="Logo 1" class="logo-img">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="header-decoration">
+        <div class="title-container">
+          <img src="{% static 'images/wed.png' %}" alt="Wedding" class="title-image">
+          <h1 class="form-title">Happy Story</h1>
+          <img src="{% static 'images/wed.png' %}" alt="Wedding" class="title-image">
+        </div>
+        <p class="form-subtitle"></p>
+      </div>
+      
+      <div class="divider"></div>
+
+      <form id="storyForm" method="post" action="{% url 'submit_story' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="boyName">1. Boy Candidate Name</label>
+          <input
+            type="text"
+            id="boyName"
+            name="boyName"
+            placeholder="Enter boy candidate's full name"
+            required   
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="boyBirthDate">2. Boy Candidate Birth Date</label>
+          <input
+            type="text"
+            id="boyBirthDate"
+            name="boyBirthDate"
+            placeholder="DD-MM-YYYY"
+            maxlength="10"
+            required
+          />
+          <div class="date-hint">✨ Format: DD-MM-YYYY</div>
+        </div>
+
+        <div class="form-group">
+          <label for="boyCity">3. Boy Candidate City</label>
+          <input
+            type="text"
+            id="boyCity"
+            name="boyCity"
+            placeholder="Enter boy candidate's city"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="girlName">4. Girl Candidate Name</label>
+          <input
+            type="text"
+            id="girlName"
+            name="girlName"
+            placeholder="Enter girl candidate's full name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="girlBirthDate">5. Girl Candidate Birth Date</label>
+          <input
+            type="text"
+            id="girlBirthDate"
+            name="girlBirthDate"
+            placeholder="DD-MM-YYYY"
+            maxlength="10"
+            required
+          />
+          <div class="date-hint">✨ Format: DD-MM-YYYY</div>
+        </div>
+
+        <div class="form-group">
+          <label for="girlCity">6. Girl Candidate City</label>
+          <input
+            type="text"
+            id="girlCity"
+            name="girlCity"
+            placeholder="Enter girl candidate's city"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="whoIsFilling">7. Who is Filling-up this Form <br>(Mention your Name & Relationship with Candidate)</label>
+          <input
+            type="text"
+            id="whoIsFilling"
+            name="whoIsFilling"
+            placeholder="Enter who is filling this form"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="mobileNumber">8. Mobile Number</label>
+          <input
+            type="tel"
+            id="mobileNumber"
+            name="mobileNumber"
+            placeholder="Enter mobile number"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="whatsappNumber">9. WhatsApp Number</label>
+          <input
+            type="tel"
+            id="whatsappNumber"
+            name="whatsappNumber"
+            placeholder="Enter WhatsApp number"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>10. Candidate Relationship Status</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="relationshipStatus" value="Gordhana" required>
+              <span class="radio-text">Gol-dhaana</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="relationshipStatus" value="Engagement" required>
+              <span class="radio-text">Engagement (Vivah)</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="relationshipStatus" value="Marriage" required>
+              <span class="radio-text">Marriage</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="functionDate"
+            >11. Date of Function (Engagement / Marriage / Gol-dhaana)</label
+          >
+          <input
+            type="text"
+            id="functionDate"
+            name="functionDate"
+            placeholder="DD-MM-YYYY"
+            maxlength="10"
+            required
+          />
+          <div class="date-hint">✨ Format: DD-MM-YYYY</div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">12. Message (Tell us about your Engagement, Marriage, or Gol Dhana moment!)</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Share any additional message or details..."
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="photos">13. Upload your Gol-dhaana/ Engagement / Marriage Photo </label>
+          <div class="file-input-wrapper">
+            <input
+              type="file"
+              id="photos"
+              name="photos"
+              accept="image/*"
+              multiple
+            />
+            <label for="photos" class="file-input-label">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+              <span>Upload Photos</span>
+            </label>
+          </div>
+          <div class="file-name" id="photosName"></div>
+        </div>
+
+        <button type="submit" class="submit-btn">
+          <span>💕 Submit Form 💕</span>
+        </button>
+      </form>
+      <br />
+      <!-- Poster Image -->
+      <div class="image-container-card">
+        <div class="image-container-content">
+            <div class="placeholder-team" style="display: block; border-radius: 15px; overflow: hidden; background: #fff;">
+                <img src="{% static 'images/team.jpg' %}" alt="Team Members" style="display:block; width: 100%; height: auto; object-fit: contain; border-radius: 15px;">
+            </div>
+        </div>
+    </div>
+      <br />
+      <!-- Footer Section -->
+      <div class="footer-section">
+        <!-- Optional decorative divider above the site logos -->
+        <div class="footer-container">
+          <div class="office-box vadodara-office">
+            <div class="office-header">
+              VADODARA
+              <hr />
+            </div>
+            <div class="office-details">
+              601, 602, 603, 604 A, 6th Floor<br />Galav Chambers, Dairy Den
+              Circle, Sayajiganj Vadodara - 390020 <br />
+              9099798986, 9081522111
+            </div>
+          </div>
+
+          <br />
+          <div class="office-box amdavad-office">
+            <div class="office-header">
+              AMDAVAD (NAVRANGPURA)
+              <hr />
+            </div>
+            <div class="office-details">
+              A-703, 7th Floor,Nar -Naryan Complex,Near<br />
+              Swastik Char Rasta, Opp Navrangpura Post office, Navrangpura
+              Amdavad - 380009 <br />
+              9099798986, 9081522111
+            </div>
+          </div>
+          <br />
+          <div class="office-box maninagar-office">
+            <div class="office-header">
+              AMDAVAD (MANINAGAR)
+              <hr />
+            </div>
+            <div class="office-details">
+              S/9, Shukun Plaza, Second Floor, <br />
+              Opp. Nagar Farsan, Near Pruthvi Hotels, Maninagar, Amdavad 380008
+              9099798986, 9081522111.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+  // Auto-format date input with dashes for date fields we keep
+  const boyBirthDateInput = document.getElementById("boyBirthDate");
+  const girlBirthDateInput = document.getElementById("girlBirthDate");
+  const functionDateInput = document.getElementById("functionDate");
+  let lastValueBoy = "";
+  let lastValueGirl = "";
+  let lastValueFunction = "";
+
+      function formatDateInput(input, lastValue) {
+        return function (e) {
+          let value = e.target.value;
+
+          // Check if user is deleting
+          const isDeleting = value.length < lastValue.length;
+
+          // Remove all non-digits
+          let digitsOnly = value.replace(/\D/g, "");
+
+          // If deleting and cursor is after a dash, remove the digit before the dash
+          if (
+            isDeleting &&
+            (value.endsWith("-") || lastValue.charAt(value.length) === "-")
+          ) {
+            digitsOnly = digitsOnly.slice(0, -1);
+          }
+
+          // Format the date
+          let formatted = "";
+          if (digitsOnly.length > 0) {
+            formatted = digitsOnly.substring(0, 2);
+          }
+          if (digitsOnly.length >= 3) {
+            formatted += "-" + digitsOnly.substring(2, 4);
+          }
+          if (digitsOnly.length >= 5) {
+            formatted += "-" + digitsOnly.substring(4, 8);
+          }
+
+          e.target.value = formatted;
+
+          if (input.id === "girlBirthDate") {
+            lastValueGirl = formatted;
+          } else if (input.id === "functionDate") {
+            lastValueFunction = formatted;
+          }
+        };
+      }
+
+      if (boyBirthDateInput) {
+        boyBirthDateInput.addEventListener(
+          "input",
+          formatDateInput(boyBirthDateInput, lastValueBoy)
+        );
+      }
+
+      girlBirthDateInput.addEventListener(
+        "input",
+        formatDateInput(girlBirthDateInput, lastValueGirl)
+      );
+      functionDateInput.addEventListener(
+        "input",
+        formatDateInput(functionDateInput, lastValueFunction)
+      );
+
+      // Date validation for both fields
+      function validateDate(e) {
+        const value = e.target.value;
+        const parts = value.split("-");
+
+        if (parts.length === 3) {
+          const day = parseInt(parts[0]);
+          const month = parseInt(parts[1]);
+          const year = parseInt(parts[2]);
+
+          if (
+            day < 1 ||
+            day > 31 ||
+            month < 1 ||
+            month > 12 ||
+            year < 1900 ||
+            year > 2100
+          ) {
+            e.target.style.borderColor = "#ff4444";
+          } else {
+            e.target.style.borderColor = "#4CAF50";
+          }
+        }
+      }
+
+  if (boyBirthDateInput) boyBirthDateInput.addEventListener("blur", validateDate);
+  girlBirthDateInput.addEventListener("blur", validateDate);
+  functionDateInput.addEventListener("blur", validateDate);
+
+      // File upload handler
+      document
+        .getElementById("photos")
+        .addEventListener("change", function (e) {
+          const fileCount = e.target.files.length;
+          if (fileCount > 0) {
+            if (fileCount === 1) {
+              document.getElementById("photosName").textContent =
+                "✅ " + e.target.files[0].name;
+            } else {
+              document.getElementById("photosName").textContent =
+                "✅ " + fileCount + " files selected";
+            }
+          } else {
+            document.getElementById("photosName").textContent = "";
+          }
+        });
+
+      // Sparkle effect on click
+      document.addEventListener("click", function (e) {
+        if (
+          e.target.closest(".file-input-label") ||
+          e.target.closest(".submit-btn")
+        ) {
+          createSparkle(e.pageX, e.pageY);
+        }
+      });
+
+      function createSparkle(x, y) {
+        const sparkle = document.createElement("div");
+        sparkle.className = "sparkle";
+        sparkle.style.left = x + "px";
+        sparkle.style.top = y + "px";
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => {
+          sparkle.remove();
+        }, 1000);
+      }
+
+      // Form submission
+      document
+        .getElementById("storyForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const container = document.querySelector(".container");
+          container.classList.add("success");
+
+          // Send form to backend using FormData so files are included
+          const formEl = document.getElementById("storyForm");
+          const fd = new FormData(formEl);
+
+          // Use fetch to POST to the configured action. Include X-Requested-With so view returns JSON.
+          fetch(formEl.action, {
+            method: 'POST',
+            body: fd,
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest'
+            },
+            credentials: 'same-origin'
+          })
+            .then((resp) => resp.json())
+            .then((json) => {
+              if (json && json.success) {
+                // Success UI
+                for (let i = 0; i < 30; i++) {
+                  setTimeout(() => {
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight;
+                    createSparkle(x, y);
+                  }, i * 16);
+                }
+
+                // Show a non-blocking toast-like notice instead of alert to avoid
+                // blocking the redirect. We'll still keep a brief visual cue.
+                const msg = document.createElement('div');
+                msg.textContent = '💕✨ Form Submitted Successfully! ✨💕';
+                msg.style.position = 'fixed';
+                msg.style.left = '50%';
+                msg.style.top = '20px';
+                msg.style.transform = 'translateX(-50%)';
+                msg.style.background = 'rgba(0,0,0,0.8)';
+                msg.style.color = 'white';
+                msg.style.padding = '12px 18px';
+                msg.style.borderRadius = '8px';
+                msg.style.zIndex = 9999;
+                document.body.appendChild(msg);
+
+                // Reset form state shortly after and then redirect using server-provided URL
+                setTimeout(() => {
+                  formEl.reset();
+                  document.getElementById('photosName').textContent = '';
+                  container.classList.remove('success');
+                }, 600);
+
+                // If backend returned a redirect_url, navigate there. Wait a short
+                // moment so the user sees the success message.
+                if (json.redirect_url) {
+                  setTimeout(() => {
+                    window.location.href = json.redirect_url;
+                  }, 900);
+                }
+              } else {
+                console.error('Submission failed:', json);
+                alert('Submission failed. Please try again.');
+                container.classList.remove('success');
+              }
+            })
+            .catch((err) => {
+              console.error('Error submitting form', err);
+              alert('Error submitting form. Please try again later.');
+              container.classList.remove('success');
+            });
+        });
+
+      // Add focus animation to labels
+      const inputs = document.querySelectorAll("input, textarea, select");
+      inputs.forEach((input) => {
+        input.addEventListener("focus", function () {
+          const label = this.previousElementSibling;
+          if (label && label.tagName === "LABEL") {
+            label.style.color = "#ff6b6b";
+            label.style.transform = "scale(1.05)";
+          }
+        });
+
+        input.addEventListener("blur", function () {
+          const label = this.previousElementSibling;
+          if (label && label.tagName === "LABEL") {
+            label.style.color = "#c44569";
+            label.style.transform = "scale(1)";
+          }
+        });
+      });
+
+      // Add gentle pulse to rings icon
+      setInterval(() => {
+        const rings = document.querySelector(".rings-icon");
+        rings.style.transform = "scale(1.1)";
+        setTimeout(() => {
+          rings.style.transform = "scale(1)";
+        }, 200);
+      }, 3000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1039 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Support Request</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Responsive styles for mobile devices */
+        @media (max-width: 480px) {
+            .glass-effect {
+                padding: 10px !important;
+                border-radius: 12px !important;
+            }
+            .section-card {
+                padding: 12px !important;
+                margin-bottom: 16px !important;
+            }
+            .text-4xl {
+                font-size: 1.5rem !important;
+            }
+            .text-xl {
+                font-size: 1.1rem !important;
+            }
+            .rounded-2xl {
+                border-radius: 12px !important;
+            }
+            .p-8 {
+                padding: 12px !important;
+            }
+            .w-full.max-w-md.mx-auto {
+                max-width: 98vw !important;
+                padding: 0 4px !important;
+            }
+            .file-upload-area {
+                padding: 12px !important;
+            }
+            .submit-btn {
+                padding: 12px 0 !important;
+                font-size: 1rem !important;
+            }
+            .preview-content {
+                padding: 8px !important;
+                border-radius: 12px !important;
+            }
+            .preview-section {
+                padding: 0.7rem !important;
+            }
+            .flex.items-center.justify-center.w-20.h-20 {
+                width: 56px !important;
+                height: 56px !important;
+            }
+        }
+        @media (max-width: 640px) {
+            .section-card h2 {
+                display: flex !important;
+                align-items: center !important;
+                gap: 0.5rem !important;
+                font-size: 1.1rem !important;
+                flex-direction: row !important;
+            }
+            .section-card h2 i {
+                margin-bottom: 0 !important;
+            }
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .input-focus {
+            transition: all 0.3s ease;
+        }
+        
+        .input-focus:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .file-upload-area {
+            transition: all 0.3s ease;
+        }
+        
+        .file-upload-area:hover {
+            border-color: #667eea;
+            background-color: rgba(102, 126, 234, 0.05);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .success-message {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Custom Dropdown Styles */
+        .dropdown-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .dropdown-trigger {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-trigger:hover {
+            border-color: #667eea;
+            transform: translateY(-1px);
+        }
+        
+        .dropdown-trigger.active {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown-arrow.rotate {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 50;
+        }
+        
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f3f4f6;
+            transform: translateX(4px);
+        }
+        
+        .dropdown-item.selected {
+            background-color: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+        }
+        
+        /* Enhanced animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+            }
+        }
+        
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .section-card {
+            animation: slideUp 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .section-card:nth-child(1) { animation-delay: 0.1s; }
+        .section-card:nth-child(2) { animation-delay: 0.2s; }
+        .section-card:nth-child(3) { animation-delay: 0.3s; }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* File upload animation */
+        .file-item {
+            animation: fileSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes fileSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Required field indicator */
+        .required-indicator {
+            color: #ef4444;
+            font-weight: bold;
+            margin-left: 2px;
+        }
+        
+        .optional-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+            font-style: italic;
+            margin-left: 2px;
+        }
+        
+        /* Preview Modal Styles */
+        .preview-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .preview-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .preview-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .preview-modal.show .preview-content {
+            transform: scale(1);
+        }
+        
+        .preview-section {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1.5rem;
+        }
+        
+        .preview-section:last-child {
+            border-bottom: none;
+        }
+        
+        .preview-label {
+            font-weight: 600;
+            color: #4b5563;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items:center;
+        }
+        
+        .preview-value {
+            color: #1f2937;
+            margin-left: 1.5rem;
+        }
+        
+        .preview-file {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .confirm-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .confirm-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+        }
+        
+        .edit-btn {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .edit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(107, 114, 128, 0.4);
+        }
+
+
+        .container {
+                margin: 0;
+                /* draw page to exact A4 area */
+                width: 210mm;
+                height: 297mm;
+                padding: 20mm 20mm 0 20mm;
+                box-shadow: none !important;
+                border: none !important;
+                box-sizing: border-box;
+                position: relative;
+                overflow: hidden;
+            }
+
+            /* Page 1 rings (Page 2 and Page 3 stay plain) */
+            .container:first-of-type::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                box-sizing: border-box;
+                border: 14px solid #1976D2;
+                /* blue ring */
+                pointer-events: none;
+            }
+
+            .container:first-of-type::after {
+                content: '';
+                position: absolute;
+                /* inset inside the blue ring */
+                top: 14px;
+                right: 14px;
+                bottom: 14px;
+                left: 14px;
+                box-sizing: border-box;
+                border: 12px solid #FF6600;
+                /* orange inner ring */
+                pointer-events: none;
+            }
+
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .main-logo {
+            height: 86px;
+            /* increased main logo height */
+            width: auto;
+            margin-top: -50px;
+            /* move slightly upward */
+            margin-bottom: 15px;
+        }
+
+        .sub-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 42px;
+            margin-bottom: 60px;
+            /* increased space before the photo container */
+            flex-wrap: nowrap; /* Ensure logos stay in one line */
+        }
+
+        .sub-logos img {
+            height: 40px;
+        }
+
+        /* Banner Container Responsive Styles */
+        .banner-container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .logo-responsive {
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-responsive:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive adjustments for banner container */
+        @media (max-width: 768px) {
+            .banner-container {
+                padding: 1rem !important;
+            }
+            .sub-logos {
+                flex-direction: row !important; /* Keep logos in one line on tablets */
+                gap: 1rem !important;
+                flex-wrap: nowrap !important;
+            }
+            .sub-logos img {
+                height: 30px !important;
+                max-width: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .banner-container {
+                padding: 0.75rem !important;
+                margin: 5px 1rem !important;
+            }
+            .sub-logos {
+                gap: 1.75rem !important;
+                flex-wrap: nowrap !important; /* Keep logos in one line on mobile */
+            }
+            .sub-logos img {
+                height: 25px !important;
+                max-width: 120px;
+            }
+        }
+
+
+
+
+
+        * Footer row is RTL, so the leftmost box is the last child */
+        .footer-container .office-box:last-child {
+            padding-left: 28px;
+            /* nudge a bit more so it clears the border */
+        }
+
+        .footer-container .office-box:last-child .office-details,
+        .footer-container .office-box:last-child .office-header {
+            padding-left: 6px;
+            /* micro-adjust inner content */
+        }
+
+        .vadodara-office {
+            background-color: #8ccfee;
+        }
+
+        .amdavad-office {
+            background-color: #f5d418;
+        }
+
+        .maninagar-office {
+            background-color: #e765b5;
+        }
+
+        .office-header {
+            font-weight: bold;
+            font-size: 17px;
+            /* a bit smaller */
+            margin-bottom: 4px;
+            /* tighter */
+            /* tighter */
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .office-header hr {
+            border: none;
+            border-top: 2px solid white;
+            margin: 3px 0 6px 0;
+            /* tighter */
+            /* reduce whitespace around rule */
+            width: 100%;
+        }
+
+        .office-details {
+            font-size: 13px;
+            text-align: left;
+            line-height: 1.45;
+            /* slightly tighter */
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen py-8 px-4">
+
+<!-- Header -->
+        <div class="header">
+            <!-- <img id="mainLogo" class="main-logo" src="img1.png"
+                alt="Main Header Logo">Set main header logo URL here -->
+        </div>
+        <div class="banner-container bg-white rounded-lg shadow-lg p-4 mb-6">
+            <div class="sub-logos">
+                <img id="subLogoLeft" src="{% static 'images/img3.png' %}" alt="Left Logo" class="logo-responsive"><!-- Left sub-logo URL -->
+                <img id="subLogoCenter" src="{% static 'images/img4.png' %}" alt="Center Logo" class="logo-responsive"><!-- Center sub-logo URL -->
+                <img id="subLogoRight1" src="{% static 'images/img5.png' %}" alt="Right Logo 1" class="logo-responsive"><!-- Right sub-logo 1 URL -->
+                <!-- <img id="subLogoRight2" src="{% static 'images/img5.png' %}" alt="Right Logo 2" class="logo-responsive">Right sub-logo 2 URL -->
+            </div>
+            <div class="logo-links flex flex-col items-start gap-1 text-lg font-semibold mt-1" style="z-index: 10; position: relative;">
+                <a href="https://BhudevNetworkVivah.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">BhudevNetworkVivah.com</a>
+                <a href="https://NRI.BhudevNetworkVivah.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">NRI.BhudevNetworkVivah.com</a>
+                <a href="https://All.BhudevNetworkVivah.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">All.BhudevNetworkVivah.com</a>
+            </div>
+        </div>
+
+    <div class="w-full max-w-md mx-auto px-2 md:px-0">
+        <!-- Header -->
+        <div class="text-center mb-8 fade-in">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full mb-4 shadow-lg pulse">
+                <i class="fas fa-headset text-3xl text-purple-600"></i>
+            </div>
+            <h1 class="text-4xl font-bold text-white mb-2">Technical Support Request</h1>
+            <p class="text-purple-100">We're here to help you solve your technical Problems</p>
+        </div>
+
+        <!-- Success Message (Hidden by default) -->
+        <div id="successMessage" class="hidden success-message mb-6 glass-effect rounded-lg p-4 text-center">
+            <i class="fas fa-check-circle text-green-500 text-2xl mb-2"></i>
+            <p class="text-green-700 font-semibold">Your support request has been submitted successfully!</p>
+            <p class="text-gray-600 text-sm mt-1">We'll get back to you within 24 hours.</p>
+        </div>
+
+        <!-- Confirmation Modal (Hidden by default) -->
+        <div id="confirmationModal" class="preview-modal">
+            <div class="preview-content bg-white rounded-lg shadow-lg p-8 max-w-lg mx-auto text-center">
+                <i class="fas fa-check-circle text-green-500 text-5xl mb-4"></i>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Request Submitted!</h2>
+                <p class="text-gray-700 mb-4">Your support request has been submitted successfully.<br>We'll get back to you within 24 hours.</p>
+                <div class="mt-4 text-left">
+                    <div class="mb-2"><strong>Image(s):</strong> <span id="confirmationImages"></span></div>
+                    <div class="mb-2"><strong>Description:</strong> <span id="confirmationDescription"></span></div>
+                </div>
+                <a href="/" class="confirm-btn px-8 py-3 text-white font-semibold rounded-lg">Go to Home</a>
+            </div>
+        </div>
+
+        <!-- Main Form -->
+        <div class="glass-effect rounded-2xl shadow-2xl p-8">
+            {% if form.errors %}
+            <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                <strong>Form validation failed:</strong>
+                <ul class="mt-2 list-disc list-inside">
+                {% for field, errors in form.errors.items %}
+                    <li><strong>{{ field|capfirst }}:</strong> {{ errors|striptags }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <form method="post" id="supportForm" class="space-y-6" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- Personal Information Section -->
+                <div class="bg-gray-50 rounded-lg p-6 section-card">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-user-circle mr-2 text-purple-600"></i>
+                        Personal Information
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="w-full">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                First Name<span class="required-indicator">*</span>
+                            </label>
+                            <input type="text" id="first_name" name="first_name" 
+                                   class="input-focus w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                        </div>
+                        
+                        <div class="col-span-2 md:col-span-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Last Name<span class="required-indicator">*</span>
+                            </label>
+                            <input type="text" id="last_name" name="last_name" 
+                                   class="input-focus w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                        </div>
+                        
+                        <div class="col-span-2 md:col-span-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                            City<span class="required-indicator">*</span>
+                            </label>
+                            <input type="text" id="city" name="city" 
+                                   class="input-focus w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                        </div>
+                        
+                        <div class="col-span-2 md:col-span-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Phone Number<span class="required-indicator">*</span>
+                            </label>
+                            <input type="tel" id="phone" name="phone" 
+                                   class="input-focus w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                        </div>
+                    </div>
+
+                    <!-- WhatsApp Number Field -->
+                    <div class="grid md:grid-cols-2 gap-4 mt-6">
+                        <div class="w-full">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                WhatsApp Number <span class="optional-label">(Optional)</span>
+                            </label>
+                            <input type="tel" id="whatsapp_number" name="whatsapp_number" 
+                                   class="input-focus w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" 
+                                   placeholder="">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Issue Description Section (with integrated category dropdown) -->
+                <div class="bg-gray-50 rounded-lg p-6 section-card">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-file-alt mr-2 text-purple-600"></i>
+                        Problem Details<span class="required-indicator">*</span>
+                    </h2>
+                    
+                    <!-- Issue Category Dropdown -->
+                    <div class="mb-1s">
+                        <label class="block font-medium text-gray-700 mb-1s">
+                            Problem Category<span class="required-indicator">*</span>
+                        </label>
+                        <div class="dropdown-container">
+                            <div class="dropdown-trigger flex items-center justify-between px-4 py-3 border border-gray-300 rounded-lg bg-white w-full" id="categoryDropdown" style="min-height:48px;">
+                                <div class="flex items-center">
+                                    <i id="selectedIcon" class="fas fa-question-circle text-gray-400 mr-3"></i>
+                                    <span id="selectedText" class="text-gray-500">Select a category</span>
+                                </div>
+                                <i class="fas fa-chevron-down dropdown-arrow text-gray-400"></i>
+                            </div>
+                            
+                            <div class="dropdown-menu" id="dropdownMenu">
+                                <div class="dropdown-item px-4 py-3 cursor-pointer flex items-center w-full" style="min-height:48px;" data-value="login_issue" data-icon="fa-sign-in-alt">
+                                    <i class="fas fa-sign-in-alt text-gray-600 mr-3"></i>
+                                    <div>
+                                        <div class="font-medium text-gray-800">Login Problem</div>
+                                        <div class="text-sm text-gray-500">Problems with logging in</div>
+                                    </div>
+                                </div>
+                                <div class="dropdown-item px-4 py-3 cursor-pointer flex items-center w-full" style="min-height:48px;" data-value="photo_update" data-icon="fa-camera">
+                                    <i class="fas fa-camera text-gray-600 mr-3"></i>
+                                    <div>
+                                        <div class="font-medium text-gray-800">Photo Update</div>
+                                        <div class="text-sm text-gray-500">Problems with updating photos</div>
+                                    </div>
+                                </div>
+                                <div class="dropdown-item px-4 py-3 cursor-pointer flex items-center w-full" style="min-height:48px;" data-value="bio_data_posting" data-icon="fa-file-alt">
+                                    <i class="fas fa-file-alt text-gray-600 mr-3"></i>
+                                    <div>
+                                        <div class="font-medium text-gray-800">Bio Data Posting</div>
+                                        <div class="text-sm text-gray-500">Problems with posting bio data</div>
+                                    </div>
+                                </div>
+                                <div class="dropdown-item px-4 py-3 cursor-pointer flex items-center w-full" style="min-height:48px;" data-value="other" data-icon="fa-question-circle">
+                                    <i class="fas fa-question-circle text-gray-600 mr-3"></i>
+                                    <div>
+                                        <div class="font-medium text-gray-800">Other</div>
+                                        <div class="text-sm text-gray-500">General Inquiries / Other Problems</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="category" name="category" required>
+                    </div>
+                    
+                    <!-- Issue Description Textarea -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Description<span class="required-indicator">*</span>
+                        </label>
+                        <textarea id="description" name="description" rows="5" placeholder="Please provide detailed information about your Problem..." 
+                                  class="input-focus w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500 resize-none" required></textarea>
+                        <p class="text-sm text-gray-500 mt-1">The more details you provide, the better we can assist you.</p>
+                    </div>
+                </div>
+
+                <!-- File Upload Section -->
+                <div class="bg-gray-50 rounded-lg p-6 section-card">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-paperclip mr-2 text-purple-600"></i>
+                        Problems Screen-Shot <span class="optional-label"> (Optional)</span>
+                    </h2>
+                    <div class="file-upload-area bg-white border-2 border-dashed border-purple-300 rounded-xl flex flex-col items-center justify-center p-6 mt-6 shadow-lg">
+                        <i class="fas fa-cloud-upload-alt text-5xl text-purple-400 mb-4"></i>
+                        <p class="text-lg text-purple-700 mb-2 text-center font-semibold">Drag and drop files here or click to browse</p>
+                        <p class="text-xs text-gray-500 text-center mb-4">Maximum file size: 10MB. Supported formats: JPG, PNG, PDF, DOC, DOCX</p>
+                        <input type="file" id="attachments" name="attachments" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" class="hidden">
+                        <button type="button" onclick="document.getElementById('attachments').click()" 
+                                class="mt-2 px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition w-full sm:w-auto text-center font-bold shadow-md">
+                            Choose Files
+                        </button>
+                    </div>
+                    <div id="fileList" class="mt-2 sm:mt-4 space-y-2 w-full"></div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-center pt-6 section-card">
+                    <button type="submit" class="submit-btn w-full px-6 py-4 text-white font-semibold rounded-lg flex items-center justify-center">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Submit Request
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 text-purple-100 fade-in">
+            <p class="text-sm">
+                <i class="fas fa-clock mr-1"></i>
+                Average response time: 24-48 hours during business hours
+            </p>
+            <p class="text-sm mt-1">
+                <i class="fas fa-phone mr-1"></i>
+                Need immediate help ? Call or WhatsApp us at below Numbers :   (Phone Timings : Morning 10 am to 5 pm (IST) only, all 7 Days of Week, 365 days of Year) : 
+
+                +91 9099048986 ,
+                +91 9773231648 ,
+                +91 9099798986   or 
+                +91 6352144677
+            </p>
+        </div>
+    </div>
+
+<br>
+    <!-- Footer Section -->
+        <div class="footer-section">
+            <!-- Optional decorative divider above the site logos -->
+                       <div class="footer-container">
+
+                 <div class="office-box vadodara-office">
+                    <div class="office-header">
+                        VADODARA
+                        <hr>
+                    </div>
+                    <div class="office-details">
+                        601, 602, 603, 604 A, 6th Floor<br> 6th Floor Galav Chambers, Dairy Den Circle, Sayajiganj
+                        Vadodara - 390020 <br>
+                        9099798986, 9081522111
+                    </div>
+                </div>
+
+               
+                <br>
+                <div class="office-box amdavad-office">
+                    <div class="office-header">
+                        AMDAVAD
+                        <hr>
+                    </div>
+                    <div class="office-details">
+                        A-703, 7th Floor,Nar -Naryan Complex,Near<br>
+                        Swastik Char Rasta, Opp Navrangpura Post office, Navrangpura Amdavad - 380009 <br>
+                        9099798986, 9081522111
+                    </div>
+                </div>
+                <br>
+                <div class="office-box maninagar-office">
+                    <div class="office-header">
+                        MANINAGAR
+                        <hr>
+                    </div>
+                    <div class="office-details">
+                        S/9, Shukun Plaza, Second Floor, <br> OOpp. Nagar Farsan, Near Pruthvi Hotels, Maninagar,
+                        Amdavad 380008 9099798986, 9081522111.</div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+    <script>
+        // Form submission with AJAX
+        const form = document.getElementById('supportForm');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Validate form
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...';
+            submitBtn.disabled = true;
+
+            // Prepare form data
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.success) {
+                        // Show confirmation modal and fill image/description
+                        const images = Array.from(document.getElementById('attachments').files).map(f => f.name).join(', ');
+                        document.getElementById('confirmationImages').textContent = images || 'No images attached';
+                        document.getElementById('confirmationDescription').textContent = document.getElementById('description').value;
+                        document.getElementById('confirmationModal').classList.add('show');
+
+                        form.style.display = 'none';
+                        successMessage.classList.add('hidden');
+
+                        // Reset form after showing success
+                        setTimeout(() => {
+                            form.reset();
+                            form.style.display = 'block';
+                            successMessage.classList.add('hidden');
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                            document.getElementById('confirmationModal').classList.remove('show');
+                        }, 5000);
+                    } else {
+                        alert('Error: ' + result.message);
+                    }
+                } else {
+                    const errorText = await response.text();
+                    alert(`Error: ${errorText}`);
+                    return;
+                }
+            } catch (error) {
+                alert('An unexpected error occurred. Please try again later.');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Dropdown functionality
+        const dropdownTrigger = document.getElementById('categoryDropdown');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        const selectedText = document.getElementById('selectedText');
+        const selectedIcon = document.getElementById('selectedIcon');
+        const hiddenInput = document.getElementById('category');
+
+        dropdownTrigger.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('show');
+        });
+
+        dropdownMenu.addEventListener('click', (e) => {
+            const item = e.target.closest('.dropdown-item');
+            if (item) {
+                const value = item.getAttribute('data-value');
+                const iconClass = item.getAttribute('data-icon');
+                const text = item.querySelector('.font-medium').textContent;
+
+                hiddenInput.value = value;
+                selectedText.textContent = text;
+                selectedIcon.className = `fas ${iconClass} text-gray-400 mr-3`;
+
+                dropdownMenu.classList.remove('show');
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+
+        // Image preview functionality
+        const fileUpload = document.getElementById('attachments');
+        const fileList = document.getElementById('fileList');
+
+        fileUpload && fileUpload.addEventListener('change', () => {
+            fileList.innerHTML = '';
+            const files = fileUpload.files;
+            for (const file of files) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const preview = document.createElement('div');
+                    preview.className = 'preview-file';
+                    preview.innerHTML = `
+                        <img src="${e.target.result}" alt="${file.name}" class="w-16 h-16 object-cover rounded-lg mr-4">
+                        <span class="text-gray-700">${file.name}</span>
+                    `;
+                    fileList.appendChild(preview);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Preview feature before submission
+        const previewModal = document.createElement('div');
+        previewModal.className = 'preview-modal';
+        previewModal.innerHTML = `
+            <div class="preview-content bg-white rounded-lg shadow-lg p-6 max-w-lg mx-auto">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Preview Your Request</h2>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-gray-600">First Name:</span>
+                        <span id="previewFirstName" class="text-gray-800"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-gray-600">Last Name:</span>
+                        <span id="previewLastName" class="text-gray-800"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-gray-600">Email:</span>
+                        <span id="previewEmail" class="text-gray-800"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-gray-600">Phone:</span>
+                        <span id="previewPhone" class="text-gray-800"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-gray-600">Category:</span>
+                        <span id="previewCategory" class="text-gray-800"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-gray-600">Description:</span>
+                        <span id="previewDescription" class="text-gray-800"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-gray-600">WhatsApp Number:</span>
+                        <span id="previewWhatsAppNumber" class="text-gray-800"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-gray-600">Attach Files:</span>
+                        <span id="previewAttachFiles" class="text-gray-800"></span>
+                    </div>
+                </div>
+                <div class="flex justify-end mt-6 space-x-4">
+                    <button id="confirmSubmit" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">Confirm</button>
+                    <button id="cancelPreview" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition">Cancel</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(previewModal);
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Populate preview modal
+            document.getElementById('previewFirstName').textContent = document.getElementById('first_name').value;
+            document.getElementById('previewLastName').textContent = document.getElementById('last_name').value;
+            document.getElementById('previewEmail').textContent = document.getElementById('city').value;
+            document.getElementById('previewPhone').textContent = document.getElementById('phone').value;
+            document.getElementById('previewCategory').textContent = document.getElementById('selectedText').textContent;
+            document.getElementById('previewDescription').textContent = document.getElementById('description').value;
+            document.getElementById('previewWhatsAppNumber').textContent = document.getElementById('whatsapp_number').value;
+            const fileInput = document.getElementById('attachments');
+            const files = fileInput.files;
+            let fileNames = [];
+            for (let i = 0; i < files.length; i++) {
+                fileNames.push(files[i].name);
+            }
+            document.getElementById('previewAttachFiles').textContent = fileNames.length ? fileNames.join(', ') : 'No files attached';
+
+            // Show preview modal
+            previewModal.classList.add('show');
+        });
+
+        document.getElementById('confirmSubmit').addEventListener('click', () => {
+            previewModal.classList.remove('show');
+            form.submit();
+        });
+
+        document.getElementById('cancelPreview').addEventListener('click', () => {
+            previewModal.classList.remove('show');
+        });
+    </script>
+{% include 'biodata/employa_footer.html' %}
+</body>
+</html>
+

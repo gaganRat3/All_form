@@ -1,0 +1,351 @@
+{% load static %}
+{% block content %}
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #222;
+        background: #f7f8fa;
+        min-height: 100vh;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+        overscroll-behavior-y: none;
+        overflow-x: hidden;
+        padding: 32px 0 120px 0;
+        position: relative;
+    }
+    .form-container {
+        max-width: 430px;
+        margin: 32px auto 32px auto;
+        background: #fff;
+        padding: 32px 28px 26px 28px;
+        border-radius: 20px;
+        box-shadow: 0 6px 32px 0 rgba(44, 62, 80, 0.13);
+        box-sizing: border-box;
+        border: 1.5px solid #e3e7ee;
+        transition: box-shadow 0.2s;
+        position: relative;
+    }
+    .form-container:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0; right: 0; top: 0;
+        height: 6px;
+        border-radius: 20px 20px 0 0;
+        background: linear-gradient(90deg, #4f8cff 0%, #6f6cff 100%);
+    }
+    .form-container:focus-within {
+        box-shadow: 0 10px 44px 0 rgba(44, 62, 80, 0.18);
+    }
+    .form-container h2 {
+        text-align: center;
+        color: #4f8cff;
+        font-weight: 800;
+        margin-bottom: 22px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1.5rem;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 8px rgba(79,140,255,0.08);
+    }
+    @media (max-width: 800px) {
+        .form-container {
+            max-width: 98vw;
+            padding: 18px 6vw 18px 6vw;
+        }
+        .form-container h2 {
+            font-size: 1.3rem;
+        }
+    }
+    @media (max-width: 480px) {
+        html, body {
+            padding: 8px 0 80px 0;
+        }
+        .form-container {
+            max-width: 100vw;
+            margin: 8px 0 16px 0;
+            padding: 8px 2vw 12px 2vw;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(44,62,80,0.10);
+        }
+        .form-container h2 {
+            font-size: 1.1rem;
+            margin-bottom: 18px;
+        }
+    }
+    .form-group {
+        margin-bottom: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        background: #f7f8fa;
+        border-radius: 10px;
+        padding: 12px 14px 10px 14px;
+        box-shadow: 0 1px 4px rgba(44,62,80,0.04);
+        border: 1px solid #e3e7ee;
+        margin-top: 10px;
+    }
+    .form-group:not(:first-child) {
+        margin-top: 18px;
+    }
+    label {
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #4f4f6f;
+        font-size: 1rem;
+        letter-spacing: 0.1px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    input[type="text"], input[type="email"], select, input[type="file"], textarea {
+        padding: 11px 13px;
+        font-size: 1rem;
+        border: 1.5px solid #bfc9d9;
+        border-radius: 7px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #fff;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        box-shadow: 0 1px 4px rgba(44,62,80,0.04);
+    }
+    input[type="text"]:focus, input[type="email"]:focus, select:focus, input[type="file"]:focus, textarea:focus {
+        border-color: #6f6cff;
+        outline: none;
+        background: #f7f8fa;
+        box-shadow: 0 2px 8px rgba(79,140,255,0.10);
+    }
+    input[readonly] {
+        background-color: #f2f4f8;
+        cursor: not-allowed;
+    }
+    button[type="submit"] {
+        width: 100%;
+        padding: 14px;
+        font-size: 1.12rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #4f8cff 0%, #6f6cff 100%);
+        border: none;
+        border-radius: 9px;
+        color: #fff;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(79,140,255,0.10);
+        transition: background 0.2s, box-shadow 0.2s;
+        margin-top: 8px;
+    }
+    button[type="submit"]:hover {
+        background: linear-gradient(90deg, #6f6cff 0%, #4f8cff 100%);
+        box-shadow: 0 6px 18px rgba(79,140,255,0.16);
+    }
+    .payment-info p {
+        font-size: 0.98rem;
+        color: #2c3e50;
+        margin: 4px 0;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .payment-info img {
+        width: 110px;
+        height: 110px;
+        margin-top: 8px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(44,62,80,0.08);
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1.5px solid #e3e7ee;
+    }
+
+    /* Custom checkbox and radio styles */
+    input[type="checkbox"], input[type="radio"] {
+        accent-color: #4f8cff;
+        width: 18px;
+        height: 18px;
+        margin-right: 7px;
+        vertical-align: middle;
+    }
+    .form-group > div > div, .form-group > div > label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 4px;
+    }
+    .form-group > div > div:last-child, .form-group > div > label:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Section divider */
+    .form-group:not(:last-child) {
+        border-bottom: 1px solid #e3e7ee;
+        padding-bottom: 14px;
+    }
+</style>
+
+<div class="form-container">
+    <h2>Advance Booklet Booking Form</h2>
+    {% if form.errors %}
+      <div class="form-errors" style="color: red;">
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li>{{ field.label }}: {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data" id="bookletBookingForm">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">1. Your Name:</label>
+            {{ form.name }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.city.id_for_label }}">2. Your City:</label>
+            {{ form.city }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.whatsapp_number.id_for_label }}">3. Your WhatsApp Number:</label>
+            {{ form.whatsapp_number }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">4. Your Email ID:</label>
+            {{ form.email }}
+        </div>
+
+        <div class="form-group">
+            <div style="font-size:1.08rem; line-height:1.7;">
+                <p style="font-weight:700; color:#4f8cff; margin-bottom:10px;">➡️ Total 28 Flip-Book</p>
+                <ul style="margin-left:18px;">
+                    <li>Total Biodata = 11,000+</li>
+                    <li>Girls Biodata = 3,000+</li>
+                    <li>Boys Biodata = 8,000+</li>
+                </ul>
+                <p style="font-weight:700; color:#4f8cff; margin:18px 0 8px 0;">➡️ Each Flip-Book = Rs 500</p>
+                <p style="font-weight:700; color:#4f8cff; margin:18px 0 8px 0;">➡️ Combo Offer :</p>
+                <ul style="margin-left:18px;">
+                    <li>All 12 Girls Biodata Flip-Book<br>
+                        = Rs 500 x 12 = Rs 6,000<br>
+                        <span style="color:#27ae60; font-weight:700;">Offer Price = Rs 2,100</span>
+                    </li>
+                    <li style="margin-top:10px;">All 16 Boys Biodata Flip-Book<br>
+                        = Rs 500 x 16 = Rs 8,000<br>
+                        <span style="color:#27ae60; font-weight:700;">Offer Price = Rs 3,900</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label style="font-weight:700; margin-bottom:12px; display:block;">6. Select Your Flip-Books:</label>
+            <div style="margin-left:15px; display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:16px;">
+                <div><input type="checkbox" name="flipbook" id="id_fb_34_mela_girl" value="34_mela_girl" class="flipbook-checkbox" /><label for="id_fb_34_mela_girl" style="margin-bottom:0; font-weight:400;">34 Mela Girl Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_34_mela_boy" value="34_mela_boy" class="flipbook-checkbox" /><label for="id_fb_34_mela_boy" style="margin-bottom:0; font-weight:400;">34 Mela Boy Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_33_guj_girls" value="33_guj_girls" class="flipbook-checkbox" /><label for="id_fb_33_guj_girls" style="margin-bottom:0; font-weight:400;">33 Mela Gujarat Girls</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_33_saur_girls" value="33_saur_girls" class="flipbook-checkbox" /><label for="id_fb_33_saur_girls" style="margin-bottom:0; font-weight:400;">33 Mela Saurashtra Girls</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_33_saur_boys" value="33_saur_boys" class="flipbook-checkbox" /><label for="id_fb_33_saur_boys" style="margin-bottom:0; font-weight:400;">33 Mela Saurashtra Boys</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_33_nri_girls" value="33_nri_girls" class="flipbook-checkbox" /><label for="id_fb_33_nri_girls" style="margin-bottom:0; font-weight:400;">33 Mela NRI Girls</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_33_nri_boys" value="33_nri_boys" class="flipbook-checkbox" /><label for="id_fb_33_nri_boys" style="margin-bottom:0; font-weight:400;">33 Mela NRI Boys</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_33_mmr_girls" value="33_mmr_girls" class="flipbook-checkbox" /><label for="id_fb_33_mmr_girls" style="margin-bottom:0; font-weight:400;">33 MMR Girls</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_33_mmr_boys" value="33_mmr_boys" class="flipbook-checkbox" /><label for="id_fb_33_mmr_boys" style="margin-bottom:0; font-weight:400;">33 Mela MMR Boys</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_33_div_girls" value="33_div_girls" class="flipbook-checkbox" /><label for="id_fb_33_div_girls" style="margin-bottom:0; font-weight:400;">33 Mela Divorce Girls</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_33_div_boys" value="33_div_boys" class="flipbook-checkbox" /><label for="id_fb_33_div_boys" style="margin-bottom:0; font-weight:400;">33 Mela Divorce Boys</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_33_b3_boys" value="33_b3_boys" class="flipbook-checkbox" /><label for="id_fb_33_b3_boys" style="margin-bottom:0; font-weight:400;">33 Mela B3 Boys 1998-2005</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_33_b2_boys" value="33_b2_boys" class="flipbook-checkbox" /><label for="id_fb_33_b2_boys" style="margin-bottom:0; font-weight:400;">33 Mela B2 Boys 1994-1997</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_33_b1_boys" value="33_b1_boys" class="flipbook-checkbox" /><label for="id_fb_33_b1_boys" style="margin-bottom:0; font-weight:400;">33 Mela B1 Boys up to 1993</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_32_boys" value="32_boys" class="flipbook-checkbox" /><label for="id_fb_32_boys" style="margin-bottom:0; font-weight:400;">32 Mela Boys Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_32_girls" value="32_girls" class="flipbook-checkbox" /><label for="id_fb_32_girls" style="margin-bottom:0; font-weight:400;">32 Mela Girls Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_31_guj_girls" value="31_guj_girls" class="flipbook-checkbox" /><label for="id_fb_31_guj_girls" style="margin-bottom:0; font-weight:400;">31 Mela Gujarat Girls Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_31_mmr_girls" value="31_mmr_girls" class="flipbook-checkbox" /><label for="id_fb_31_mmr_girls" style="margin-bottom:0; font-weight:400;">31 Mela MMR Girls Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_31_saur_girls" value="31_saur_girls" class="flipbook-checkbox" /><label for="id_fb_31_saur_girls" style="margin-bottom:0; font-weight:400;">31 Mela Saurashtra Girls Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_31_doc_girls" value="31_doc_girls" class="flipbook-checkbox" /><label for="id_fb_31_doc_girls" style="margin-bottom:0; font-weight:400;">31 Mela Doctor Girls Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_31_mmr_boys" value="31_mmr_boys" class="flipbook-checkbox" /><label for="id_fb_31_mmr_boys" style="margin-bottom:0; font-weight:400;">31 Mela MMR Boys</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_31_saur_boys" value="31_saur_boys" class="flipbook-checkbox" /><label for="id_fb_31_saur_boys" style="margin-bottom:0; font-weight:400;">31 Mela Saurashtra Boys Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_31_doc_boys" value="31_doc_boys" class="flipbook-checkbox" /><label for="id_fb_31_doc_boys" style="margin-bottom:0; font-weight:400;">31 Mela Doctor Boys Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_31_nri_girls" value="31_nri_girls" class="flipbook-checkbox" /><label for="id_fb_31_nri_girls" style="margin-bottom:0; font-weight:400;">31 Mela NRI Girls Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_31_nri_boys" value="31_nri_boys" class="flipbook-checkbox" /><label for="id_fb_31_nri_boys" style="margin-bottom:0; font-weight:400;">31 Mela NRI Boys Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_31_b1_boys" value="31_b1_boys" class="flipbook-checkbox" /><label for="id_fb_31_b1_boys" style="margin-bottom:0; font-weight:400;">31 Mela B1 Boys Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_31_b2_boys" value="31_b2_boys" class="flipbook-checkbox" /><label for="id_fb_31_b2_boys" style="margin-bottom:0; font-weight:400;">31 Mela B2 Boys Booklet</label></div>
+                <div><input type="checkbox" name="flipbook" id="id_fb_31_b3_boys" value="31_b3_boys" class="flipbook-checkbox" /><label for="id_fb_31_b3_boys" style="margin-bottom:0; font-weight:400;">31 Mela B3 Boys Booklet</label></div>
+            </div>
+
+            <div style="background:#f0f4ff; border:2px solid #4f8cff; border-radius:10px; padding:16px; margin-top:14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <span style="font-weight:700; font-size:1.05rem;">Books Selected:</span>
+                    <span style="font-weight:700; font-size:1.2rem; color:#4f8cff;" id="booksCount">0</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <span style="font-weight:700; font-size:1.05rem;">Price Breakdown:</span>
+                    <span style="font-weight:700; font-size:1rem; color:#666;" id="priceBreakdown">-</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:2px solid #4f8cff;">
+                    <span style="font-weight:700; font-size:1.15rem;">Total Amount (₹):</span>
+                    <span style="font-weight:700; font-size:1.4rem; color:#27ae60;" id="flipbookTotal">0</span>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function calculateFlipbookTotal() {
+                const checkboxes = document.querySelectorAll('.flipbook-checkbox:checked');
+                const count = checkboxes.length;
+                
+                let total = 0;
+                if (count === 0) {
+                    total = 0;
+                } else if (count === 1) {
+                    total = 500;
+                } else {
+                    total = 500 + ((count - 1) * 300);
+                }
+                
+                document.getElementById('booksCount').textContent = count;
+                document.getElementById('flipbookTotal').textContent = total;
+                
+                if (count === 0) {
+                    document.getElementById('priceBreakdown').textContent = '-';
+                } else if (count === 1) {
+                    document.getElementById('priceBreakdown').textContent = '₹500';
+                } else {
+                    document.getElementById('priceBreakdown').textContent = '₹500 + (' + (count - 1) + ' × ₹300)';
+                }
+            }
+            
+            window.addEventListener('DOMContentLoaded', function() {
+                const checkboxes = document.querySelectorAll('.flipbook-checkbox');
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.addEventListener('change', calculateFlipbookTotal);
+                });
+                calculateFlipbookTotal();
+            });
+        </script>
+
+    
+        <div class="form-group payment-info">
+            <p style="font-weight: 700;">7. Payment Process:</p>
+            <p>Pay via GPay number: 1234567890</p>
+            <img src="{% static 'images/gpay_qr_code.jpeg' %}" alt="GPay QR Code" />
+        </div>
+
+            <div class="form-group">
+                <label for="candidate_name_dob" style="font-weight:700;">8. Candidate Name & Date of Birth</label>
+                <input type="text" id="candidate_name_dob" name="candidate_name_dob" placeholder="Enter Candidate Name & Date of Birth" style="width:100%; padding:10px; border-radius:8px; border:2px solid #2c3e50; margin-top:5px;" />
+            </div>
+
+        <div class="form-group">
+            <label for="{{ form.payment_screenshot.id_for_label }}">9. Attach Your Payment Success Screenshot:</label>
+            {{ form.payment_screenshot }}
+        </div>
+        <div class="form-group">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+    <!-- Cleaned up: Only the working real-time checkbox total logic remains above. -->
+{% endblock %}

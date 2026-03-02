@@ -1,0 +1,1205 @@
+{% load static %}
+{% block content %}
+<style>
+    /* ===== CSS CUSTOM PROPERTIES - WARM CORAL THEME ===== */
+    :root {
+        /* Primary Color Palette - Warm Coral/Orange Theme */
+        --primary-light: #FFF5F2;
+        --primary-medium: #FFBFA6;
+        --primary-dark: #E8744A;
+        --primary-darkest: #D63384;
+        --accent-primary: #FF6B35;
+        --accent-secondary: #F59E0B;
+        
+        /* Coral Theme Variations */
+        --coral-light: #FEF2F2;
+        --coral-medium: #FCA5A5;
+        --coral-dark: #DC2626;
+        --coral-accent: #EF4444;
+        
+        /* Warm Orange Shades */
+        --orange-light: #FEF3C7;
+        --orange-medium: #F59E0B;
+        --orange-dark: #D97706;
+        --orange-accent: #FBBF24;
+        
+        /* Text Colors */
+        --text-dark: #374151;
+        --text-light: #FFFFFF;
+        --text-muted: #6B7280;
+        --text-accent: #DC2626;
+        
+        /* UI Elements */
+        --border-color: #FFD4CC;
+        --border-focus: #FF6B35;
+        --background-glass: rgba(255, 255, 255, 0.96);
+        
+        /* Shadows with warm tints */
+        --shadow-sm: 0 2px 8px rgba(220, 38, 38, 0.08);
+        --shadow: 0 4px 15px rgba(239, 68, 68, 0.12);
+        --shadow-lg: 0 8px 25px rgba(220, 38, 38, 0.15);
+        --shadow-xl: 0 12px 30px rgba(239, 68, 68, 0.2);
+        
+        /* Section Header Colors - Modern Blue/Teal Theme */
+        --section-bg: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
+        --section-border: #0EA5E9;
+        --section-text: #0C4A6E;
+        --section-shadow: 0 2px 12px rgba(14, 165, 233, 0.15);
+        
+        /* Alternative color options - uncomment to use */
+        /* Green Theme */
+        /* --section-bg: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%); */
+        /* --section-border: #10B981; */
+        /* --section-text: #064E3B; */
+        
+        /* Purple Theme */
+        /* --section-bg: linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%); */
+        /* --section-border: #8B5CF6; */
+        /* --section-text: #581C87; */
+        
+        /* Navy Theme */
+        /* --section-bg: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%); */
+        /* --section-border: #334155; */
+        /* --section-text: #0F172A; */
+        
+        /* Spacing */
+        --spacing-xs: 8px;
+        --spacing-sm: 12px;
+        --spacing-md: 16px;
+        --spacing-lg: 24px;
+        --spacing-xl: 32px;
+        
+        /* Border Radius */
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --radius-xl: 20px;
+        
+        /* Typography */
+        --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        --font-family-gujarati: 'Noto Sans Gujarati', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        
+        /* Transitions */
+        --transition-fast: 0.2s ease;
+        --transition-smooth: 0.3s ease;
+    }
+</style>
+
+<div class="event-header-gujarati">
+    <span>
+        35th સમસ્ત બ્રાહ્મણ - ભુદેવ જીવનસાથી પસંદગી સંમેલન
+    </span>
+</div>
+<style>
+    /* ===== BASE STYLES ===== */
+    * {
+        box-sizing: border-box;
+    }
+    
+    html {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: var(--gradient-background);
+        scroll-behavior: smooth;
+        font-size: 16px;
+    }
+    
+    body {
+        margin: 0;
+        padding: var(--spacing-xl) 0 0 0;
+        font-family: var(--font-family);
+        color: var(--text-dark);
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+        line-height: 1.6;
+    }
+    
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0; 
+        left: 0; 
+        right: 0; 
+        bottom: 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.08;
+        background: 
+            radial-gradient(circle at 25% 25%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 75% 75%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(239, 68, 68, 0.05) 0%, transparent 50%);
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0 0 var(--spacing-md) 0;
+        font-weight: 700;
+        line-height: 1.4;
+        color: var(--text-dark);
+    }
+    
+    p {
+        margin: 0 0 var(--spacing-md) 0;
+        line-height: 1.6;
+    }
+
+    /* ===== GUJARATI HEADER ===== */
+    .event-header-gujarati {
+        text-align: center;
+        margin: var(--spacing-lg) 0 var(--spacing-md) 0;
+        padding: 0 var(--spacing-md);
+    }
+    
+    .event-header-gujarati span {
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: #1a1a1a;
+        letter-spacing: 1px;
+        font-family: var(--font-family-gujarati);
+        display: inline-block;
+        line-height: 1.3;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        /* Removed gradient text effects for better visibility */
+    }
+    /* ===== MAIN FORM CONTAINER ===== */
+    .form-container {
+        max-width: 750px;
+        margin: var(--spacing-xl) auto var(--spacing-xl) auto;
+        background: var(--background-glass);
+        padding: 45px 40px 40px 40px;
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-lg), 0 0 50px rgba(255, 107, 53, 0.1);
+        backdrop-filter: blur(12px);
+        border: 2px solid var(--border-color);
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+    }
+    
+    .form-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: var(--gradient-primary);
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+    
+    .form-container::after {
+        content: '';
+        position: absolute;
+        bottom: -50px;
+        right: -50px;
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+        z-index: -1;
+    }
+    
+    .form-container h2 {
+        text-align: center;
+        color: var(--primary-dark);
+        font-weight: 800;
+        margin: 0 0 35px 0;
+        font-size: 1.8rem;
+        letter-spacing: 0.5px;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* ===== FORM ELEMENTS ===== */
+    .form-group {
+        margin-bottom: var(--spacing-lg);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .form-group label {
+        font-weight: 700;
+        margin-bottom: var(--spacing-sm);
+        color: var(--primary-dark);
+        font-size: 1.1rem;
+        letter-spacing: 0.3px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group select,
+    .form-group input[type="file"],
+    .form-group textarea {
+        padding: var(--spacing-md) 18px;
+        font-size: 1rem;
+        border: 2px solid var(--border-color);
+        border-radius: var(--radius-md);
+        font-family: var(--font-family);
+        background: #FFFFFF;
+        transition: all var(--transition-smooth);
+        box-shadow: var(--shadow-sm);
+        outline: none;
+        color: var(--text-dark);
+    }
+    
+    .form-group input[type="text"]:focus,
+    .form-group input[type="email"]:focus,
+    .form-group select:focus,
+    .form-group input[type="file"]:focus,
+    .form-group textarea:focus {
+        border-color: var(--border-focus);
+        background: #FFFFFF;
+        box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15), var(--shadow);
+        transform: translateY(-2px);
+    }
+    
+    .form-group input[readonly] {
+        background-color: var(--primary-light);
+        cursor: not-allowed;
+        border-color: var(--border-color);
+        color: var(--primary-dark);
+    }
+
+    /* Special styling for courier address field */
+    input[name="courier_address"], 
+    textarea[name="courier_address"] {
+        min-width: 100%;
+        width: 100%;
+        min-height: 70px;
+        font-size: 1.05rem;
+        padding: 18px 16px;
+        resize: vertical;
+    }
+    /* ===== BUTTON STYLES ===== */
+    button[type="submit"] {
+        width: 100%;
+        padding: var(--spacing-md);
+        font-size: 1.2rem;
+        font-weight: 700;
+        background: var(--gradient-primary);
+        border: none;
+        border-radius: var(--radius-md);
+        color: #FFFFFF;
+        cursor: pointer;
+        box-shadow: var(--shadow-lg);
+        transition: all var(--transition-smooth);
+        letter-spacing: 0.5px;
+        margin-top: 15px;
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    button[type="submit"]:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.6s;
+    }
+    
+    button[type="submit"]:hover:before {
+        left: 100%;
+    }
+    
+    button[type="submit"]:hover {
+        background: var(--gradient-secondary);
+        box-shadow: var(--shadow-xl), 0 0 30px rgba(255, 107, 53, 0.3);
+        transform: translateY(-3px) scale(1.02);
+    }
+    
+    button[type="submit"]:active {
+        transform: translateY(-1px) scale(0.99);
+    }
+
+    /* ===== SECTION HEADERS ===== */
+    .section-header {
+        background: var(--section-bg);
+        border-left: 6px solid var(--section-border);
+        padding: 20px 24px;
+        margin: 0 0 24px 0;
+        border-radius: var(--radius-md);
+        font-weight: 700;
+        color: var(--section-text);
+        font-size: 1.15rem;
+        letter-spacing: 0.3px;
+        box-shadow: var(--section-shadow);
+        border: 1px solid rgba(14, 165, 233, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .section-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, var(--section-border), transparent);
+    }
+    
+    .section-header:hover {
+        background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+        transform: translateX(4px);
+        box-shadow: 0 4px 20px rgba(14, 165, 233, 0.2);
+    }
+
+    /* ===== CHECKBOX STYLES ===== */
+    input[type='checkbox'] {
+        width: 1.5em;
+        height: 1.5em;
+        cursor: pointer;
+        accent-color: var(--accent-primary);
+        margin-right: var(--spacing-sm);
+    }
+
+    /* ===== PAYMENT INFO SECTION ===== */
+    .payment-info {
+        background: var(--gradient-form);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-lg);
+        border: 2px solid var(--border-color);
+        margin-top: var(--spacing-lg);
+    }
+    
+    .payment-info p {
+        font-size: 1rem;
+        color: var(--primary-darkest);
+        margin: var(--spacing-xs) 0;
+        font-weight: 600;
+    }
+    
+    .payment-info p:first-child {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: var(--primary-dark);
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    /* ===== IMAGE GALLERY STYLES ===== */
+    .image-gallery {
+        max-width: 700px;
+        margin: 0 auto 40px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+
+    .gallery-item {
+        background: white;
+        padding: 15px;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        transition: all var(--transition-smooth);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: auto;
+        border-radius: var(--radius-md);
+        display: block;
+        transition: transform var(--transition-smooth);
+    }
+
+    .gallery-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.05);
+    }
+
+    /* ===== FOOTER STYLES ===== */
+    .footer-section {
+        background: var(--gradient-form);
+        padding: 40px 0;
+        margin-top: 50px;
+        color: var(--primary-darkest);
+        border-top: 3px solid var(--accent-primary);
+    }
+    
+    .offices-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 var(--spacing-md);
+    }
+    
+    .office-box {
+        background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-lg);
+        border: 2px solid var(--border-color);
+        transition: all var(--transition-smooth);
+        box-shadow: var(--shadow-sm);
+        position: relative;
+        overflow: hidden;
+        margin: 0 var(--spacing-xl) 1px;
+    }
+    
+    .office-box::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: var(--gradient-primary);
+    }
+    
+    .office-box:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--accent-primary);
+    }
+    
+    .office-header {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: var(--spacing-sm);
+        letter-spacing: 0.5px;
+        color: var(--primary-dark);
+    }
+    
+    .office-header hr {
+        border: none;
+        height: 2px;
+        background: var(--gradient-primary);
+        margin: var(--spacing-xs) 0 0 0;
+        opacity: 0.6;
+    }
+    
+    .office-details {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: var(--text-muted);
+    }
+
+            .footer-section {
+                background: linear-gradient(135deg, var(--primary-light) 0%, #F0F7FF 100%);
+                padding: 40px 0;
+                margin-top: 50px;
+                color: var(--primary-darkest);
+                border-top: 3px solid var(--accent-blue);
+            }
+            .offices-container {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 24px;
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 0 16px;
+            }
+                /* Responsive Gujarati header */
+                .event-header-gujarati {
+                    text-align: center;
+                    margin-top: 25px;
+                    margin-bottom: 10px;
+                }
+                .event-header-gujarati span {
+                    font-size: 2.2rem;
+                    font-weight: 900;
+                    color: #1a1a1a;
+                    letter-spacing: 1px;
+                    font-family: 'Noto Sans Gujarati', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    display: inline-block;
+                    line-height: 1.3;
+                    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+                }
+    .form-group {
+        margin-bottom: 28px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    .form-group label {
+        font-weight: 600;
+        color: #000;
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+        letter-spacing: 0.2px;
+        transition: color 0.3s;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group select,
+    .form-group input[type="file"],
+    .form-group textarea {
+        padding: 16px 16px 16px 16px;
+        font-size: 1.18rem;
+        border: 1.5px solid #b6d4ff;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.95);
+        transition: border-color 0.3s, box-shadow 0.3s;
+        box-shadow: 0 1.5px 8px 0 rgba(253,160,133,0.08);
+        outline: none;
+        margin-bottom: 2px;
+    }
+    .form-group input[type="text"]:focus,
+    .form-group input[type="email"]:focus,
+    .form-group select:focus,
+    .form-group input[type="file"]:focus,
+    .form-group textarea:focus {
+        border-color: #f76b1c;
+        box-shadow: 0 0 0 2px #fda08544;
+    }
+    .form-group input[readonly] {
+        background-color: #f7f7f7;
+        cursor: not-allowed;
+    }
+    .form-group input[type="text"]:not(:placeholder-shown):not([readonly]),
+    .form-group input[type="email"]:not(:placeholder-shown):not([readonly]),
+    .form-group textarea:not(:placeholder-shown):not([readonly]) {
+        border-color: #a1c4fd;
+    }
+    /* Floating label effect */
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group textarea {
+        background: transparent;
+    }
+    .form-group input[type="text"]:focus + label,
+    .form-group input[type="email"]:focus + label,
+    .form-group textarea:focus + label,
+    .form-group input[type="text"]:not(:placeholder-shown) + label,
+    .form-group input[type="email"]:not(:placeholder-shown) + label,
+    .form-group textarea:not(:placeholder-shown) + label {
+        color: #a1c4fd;
+        font-size: 0.92rem;
+        transform: translateY(-22px) scale(0.98);
+        background: #fffbe7;
+        padding: 0 6px;
+        border-radius: 6px;
+        position: absolute;
+        left: 18px;
+        top: 2px;
+        z-index: 2;
+        transition: all 0.2s;
+    }
+    .form-group input[type="file"] {
+        padding: 10px 0;
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
+    button[type="submit"] {
+        width: 100%;
+        padding: 16px;
+        font-size: 1.18rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #4a90e2 0%, #6fb1ff 100%);
+        border: none;
+        border-radius: 16px;
+        color: #fff;
+        cursor: pointer;
+        box-shadow: 0 2px 12px 0 rgba(253,160,133,0.13);
+        transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+        letter-spacing: 0.5px;
+        margin-top: 10px;
+    }
+    button[type="submit"]:hover {
+        background: linear-gradient(90deg, #fad961 0%, #f76b1c 100%);
+        box-shadow: 0 4px 18px 0 rgba(0,0,0,0.12);
+        transform: translateY(-2px) scale(1.03);
+    }
+    .payment-info p {
+        font-size: 1rem;
+        color: #000;
+        margin: 5px 0;
+        font-weight: 600;
+    }
+    .payment-info p:first-child {
+        font-size: 2.1rem;
+        font-weight: 700;
+        color: #000;
+
+        margin-bottom: 8px;
+    }
+    .payment-info img {
+        width: 120px;
+        height: 120px;
+        margin-top: 10px;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(253,160,133,0.13);
+        border: 1.5px solid #b6d4ff;
+        background: #fffbe7;
+    }
+        @media (max-width: 600px) {
+            .form-container {
+                max-width: 98vw;
+                padding: 18px 4vw 18px 4vw;
+                border-radius: 18px;
+            }
+            .form-container h2 {
+                font-size: 1.3rem;
+            }
+        }
+    
+    .payment-info {
+        background: linear-gradient(135deg, var(--primary-light) 0%, #F0F7FF 100%);
+        border-radius: 15px;
+        padding: 25px;
+        border: 2px solid var(--border-color);
+        margin-top: 25px;
+    }
+    
+    .payment-info p {
+        font-size: 1rem;
+        color: var(--primary-darkest);
+        margin: 8px 0;
+        font-weight: 600;
+    }
+    
+    .payment-info p:first-child {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: var(--primary-dark);
+        margin-bottom: 12px;
+    }
+    
+    .payment-info img {
+        width: 140px;
+        height: 140px;
+        margin: 15px auto 0;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        border: 3px solid var(--accent-blue);
+        background: #FFFFFF;
+        display: block;
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
+    
+    /* Tablet Landscape (768px - 1024px) */
+    @media (max-width: 1024px) {
+        .form-container {
+            max-width: 90%;
+            padding: 35px 30px;
+        }
+        
+        .office-box {
+            margin: 0 var(--spacing-md) 1px;
+        }
+    }
+    
+    /* Tablet Portrait (600px - 768px) */
+    @media (max-width: 768px) {
+        .form-container {
+            max-width: 95%;
+            padding: var(--spacing-lg);
+        }
+        
+        .form-container h2 {
+            font-size: 1.6rem;
+        }
+        
+        .form-group label {
+            font-size: 1.05rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            font-size: 0.95rem;
+            padding: var(--spacing-sm) var(--spacing-md);
+        }
+        
+        .event-header-gujarati span {
+            font-size: 1.8rem;
+        }
+        
+        .office-box {
+            padding: var(--spacing-md);
+            margin: 0;
+        }
+        
+        .office-header {
+            font-size: 1rem;
+        }
+        
+        .office-details {
+            font-size: 0.85rem;
+        }
+        
+        .payment-info img {
+            width: 120px;
+            height: 120px;
+        }
+
+        .section-header {
+            padding: var(--spacing-md);
+            font-size: 1rem;
+        }
+    }
+
+    /* ===== ANIMATIONS & INTERACTIONS ===== */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.4);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(255, 107, 53, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(255, 107, 53, 0);
+        }
+    }
+    
+    .gallery-item {
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .form-container {
+        animation: fadeInUp 0.8s ease-out;
+    }
+    
+    button[type="submit"]:focus {
+        animation: pulse 2s infinite;
+    }
+    
+    /* Smooth transitions for all interactive elements */
+    .form-group input,
+    .form-group select,
+    .form-group textarea,
+    button,
+    .office-box,
+    .gallery-item {
+        transition: all var(--transition-smooth);
+    }
+    
+    /* Focus styles for accessibility */
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus,
+    button:focus {
+        outline: 2px solid var(--accent-primary);
+        outline-offset: 2px;
+    }
+    
+    /* Hover effects for interactive elements */
+    .section-header:hover {
+        background: linear-gradient(135deg, var(--orange-light) 0%, #FFEDD5 100%);
+        transform: translateX(5px);
+        border-left-color: var(--orange-dark);
+    }
+
+    /* ===== FORM VALIDATION STYLES ===== */
+    .form-errors {
+        background: linear-gradient(135deg, #fee, #fdd);
+        border: 2px solid #f87171;
+        border-radius: var(--radius-md);
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+        color: #dc2626;
+    }
+    
+    .form-errors ul {
+        margin: 0;
+        padding-left: var(--spacing-lg);
+    }
+    
+    .form-errors li {
+        margin-bottom: var(--spacing-xs);
+        font-weight: 600;
+    }
+    
+    /* Success states */
+    .form-group.success input,
+    .form-group.success select,
+    .form-group.success textarea {
+        border-color: #10b981;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+    
+    /* Error states */
+    .form-group.error input,
+    .form-group.error select,
+    .form-group.error textarea {
+        border-color: #ef4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+
+    /* ===== UTILITY CLASSES ===== */
+    .text-center { text-align: center; }
+    .text-left { text-align: left; }
+    .text-right { text-align: right; }
+    
+    .mb-0 { margin-bottom: 0 !important; }
+    .mb-1 { margin-bottom: var(--spacing-xs) !important; }
+    .mb-2 { margin-bottom: var(--spacing-sm) !important; }
+    .mb-3 { margin-bottom: var(--spacing-md) !important; }
+    .mb-4 { margin-bottom: var(--spacing-lg) !important; }
+    
+    .mt-0 { margin-top: 0 !important; }
+    .mt-1 { margin-top: var(--spacing-xs) !important; }
+    .mt-2 { margin-top: var(--spacing-sm) !important; }
+    .mt-3 { margin-top: var(--spacing-md) !important; }
+    .mt-4 { margin-top: var(--spacing-lg) !important; }
+    
+    .fw-bold { font-weight: 700; }
+    .fw-normal { font-weight: 400; }
+    
+    /* Form field visibility and styling improvements */
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+        min-height: 45px;
+        box-sizing: border-box;
+    }
+    
+    .form-group textarea {
+        min-height: 80px;
+        resize: vertical;
+    }
+    
+    /* Ensure checkboxes are visible */
+    input[type="checkbox"] {
+        display: inline-block !important;
+        width: auto !important;
+        min-height: auto !important;
+        margin-right: var(--spacing-sm);
+    }
+    
+    /* Total amount visibility improvements */
+    #totalWith,
+    .total-field,
+    input[name="total_amount"] {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+        font-weight: 700 !important;
+        font-size: 18px !important;
+        border: 2px solid var(--primary-color) !important;
+        text-align: center !important;
+        padding: 10px !important;
+    }
+    
+    #grandTotal,
+    .grand-total,
+    .total-display {
+        color: #000000 !important;
+        background-color: #fff3e0 !important;
+        font-weight: 800 !important;
+        font-size: 20px !important;
+        border: 3px solid var(--primary-color) !important;
+        text-align: center !important;
+        padding: 12px !important;
+        border-radius: 8px !important;
+    }
+    
+    /* File input styling */
+    input[type="file"] {
+        min-height: 50px;
+        padding: var(--spacing-sm);
+        border: 2px dashed var(--border-color);
+        background: #f8f9fa;
+    }
+    
+    input[type="file"]:hover {
+        border-color: var(--accent-primary);
+        background: #FEF2F2;
+    }
+    
+    /* Alert messages with coral theme */
+    .alert {
+        border-radius: var(--radius-md);
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+        font-weight: 600;
+        border: none;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .alert::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: currentColor;
+        opacity: 0.7;
+    }
+</style>
+
+<div class="form-container">
+    <h2>Courier Booklet Booking Form</h2>
+    
+    <!-- Django Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mb-3" style="
+                padding: 15px;
+                border-radius: var(--radius-md);
+                margin-bottom: var(--spacing-md);
+                {% if message.tags == 'success' %}
+                    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+                    border: 2px solid #28a745;
+                    color: #155724;
+                {% elif message.tags == 'error' %}
+                    background: linear-gradient(135deg, #f8d7da, #f1b0b7);
+                    border: 2px solid #dc3545;
+                    color: #721c24;
+                {% endif %}
+            ">
+                <strong>{% if message.tags == 'success' %}✓{% elif message.tags == 'error' %}⚠{% endif %}</strong>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% if form.errors %}
+      <div class="form-errors">
+        <h4 style="margin: 0 0 var(--spacing-sm) 0; color: #dc2626;">⚠️ Please fix the following errors:</h4>
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data" id="bookletBookingForm">
+        {% csrf_token %}
+        
+        <div class="section-header">📋 Personal Information</div>
+
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">1) Your Name</label>
+            {{ form.name }}
+            {% if form.name.help_text %}
+                <small class="form-text text-muted">{{ form.name.help_text }}</small>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.city.id_for_label }}">2) Your City</label>
+            {{ form.city }}
+            {% if form.city.help_text %}
+                <small class="form-text text-muted">{{ form.city.help_text }}</small>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.whatsapp_number.id_for_label }}">3) WhatsApp Number</label>
+            {{ form.whatsapp_number }}
+            {% if form.whatsapp_number.help_text %}
+                <small class="form-text text-muted">{{ form.whatsapp_number.help_text }}</small>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">4) Email ID</label>
+            {{ form.email }}
+            {% if form.email.help_text %}
+                <small class="form-text text-muted">{{ form.email.help_text }}</small>
+            {% endif %}
+        </div>
+        
+        <div class="section-header">Booklet Selection (Courier charges ₹100 extra)</div>
+        <div class="form-group">
+            <div style="margin-left:0; margin-top:10px; background: var(--gradient-card); padding: 20px; border-radius: 12px; border: 2px solid var(--border-color); box-shadow: var(--shadow);">
+                <div style="margin-bottom: 15px; display: flex; align-items: center;">
+                    <style>
+                        input[type='checkbox'] {
+                            width: 1.5em;
+                            height: 1.5em;
+                            cursor: pointer;
+                            accent-color: var(--accent-primary);
+                        }
+                    </style>
+                    {{ form.girls_booklet_with }}
+                    <label for="{{ form.girls_booklet_with.id_for_label }}" style="margin-left: 12px; margin-bottom: 0; font-size: 1.05rem; color: var(--primary-dark);">Girls Biodata Booklet <b style="color: var(--accent-primary);">(₹500)</b> </label>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    {{ form.boys_booklet_with }}
+                    <label for="{{ form.boys_booklet_with.id_for_label }}" style="margin-left: 12px; margin-bottom: 0; font-size: 1.05rem; color: var(--primary-dark);">Boys Biodata Booklet <b style="color: var(--accent-primary);">(₹500)</b> </label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group" style="background: var(--gradient-form); padding: 18px; border-radius: 12px; border: 2px solid var(--border-color); box-shadow: var(--shadow-sm);">
+            <label style="border-bottom: 2px solid var(--section-border); padding-bottom: 10px; margin-bottom: 15px; color: var(--section-text); font-weight: 700; font-size: 1.05rem;">5) Total Amount</label>
+            <label style="font-size: 1rem; margin-bottom: 10px; color: var(--section-text); font-weight: 600;">Booklet Total (number × 500 + 100) (₹):</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 1.2rem; color: var(--section-text); font-weight: 600;">₹</span>
+                <input type="text" id="totalWith" readonly value="0" name="total_with" style="width: 120px; font-weight: 700; font-size: 1.3rem; color: #000000; border: 2px solid var(--accent-primary); background: #FFFFFF; cursor: not-allowed; border-radius: var(--radius-sm); padding: 10px; text-align: center;" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.courier_address.id_for_label }}" style="border-bottom: 2px solid var(--accent-primary); padding-bottom: 8px; margin-bottom: 12px;">6) Delivery Address</label>
+            {{ form.courier_address }}
+            {% if form.courier_address.help_text %}
+                <small class="form-text text-muted">{{ form.courier_address.help_text }}</small>
+            {% endif %}
+        </div>
+        
+        <div class="form-group" style="background: var(--gradient-secondary); padding: 18px; border-radius: 10px; color: white; box-shadow: var(--shadow-lg);">
+            <label style="font-size: 1.3rem; color: #000000; margin-bottom: 8px; border-bottom: none; font-weight: 800; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">Grand Total Payable Amount</label>
+            <span id="grandTotal" style="font-weight: 800; font-size: 1.8rem; display: block; color: #000000; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">₹0</span>
+        </div>
+    
+        <div class="section-header">💳 Payment Information</div>
+        <div class="form-group payment-info">
+            <p>💰 Pay via GPay</p>
+            <p>GPay Number: 7990208986 (Bhudev Network)</p>
+            <div style="background: #FFFFFF; border-radius: 15px; box-shadow: var(--shadow); padding: 0; margin: 15px auto; width: 280px; height: 280px; max-width: 98vw; max-height: 98vw; display: flex; align-items: center; justify-content: center;">
+                <img src="{% static 'images/payment_qr.jpeg' %}" alt="GPay QR Code" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px; border: 4px solid var(--primary-medium);" />
+            </div>
+            <span style="font-size: 1rem; color: var(--primary-dark); font-weight: 700; margin-top: 10px; display: block; text-align: center;">Scan to Pay →</span>
+        </div>
+
+        <div style="height: 20px;"></div>
+        <div class="section-header">📸 Proof of Payment</div>
+        <div class="form-group">
+            <label for="{{ form.payment_screenshot.id_for_label }}">7) Attach Payment Screenshot</label>
+            {{ form.payment_screenshot }}
+            {% if form.payment_screenshot.help_text %}
+                <small class="form-text text-muted">{{ form.payment_screenshot.help_text }}</small>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <button type="submit">✓ Submit Booking</button>
+        </div>
+    </form>
+</div>
+        <div class="image-gallery">
+                <div class="gallery-item">
+                    <img src="{% static 'images/Sammelan_new.jpeg' %}" alt="Event Image 1" />
+                </div>
+                <div class="gallery-item">
+                    <img src="{% static 'images/team.jpg' %}" alt="Event Image 2" />
+                </div>
+                <!-- <div class="gallery-item">
+                    <img src="{% static 'images/program_schedule3.jpeg' %}" alt="Program Schedule" />
+                </div> -->
+            </div>
+        </div>
+        <!-- Footer Section -->
+            <footer class="footer-section">
+            <div class="container">
+                <div class="offices-container">
+                <div class="office-box vadodara-office">
+                    <div class="office-header">
+                    VADODARA (bhudevnetworkvivah / Employa Technologies )
+                    <hr />
+                    </div>
+                    <div class="office-details">
+                    601, 602, 603, 604 A, 6th Floor<br />Galav Chambers, Dairy Den
+                    Circle, Sayajiganj Vadodara - 390020 <br />9099798986, 9081522111
+                    </div>
+                </div>
+                <div class="office-box amdavad-office">
+                    <div class="office-header">
+                    AMDAVAD (NAVRANGPURA) (bhudevnetworkvivah / Employa Technologies )
+                    <hr />
+                    </div>
+                    <div class="office-details">
+                    A-703, 7th Floor,Nar -Naryan Complex,Near<br />Swastik Char Rasta,
+                    Opp Navrangpura Post office, Navrangpura Amdavad - 380009
+                    <br />9099798986, 9081522111
+                    </div>
+                </div>
+                <div class="office-box maninagar-office">
+                    <div class="office-header">
+                    AMDAVAD (MANINAGAR) (bhudevnetworkvivah / Employa Technologies )
+                    <hr />
+                    </div>
+                    <div class="office-details">
+                    S/9, Shukun Plaza, Second Floor, <br />
+                    Opp. Nagar Farsan, Near Pruthvi Hotels, Maninagar, Amdavad 380008
+                    <br />9099798986, 9081522111
+                    </div>
+                </div>
+                </div>
+            </div>
+            {% include 'biodata/employa_footer.html' %}
+            </footer>
+
+<script>
+    // Prices
+    const pricePerBooklet = 500;
+    const courierCharge = 100;
+
+    // Elements - these IDs are generated by Django
+    const girlsBookletWith = document.getElementById('id_girls_booklet_with');
+    const boysBookletWith = document.getElementById('id_boys_booklet_with');
+    const totalWith = document.getElementById('totalWith');
+    const grandTotal = document.getElementById('grandTotal');
+
+    function updateTotal() {
+        let total = 0;
+        let selected = 0;
+        
+        if (girlsBookletWith && girlsBookletWith.checked) {
+            total += pricePerBooklet;
+            selected++;
+        }
+        if (boysBookletWith && boysBookletWith.checked) {
+            total += pricePerBooklet;
+            selected++;
+        }
+        if (selected > 0) {
+            total += courierCharge;
+        }
+        
+        if (totalWith) {
+            totalWith.value = total;
+        }
+        if (grandTotal) {
+            grandTotal.textContent = '₹' + total;
+        }
+    }
+
+    // Add event listeners when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        if (girlsBookletWith) {
+            girlsBookletWith.addEventListener('change', updateTotal);
+        }
+        if (boysBookletWith) {
+            boysBookletWith.addEventListener('change', updateTotal);
+        }
+        
+        // Initial calculation
+        updateTotal();
+    });
+    
+    // Also run on window load as backup
+    window.onload = function() {
+        updateTotal();
+    };
+</script>
+{% endblock %}

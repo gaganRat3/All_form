@@ -1,0 +1,299 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoom Meeting Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            background-color: #99b9e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .zoom-form-container {  
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .form-header {
+            background-color: #0E71EB;
+            color: white;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        
+      
+        
+        .form-body {
+            padding: 25px;
+        }
+        
+        .form-control {
+            background-color: #e0e6f0;
+            border-color: #a0a8b8;
+            color: #333;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            background-color: #c0c8d8;
+            border-color: #2D8CFF;
+            box-shadow: 0 0 0 0.25rem rgba(45, 140, 255, 0.25);
+            color: #000;
+        }
+        
+        .btn-primary {
+            background-color: #2D8CFF;
+            border-color: #2D8CFF;
+            background-image: linear-gradient(45deg, #2D8CFF, #1A6ED8);
+            box-shadow: 0 4px 15px rgba(45, 140, 255, 0.4);
+            color: white;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0E71EB;
+            border-color: #0E71EB;
+            background-image: linear-gradient(45deg, #0E71EB, #0A4F9A);
+            box-shadow: 0 6px 20px rgba(14, 113, 235, 0.6);
+            transform: translateY(-2px);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .qr-section {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 80px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* Center the content inside the QR Code Payment card-body */
+        .qr-section .row > .col-md-6:last-child .card-body {
+            text-align: center;
+            display: block;
+            flex-direction: unset;
+            align-items: unset;
+            justify-content: unset;
+        }
+        
+        .payment-amount {
+            font-weight: bold;
+            color: #2D8CFF;
+            font-size: 1.2rem;
+        }
+        
+        .required-field::after {
+            content: " *";
+            color: red;
+        }
+        
+        .zoom-blue-text {
+            color: #2D8CFF;
+        }
+    </style>
+    <style>
+        .registration-info-list {
+            list-style-type: disc;
+            padding-left: 20px;
+            color: #0E71EB;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .registration-info-list li {
+            margin-bottom: 6px;
+        }
+        .registration-info-list li strong {
+            color: #1A4F9A;
+        }
+        .after_submit {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+        }
+        .logo-img {
+            width: 100%;
+            object-fit: contain;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 1px;
+        }
+        .logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+        .logo-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                    <div class="row mb-3">
+                        <div class="col-12 text-center">
+                            <img src="{% static 'images/logo11.jpeg' %}" alt="Logo 1" class="logo-img">
+                        </div>
+                    </div>
+                <div class="zoom-form-container">
+                    <div class="form-header">
+                        <h2><i class="fas fa-video me-2"></i> Zoom Meeting Registration Form</h2>
+                        <p class="mb-0"></p>
+                        <li>
+                            <strong>Date : 20/07/2025</strong>   
+                        </li>
+                        <li>
+                            <strong>33rd Bhudev Sammelan</strong>   
+                        </li>
+                        <li>
+                            <strong>Time : 7 am to 6 pm (Full-Day Program)</strong>   
+                        </li>
+
+                        
+                  <br> 
+                    </div>
+                    <br>
+                    
+                    <div class="form-body">
+                        <form id="meetingForm" method="post" action="{% url 'zoom_register' %}" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="name" class="form-label required-field">Your Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="invalid-feedback">
+                                    Please provide your full name.
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="whatsapp" class="form-label required-field">Your WhatsApp Number</label>
+                                <div class="input-group">
+                                   
+                                    <input type="tel" class="form-control" id="whatsapp" name="whatsapp" placeholder="" required>
+                                </div>
+                                <small class="text-muted">We'll send the Zoom meeting link to this number</small>
+                                <div class="invalid-feedback">
+                                    Please provide a valid WhatsApp number.
+                                </div>
+                                <br>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="city" class="form-label required-field">Your Current Residence City</label>
+                                <input type="text" class="form-control" id="city" name="city" required>
+                                <div class="invalid-feedback">
+                                    Please provide your city.
+                                </div>
+                            </div> 
+                            <br>
+                            
+                            <div class="qr-section mb-4">
+    
+                                <p>Please make a payment of <span class="payment-amount">Rs 50</span> to confirm your spot</p>
+                                
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <div class="card border-0 bg-light mx-auto" style="max-width: 300px;">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title mb-3">QR Code Payment</h5>
+                                                <img src="{% static 'images/Qr_image.jpeg' %}" alt="Payment QR code for Rs 50 with blue background and white center" class="img-fluid mb-2">
+                                                <p class="small text-muted mb-0">Scan to pay Rs 50</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="screenshot" class="form-label required-field">Upload Payment Screenshot</label>
+                                <input type="file" class="form-control" id="screenshot" name="screenshot" accept="image/*" required>
+                                <div class="invalid-feedback">
+                                    Please upload your payment screenshot.
+                                </div>
+                            </div>
+                            
+            
+                            
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary btn-lg" type="submit">
+                                    <i class="fas fa-paper-plane me-2"></i> Submit Registration
+                                </button>
+                            </div>
+                            <div class="after_submit">
+                                 <li>
+                            <strong>
+After Submitting this Online Form, You will get Confirmation & Verification Phone Call From our Amdavad or Vadodara Office.</strong>   
+                        </li>   
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Form validation
+        (function () {
+            'use strict'
+            
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+            
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+        
+        // Handle form submission
+        document.getElementById('meetingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (this.checkValidity()) {
+                // Form is valid, submit the form normally to backend
+                this.submit();
+            } else {
+                e.stopPropagation();
+            }
+            
+            this.classList.add('was-validated');
+        });
+    </script>
+    {% include 'biodata/employa_footer.html' %}
+</body>
+</html>

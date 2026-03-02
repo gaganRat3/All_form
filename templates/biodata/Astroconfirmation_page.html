@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Submission Confirmation</title>
+  <style>
+    .confirmation-container {
+      max-width: 600px;
+      margin: 100px auto;
+      padding: 30px;
+      background-color: #d85f85;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+    }
+    h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 18px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="confirmation-container" role="main" aria-label="Submission Confirmation">
+    <h2>✅ Your Query Request Has Been Submitted!</h2>
+    {% if confirmation_message %}
+      <p>{{ confirmation_message }}</p>
+    {% else %}
+      <p>Thank you for submitting your form to Bhudev Network Vivah.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

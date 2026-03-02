@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Business Directory Submission Confirmation</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8ffae 0%, #43c6ac 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .confirmation-container {
+            max-width: 500px;
+            margin: 80px auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(67,198,172,0.18);
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .confirmation-container h2 {
+            color: #43c6ac;
+            font-size: 2.2em;
+            margin-bottom: 18px;
+        }
+        .confirmation-container p {
+            color: #333;
+            font-size: 1.15em;
+            margin-bottom: 28px;
+        }
+        .confirmation-container .checkmark {
+            font-size: 3.5em;
+            color: #43c6ac;
+            margin-bottom: 18px;
+            animation: pop 0.7s ease;
+        }
+        @keyframes pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            80% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+        .confirmation-container a {
+            display: inline-block;
+            background: #43c6ac;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(67,198,172,0.12);
+            transition: background 0.2s;
+        }
+        .confirmation-container a:hover {
+            background: #34a08c;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <div class="checkmark">&#10004;</div>
+        <h2>Thank You!</h2>
+        <p>Your business details have been submitted successfully.<br>
+        We appreciate your contribution to our directory.<br>
+        Our team will review your submission soon.</p>
+        <a href="/">&#8592; Back to Home</a>
+    </div>
+</body>
+</html>

@@ -1,183 +1,41 @@
+# Ensure forms is imported for new form
 from django import forms
-from .models import CandidateBiodata
-from django.core.exceptions import ValidationError
-from .validators import validate_not_mpo
-from django.core.exceptions import ValidationError
-from .validators import validate_not_mpo
+# 40 Plus Sammelan Form
+from .models import FortyPlusSammelan
 
+class FortyPlusSammelanForm(forms.ModelForm):
+    class Meta:
+        model = FortyPlusSammelan
+        fields = '__all__'
+
+from django import forms
+# Form for Booklet Library submissions
+from .models import BookletLibrarySubmission
+
+class BookletLibraryForm(forms.ModelForm):
+    class Meta:
+        model = BookletLibrarySubmission
+        fields = ['name', 'dob', 'gender', 'city', 'whatsapp', 'email']
+        labels = {
+            'name': 'Candidate Name',
+            'dob': 'Date of Birth',
+            'gender': 'Gender',
+            'city': 'Current City',
+            'whatsapp': 'WhatsApp Number',
+            'email': 'Email Address',
+        }
+        widgets = {
+            'dob': forms.TextInput(attrs={'placeholder': 'DD-MM-YYYY'}),
+            'gender': forms.RadioSelect(choices=[('male', 'Male'), ('female', 'Female')]),
+        }
+from django import forms
+from .models import CandidateBiodata, MegaBookletCorrectionRequest, SammelanPaymentForm, AdvanceBookletBooking, CourierBooklet35thBooking
+from .models import DivorceSammelanForm
 
 class CandidateBiodataForm(forms.ModelForm):
-    GENDER_CHOICES = [
-        ('Male', 'Male'),
-        ('Female', 'Female'),
-    ]
-    RESIDENCE_AREA_CATEGORY_CHOICES = [
-        ('Gujarat Region (North , Central , South)', 'Gujarat Region (North , Central , South)'),
-        ('Saurshtra - Kachchh Region', 'Saurshtra - Kachchh Region'),
-        ('Mumbai - Maharashtra - Rest of India Region', 'Mumbai - Maharashtra - Rest of India Region'),
-        ('NRI (Non Residential Indian - Any Visa) Region (Out of India)', 'NRI (Non Residential Indian - Any Visa) Region (Out of India)'),
-    ]
-
-    gender = forms.ChoiceField(choices=GENDER_CHOICES, required=True, label="Candidate Gender")
-    registration_by = forms.CharField(max_length=255, required=True, label="Who is doing this Registration ? (કોણ રેજીસ્ટ્રેશન કરી રહ્યું છે ? એ વિગત અહીં લખશો)   🔴 Example : SELF / Candidate's Father (Name) / Candidate's Mother (Name) /  Candidate's Brother (Name)  , etc 🔴")
-    registrant_mobile = forms.CharField(max_length=20, required=True, label="જે આ રેજીસ્ટ્રેશન કરી રહ્યું છે , તે અહીં પોતાનો MOBILE નંબર લખશો // Mention here your own Mobile Number (for Reference & Verification Purpose)")
-    candidate_current_city = forms.CharField(max_length=255, required=False, label="Candidate Current City / ઉમેદવાર પોતે હાલ કાયા CITY / શહેર / ગામ માં રહે છે , તે અહીં લખો :")
-    residence_area_category = forms.ChoiceField(choices=RESIDENCE_AREA_CATEGORY_CHOICES, required=True, label="Candidate Current Residence Area Category")
-    current_country = forms.CharField(max_length=255, required=True, label="Candidate Current Country")
-
-    visa_status = forms.ChoiceField(choices=CandidateBiodata.VISA_STATUS_CHOICES, required=True, label="Visa or Residence Status Of Candidate")
-    marital_status = forms.ChoiceField(choices=CandidateBiodata.MARITAL_STATUS_CHOICES, required=True, label="Marriage Status")
-    shani_mangal = forms.ChoiceField(choices=CandidateBiodata.SHANI_MANGAL_CHOICES, required=False, label="Shani / Mangal", initial='')
-
-    birth_time = forms.CharField(
-        required=True,
-        widget=forms.TextInput(attrs={'type': 'text'}),
-        label="Time Of Birth"
-    )
-    dob = forms.CharField(
-        required=True,
-        widget=forms.TextInput(attrs={'type': 'text'}),
-        label="Date Of Birth"
-    )
-
-    def clean_dob(self):
-        dob = self.cleaned_data.get('dob')
-        # Accept any text, no validation
-        return dob
-
-    def clean_birth_time(self):
-        birth_time = self.cleaned_data.get('birth_time')
-        # Accept any text, no validation
-        return birth_time
-
-    def clean(self):
-        cleaned_data = super().clean()
-        # Override dob and birth_time to bypass model validation
-        dob_raw = self.data.get('dob')
-        birth_time_raw = self.data.get('birth_time')
-        if dob_raw is not None:
-            cleaned_data['dob'] = dob_raw
-        if birth_time_raw is not None:
-            cleaned_data['birth_time'] = birth_time_raw
-        return cleaned_data
-
-    def save(self, commit=True):
-        instance = super().save(commit=False)
-        # Assign raw text values to model fields to bypass validation errors
-        dob_raw = self.cleaned_data.get('dob')
-        birth_time_raw = self.cleaned_data.get('birth_time')
-        if dob_raw is not None:
-            instance.dob = dob_raw
-        if birth_time_raw is not None:
-            instance.birth_time = birth_time_raw
-        if commit:
-            instance.save()
-        return instance
-    monthly_income = forms.CharField(
-        required=False,
-        label="Salary (optional) Per Month Salary)"
-    )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # Make all fields required except monthly_income
-        for field_name, field in self.fields.items():
-            if field_name != 'monthly_income':
-                field.required = True
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # Reorder fields to place candidate_current_city before residence_area_category and current_country
-        field_order = [
-            'candidate_name',
-            'gender',
-            'registration_by',
-            'registrant_mobile',
-            'candidate_current_city',
-            'residence_area_category',
-            'current_country',
-            'visa_status',
-            'photograph',
-            'dob',
-            'birth_time',
-            'birth_place',
-            'height',
-            'weight',
-            'education',
-            'education_details',
-            'education_custom',
-            'occupation',
-            'occupation_details',
-            'monthly_income',
-            'marital_status',
-            'nadi',
-            'shani_mangal',
-            'type_of_brahmin',
-            'gotra',
-            'kuldevi',
-            'father_name',
-            'father_mobile',
-            'mother_name',
-            'mother_mobile',
-            'siblings',
-            'partner_education',
-            'partner_location',
-            'partner_age_bracket',
-            'other_specific_choice',
-            'declaration',
-            'declaration_agree',
-            'declaration_disagree',
-        ]
-        self.order_fields(field_order)
-
-    OCCUPATION_CHOICES = [
-        ('Government Job', 'Government Job'),
-        ('Private MNC Job', 'Private MNC Job'),
-        ('Self Employed (Own Practice)', 'Self Employed (Own Practice)'),
-        ('Own Business', 'Own Business'),
-        ('Job + Business', 'Job + Business'),
-        ('Free Lancing', 'Free Lancing'),
-        ('Student (Studies Running)', 'Student (Studies Running)'),
-        ('Searching Job', 'Searching Job'),
-        ('Home Works (ghar-kaam)', 'Home Works (ghar-kaam)'),
-    ]
-    occupation = forms.ChoiceField(choices=OCCUPATION_CHOICES, required=True, label="Job/Business/Occupation Category")
-
-    occupation_details = forms.CharField(
-        widget=forms.Textarea(attrs={'class': 'form-control small-input', 'style': 'height: 60px;'}),
-        required=False,
-        label="Details on Job / Business / Occupation",
-    )
-
-    education_custom = forms.CharField(
-        max_length=255,
-        required=False,
-        label="Education",
-    )
-
-    height = forms.CharField(
-        max_length=50,
-        required=False,
-        label="Height (In Feet)",
-        help_text='Example: Enter height like 4.05 feet for 4 feet 5 inches.'
-    )
-
-    partner_age_bracket = forms.CharField(
-        max_length=100,
-        required=False,
-        label="પાર્ટનર ઉંમર શ્રેણી (Partner Age Bracket)",
-        help_text='Example: Enter age range like 27 to 30.'
-    )
-
-#    dob = forms.DateField(label="Date Of Birth", widget=forms.DateInput(attrs={'type': 'date'}))
-
-
     class Meta:
         model = CandidateBiodata
         fields = '__all__'
-        widgets = {
-            # Removed fields widgets
-        }
         labels = {
             'candidate_name': 'Name Of Candidate / ઉમેદવાર નું નામ',
             'dob': 'Date Of Birth',
@@ -196,16 +54,164 @@ class CandidateBiodataForm(forms.ModelForm):
             'declaration': 'Declaration : હું અહીં ખાત્રી આપુ છું કે, મે ભરેલી, ઉપરોક્ત બધી માહિતી ખરી છે. સાચી છે, અને મે બધી માહિતી ચેક કરી લીધી છે. મારો બાયોડેટા લેટેસ્ટ બુકલેટ મા સમાવેશ કરશો. (I hereby declare that all above info filled by myself is correct & all right and i have checked all info before submission of this Form. Please include my Biodata in latest Biodata Booklet)',
             'declaration_agree': 'Agree (ઉપર મુજબ હું માનું છું અને તેમ કરીશ) - મારો બાયોડેટા બુકલેટ માં ચોક્કસ સમાવેશ કરશોજી',
             'declaration_disagree': 'Disagree (ઉપર મુજબ હું નહિ માનું)  - મારો બાયોડેટા કેન્સલ કરી દેજો',
-        'gender': 'Candidate Gender',
-        'registration_by': 'Who is doing this Registration ? (કોણ રેજીસ્ટ્રેશન કરી રહ્યું છે ? એ વિગત અહીં લખશો)   Example : SELF / Candidate\'s Father (Name) / Candidate\'s Mother (Name) /  Candidate\'s Brother (Name)  , etc',
-        'registrant_mobile': 'જે આ રેજીસ્ટ્રેશન કરી રહ્યું છે , તે અહીં પોતાનો MOBILE નંબર લખશો // Mention here your own Mobile Number (for Reference & Verification Purpose)',
-        'residence_area_category': 'Candidate Current Residence Area Category',
-        'current_country': 'Candidate Current Country',
-        'visa_status': 'Visa or Residence Status Of Candidate',
-        'photograph': 'Upload 1 Candidate Photo (Photo Should be Clear visible front-face, Bright light on Face, No Goggles or Cap , Close-up photo or Passport Size Photo is required)',
-        'mother_mobile': "Mother's Whatsapp Number",
-        'father_mobile': "Father's Whatsapp Number",
-        'whatsapp_number': "Whatsapp Number (For verification)",
-        'kuldevi': 'Any Disability/ Details',
-
+            'gender': 'Candidate Gender',
+            'registration_by': 'Who is doing this Registration ? (કોણ રેજીસ્ટ્રેશન કરી રહ્યું છે ? એ વિગત અહીં લખશો)   Example : SELF / Candidate\'s Father (Name) / Candidate\'s Mother (Name) /  Candidate\'s Brother (Name)  , etc',
+            'registrant_mobile': 'જે આ રેજીસ્ટ્રેશન કરી રહ્યું છે , તે અહીં પોતાનો MOBILE નંબર લખશો // Mention here your own Mobile Number (for Reference & Verification Purpose)',
+            'residence_area_category': 'Candidate Current Residence Area Category',
+            'current_country': 'Candidate Current Country',
+            'visa_status': 'Visa or Residence Status Of Candidate',
+            'photograph': 'Upload 1 Candidate Photo (Photo Should be Clear visible front-face, Bright light on Face, No Goggles or Cap , Close-up photo or Passport Size Photo is required)',
+            'mother_mobile': "Mother's Whatsapp Number",
+            'father_mobile': "Father's Whatsapp Number",
+            'whatsapp_number': "Whatsapp Number (For verification)",
+            'kuldevi': 'Any Disability/ Details',
         }
+
+class MegaBookletCorrectionForm(forms.ModelForm):
+    class Meta:
+        model = MegaBookletCorrectionRequest
+        fields = [
+            'candidate_name',
+            'city',
+            'whatsapp_number',
+            'booklet_serial',
+            'booklet_name',
+            'correction_description',
+        ]
+        labels = {
+            'candidate_name': 'Candidate Name',
+            'city': 'City',
+            'whatsapp_number': 'WhatsApp Number',
+            'booklet_serial': 'Booklet Serial Number',
+            'booklet_name': 'Booklet Name',
+            'correction_description': 'Correction Request Description',
+        }
+        widgets = {
+            'correction_description': forms.Textarea(attrs={'rows': 4}),
+        }
+
+
+class SammelanPaymentFormForm(forms.ModelForm):
+    class Meta:
+        model = SammelanPaymentForm
+        fields = ['name', 'date_of_birth', 'mobile_number', 'marital_status', 'payment_screenshot']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your full name',
+                'required': True
+            }),
+            'date_of_birth': forms.TextInput(attrs={
+                'class': 'form-control dob-input',
+                'placeholder': 'DD-MM-YYYY',
+                'maxlength': '10',
+                'required': True
+            }),
+            'mobile_number': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your mobile number',
+                'required': True
+            }),
+            'marital_status': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your marital status',
+                'required': True
+            }),
+            'payment_screenshot': forms.FileInput(attrs={
+                'class': 'form-control',
+                'accept': 'image/*',
+                'required': True
+            }),
+        }
+
+
+# Divorce Sammelan Form
+class DivorceSammelanFormForm(forms.ModelForm):
+    class Meta:
+        model = DivorceSammelanForm
+        fields = '__all__'
+
+
+# Courier Booklet Form (35th Event)
+class CourierBooklet35thForm(forms.ModelForm):
+    class Meta:
+        model = CourierBooklet35thBooking
+        fields = [
+            'name',
+            'city',
+            'whatsapp_number',
+            'email',
+            'girls_booklet_with',
+            'boys_booklet_with',
+            'courier_address',
+            'payment_screenshot',
+        ]
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your full name'
+            }),
+            'city': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your city'
+            }),
+            'whatsapp_number': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter WhatsApp number'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your email'
+            }),
+            'courier_address': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter delivery address',
+                'rows': 3
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        required_fields = ['name', 'city', 'whatsapp_number', 'email', 'payment_screenshot', 'courier_address']
+        for field_name in self.fields:
+            self.fields[field_name].required = field_name in required_fields
+
+    def clean(self):
+        cleaned_data = super().clean()
+        girls_booklet_with = cleaned_data.get('girls_booklet_with')
+        boys_booklet_with = cleaned_data.get('boys_booklet_with')
+        courier_address = cleaned_data.get('courier_address')
+
+        # At least one booklet type must be chosen
+        if not (girls_booklet_with or boys_booklet_with):
+            raise forms.ValidationError("Please select at least one booklet type (Girls/Boys).")
+
+        # Courier address required
+        if not courier_address:
+            self.add_error('courier_address', 'Delivery address is required for courier service.')
+
+        # Calculate total: ₹500 per booklet + ₹100 courier charge (if at least one selected)
+        total = 0
+        price_per_booklet = 500
+        courier_charge = 100
+        selected = 0
+        if girls_booklet_with:
+            total += price_per_booklet
+            selected += 1
+        if boys_booklet_with:
+            total += price_per_booklet
+            selected += 1
+        if selected > 0:
+            total += courier_charge
+        cleaned_data['total_amount'] = total
+
+        return cleaned_data
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        # Set total_amount from cleaned_data calculated value
+        if 'total_amount' in self.cleaned_data:
+            instance.total_amount = self.cleaned_data['total_amount']
+        if commit:
+            instance.save()
+        return instance

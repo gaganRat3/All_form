@@ -1,0 +1,186 @@
+{% load static %}
+{% block content %}
+<style>
+  body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .glass-container {
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 22px;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    max-width: 480px;
+    margin: 40px auto 24px auto;
+    padding: 36px 32px 28px 32px;
+    text-align: center;
+    position: relative;
+  }
+  .success-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 18px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(67,233,123,0.15);
+  }
+  .success-icon svg {
+    width: 38px;
+    height: 38px;
+    color: #fff;
+    display: block;
+  }
+  .foundation-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .foundation-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #764ba2;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+  }
+  .foundation-subtitle {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #667eea;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  .reg-text {
+    font-size: 0.95rem;
+    color: #888;
+    margin-bottom: 18px;
+    font-style: italic;
+  }
+  .advance-info-container {
+    background: rgba(255,255,255,0.7);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(118,75,162,0.08);
+    border: 1.5px solid #e0e0e0;
+    font-size: 1.05rem;
+    color: #5a3e1b;
+    line-height: 1.7;
+    font-weight: 600;
+    margin: 18px auto 24px auto;
+    padding: 18px 22px 18px 22px;
+    max-width: 480px;
+    text-align: left;
+  }
+  .advance-info-container .advance-form-highlight {
+    color: #d6336c;
+    font-weight: 700;
+  }
+  .success-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #43e97b;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  .success-message {
+    font-size: 1.08rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  .success-note {
+    font-size: 1rem;
+    color: #764ba2;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .success-list {
+    text-align: left;
+    max-width: 400px;
+    margin: 18px auto 0 auto;
+    color: #444;
+    font-size: 0.98rem;
+    padding-left: 18px;
+  }
+  .success-list li {
+    margin-bottom: 10px;
+  }
+  .modern-btn {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 13px 32px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.08rem;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 16px rgba(102,126,234,0.13);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .modern-btn:hover {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: #222;
+    transform: translateY(-2px) scale(1.03);
+  }
+  @media (max-width: 600px) {
+    .glass-container, .advance-info-container {
+      max-width: 97vw;
+      padding: 18px 6vw;
+    }
+    .success-list {
+      max-width: 95vw;
+    }
+  }
+</style>
+
+<div class="glass-container">
+  <img src="{% static 'images/foundation_logo.png' %}" alt="Foundation Logo" class="foundation-logo">
+  <div class="foundation-title">BHUDEV NETWORK</div>
+  <div class="foundation-subtitle">CHARITABLE FOUNDATION</div>
+  <div class="reg-text">(Trust, NGO Reg. No. # AHMD / 120129)</div>
+  <div class="success-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2l4-4"/></svg>
+  </div>
+  <div class="success-title">Advance Booklet Booking Successful</div>
+  <div class="success-message">Thank you for booking your Booklet.<br>Your submission has been received successfully.</div>
+  <div class="success-message">We will contact you shortly with further details.</div>
+  <div class="success-note"><strong>Note :</strong></div>
+  <ol class="success-list">
+    <li>This booking Confirmation is valid only if your Payment is valid and if we have duly received your Payment as per your information given to us.</li>
+    <li>Confirmation Email has been sent to your Email id.</li>
+    <li>You will receive confirmation phone call in 2-3 days from our Office. For immediate Manual Confirmation, you can call on these numbers :
+      <ul style="margin-top:8px;">
+        <li>Prabhuta : <b>7043922323</b></li>
+        <li>Krishna : <b>9428642903</b></li>
+        <li>Himanshi : <b>9662362626</b></li>
+        <li>Pranjal : <b>8849935537</b></li>
+        <li>Pina : <b>6352348949</b></li>
+        <li>Gayatri : <b>7990252977</b></li>
+      </ul>
+    </li>
+  </ol>
+
+</div>
+
+<div class="advance-info-container">
+  34મુ ભુદેવ જીવનસાથી સંમેલન,<br>
+  તા. 25-01-2026,  Anand.<br>
+  <span class="advance-form-highlight">(Advance Pass Booking Form)</span>
+  <br><br>
+  એડવાન્સ બુકીંગ થી આયોજક team ને ખબર પડશે કે અમારે કેટલું ભોજન (Lunch Dish) ની વ્યવસ્થા કરવાની છે.<br>
+  ભોજન ખૂટે પણ નહિ અને ભોજન નો બગાડ પણ ના થાય.
+</div>
+{% endblock %}

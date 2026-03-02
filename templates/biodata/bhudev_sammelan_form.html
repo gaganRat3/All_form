@@ -1,0 +1,2023 @@
+  {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Candidate Registration / ઉમેદવાર રજીસ્ટ્રેશન</title>
+    <script>
+      // Django CSRF AJAX setup
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+
+      function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+
+      // For jQuery AJAX
+      if (window.jQuery) {
+        $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+          }
+        });
+      }
+
+      // For fetch API
+      (function() {
+        const originalFetch = window.fetch;
+        window.fetch = function(input, init) {
+          init = init || {};
+          if (typeof input === 'string' || (input && input.url)) {
+            const method = (init.method || 'GET').toUpperCase();
+            if (!csrfSafeMethod(method)) {
+              init.headers = init.headers || {};
+              if (!init.headers['X-CSRFToken'] && !init.headers['x-csrftoken']) {
+                init.headers['X-CSRFToken'] = getCookie('csrftoken');
+              }
+            }
+          }
+          return originalFetch(input, init);
+        };
+      })();
+      document.addEventListener('DOMContentLoaded', function() {
+        // Existing DOB formatting
+        var dobInput = document.getElementById('dob');
+        if (dobInput) {
+          dobInput.addEventListener('input', function(e) {
+            var val = dobInput.value.replace(/[^0-9]/g, '');
+            if (val.length > 8) val = val.slice(0, 8);
+            var formatted = val;
+            if (val.length > 4) {
+              formatted = val.slice(0, 2) + '-' + val.slice(2, 4) + '-' + val.slice(4);
+            } else if (val.length > 2) {
+              formatted = val.slice(0, 2) + '-' + val.slice(2);
+            }
+            dobInput.value = formatted;
+          });
+        }
+
+        // Custom validation for required fields
+        var form = document.getElementById('regForm');
+        if (form) {
+          form.addEventListener('submit', function(e) {
+            // Remove previous warnings
+            document.querySelectorAll('.field-warning').forEach(function(el) {
+              el.remove();
+            });
+            document.querySelectorAll('.invalid-field').forEach(function(el) {
+              el.classList.remove('invalid-field');
+            });
+
+            var firstInvalid = null;
+            var requiredFields = form.querySelectorAll('[required]');
+            requiredFields.forEach(function(field) {
+              // For radio: check if any in group is checked
+              if (field.type === 'radio') {
+                var radios = form.querySelectorAll('input[name="' + field.name + '"]');
+                var checked = Array.prototype.slice.call(radios).some(function(r) { return r.checked; });
+                if (!checked) {
+                  if (!firstInvalid) firstInvalid = field;
+                  Array.prototype.forEach.call(radios, function(radio) {
+                    if (radio.closest('label')) {
+                      radio.closest('label').classList.add('invalid-field');
+                    }
+                  });
+                  var parent = radios[0].closest('.radio-row') || radios[0].parentElement;
+                  if (parent && !parent.querySelector('.field-warning')) {
+                    var warn = document.createElement('div');
+                    warn.className = 'field-warning';
+                    warn.innerHTML = '⚠️ This field cannot be empty.';
+                    parent.appendChild(warn);
+                  }
+                }
+              } else if ((field.type === 'checkbox' && !field.checked) || (field.value === '' || field.value == null)) {
+                if (!firstInvalid) firstInvalid = field;
+                field.classList.add('invalid-field');
+                var parent = field.closest('.input-wrap') || field.parentElement;
+                if (parent && !parent.querySelector('.field-warning')) {
+                  var warn = document.createElement('div');
+                  warn.className = 'field-warning';
+                  warn.innerHTML = '⚠️ This field cannot be empty.';
+                  parent.appendChild(warn);
+                }
+              }
+            });
+            if (firstInvalid) {
+              e.preventDefault();
+              // Scroll to first invalid field
+              var scrollTo = firstInvalid.closest('.form-section') || firstInvalid.closest('.input-wrap') || firstInvalid;
+              if (scrollTo && scrollTo.scrollIntoView) {
+                scrollTo.scrollIntoView({behavior: 'smooth', block: 'center'});
+              }
+              // Show global error
+              var formErrors = document.getElementById('formErrors');
+              if (formErrors) {
+                formErrors.innerHTML = '📌 “It looks like you missed a required field. Please complete the highlighted field before submitting the form.”';
+                formErrors.style.display = 'block';
+              }
+              // Do NOT show preview/modal
+              return false;
+            }
+            // If all required fields are filled, allow form to submit and show preview/modal as normal
+          });
+        }
+      });
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Section backgrounds */
+      .form-section {
+        background: linear-gradient(135deg, #eaf4fb 0%, #f0f8ff 100%);
+        border-radius: 16px;
+        padding: 28px 22px 18px 22px;
+        margin-bottom: 28px;
+        box-shadow: 0 4px 15px rgba(37,99,235,0.12), 0 1px 3px rgba(0,0,0,0.05);
+        border: 1px solid rgba(37,99,235,0.15);
+        transition: all 0.3s ease;
+      }
+      .form-section:hover {
+        box-shadow: 0 6px 20px rgba(37,99,235,0.15), 0 2px 4px rgba(0,0,0,0.08);
+        transform: translateY(-2px);
+      }
+      .form-section.family {
+        background: linear-gradient(135deg, #fffbe6 0%, #fffef0 100%);
+        border: 1px solid rgba(251,191,36,0.2);
+        box-shadow: 0 4px 15px rgba(251,191,36,0.12), 0 1px 3px rgba(0,0,0,0.05);
+      }
+      .form-section.family:hover {
+        box-shadow: 0 6px 20px rgba(251,191,36,0.15), 0 2px 4px rgba(0,0,0,0.08);
+      }
+      .form-section.habbits {
+        background: linear-gradient(135deg, #e6faed 0%, #f0fdf4 100%);
+        border: 1px solid rgba(34,197,94,0.2);
+        box-shadow: 0 4px 15px rgba(34,197,94,0.12), 0 1px 3px rgba(0,0,0,0.05);
+      }
+      .form-section.habbits:hover {
+        box-shadow: 0 6px 20px rgba(34,197,94,0.15), 0 2px 4px rgba(0,0,0,0.08);
+      }
+      .form-section.choice {
+        background: linear-gradient(135deg, #fff4e6 0%, #fffbf0 100%);
+        border: 1px solid rgba(249,115,22,0.2);
+        box-shadow: 0 4px 15px rgba(249,115,22,0.12), 0 1px 3px rgba(0,0,0,0.05);
+      }
+      .form-section.choice:hover {
+        box-shadow: 0 6px 20px rgba(249,115,22,0.15), 0 2px 4px rgba(0,0,0,0.08);
+      }
+      .form-section.extra {
+        background: linear-gradient(135deg, #fddfdf 0%, #fce6e7 100%);
+        border: 1px solid rgba(107,114,128,0.15);
+      }
+      .form-section-title {
+        font-size: 1.25rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, var(--accent-1) 0%, #0891b2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 18px;
+        letter-spacing: 0.02em;
+        padding-bottom: 12px;
+        border-bottom: 2px solid rgba(37,99,235,0.1);
+      }
+      .form-section.family .form-section-title {
+        background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        border-bottom: 2px solid rgba(245,158,11,0.1);
+      }
+      .form-section.habbits .form-section-title {
+        background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        border-bottom: 2px solid rgba(16,185,129,0.1);
+      }
+      .form-section.choice .form-section-title {
+        background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        border-bottom: 2px solid rgba(249,115,22,0.1);
+      }
+
+      /* Highlight invalid fields and warning message */
+      .invalid-field {
+        border: 2px solid #e53e3e !important;
+        background: #fff5f5 !important;
+      }
+      .field-warning {
+        color: #e53e3e;
+        font-size: 0.98em;
+        margin-top: 4px;
+        margin-bottom: 2px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .image-container-card {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: block;
+}
+.image-container-content {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+      }
+.placeholder-poster {
+  width: 100%;
+  max-width: 1100px;
+  background: #fff;
+  margin: 0 auto;
+  border-radius: 15px;
+  overflow: auto;
+  box-sizing: border-box;
+  display: block;
+}
+.placeholder-poster img {
+  display: block;
+  max-width: 100%;
+  max-height: none;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 15px;
+  margin: 0 auto;
+}
+      :root {
+        --bg-1: #f5f7fb;
+        --bg-2: #ffffff;
+        --card: #ffffff;
+        --accent-1: #2563eb; /* primary blue */
+        --accent-2: #f97316; /* warm highlight */
+        --accent-3: #0d9488; /* teal accent */
+        --muted: #6b7280;
+        --glass: rgba(255, 255, 255, 0.75);
+        --divider: linear-gradient(90deg, #2563eb 0%, #0d9488 100%);
+        --hope: #16a34a;
+        --text-primary: #1f2937;
+        --text-secondary: #374151;
+        --border-color: #e5e7eb;
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04),
+          0 1px 2px rgba(0, 0, 0, 0.04);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+        --shadow-focus: 0 0 0 3px rgba(37, 99, 235, 0.15);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", Segoe UI, Roboto, Arial;
+        line-height: 1.55;
+        margin: 0;
+        background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+        color: var(--text-primary);
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 24px 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .card {
+        background: var(--card);
+        border-radius: 20px;
+        padding: 32px 28px;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+        position: relative;
+        margin: 0 auto;
+        display: block;
+        max-width: 1100px;
+        width: 100%;
+      }
+      .card:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(
+          90deg,
+          rgba(37, 99, 235, 0.09),
+          rgba(13, 148, 136, 0.08)
+        );
+        mask: linear-gradient(#000, #000) content-box,
+          linear-gradient(#000, #000);
+        -webkit-mask: linear-gradient(#000, #000) content-box,
+          linear-gradient(#000, #000);
+        padding: 1px;
+        border-radius: 20px;
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-size: 2.1rem;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-3) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      p.lead {
+        color: var(--text-secondary);
+        margin: 0 0 22px;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        font-weight: 500;
+        background: linear-gradient(90deg, var(--text-secondary) 0%, var(--accent-3) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      form .grid {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      @media (max-width: 900px) {
+          .placeholder-poster {
+            max-width: 100%;
+            margin: 0 auto;
+          }
+          .image-container-content {
+            align-items: center;
+          }
+        }
+        h1 {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 12px;
+        }
+        p.lead {
+          font-size: 0.95rem;
+          margin-bottom: 20px;
+        }
+      
+      @media (max-width: 600px) {
+        .container {
+          padding: 8px 4px;
+          align-items: center;
+        }
+        .card {
+          padding: 18px 12px;
+          margin: 8px 4px;
+          border-radius: 14px;
+          box-shadow: 0 4px 20px rgba(99, 102, 241, 0.08);
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          max-width: 100%;
+        }
+        h1 {
+          font-size: 1.35rem;
+          font-weight: 500;
+          text-align: center;
+        }
+        p.lead {
+          font-size: 0.9rem;
+          text-align: center;
+          margin-bottom: 24px;
+        }
+        form .grid {
+          gap: 24px;
+        }
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 14px;
+        font-size: 13.8px;
+        color: #1f2937;
+        letter-spacing: 0.02em;
+        transition: color 0.2s ease;
+            margin: 7px -5px;
+    padding: 3px;
+      }
+      label:hover {
+        color: var(--accent-1);
+      }
+      label .gj {
+        font-weight: 500;
+        color: var(--muted);
+        font-size: 12px;
+        margin-left: 6px;
+      }
+      input[type="text"],
+      input[type="tel"],
+      input[type="email"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 13px 16px 13px 42px;
+        border-radius: 10px;
+        border: 1.5px solid var(--border-color);
+        font-size: 14px;
+        background: #ffffff;
+        transition: all 0.25s ease;
+        font-weight: 400;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04), inset 0 1px 2px rgba(0,0,0,0.02);
+      }
+      
+      select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232563eb' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 40px;
+        cursor: pointer;
+      }
+      
+      select option {
+        padding: 12px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.6;
+        background: #ffffff;
+        color: #1f2937;
+      }
+      
+      select option:hover {
+        background: linear-gradient(#2563eb, #2563eb);
+        background-color: #2563eb;
+        color: white;
+      }
+      
+      select option:checked {
+        background: linear-gradient(#2563eb, #2563eb);
+        background-color: #2563eb;
+        color: white;
+        font-weight: 600;
+      }
+      input:hover,
+      select:hover,
+      textarea:hover {
+        border-color: rgba(37, 99, 235, 0.4);
+        box-shadow: 0 3px 8px rgba(37, 99, 235, 0.1), inset 0 1px 2px rgba(0,0,0,0.02);
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--accent-1);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1), 0 4px 12px rgba(37, 99, 235, 0.2);
+        background: #ffffff;
+      }
+      input::placeholder,
+      textarea::placeholder {
+        color: #9ca3af;
+        font-weight: 300;
+      }
+      textarea {
+        min-height: 110px;
+        resize: vertical;
+      }
+      .input-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: var(--accent-1);
+        opacity: 0.8;
+        pointer-events: none;
+        transition: all 0.2s ease;
+      }
+      .input-wrap {
+        position: relative;
+      }
+      .field-note {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 6px;
+        margin-bottom: 4px;
+      }
+      .full {
+        grid-column: 1/-1;
+        margin: 8px 0;
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .radio-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        background: linear-gradient(135deg, var(--accent-1) 0%, #1d4ed8 100%);
+        color: #fff;
+        padding: 13px 24px;
+        border-radius: 10px;
+        border: 0;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+        letter-spacing: 0.03em;
+      }
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+      }
+      .btn:active {
+        transform: translateY(-1px);
+      }
+      .btn.secondary {
+        background: linear-gradient(135deg, #fff 0%, #f9fafb 100%);
+        color: var(--accent-1);
+        border: 2px solid var(--accent-1);
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+        font-weight: 600;
+      }
+      .btn.secondary:hover {
+        background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .photo-preview {
+        width: 140px;
+        height: 170px;
+        border-radius: 12px;
+        background: linear-gradient(180deg, #f8fafc, #fff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px dashed #cbd5e1;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        margin-top: 12px;
+        font-size: 13px;
+        color: #94a3b8;
+      }
+      
+      .photo-upload-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-start;
+        width: 100%;
+      }
+      
+      .photo-upload-wrap .fileBtn {
+        width: 100%;
+        text-align: center;
+      }
+      .photo-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .form-footer {
+        display: flex;
+        gap: 14px;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 2px solid rgba(37,99,235,0.1);
+      }
+      .errors {
+        color: #ef4444;
+        font-size: 14px;
+      }
+      .section-title {
+        margin: 24px 0 10px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--accent-2);
+        letter-spacing: 0.02em;
+      }
+      .divider {
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #2563eb, #0d9488, transparent);
+        border-radius: 2px;
+        margin: 24px 0;
+        opacity: 0.6;
+      }
+      /* Custom file button */
+      input[type="file"] {
+        display: none;
+      }
+      .fileBtn {
+        display: inline-block;
+        background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+        color: var(--accent-1);
+        padding: 12px 20px;
+        border-radius: 12px;
+        border: 1.5px solid rgba(37, 99, 235, 0.3);
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(37,99,235,0.1);
+      }
+      .fileBtn:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 8px 24px rgba(37,99,235,0.2);
+        border-color: var(--accent-1);
+      }
+      /* Responsive tweaks */
+      @media (max-width: 768px) {
+        .photo-preview {
+          width: 110px;
+          height: 135px;
+        }
+      }
+      
+      @media (max-width: 480px) {
+          .photo-preview {
+            width: 100%;
+            height: 110px;
+          }
+          .placeholder-poster {
+            max-width: 100%;
+            margin: 0 auto;
+          }
+        .btn,
+        .fileBtn {
+          font-size: 0.9rem;
+          padding: 10px 16px;
+          font-weight: 400;
+          border-radius: 10px;
+        }
+        h1 {
+          font-size: 1.25rem;
+          font-weight: 400;
+        }
+        label {
+          font-size: 13px;
+          font-weight: 400;
+          color: #4b5563;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        select,
+        textarea {
+          font-size: 14px;
+          padding: 11px 14px 11px 36px;
+          border-radius: 10px;
+        }
+        .input-icon {
+          font-size: 16px;
+          left: 10px;
+        }
+        .field-note {
+          font-size: 11px;
+        }
+        .form-footer {
+          flex-direction: column;
+          gap: 16px;
+          text-align: center;
+        }
+        .radio-row {
+          flex-direction: column;
+          gap: 8px;
+          align-items: flex-start;
+        }
+      }
+
+      /* Footer Styles */
+      .footer-section {
+        background: linear-gradient(135deg, #ffffff, #f1f5f9);
+        padding: 40px 0;
+        margin-top: 40px;
+        color: #1f2937;
+        border-top: 1px solid var(--border-color);
+      }
+      .offices-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+      .office-box {
+        background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+        border-radius: 16px;
+        padding: 24px;
+        border: 1.5px solid var(--border-color);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .office-box::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, var(--accent-1), var(--accent-3));
+      }
+      
+      .office-box:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        border-color: var(--accent-1);
+      }
+      
+      .vadodara-office {
+        background: linear-gradient(135deg, #dbeafe 0%, #f0f9ff 100%);
+        border-color: rgba(37, 99, 235, 0.2);
+      }
+      
+      .vadodara-office::before {
+        background: linear-gradient(90deg, #2563eb, #0284c7);
+      }
+      
+      .vadodara-office .office-header {
+        color: #1e40af;
+      }
+      
+      .amdavad-office {
+        background: linear-gradient(135deg, #fef08a 0%, #fefce8 100%);
+        border-color: rgba(251, 191, 36, 0.3);
+      }
+      
+      .amdavad-office::before {
+        background: linear-gradient(90deg, #f59e0b, #d97706);
+      }
+      
+      .amdavad-office .office-header {
+        color: #92400e;
+      }
+      
+      .maninagar-office {
+        background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 100%);
+        border-color: rgba(34, 197, 94, 0.2);
+      }
+      
+      .maninagar-office::before {
+        background: linear-gradient(90deg, #10b981, #059669);
+      }
+      
+      .maninagar-office .office-header {
+        color: #065f46;
+      }
+      .office-header {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        letter-spacing: 0.5px;
+      }
+      .office-header hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent-1), var(--accent-3));
+        margin: 8px 0 0 0;
+        opacity: 0.5;
+      }
+      .office-details {
+        font-size: 0.9rem;
+        line-height: 1.55;
+        color: #475569;
+      }
+      @media (max-width: 768px) {
+        .offices-container {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .footer-section {
+          padding: 30px 0;
+        }
+        .office-box {
+          padding: 16px;
+        }
+        .office-header {
+          font-size: 1rem;
+        }
+        .office-details {
+          font-size: 0.85rem;
+        }
+      }
+
+      /* Event Header Styles */
+      .event-header {
+        background: linear-gradient(120deg, #ffffff, #f1f5f9 35%, #e0f2fe);
+        color: #1f2937;
+        padding: 24px 26px;
+        border-radius: 22px;
+        margin-bottom: 30px;
+        text-align: center;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+        border: 1px solid var(--border-color);
+        position: relative;
+        overflow: hidden;
+      }
+      .event-header::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle at 20% 20%,
+            rgba(37, 99, 235, 0.12),
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 80% 30%,
+            rgba(13, 148, 136, 0.15),
+            transparent 65%
+          );
+        pointer-events: none;
+      }
+      .event-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 14px;
+        line-height: 1.4;
+        background: linear-gradient(135deg, #2563eb 0%, #0d9488 50%, #f97316 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 2px 8px rgba(37,99,235,0.1);
+        letter-spacing: 0.5px;
+      }
+      .event-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin: 16px 0;
+        text-align: left;
+      }
+      .event-item {
+        background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+        border: 1.5px solid var(--border-color);
+        padding: 16px 18px;
+        border-radius: 14px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+      }
+      .event-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(37,99,235,0.1);
+        border-color: var(--accent-1);
+      }
+      .event-item strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 0.9rem;
+      }
+      .event-join {
+        background: linear-gradient(135deg, #fef3c7 0%, #fef9e7 100%);
+        border: 2px solid rgba(251,146,60,0.3);
+        padding: 22px 22px;
+        border-radius: 16px;
+        margin-top: 18px;
+        box-shadow: 0 4px 16px rgba(251,146,60,0.12);
+        transition: all 0.3s ease;
+      }
+      .event-join:hover {
+        box-shadow: 0 6px 20px rgba(251,146,60,0.18);
+        transform: translateY(-2px);
+      }
+      .whatsapp-link {
+        color: #ffffff;
+        background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+        padding: 12px 22px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        display: inline-block;
+        margin-top: 12px;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: 0 4px 12px rgba(22,163,74,0.25);
+      }
+      .whatsapp-link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(22,163,74,0.35);
+      }
+      @media (max-width: 768px) {
+        .event-header {
+          padding: 16px;
+          margin-bottom: 20px;
+        }
+        .event-title {
+          font-size: 1.1rem;
+        }
+        .event-details {
+          grid-template-columns: 1fr;
+          gap: 12px;
+          text-align: center;
+        }
+        .event-item {
+          padding: 10px;
+        }
+      }
+      
+      /* Sparkling Loader Styles */
+      .loader-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 50%, #e0f2fe 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      .loader-container.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      .loader-content {
+        text-align: center;
+        padding: 40px 20px;
+      }
+      
+      .sparkle-loader {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 30px;
+        display: none;
+      }
+      
+      .sparkle-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #2563eb 0%, #0d9488 100%);
+        border-radius: 50%;
+        box-shadow: 0 0 30px rgba(37, 99, 235, 0.6);
+        animation: pulse-glow 2.5s ease-in-out infinite;
+      }
+      
+      .sparkle {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: radial-gradient(circle, #fbbf24, #f97316);
+        border-radius: 50%;
+        opacity: 0;
+        animation: sparkle-animation 2.5s ease-in-out infinite;
+        box-shadow: 0 0 12px rgba(249, 115, 22, 0.8);
+      }
+      
+      @keyframes sparkle-animation {
+        0% {
+          opacity: 1;
+          transform: translate(0, 0) scale(1);
+          filter: brightness(1);
+        }
+        25% {
+          opacity: 0.8;
+          filter: brightness(1.3);
+        }
+        50% {
+          opacity: 0.6;
+          filter: brightness(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(var(--tx), var(--ty)) scale(0);
+          filter: brightness(0.5);
+        }
+      }
+      
+      @keyframes pulse-glow {
+        0%, 100% {
+          box-shadow: 0 0 30px rgba(37, 99, 235, 0.6), 0 0 60px rgba(37, 99, 235, 0.3);
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          box-shadow: 0 0 50px rgba(37, 99, 235, 0.8), 0 0 80px rgba(37, 99, 235, 0.4);
+          transform: translate(-50%, -50%) scale(1.15);
+        }
+      }
+      
+      .loader-text {
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #2563eb 0%, #0d9488 50%, #f97316 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 16px;
+        animation: float-text 3s ease-in-out infinite;
+        letter-spacing: 0.5px;
+      }
+      
+      @keyframes float-text {
+        0%, 100% {
+          transform: translateY(0px);
+          opacity: 1;
+        }
+        50% {
+          transform: translateY(-8px);
+          opacity: 0.9;
+        }
+      }
+      
+      .loader-subtext {
+        font-size: 1rem;
+        color: #6b7280;
+        font-weight: 500;
+      }
+      
+      @media (max-width: 768px) {
+        .loader-text {
+          font-size: 1.5rem;
+          margin-bottom: 12px;
+        }
+        .loader-subtext {
+          font-size: 0.95rem;
+        }
+        .loader-content {
+          padding: 30px 16px;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .loader-text {
+          font-size: 1.3rem;
+          margin-bottom: 10px;
+        }
+        .loader-subtext {
+          font-size: 0.85rem;
+        }
+        .loader-content {
+          padding: 20px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sparkling Loader -->
+    <div class="loader-container" id="loaderContainer">
+      <div class="loader-content">
+        <div class="sparkle-loader">
+          <div class="sparkle-center"></div>
+        </div>
+        <div class="loader-text">🌟 ભુદેવ સંમેલન</div>
+        <div class="loader-subtext">Loading your future...</div>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Event Header -->
+      <div class="event-header">
+        <div class="event-title">
+          34મુ સમસ્ત બ્રાહ્મણ - ભુદેવ જીવનસાથી પસંદગી સંમેલન<br />
+        </div>
+
+        <div class="event-details">
+          <div class="event-item">
+            <strong>સંમેલન તારીખ:</strong>
+            25-01-2026 (રવિવાર)
+          </div>
+          <div class="event-item">
+            <strong>સમય:</strong>
+            9 AM to 4 PM
+          </div>
+          <div class="event-item">
+            <strong>સ્થળ:</strong>
+            Sardar Patel AC Banquet Hall & Party Plot Near Smart Bazar, Anand - Vidyanagar Road, Anand, Gujarat 388001
+          </div>
+          <div class="event-item">
+            <strong>આયોજક:</strong>
+            Bhudev Network Charitable Foundation<br/>
+            <small>(Gov. Reg. Amd/120129)</small>
+          </div>
+        </div>
+
+        <!-- <div class="event-join">
+          <div style="margin-bottom: 12px">
+            <strong>✅ All-in-1 Booklet  </strong><br />
+             <strong>✅ (Registration + Printing + 1 Booklet) Charges = Rs 700  </strong><br />
+              <strong>✅ Rs 700 Refundable after Marriage from this Booklet </strong><br />
+            <strong>👥 For All Male - Female Candidates</strong><br />
+            <strong>📅 Last Date: 15/01/2026</strong>
+          </div>
+
+        </div> -->
+      </div>
+
+      <div class="card">
+        <!-- <h1 style="text-align: center; margin-bottom: 20px;">🌟 નવું જીવન, નવી શરૂઆત - Registration Form</h1> -->
+
+        <!-- Registration Closed Notice -->
+        <div style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); border-left: 5px solid #c62828; padding: 20px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(198, 40, 40, 0.15);">
+          <h2 style="color: #c62828; text-align: center; margin: 0 0 15px 0; font-size: 1.4rem;">
+            🔴 Sorry, Registration Form is Now Closed 🔴
+          </h2>
+          <p style="text-align: center; font-size: 1.1rem; font-weight: 600; margin: 10px 0; color: #1f2937;">
+            34મુ ભુદેવ જીવનસાથી સંમેલન મા આપનું સ્વાગત છે. તા 25/01/2026, આણંદ.
+          </p>
+        </div>
+
+        <!-- Step 1 -->
+        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 5px solid #f57c00; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(245, 124, 0, 0.12);">
+          <h3 style="color: #f57c00; margin: 0 0 12px 0; font-size: 1.15rem;">
+            🟠 Step - 1 : ઓનલાઇન રેજીસ્ટ્રેશન બંધ
+          </h3>
+          <p style="line-height: 1.7; color: #1f2937; margin: 0; font-size: 0.95rem;">
+            34મા ભુદેવ જીવનસાથી પરિચય સંમેલન નું ઓનલાઇન રેજીસ્ટ્રેશન હવે Close થઇ ગયું છે. જો તમે રેજીસ્ટ્રેશન કરાવી દીધું હોય કે પછી રેજીસ્ટ્રેશન ચુકી ગયા હોવ તો હવે તમે સ્થળ ઉપર આવીને રૂબરૂ સંમેલન મા ભાગ લઇ શકો છો. જો તમે Rs 700 ભરીને રેજીસ્ટ્રેશન કરાવ્યું છે, તો સ્થળ ઉપર થી તમને, Booklet Counter ઉપર 1 Girls અથવા 1 Boys બુકલેટ મળશે. જો ના કરાવ્યું હોય તો તમે સ્વૈચ્છા થી સ્થળ ઉપર આવીને Rs 700 મા બુકલેટ પરચેઝ કરી શકો છો. (સ્થળ ઉપર Extra Booklet Available હોય તો આ શક્ય થશે)
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 5px solid #2e7d32; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(46, 125, 50, 0.12);">
+          <h3 style="color: #2e7d32; margin: 0 0 12px 0; font-size: 1.15rem;">
+            🟢 Step - 2 : બાયોડેટા વેરિફિકેશન અને પેમેન્ટ
+          </h3>
+          <p style="line-height: 1.7; color: #1f2937; margin: 0 0 15px 0; font-size: 0.95rem;">
+            રેજીસ્ટ્રેશન પછી, હજી તમારે બાયોડેટા વેરિફિકેશન તથા Rs 700 Registration Fees નું પેમેન્ટ હજી બાકી હોય તો તા. 18-01-2026 પહેલા, નીચે મુજબ કોઈ પણ 1 નંબર ઉપર ફૉન કરીને અચૂક આ પ્રોસેસ ફિનિશ કરી દેશો. તા. 18-01-2026 પછી કોઈની પણ રેજીસ્ટ્રેશન Fees સ્વીકારવામાં આવશે નહિ. આવી સ્થિતિ મા તમારું બાયોડેટા ફોર્મ કેન્સલ થઇ જશે.
+          </p>
+          <p style="text-align: center; background: #fff; padding: 8px 12px; border-radius: 6px; font-weight: 600; color: #d84315; margin: 0 0 15px 0; font-size: 0.9rem;">
+            ⏰ ફૉન નો સમય : 10 AM To 6 PM Only
+          </p>
+          
+          <!-- Vadodara Office -->
+          <div style="background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+            <h4 style="color: #1e88e5; margin: 0 0 10px 0; font-size: 1.05rem;">
+              📍 વડોદરા ભુદેવ નેટવર્ક ઓફિસ
+            </h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Krishnaben: <a href="tel:9428642903" style="color: #1e88e5; text-decoration: none; font-weight: 600;">9428642903</a></li>
+              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Prabhuta: <a href="tel:7043922323" style="color: #1e88e5; text-decoration: none; font-weight: 600;">7043922323</a></li>
+              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Himanshi: <a href="tel:9662362626" style="color: #1e88e5; text-decoration: none; font-weight: 600;">9662362626</a></li>
+              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Krina: <a href="tel:9265307465" style="color: #1e88e5; text-decoration: none; font-weight: 600;">9265307465</a></li>
+              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Kajal: <a href="tel:9313183494" style="color: #1e88e5; text-decoration: none; font-weight: 600;">9313183494</a></li>
+            </ul>
+          </div>
+          
+          <!-- Ahmedabad Office -->
+          <div style="background: #fff; padding: 15px; border-radius: 8px;">
+            <h4 style="color: #1e88e5; margin: 0 0 10px 0; font-size: 1.05rem;">
+              📍 અમદાવાદ ભુદેવ નેટવર્ક ઓફિસ
+            </h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Sheetalben: <a href="tel:9265224170" style="color: #1e88e5; text-decoration: none; font-weight: 600;">9265224170</a></li>
+              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Pina: <a href="tel:6352348949" style="color: #1e88e5; text-decoration: none; font-weight: 600;">6352348949</a></li>
+              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Pranjal: <a href="tel:6355424206" style="color: #1e88e5; text-decoration: none; font-weight: 600;">6355424206</a></li>
+              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Gayatriben: <a href="tel:7990252977" style="color: #1e88e5; text-decoration: none; font-weight: 600;">7990252977</a></li>
+              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Hiteshi: <a href="tel:6355414702" style="color: #1e88e5; text-decoration: none; font-weight: 600;">6355414702</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 5px solid #1565c0; padding: 20px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 3px 10px rgba(21, 101, 192, 0.12);">
+          <h3 style="color: #1565c0; margin: 0 0 12px 0; font-size: 1.15rem;">
+            🔵 Step - 3 : ઓનલાઇન પેમેન્ટ
+          </h3>
+          <p style="line-height: 1.7; color: #1f2937; margin: 0 0 15px 0; font-size: 0.95rem;">
+            બાયોડેટા વેરિફિકેશન પછી તમારે નીચે આપેલ લીંક ઉપર ક્લિક કરીને રેજીસ્ટ્રેશન Fees (Rs 700) Online ભરવાના રહેશે. પછીજ તમારો બાયોડેટા લેટેસ્ટ બુકલેટ મા સમાવેશ થશે.
+          </p>
+          <div style="text-align: center;">
+            <a href="https://bhudevnetwork.pythonanywhere.com/34th-sammelan-payment/" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%); color: white; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3); transition: all 0.3s ease;">
+              💳 ક્લિક કરો - ઓનલાઇન પેમેન્ટ
+            </a>
+          </div>
+        </div>
+
+        <!-- <p class="lead">
+          આપનું નવું ભવિષ્ય શરૂ કરવા માટે નીચે વિગતો ભરો.
+          <br /><em style="color: var(--hope)"
+            >Fill the details below for a new beginning and hope for a beautiful
+            future.</em
+          >
+        </p> -->
+
+        <!-- <form id="regForm" method="post" enctype="multipart/form-data" novalidate>
+          {% csrf_token %}
+          <div class="grid">
+            <div class="form-section">
+              <div class="form-section-title">Personal Details</div>
+              <div>
+                <label for="name">1. Candidate Name :</label>
+                <div class="input-wrap">
+                  <span class="input-icon">👤</span>
+                  <input type="text" id="name" name="name" required />
+                </div>
+              </div>
+              <div>
+                <label>2. Gender :</label>
+                <div class="radio-row">
+                  <label><input type="radio" name="gender" value="Male" required /> Male</label>
+                  <label><input type="radio" name="gender" value="Female" required /> Female</label>
+                </div>
+              </div>
+              <div>
+                <label for="dob">3. Candidate DOB :</label>
+                <div class="input-wrap">
+                  <span class="input-icon">🎂</span>
+                  <input type="text" id="dob" name="dob" placeholder="DD-MM-YYYY" required />
+                </div>
+              </div>
+              <div>
+                <label for="marital">4. Marital Status :</label>
+                <select id="marital" name="marital" required>
+                  <option value="">Choose one</option>
+                  <option value="never_married">Never Married (Unmarried)</option>
+                  <option value="divorce_no_child">Divorce (No Child)</option>
+                  <option value="divorce_having_child">Divorce (Having Child)</option>
+                  <option value="widow_no_child">Widow (No Child)</option>
+                  <option value="widow_having_child">Widow (Having Child)</option>
+                  <option value="divorce_annulled">Divorce (Annulled)</option>
+                  <option value="divorce_in_process">Divorce in Process</option>
+                  <option value="separated">Separated</option>
+                  <option value="gol_dhana_cancel">1 Time Gol-Dhana Done, but then Cancelled</option>
+                  <option value="engagement_cancel">1 Time Engagement Done, but then Cancelled</option>
+                </select>
+              </div>
+              <div class="full">
+                <label for="disability">5. Any Disability or Minor Problem? :</label>
+                <textarea id="disability" name="disability" required></textarea>
+              </div>
+              <div>
+                <label for="tob">6. Birth Time :</label>
+                <input type="text" id="tob" name="tob" placeholder="e.g. 07:30 AM" required />
+              </div>
+              <div>
+                <label for="birthPlace">7. Birth Place :</label>
+                <input type="text" id="birthPlace" name="birthPlace" required />
+              </div>
+              <div>
+                <label for="city">8. Current City  :</label>
+                <input type="text" id="city" name="city" required />
+              </div>
+              <div>
+                <label for="country">9.Current Country :</label>
+                <input type="text" id="country" name="country" required value="" />
+              </div>
+              <div>
+                <label for="visa">10. Visa Status (if NRI) :</label>
+                <select id="visa" name="visa" required>
+                  <option value="">Select an Option</option>
+                  <option>Indian Citizen</option>
+                  <option>NRI - Student Visa</option>
+                  <option>NRI - Work Permit</option>
+                  <option>NRI - PR</option>
+                  <option>NRI - PR In Process</option>
+                  <option>NRI - Green Card (USA)</option>
+                  <option>NRI - Blue Card (EU)</option>
+                  <option>NRI - Citizenship</option>
+                  <option>NRI - Visitor Visa</option>
+                  <option>NRI - H1B (USA)</option>
+                  <option>NRI - Business Visa</option>
+                  <option>NRI - OCI</option>
+                  <option>NRI - F1</option>
+                </select>
+              </div>
+              <div>
+                <label for="height">11. Height :</label>
+                <input type="text" id="height" name="height" placeholder="e.g. 5.6" required />
+              </div>
+              <div>
+                <label for="weight">12. Weight :</label>
+                <input type="text" id="weight" name="weight" placeholder="e.g. 65" required />
+              </div>
+              <div class="full">
+                <label for="education">13. Education :</label>
+                <select id="education" name="education" required>
+                  <option value="">Select an Option</option>
+                  <option>Undergraduate (10th 12th Pass / Fail , Diploma , ITI , Not Completed Graduation)</option>
+                  <option>Graduate (BA , B.Com. , B.Sc. , BE , BTech, LLB , B. Arch., BBA , BCA etc)</option>
+                  <option>Masters (MA , MCom, MSc., ME , MTech, M.Arch , M.Phil, LLM, etc)</option>
+                  <option>CA , CS , ICWA, CPA, ACCA , CIMA , etc</option>
+                  <option>Doctor - Medical - Pharmacy - Dentist - Physiotherapist - Paramedical - Nursing - Clinical Surgical - Specialists</option>
+                  <option>PhD , UPSC, GPSC (IAS , IPS, etc) , Mayor , Civil Services etc</option>
+                  <option>Any Other Education Category</option>
+                </select>
+              </div>
+              <div class="full">
+                <label for="educationDetail">14. Education Detail :</label>
+                <input type="text" id="educationDetail" name="educationDetail" placeholder="Enter education details" required />
+              </div>
+              <div>
+                <label for="occupationCat">15. Occupation (Job/Business) :</label>
+                <select id="occupationCat" name="occupationCat" required>
+                  <option value="">Select an Option</option>
+                  <option>Government Job</option>
+                  <option>Private MNC Job</option>
+                  <option>Self Employed (Own Practice)</option>
+                  <option>Own Business</option>
+                  <option>Job + Business</option>
+                  <option>Free Lancing</option>
+                  <option>Student (Studies Running)</option>
+                  <option>Searching Job</option>
+                  <option>Home Works (ghar-kaam)</option>
+                </select>
+              </div>
+              <div class="full">
+                <label for="occupationDetails">16. Company Name :</label>
+                <textarea id="occupationDetails" name="occupationDetails" required></textarea>
+              </div>
+              <div>
+                <label for="salary">17. Monthly Income / Salary :</label>
+                <input type="text" id="salary" name="salary" placeholder="e.g. 35000" required />
+              </div>
+              <div>
+                <label for="shani">18. (Shani / Mangal) :</label>
+                <select id="shani" name="shani" required>
+                  <option value="">Select an Option</option>
+                  <option>Yes (Shani)</option>
+                  <option>Yes (Mangal)</option>
+                  <option>No</option>
+                  <option>Don't Know</option>
+                  <option>We Don't Believe</option>
+                </select>
+              </div>
+              <div>
+                <label for="hobbies">19. Hobbies :</label>
+                <input type="text" id="hobbies" name="hobbies" placeholder="e.g. Reading, Music, Sports, etc." required />
+              </div>
+            </div>
+            <div class="form-section family">
+              <div class="form-section-title">Family Details</div>
+              <div>
+                <label for="father">20. Father's Name :</label>
+                <input type="text" id="father" name="father" required />
+              </div>
+              <div>
+                <label for="mother">21. Mother's Name :</label>
+                <input type="text" id="mother" name="mother" required />
+              </div>
+              <div>
+                <label for="fatherWp">22. Father's Mobile No. :</label>
+                <input type="tel" id="fatherWp" name="fatherWp" pattern="\d{7,15}" required />
+              </div>
+              <div>
+                <label for="motherWp">23. Mother's Mobile No. :</label>
+                <input type="tel" id="motherWp" name="motherWp" pattern="\d{7,15}" required />
+              </div>
+              <div>
+                <label for="caste">24. Type of Brahmin :</label>
+                <input type="text" id="caste" name="caste" required />
+              </div>
+              <div>
+                <label for="gotra">25. Gotra :</label>
+                <input type="text" id="gotra" name="gotra" required />
+              </div>
+              <div>
+                <label for="kuldevi">26. Kuldevi :</label>
+                <input type="text" id="kuldevi" name="kuldevi" placeholder="Enter Kuldevi name" required />
+              </div>
+              <div class="full">
+                <label for="siblings">27. Siblings (Brother/Sister) :</label>
+                <textarea id="siblings" name="siblings" placeholder="Name, Age, Married/Unmarried, Occupation" required></textarea>
+              </div>
+            </div>
+            <div class="form-section habbits">
+              <div class="form-section-title">Habbits</div> -->
+              <!-- Example fields for Habbits & Declaration -->
+              <!-- <div>
+                <label for="eating_habbits">28. Eating Habbits (Pure Veg?) :</label>
+                <input type="text" id="eating_habbits" name="eating_habbits" placeholder="e.g. Pure Veg, Jain, etc." required />
+              </div>
+              <div>
+                <label for="alcohol">29. Alcoholic Drinks (Yes/No)? :</label>
+                <select id="alcohol" name="alcohol" required>
+                  <option value="">Select</option>
+                  <option value="No">No</option>
+                  <option value="Yes">Yes</option>
+                </select>
+              </div>
+              <div>
+                <label for="smoke">30. Smoke ? (Yes/No) :</label>
+                <select id="smoke" name="smoke" required>
+                  <option value="">Select</option>
+                  <option value="No">No</option>
+                  <option value="Yes">Yes</option>
+                </select>
+              </div>
+              <div>
+                <label for="other_habbit">31. Any Other Habbit ? :</label>
+                <input type="text" id="other_habbit" name="other_habbit" required />
+              </div>
+              <div>
+                <label for="legal_case">32. Any Legal or Police Case? :</label>
+                <input type="text" id="legal_case" name="legal_case" required />
+              </div>
+            </div>
+            <div class="form-section choice">
+              <div class="form-section-title">Choice in Profile Selection</div>
+              <div>
+                <label for="locChoice">33. Partner's Location :</label>
+                <input type="text" id="locChoice" name="locChoice" required />
+              </div>
+              <div>
+                <label for="ageGap">34. Partner's Age Bracket :</label>
+                <input type="text" id="ageGap" name="ageGap" placeholder="e.g. 2-5 years" required />
+              </div>
+              <div>
+                <label for="eduChoice">35. Partner's Education :</label>
+                <input type="text" id="eduChoice" name="eduChoice" required />
+              </div>
+              <div class="full">
+                <label for="otherChoice">36. Any Other Specific Choice</label>
+                <textarea id="otherChoice" name="otherChoice" required></textarea>
+              </div>
+            </div>
+            <div class="form-section extra ">
+              <div class="form-section-title">Other Details</div> -->
+                  
+              <!-- ...existing code for extra fields (gender, who, regMobile, resCat, nadi, email, whatsapp, photo, declaration, etc.) ... -->
+              <!-- <div class="full">
+                <label for="who">37. Who is doing this Registration?</label>
+                <input type="text" id="who" name="who" placeholder="e.g. SELF or Candidate's Father (Name)" required />
+              </div>
+              <div>
+                <label for="regMobile">38. Mobile Number (of person registering)</label>
+                <div class="input-wrap">
+                  <span class="input-icon">📱</span>
+                  <input type="tel" id="regMobile" name="regMobile" placeholder="9876543210" pattern="\d{7,15}" required />
+                </div>
+                <div class="field-note">For reference & verification</div>
+              </div>
+              <div>
+                <label for="resCat">39. Candidate Current Residence Area Category</label>
+                <select id="resCat" name="resCat" required>
+                  <option value="">Select an Option</option>
+                  <option value="gujarat">Gujarat Region (North or Central or South)</option>
+                  <option value="saurashtra">Saurashtra Region</option>
+                  <option value="kachchh">Kachchh Region</option>
+                  <option value="mumbai_maharashtra">Mumbai & Maharashtra Region</option>
+                  <option value="rest_of_india">Rest of Indian Region (except Gujarat & Maharashtra)</option>
+                  <option value="nri">NRI (Any Visa)</option>
+                </select>
+              </div>
+              <div>
+                <label for="nadi">40. Nadi</label>
+                <select id="nadi" name="nadi" required>
+                  <option value="">Select an Option</option>
+                  <option>Aadhya Nadi</option>
+                  <option>Madhya Nadi</option>
+                  <option>Antya Nadi</option>
+                  <option>I Dont Know</option>
+                  <option>We Don't Believe</option>
+                </select>
+              </div>
+              <div>
+                <label for="email">41. Email</label>
+                <div class="input-wrap">
+                  <span class="input-icon">✉️</span>
+                  <input type="email" id="email" name="email" required />
+                </div>
+              </div>
+              <div>
+                <label for="whatsapp">42. Whatsapp Number (For verification)</label>
+                <div class="input-wrap">
+                  <span class="input-icon">💬</span>
+                  <input type="tel" id="whatsapp" name="whatsapp" pattern="\d{7,15}" required />
+                </div>
+              </div>
+              <div>
+                <label for="photo">43. Upload 1 Candidate Photo (passport size / close-up)</label>
+                <div class="photo-upload-wrap">
+                  <label class="fileBtn" for="photo" id="chooseBtn">Choose Photo</label>
+                  <input type="file" id="photo" name="photo" accept="image/*" required />
+                  <div class="photo-preview" id="preview">No file chosen</div>
+                  <div id="fileName" class="muted" style="font-size: 13px">No file selected</div>
+                </div>
+                <div class="field-note">Clear front-face, no goggles or cap. Max 5MB.</div>
+              </div>
+              <div class="full">
+                <label style="font-weight: 600; line-height: 1.6;">
+                  44. <strong>Declaration</strong><br>
+                  <span style="font-weight: 400;">
+                    I hereby declare that, all Above information is correct and I take full responsibility for its correctness.<br>
+                    I agree to the T&amp;C of your organization. I agree to pay Rs 700 as Registration Fees.<br>
+                    Pls include above Biodata in your latest Booklet.
+                  </span>
+                </label>
+                <div class="radio-row">
+                  <label><input type="radio" name="declaration" value="Agree" required /> Agree</label>
+                  <label><input type="radio" name="declaration" value="Disagree" required /> Disagree</label>
+                </div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="full errors" id="formErrors" aria-live="polite"></div>
+          </div>
+
+          <div class="form-footer">
+            <div class="muted">
+              <span style="color: var(--hope)">🌟</span> તમારી નવી શરૂઆત માટે
+              બધી જરૂરી માહિતી ભરો. <br /><em style="color: var(--hope)"
+                >Fill all required fields for your new beginning. Every end is a
+                new start!</em
+              >
+            </div>
+            <div>
+              <button type="submit" class="btn">
+                🚀 Submit & Preview
+              </button>
+              <button type="button" class="btn secondary" id="resetBtn" style="display: none;">
+                🔄 Reset
+              </button>
+            </div>
+          </div> -->
+          <!-- Preview Modal Popup -->
+          <style>
+            .modal {
+              display: none;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100vw;
+              height: 100vh;
+              background: rgba(0,0,0,0.4);
+              z-index: 9999;
+              align-items: center;
+              justify-content: center;
+            }
+            .modal.show {
+              display: flex;
+            }
+            .modal-content {
+              background: #fff;
+              border-radius: 16px;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+              padding: 32px 24px;
+              max-width: 600px;
+              width: 90vw;
+              max-height: 80vh;
+              overflow-y: auto;
+              margin: auto;
+              position: relative;
+              animation: modalFadeIn 0.2s;
+            }
+            @keyframes modalFadeIn {
+              from { opacity: 0; transform: translateY(40px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+            .modal-content h3 {
+              margin-top: 0;
+              font-size: 1.4rem;
+              color: var(--accent-1);
+            }
+            .modal-content table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 16px;
+            }
+            .modal-content td {
+              border-bottom: 1px solid #eee;
+              padding: 6px 10px;
+              font-size: 15px;
+            }
+            .modal-content img {
+              margin-top: 8px;
+              max-width: 180px;
+              max-height: 180px;
+              border-radius: 8px;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            }
+            .modal-content .btn {
+              min-width: 120px;
+              cursor: pointer;
+              position: relative;
+              z-index: 10000;
+            }
+            .modal-content .btn:hover {
+              opacity: 0.9;
+            }
+          </style>
+          <div id="formPreviewModal" class="modal">
+            <div class="modal-content card">
+              <h3>Preview Your Details</h3>
+              <div id="previewContent"></div>
+              <div style="display:flex;gap:10px;margin-top:16px;">
+                <button type="button" class="btn accent" id="confirmSubmitBtn">Confirm & Submit</button>
+                <button type="button" class="btn secondary" id="editPreviewBtn">⬅️ Back to Edit</button>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:12px; text-align:right;">
+          <!-- Preview Before Submit button removed as requested -->
+        </form>
+          
+      </div>
+    </div>
+     <div class="image-container-card">
+        <div class="image-container-content">
+          <div class="placeholder-poster">
+            <img src="{% static 'images/sammelan.jpeg' %}" alt="Event Poster">
+          </div>
+        </div>
+                </div>
+                <div class="image-container-card" style="margin-top: 12px;">
+        <div class="image-container-content">
+          <div class="placeholder-poster">
+            <img src="{% static 'images/team.jpg' %}" alt="team Poster">
+          </div>
+        </div>
+            </div>
+
+    <script>
+      // Basic client side validation, image preview, and modal preview
+      (function () {
+        const form = document.getElementById("regForm");
+        const preview = document.getElementById("preview");
+        const photo = document.getElementById("photo");
+        const fileName = document.getElementById("fileName");
+        const errors = document.getElementById("formErrors");
+        const resetBtn = document.getElementById("resetBtn");
+        const formPreviewModal = document.getElementById("formPreviewModal");
+        const previewContent = document.getElementById("previewContent");
+        const confirmSubmitBtn = document.getElementById("confirmSubmitBtn");
+        const editPreviewBtn = document.getElementById("editPreviewBtn");
+
+        photo.addEventListener("change", () => {
+          const f = photo.files && photo.files[0];
+          if (!f) {
+            preview.innerHTML = "No file chosen";
+            fileName.textContent = "No file selected";
+            return;
+          }
+          fileName.textContent = f.name;
+          if (f.size > 5 * 1024 * 1024) {
+            alert("File too large. Max 5MB.");
+            photo.value = "";
+            preview.innerHTML = "No file chosen";
+            fileName.textContent = "No file selected";
+            return;
+          }
+          const img = document.createElement("img");
+          img.src = URL.createObjectURL(f);
+          img.onload = () => URL.revokeObjectURL(img.src);
+          preview.innerHTML = "";
+          preview.appendChild(img);
+        });
+
+        resetBtn.addEventListener("click", () => {
+          form.reset();
+          preview.innerHTML = "No file chosen";
+          errors.textContent = "";
+        });
+
+        // Preview logic
+        function validatePhone(value) {
+          return /^\d{7,15}$/.test(value);
+        }
+
+
+        let previewMode = false;
+        form.addEventListener("submit", function (e) {
+          if (!previewMode) {
+            // --- Required field validation (copy from top script, but for preview logic) ---
+            document.querySelectorAll('.field-warning').forEach(function(el) { el.remove(); });
+            document.querySelectorAll('.invalid-field').forEach(function(el) { el.classList.remove('invalid-field'); });
+            var firstInvalid = null;
+            var requiredFields = form.querySelectorAll('[required]');
+            requiredFields.forEach(function(field) {
+              if (field.type === 'radio') {
+                var radios = form.querySelectorAll('input[name="' + field.name + '"]');
+                var checked = Array.prototype.slice.call(radios).some(function(r) { return r.checked; });
+                if (!checked) {
+                  if (!firstInvalid) firstInvalid = field;
+                  Array.prototype.forEach.call(radios, function(radio) {
+                    if (radio.closest('label')) {
+                      radio.closest('label').classList.add('invalid-field');
+                    }
+                  });
+                  var parent = radios[0].closest('.radio-row') || radios[0].parentElement;
+                  if (parent && !parent.querySelector('.field-warning')) {
+                    var warn = document.createElement('div');
+                    warn.className = 'field-warning';
+                    warn.innerHTML = '⚠️ This field cannot be empty.';
+                    parent.appendChild(warn);
+                  }
+                }
+              } else if ((field.type === 'checkbox' && !field.checked) || (field.value === '' || field.value == null)) {
+                if (!firstInvalid) firstInvalid = field;
+                field.classList.add('invalid-field');
+                var parent = field.closest('.input-wrap') || field.parentElement;
+                if (parent && !parent.querySelector('.field-warning')) {
+                  var warn = document.createElement('div');
+                  warn.className = 'field-warning';
+                  warn.innerHTML = '⚠️ This field cannot be empty.';
+                  parent.appendChild(warn);
+                }
+              }
+            });
+            if (firstInvalid) {
+              e.preventDefault();
+              var scrollTo = firstInvalid.closest('.form-section') || firstInvalid.closest('.input-wrap') || firstInvalid;
+              if (scrollTo && scrollTo.scrollIntoView) {
+                scrollTo.scrollIntoView({behavior: 'smooth', block: 'center'});
+              }
+              var formErrors = document.getElementById('formErrors');
+              if (formErrors) {
+                formErrors.innerHTML = '📌 “It looks like you missed a required field. Please complete the highlighted field before submitting the form.”';
+                formErrors.style.display = 'block';
+              }
+              return false;
+            }
+            // --- End required field validation ---
+            e.preventDefault();
+            const formData = new FormData(form);
+            // All 45 fields in order, with exact labels and option text
+            const fields = [
+              {name: 'name', label: '1. Candidate Name'},
+              {name: 'gender', label: '2. Gender', type: 'radio'},
+              {name: 'dob', label: '3. Candidate DOB'},
+              {name: 'marital', label: '4. Marital Status', type: 'select'},
+              {name: 'disability', label: '5. Any Disability or Minor Problem?'},
+              {name: 'tob', label: '6. Birth Time'},
+              {name: 'birthPlace', label: '7. Birth Place'},
+              {name: 'city', label: '8. Current City / Country'},
+              {name: 'country', label: '9. Country'},
+              {name: 'visa', label: '10. Visa Status (if NRI)', type: 'select'},
+              {name: 'height', label: '11. Height'},
+              {name: 'weight', label: '12. Weight'},
+              {name: 'education', label: '13. Education', type: 'select'},
+              {name: 'educationDetail', label: '14. Education Detail'},
+              {name: 'occupationCat', label: '15. Occupation (Job/Business)', type: 'select'},
+              {name: 'occupationDetails', label: '16. Company Name'},
+              {name: 'salary', label: '17. Monthly Income / Salary'},
+              {name: 'shani', label: '18. (Shani / Mangal)', type: 'select'},
+              {name: 'hobbies', label: '19. Hobbies'},
+              {name: 'father', label: "20. Father's Name"},
+              {name: 'mother', label: "21. Mother's Name"},
+              {name: 'fatherWp', label: "22. Father's Mobile No."},
+              {name: 'motherWp', label: "23. Mother's Mobile No."},
+              {name: 'caste', label: '24. Type of Brahmin'},
+              {name: 'gotra', label: '25. Gotra'},
+              {name: 'kuldevi', label: '26. Kuldevi'},
+              {name: 'siblings', label: '27. Siblings (Brother/Sister)'},
+              {name: 'eating_habbits', label: '28. Eating Habbits (Pure Veg?)'},
+              {name: 'alcohol', label: '29. Alcoholic Drinks (Yes/No)?', type: 'select'},
+              {name: 'smoke', label: '30. Smoke ? (Yes/No)', type: 'select'},
+              {name: 'other_habbit', label: '31. Any Other Habbit ?'},
+              {name: 'legal_case', label: '32. Any Legal or Police Case?'},
+              {name: 'locChoice', label: "33. Partner's Location"},
+              {name: 'ageGap', label: "34. Partner's Age Bracket"},
+              {name: 'eduChoice', label: "35. Partner's Education"},
+              {name: 'otherChoice', label: '36. Any Other Specific Choice'},
+              {name: 'who', label: '37. Who is doing this Registration?'},
+              {name: 'regMobile', label: '38. Mobile Number (of person registering)'},
+              {name: 'resCat', label: '39. Candidate Current Residence Area Category', type: 'select'},
+              {name: 'nadi', label: '40. Nadi', type: 'select'},
+              {name: 'email', label: '41. Email'},
+              {name: 'whatsapp', label: '42. Whatsapp Number (For verification)'},
+              {name: 'photo', label: '43. Upload 1 Candidate Photo'},
+              {name: 'declaration', label: '44. Declaration', type: 'radio'},
+            ];
+            let html = '<table style="width:100%;border-collapse:collapse;margin-bottom:12px;">';
+            for (const field of fields) {
+              let value = '';
+              if (field.type === 'radio') {
+                const checked = form.querySelector(`input[name="${field.name}"]:checked`);
+                value = checked ? checked.labels[0].innerText.trim() : '';
+              } else if (field.type === 'select') {
+                const select = form.querySelector(`[name="${field.name}"]`);
+                if (select) {
+                  value = select.options[select.selectedIndex]?.text || '';
+                }
+              } else if (field.name === 'photo') {
+                const f = photo.files && photo.files[0];
+                if (f) {
+                  value = `<img src="${URL.createObjectURL(f)}" style="max-width:120px;max-height:120px;border-radius:8px;" onload="URL.revokeObjectURL(this.src)">`;
+                } else {
+                  value = 'No file chosen';
+                }
+              } else {
+                value = formData.get(field.name) || '';
+              }
+              html += `<tr><td style='padding:4px 8px;font-weight:600;'>${field.label}</td><td style='padding:4px 8px;'>${value}</td></tr>`;
+            }
+            html += '</table>';
+            previewContent.innerHTML = html;
+            formPreviewModal.classList.add('show');
+            previewMode = true;
+          } else {
+            previewMode = false;
+          }
+        });
+
+        if (confirmSubmitBtn) {
+          confirmSubmitBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            formPreviewModal.classList.remove('show');
+            // Actually submit the form after preview
+            previewMode = true;
+            form.requestSubmit();
+          });
+        }
+
+        if (editPreviewBtn) {
+          editPreviewBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            previewMode = false;
+            formPreviewModal.classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
+
+        // Close modal when clicking outside
+        formPreviewModal.addEventListener("click", function(e) {
+          if (e.target === formPreviewModal) {
+            previewMode = false;
+            formPreviewModal.classList.remove('show');
+          }
+        });
+      })();
+    </script>
+
+
+
+    <div class="employa-footer">
+  <div class="employa-footer-content">
+    <strong>This Digital Online Form is Designed & Developed by Employa Technologies IT Services.</strong>
+    <a href="https://Employa.in" target="_blank" class="employa-btn">Employa.in</a>
+    <div class="employa-contact">
+      <span class="contact-label">Connect Us :</span>
+      <div class="contact-numbers">
+        <a href="tel:9081522111" class="contact-link">📞 9081522111</a>
+        <span class="contact-separator">|</span>
+        <a href="tel:9099798986" class="contact-link">📞 9099798986</a>
+      </div>
+    </div>
+    <span class="employa-services-title">Our Other Services :</span>
+    <ul class="employa-services-list">
+      <li>✔️ Website Design & Development</li>
+      <li>✔️ Graphics & Advertising</li>
+      <li>✔️ Social Media Marketing (SMM)</li>
+      <li>✔️ Android & iOS App</li>
+    </ul>
+  </div>
+</div>
+<style>
+.employa-footer {
+  background: linear-gradient(135deg, rgba(235, 244, 221, 0.95) 0%, rgba(240, 245, 250, 0.7) 100%);
+  border-radius: 12px;
+  margin: 18px auto 0 auto;
+  max-width: 600px;
+  box-shadow: 0 4px 15px rgba(58, 73, 83, 0.08);
+  padding: 18px 14px 16px 14px;
+  text-align: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 1rem;
+  color: #2C3E50;
+  border: 2px solid #D8E5F0;
+}
+.employa-footer-content strong {
+  color: #080808;
+  font-size: 1.08rem;
+  font-weight: 800;
+}
+.employa-footer a {
+  color: #1e1eaa;
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.employa-footer a:hover {
+  color: #0a0a0a;
+}
+.employa-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #1e1eaa 0%, #0f0f8f 100%);
+  color: white !important;
+  padding: 12px 28px;
+  border-radius: 6px;
+  text-decoration: none !important;
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 8px 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(30, 30, 170, 0.3);
+  border: none;
+}
+.employa-btn:hover {
+  background: linear-gradient(135deg, #0f0f8f 0%, #080850 100%);
+  box-shadow: 0 6px 18px rgba(30, 30, 170, 0.4);
+  transform: translateY(-2px);
+}
+.employa-contact {
+  margin: 6px 0;
+  padding: 6px 0;
+}
+.contact-label {
+  display: block;
+  font-weight: 700;
+  color: #0f0f0f;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+.contact-numbers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.contact-link {
+  color: #1e1eaa;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+.contact-link:hover {
+  color: #0f0f8f;
+  text-decoration: underline;
+}
+.contact-separator {
+  color: #999;
+  font-weight: 300;
+}
+.employa-services-title {
+  font-weight: 700;
+  margin-top: 6px;
+  margin-bottom: 4px;
+  display: block;
+  color: #0f0f0f;
+  font-size: 1.05rem;
+}
+.employa-services-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.employa-services-list li {
+  margin: 3px 0;
+  font-size: 0.98rem;
+  color: #0f0f0f;
+  font-weight: 500;
+}
+</style>
+
+
+
+
+
+    <!-- Footer Section -->
+    {% include 'partials/footer.html' with year=2026 %}
+    
+    <script>
+      // Loader Script - Just handle hiding
+      function initLoader() {
+        const loaderContainer = document.getElementById('loaderContainer');
+        
+        // Hide loader when page is fully loaded
+        window.addEventListener('load', function() {
+          setTimeout(() => {
+            loaderContainer.classList.add('hidden');
+          }, 2500);
+        });
+      }
+      
+      // Initialize loader
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initLoader);
+      } else {
+        initLoader();
+      }
+    </script>
+  </body>
+</html>

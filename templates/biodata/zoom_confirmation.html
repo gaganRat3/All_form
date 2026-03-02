@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registration Successful</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    .container {
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      animation: fadeInScale 0.8s ease forwards;
+      opacity: 0;
+      transform: scale(0.8);
+      position: relative;
+      z-index: 10;
+    }
+    h2 {
+      color: #2575fc;
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      animation: slideInFromLeft 0.8s ease forwards;
+      opacity: 0;
+      transform: translateX(-50px);
+      position: relative;
+      z-index: 11;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 30px;
+      line-height: 1.5;
+      animation: slideInFromRight 0.8s ease forwards;
+      opacity: 0;
+      transform: translateX(50px);
+      animation-delay: 0.3s;
+      position: relative;
+      z-index: 11;
+    }
+    a button {
+      background-color: #2575fc;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      animation: fadeInUp 0.8s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+      animation-delay: 0.6s;
+      position: relative;
+      z-index: 11;
+    }
+    a button:hover {
+      background-color: #1a52c0;
+      transform: translateY(-3px);
+    }
+
+    /* Firecracker animation styles */
+    .firecracker {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 150px;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .firecracker .spark {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #ffdd55, #ffbb00);
+      border-radius: 50%;
+      opacity: 0;
+      animation: sparkAnim 1.2s ease-in-out infinite;
+    }
+    .firecracker .spark:nth-child(1) {
+      animation-delay: 0s;
+      transform-origin: bottom center;
+      animation-name: sparkAnim, rotate1;
+    }
+    .firecracker .spark:nth-child(2) {
+      animation-delay: 0.2s;
+      transform-origin: bottom center;
+      animation-name: sparkAnim, rotate2;
+    }
+    .firecracker .spark:nth-child(3) {
+      animation-delay: 0.4s;
+      transform-origin: bottom center;
+      animation-name: sparkAnim, rotate3;
+    }
+    .firecracker .spark:nth-child(4) {
+      animation-delay: 0.6s;
+      transform-origin: bottom center;
+      animation-name: sparkAnim, rotate4;
+    }
+    .firecracker .spark:nth-child(5) {
+      animation-delay: 0.8s;
+      transform-origin: bottom center;
+      animation-name: sparkAnim, rotate5;
+    }
+    .firecracker .spark:nth-child(6) {
+      animation-delay: 1s;
+      transform-origin: bottom center;
+      animation-name: sparkAnim, rotate6;
+    }
+
+    @keyframes sparkAnim {
+      0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.5);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(-40px) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(0) scale(0.5);
+      }
+    }
+
+    @keyframes rotate1 {
+      0% { transform: rotate(0deg) translateX(0) rotate(0deg); }
+      100% { transform: rotate(60deg) translateX(60px) rotate(-60deg); }
+    }
+    @keyframes rotate2 {
+      0% { transform: rotate(0deg) translateX(0) rotate(0deg); }
+      100% { transform: rotate(120deg) translateX(60px) rotate(-120deg); }
+    }
+    @keyframes rotate3 {
+      0% { transform: rotate(0deg) translateX(0) rotate(0deg); }
+      100% { transform: rotate(180deg) translateX(60px) rotate(-180deg); }
+    }
+    @keyframes rotate4 {
+      0% { transform: rotate(0deg) translateX(0) rotate(0deg); }
+      100% { transform: rotate(240deg) translateX(60px) rotate(-240deg); }
+    }
+    @keyframes rotate5 {
+      0% { transform: rotate(0deg) translateX(0) rotate(0deg); }
+      100% { transform: rotate(300deg) translateX(60px) rotate(-300deg); }
+    }
+    @keyframes rotate6 {
+      0% { transform: rotate(0deg) translateX(0) rotate(0deg); }
+      100% { transform: rotate(360deg) translateX(60px) rotate(-360deg); }
+    }
+
+    @keyframes fadeInScale {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    @keyframes slideInFromLeft {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    @keyframes slideInFromRight {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="firecracker">
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+  </div>
+  <div class="container">
+    <h2>🎉Registration Successful!</h2>
+    <p>Thankyou. Your Form is Successfully Received by our Bhudev Network - Team.
+       You will receive Confirmation & Verification Phone call in 24 hrs.</p>
+  </div>
+</body>
+</html>

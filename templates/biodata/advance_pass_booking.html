@@ -1,0 +1,1193 @@
+{% load static %}
+
+{% block content %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html, body {
+        height: 100%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #2c3e50;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* Animated background particles */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 8% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 85% 40%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 42% 90%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 17% 75%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 92% 12%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .page-wrapper {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header-section {
+        text-align: center;
+        margin-bottom: 30px;
+        animation: slideDown 0.8s ease-out;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .header-section h1 {
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-section p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .event-info {
+        max-width: 950px;
+        margin: 0 auto 30px;
+        padding: 0;
+        animation: slideUp 0.8s ease-out;
+    }
+
+    .event-brief-info {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        padding: 20px 25px;
+        margin-bottom: 20px;
+        text-align: left;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.9rem;
+        font-weight: 500;
+        line-height: 1.8;
+    }
+
+    .brief-info-line {
+        margin-bottom: 8px;
+    }
+
+    .brief-info-line strong {
+        font-weight: 700;
+        display: block;
+        margin-bottom: 4px;
+        color: white;
+    }
+
+    .brief-info-line:last-child {
+        margin-bottom: 0;
+    }
+
+    .event-info-title {
+        text-align: center;
+        color: #2c3e50;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        letter-spacing: 0.5px;
+        padding: 20px;
+       
+        border-radius: 12px;
+    }
+
+    .event-details-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .event-detail-card {
+        background: #ffffff;
+        padding: 18px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        transition: all 0.3s ease;
+        min-height: 140px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-left: 4px solid #667eea;
+    }
+
+    .event-detail-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+    }
+
+    .event-detail-card strong {
+        font-weight: 700;
+        color: #667eea;
+        font-size: 0.95rem;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .event-detail-card span {
+        color: #2c3e50;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .event-join {
+        background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-left: 5px solid #f59e0b;
+    }
+
+    .event-join > div {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        color: #2c3e50;
+    }
+
+    .event-join strong {
+        font-weight: 700;
+        color: #1f2937;
+        font-size: 0.95rem;
+    }
+
+    .event-info-divider {
+        display: none;
+    }
+
+    @media (max-width: 1024px) {
+        .event-details-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+            padding: 18px;
+        }
+
+        .event-detail-card {
+            min-height: auto;
+            padding: 16px;
+        }
+
+        .event-info-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding: 0px;
+        }
+
+        .page-wrapper {
+            padding: 12px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .event-details-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+            padding: 20px;
+        }
+
+        .event-detail-card {
+            min-height: auto;
+            padding: 18px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .event-detail-card strong {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .event-detail-card span {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #2c3e50;
+        }
+
+        .event-info-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            padding: 18px;
+        }
+
+        .event-brief-info {
+            padding: 14px 16px;
+            margin-bottom: 14px;
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .event-join {
+            padding: 18px;
+            margin-bottom: 18px;
+            border-left-width: 4px;
+        }
+
+        .event-join > div {
+            gap: 8px;
+        }
+
+        .event-join strong {
+            font-size: 0.85rem;
+        }
+
+        .page-wrapper {
+            padding: 12px;
+        }
+
+        .header-section h1 {
+            font-size: 1.8rem;
+        }
+
+        .header-section p {
+            font-size: 0.95rem;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .event-details-grid {
+            grid-template-columns: 1fr;
+            gap: 10px;
+            padding: 16px;
+        }
+
+        .event-detail-card {
+            min-height: auto;
+            padding: 14px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .event-detail-card strong {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .event-detail-card span {
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .event-info-title {
+            font-size: 1.15rem;
+            margin-bottom: 16px;
+            padding: 16px;
+        }
+
+        .event-brief-info {
+            padding: 12px 14px;
+            margin-bottom: 12px;
+            font-size: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .event-join {
+            padding: 14px;
+            margin-bottom: 14px;
+            border-left-width: 3px;
+        }
+
+        .event-join strong {
+            font-size: 0.8rem;
+        }
+
+        .page-wrapper {
+            padding: 10px;
+        }
+
+        .header-section h1 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+
+        .header-section p {
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .event-details-grid {
+            grid-template-columns: 1fr;
+            gap: 8px;
+            padding: 14px;
+        }
+
+        .event-detail-card {
+            padding: 12px;
+            min-height: auto;
+            border-left: 3px solid #667eea;
+        }
+
+        .event-detail-card strong {
+            font-size: 0.8rem;
+        }
+
+        .event-detail-card span {
+            font-size: 0.7rem;
+        }
+
+        .event-info-title {
+            font-size: 1rem;
+            margin-bottom: 14px;
+            padding: 14px;
+        }
+
+        .event-brief-info {
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            font-size: 0.7rem;
+        }
+
+        .event-join {
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .event-join strong {
+            font-size: 0.75rem;
+        }
+
+        .header-section h1 {
+            font-size: 1.3rem;
+        }
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .form-container {
+        max-width: 950px;
+        margin: 0 auto 40px;
+        background: rgba(255, 255, 255, 0.98);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .form-container h2 {
+        text-align: center;
+        color: #667eea;
+        font-weight: 800;
+        margin-bottom: 30px;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .closed-notice {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #2c3e50;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    input[type="text"], 
+    input[type="email"], 
+    select, 
+    input[type="file"] {
+        padding: 12px 15px;
+        font-size: 1rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        transition: all 0.3s ease;
+        background-color: #f8f9fa;
+    }
+
+    input[type="text"]:focus, 
+    input[type="email"]:focus, 
+    select:focus, 
+    input[type="file"]:focus {
+        border-color: #667eea;
+        outline: none;
+        background-color: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    input[readonly] {
+        background-color: #f0f0f0;
+        cursor: not-allowed;
+        color: #666;
+    }
+
+    .pass-section {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+    }
+
+    .pass-option {
+        margin-bottom: 20px;
+        padding: 20px;
+        border-bottom: none;
+        background: white;
+        border-radius: 12px;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s ease;
+    }
+
+    .pass-option:hover {
+        border-color: #667eea;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+    }
+
+    .pass-option:last-child {
+        margin-bottom: 0;
+        padding-bottom: 20px;
+    }
+
+    .pass-checkbox-label {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 1.05rem;
+    }
+
+    .pass-checkbox-label input[type="checkbox"] {
+        flex-shrink: 0;
+        margin-top: 3px;
+    }
+
+    .pass-label-content {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .pass-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .pass-title-row span:first-child {
+        font-size: 1.1rem;
+        color: #2c3e50;
+        font-weight: 700;
+    }
+
+    .pass-title-row .pass-price {
+        font-size: 1.3rem;
+        color: #667eea;
+        font-weight: 800;
+        white-space: nowrap;
+    }
+
+    .pass-label-content > span:last-child {
+        font-size: 0.85em;
+        color: #666;
+        font-weight: 500;
+    }
+
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        accent-color: #667eea;
+    }
+
+    .pass-price {
+        color: #667eea;
+        font-weight: 800;
+    }
+
+    .pass-details {
+        margin-top: 15px;
+        padding: 15px;
+        background: white;
+        border-radius: 10px;
+        border-left: 4px solid #667eea;
+        display: none;
+    }
+
+    .pass-details.active {
+        display: block;
+        animation: slideDown 0.3s ease-out;
+    }
+
+    .quantity-total-row {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .quantity-total-row label {
+        margin-bottom: 0;
+        font-size: 0.95rem;
+    }
+
+    .quantity-total-row select,
+    .quantity-total-row input {
+        padding: 10px 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .quantity-total-row select:focus,
+    .quantity-total-row input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .total-input {
+        background-color: #f0f0f0 !important;
+        color: #667eea;
+        font-weight: 700;
+        text-align: right;
+        min-width: 80px;
+    }
+
+    .grand-total-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .grand-total-label {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .grand-total-amount {
+        font-size: 2.5rem;
+        font-weight: 800;
+    }
+
+    #grandTotal {
+        background: transparent !important;
+        border: none !important;
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 800;
+        text-align: center;
+        width: 100%;
+    }
+
+    .payment-section {
+        background: rgba(240, 147, 251, 0.1);
+        padding: 25px;
+        border-radius: 15px;
+        border: 2px solid #f093fb;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .payment-title {
+        font-weight: 800;
+        font-size: 1.2rem;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+    }
+
+    .payment-details {
+        font-size: 1rem;
+        color: #1d1b1b;
+        margin-bottom: 15px;
+        font-weight: 800;
+    }
+
+    .payment-details strong {
+        font-size: 1.0rem;
+        color: #1a1818;
+        font-weight: 800;
+        display: block;
+        margin: 10px 0;
+    }
+
+    .payment-number {
+        color: #667eea;
+        font-weight: 800;
+        font-size: 1.3rem;
+    }
+
+    .payment-qr {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .payment-qr img {
+        width: 180px;
+        height: 180px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+        object-fit: contain;
+        aspect-ratio: 1 / 1;
+    }
+    
+
+    .payment-qr img:hover {
+        transform: scale(1.05);
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 16px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    button[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    button[type="submit"]:active {
+        transform: translateY(0);
+    }
+
+    .image-gallery {
+        max-width: 700px;
+        margin: 0 auto 40px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .gallery-item {
+        background: white;
+        padding: 15px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+        .form-container {
+            padding: 25px;
+        }
+
+        .form-container h2 {
+            font-size: 1.5rem;
+        }
+
+        .header-section h1 {
+            font-size: 2rem;
+        }
+
+        .quantity-total-row {
+            grid-template-columns: 1fr;
+        }
+
+        .grand-total-amount {
+            font-size: 2rem;
+        }
+
+        #grandTotal {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page-wrapper {
+            padding: 15px;
+        }
+
+        .form-container {
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-container h2 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .header-section h1 {
+            font-size: 1.5rem;
+        }
+
+        .header-section p {
+            font-size: 0.9rem;
+        }
+
+        label {
+            font-size: 0.95rem;
+        }
+
+        input[type="text"], 
+        input[type="email"], 
+        select, 
+        input[type="file"] {
+            font-size: 0.95rem;
+            padding: 10px 12px;
+        }
+
+        .pass-section {
+            padding: 15px;
+        }
+
+        .pass-option {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+        }
+
+        .quantity-total-row {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .payment-qr img {
+            width: 150px;
+            height: 150px;
+        }
+
+        button[type="submit"] {
+            padding: 14px;
+            font-size: 1rem;
+        }
+
+        .grand-total-amount {
+            font-size: 1.8rem;
+        }
+
+        #grandTotal {
+            font-size: 1.8rem;
+        }
+    }
+     /* Footer Styles */
+      .footer-section {
+       
+        padding: 20px 0;
+        margin-top: -40px;
+        color: #1f2937;
+        border-top: 1px solid var(--border-color);
+      }
+      .offices-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+      .office-box {
+        background: #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        border: none;
+        border-top: 5px solid;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        position: relative;
+        overflow: visible;
+      }
+      
+      .office-box::before {
+        display: none;
+      }
+      
+      .office-box:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      }
+      
+      .vadodara-office {
+        background: #ffffff;
+        border-top-color: #2563eb;
+      }
+      
+      .vadodara-office .office-header {
+        color: #2563eb;
+      }
+      
+      .amdavad-office {
+        background: #ffffff;
+        border-top-color: #f59e0b;
+      }
+      
+      .amdavad-office .office-header {
+        color: #f59e0b;
+      }
+      
+      .maninagar-office {
+        background: #ffffff;
+        border-top-color: #10b981;
+      }
+      
+      .maninagar-office .office-header {
+        color: #10b981;
+      }
+      .office-header {
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 12px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+      .office-header hr {
+        border: none;
+        height: 2px;
+        background: currentColor;
+        margin: 8px 0 0 0;
+        opacity: 0.4;
+      }
+      .office-details {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: #475569;
+      }
+      @media (max-width: 768px) {
+        .offices-container {
+          max-width: 100%;
+          gap: 16px;
+        }
+        .footer-section {
+          padding: 25px 0;
+        }
+        .office-box {
+          padding: 16px;
+          border-top-width: 4px;
+        }
+        .office-header {
+          font-size: 0.95rem;
+        }
+        .office-details {
+          font-size: 0.8rem;
+        }
+      }
+
+</style>
+
+<div class="page-wrapper">
+    <div class="header-section">
+        <h1>✨ Advance Pass Booking ✨</h1>
+        <p> 34મુ સમસ્ત બ્રાહ્મણ - ભુદેવ જીવનસાથી પસંદગી સંમેલન</p>
+    </div>
+
+    <div class="event-info">
+        <!-- Title for Cards Section -->
+        <div class="event-info-title">
+           
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="event-details-grid">
+            <div class="event-detail-card">
+                <strong>📅 સંમેલન તારીખ</strong>
+                <span>25-01-2026 (રવિવાર)</span>
+            </div>
+            <div class="event-detail-card">
+                <strong>⏰ સમય</strong>
+                <span>9 AM to 4 PM</span>
+            </div>
+            <div class="event-detail-card">
+                <strong>📍 સ્થળ</strong>
+                <span>Sardar Patel AC Banquet Hall & Party Plot Near Smart Bazar, Anand - Vidyanagar Road, Anand, Gujarat 388001</span>
+            </div>
+            <div class="event-detail-card">
+                <strong>🏢 આયોજક</strong>
+                <span>Bhudev Network Foundation<br><small>(Gov. Reg. Amd/120129)</small></span>
+            </div>
+        </div>
+         <!-- Yellow Booking Box -->
+        <div class="event-join">
+            <div>
+                <strong>✅ Entry + Tea Coffee Pass
+₹50</strong>
+                <strong>
+✅ Unlimited Buffet Lunch
+₹200</strong>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-container">
+        <h2>Book Your Pass</h2>
+
+        {% comment %} <div class="closed-notice">
+            🔴 Registration Form is now Closed 🔴
+        </div> {% endcomment %}
+
+        <form method="post" enctype="multipart/form-data" id="passBookingForm">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_name">1) Your Name</label>
+                {{ form.name }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_city">2) Your City</label>
+                {{ form.city }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_whatsapp_number">3) Your WhatsApp Number</label>
+                {{ form.whatsapp_number }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_email">4) Your Email ID</label>
+                {{ form.email }}
+            </div>
+
+            <div class="form-group">
+                <label style="text-transform: uppercase; font-size: 1.1rem;">5) Select Your Passes</label>
+                <div class="pass-section">
+                    <div class="pass-option">
+                        <label class="pass-checkbox-label" for="id_entry_token_selected">
+                            <input type="checkbox" id="id_entry_token_selected" name="entry_token_selected" {% if form.entry_token_selected.value %}checked{% endif %}>
+                            <div class="pass-label-content">
+                                <div class="pass-title-row">
+                                    <span>Entry + Tea Coffee Pass</span>
+                                    <span class="pass-price">₹ 50</span>
+                                </div>
+                                <span>☕ Morning + Evening (Both Included)</span>
+                            </div>
+                        </label>
+                        <div id="entryTokenPassDetails" class="pass-details">
+                            <div class="quantity-total-row">
+                                <label for="id_entry_token_quantity">Quantity:</label>
+                                {{ form.entry_token_quantity }}
+                            </div>
+                            <div class="quantity-total-row">
+                                <label style="margin-bottom: 0;">Total (₹):</label>
+                                <input type="text" id="entryTokenTotal" readonly value="0" class="total-input" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pass-option">
+                        <label class="pass-checkbox-label" for="id_unlimited_buffet_selected">
+                            <input type="checkbox" id="id_unlimited_buffet_selected" name="unlimited_buffet_selected" {% if form.unlimited_buffet_selected.value %}checked{% endif %}>
+                            <div class="pass-label-content">
+                                <div class="pass-title-row">
+                                    <span>Unlimited Buffet Lunch</span>
+                                    <span class="pass-price">₹ 200</span>
+                                </div>
+                            </div>
+                        </label>
+                        <div id="unlimitedBuffetLunchDetails" class="pass-details">
+                            <div class="quantity-total-row">
+                                <label for="id_unlimited_buffet_quantity">Quantity:</label>
+                                {{ form.unlimited_buffet_quantity }}
+                            </div>
+                            <div class="quantity-total-row">
+                                <label style="margin-bottom: 0;">Total (₹):</label>
+                                <input type="text" id="unlimitedBuffetTotal" readonly value="0" class="total-input" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grand-total-section">
+                <div class="grand-total-label">Grand Total Payable Amount</div>
+                <div class="grand-total-amount">
+                    <span style="font-size: 1.5rem;">₹</span> <input type="text" id="grandTotal" readonly value="0" name="total_amount" />
+                </div>
+            </div>
+
+            <div class="payment-section">
+                <div class="payment-title">💳 Payment Instructions</div>
+                <div class="payment-qr">
+                    <img src="{% static 'images/payment_qr.jpeg' %}" alt="GPay QR Code" />
+                </div>
+                <br>
+                <div class="payment-details">
+                  <strong></strong>Scan above QR code for Payment</strong>
+                  <br>or
+                  <br>
+                  <strong>Pay by Mobile Number : 7990208986 (Bhudev Network)</strong>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="id_payment_screenshot">7) Upload Payment Screenshot</label>
+                {{ form.payment_screenshot }}
+            </div>
+
+            <button type="submit">Submit Booking</button>
+        </form>
+    </div>
+
+    <div class="image-gallery">
+        <div class="gallery-item">
+            <img src="{% static 'images/Sammelan_new.jpeg' %}" alt="Event Image 1" />
+        </div>
+        <div class="gallery-item">
+            <img src="{% static 'images/team.jpg' %}" alt="Event Image 2" />
+        </div>
+        <!-- <div class="gallery-item">
+            <img src="{% static 'images/program_schedule3.jpeg' %}" alt="Program Schedule" />
+        </div> -->
+    </div> 
+</div>
+ <!-- Footer Section -->
+      {% include 'biodata/employa_footer.html' %}
+    </footer>
+   
+
+<script>
+    const entryTokenPrice = 50;
+    const unlimitedBuffetPrice = 200;
+
+    function updateTotals() {
+        const entryTokenSelected = document.getElementById('id_entry_token_selected').checked;
+        const unlimitedBuffetSelected = document.getElementById('id_unlimited_buffet_selected').checked;
+
+        const entryTokenQtySelect = document.getElementById('id_entry_token_quantity');
+        const unlimitedBuffetQtySelect = document.getElementById('id_unlimited_buffet_quantity');
+
+        const entryTokenQty = entryTokenSelected ? parseInt(entryTokenQtySelect.value) : 0;
+        const unlimitedBuffetQty = unlimitedBuffetSelected ? parseInt(unlimitedBuffetQtySelect.value) : 0;
+
+        const entryTokenTotal = entryTokenQty * entryTokenPrice;
+        const unlimitedBuffetTotal = unlimitedBuffetQty * unlimitedBuffetPrice;
+
+        document.getElementById('entryTokenTotal').value = entryTokenTotal;
+        document.getElementById('unlimitedBuffetTotal').value = unlimitedBuffetTotal;
+
+        const grandTotal = entryTokenTotal + unlimitedBuffetTotal;
+        document.getElementById('grandTotal').value = grandTotal;
+    }
+
+    function togglePassDetails() {
+        const entryTokenSelected = document.getElementById('id_entry_token_selected').checked;
+        const unlimitedBuffetSelected = document.getElementById('id_unlimited_buffet_selected').checked;
+
+        const entryTokenDetails = document.getElementById('entryTokenPassDetails');
+        const unlimitedBuffetDetails = document.getElementById('unlimitedBuffetLunchDetails');
+
+        entryTokenSelected ? entryTokenDetails.classList.add('active') : entryTokenDetails.classList.remove('active');
+        unlimitedBuffetSelected ? unlimitedBuffetDetails.classList.add('active') : unlimitedBuffetDetails.classList.remove('active');
+
+        updateTotals();
+    }
+
+    document.getElementById('id_entry_token_selected').addEventListener('change', togglePassDetails);
+    document.getElementById('id_unlimited_buffet_selected').addEventListener('change', togglePassDetails);
+
+
+    document.getElementById('id_entry_token_quantity').addEventListener('change', updateTotals);
+    document.getElementById('id_entry_token_quantity').addEventListener('input', updateTotals);
+    document.getElementById('id_unlimited_buffet_quantity').addEventListener('change', updateTotals);
+    document.getElementById('id_unlimited_buffet_quantity').addEventListener('input', updateTotals);
+
+    window.onload = function() {
+        togglePassDetails();
+    };
+</script>
+
+<!-- Footer Include -->
+{% include 'partials/footer.html' with year=2026 %}
+{% endblock %}
