@@ -917,8 +917,8 @@ def advance_pass_booking(request):
         form = AdvancePassBookingForm(request.POST, request.FILES)
 
         if form.is_valid():
-            entry_token_qty = int(form.cleaned_data.get('entry_token_quantity', 0))
-            unlimited_buffet_qty = int(form.cleaned_data.get('unlimited_buffet_quantity', 0))
+            entry_token_qty = int(form.cleaned.data.get('entry_token_quantity', 0))
+            unlimited_buffet_qty = int(form.cleaned.data.get('unlimited_buffet_quantity', 0))
 
             total_amount = (entry_token_qty * 20 + unlimited_buffet_qty * 200)
 
@@ -1456,3 +1456,23 @@ def booklet_library_confirmation(request, pk):
     except BookletLibrarySubmission.DoesNotExist:
         messages.error(request, 'Submission not found.')
         return redirect('booklet_library')
+
+from .forms import PhysicalFormForm
+from .models import PhysicalForm
+
+def physical_form_view(request):
+    errors = None
+    if request.method == 'POST':
+        form = PhysicalFormForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            from django.http import HttpResponseRedirect
+            return HttpResponseRedirect('/physical-form-success/')
+        else:
+            errors = form.errors
+    else:
+        form = PhysicalFormForm()
+    return render(request, 'biodata/physical_form.html', {'form': form, 'errors': errors})
+
+def physical_form_success_view(request):
+    return render(request, 'biodata/physical_form_success.html')

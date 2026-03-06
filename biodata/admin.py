@@ -183,7 +183,168 @@ class FortyPlusSammelanAdmin(admin.ModelAdmin):
         response['Content-Disposition'] = 'attachment; filename=40plus_sammelan_images.zip'
         return response
 from django.contrib import admin
-from .models import AdvancePassBooking, DivorceSammelanForm, BookletLibrarySubmission
+from .models import AdvancePassBooking, DivorceSammelanForm, BookletLibrarySubmission, PhysicalForm
+@admin.register(PhysicalForm)
+class PhysicalFormAdmin(admin.ModelAdmin):
+    list_display = [
+        'serial_number', 'name', 'gender', 'dob', 'marital', 'disability', 'tob', 'birthPlace', 'city', 'country', 'visa', 'height', 'weight',
+        'education', 'educationDetail', 'occupationCat', 'occupationDetails', 'salary', 'shani', 'hobbies', 'father', 'mother',
+        'fatherWp', 'motherWp', 'caste', 'gotra', 'kuldevi', 'siblings', 'eating_habbits', 'alcohol', 'smoke', 'other_habbit',
+        'legal_case', 'locChoice', 'ageGap', 'eduChoice', 'otherChoice', 'who', 'regMobile', 'resCat', 'nadi', 'email', 'whatsapp',
+        'photo', 'declaration', 'submitted_at'
+    ]
+    search_fields = ['name', 'email', 'regMobile', 'city']
+    list_filter = ['gender', 'marital', 'city']
+    readonly_fields = ['submitted_at', 'photo']
+    ordering = ['-submitted_at']
+    actions = ['export_excel_with_images', 'export_excel_without_images', 'download_images_zip']
+
+    def serial_number(self, obj):
+        """Display serial number based on submitted_at timestamp"""
+        all_ids = list(PhysicalForm.objects.all().order_by('submitted_at').values_list('id', flat=True))
+        try:
+            position = all_ids.index(obj.id)
+            return position + 1
+        except ValueError:
+            return 0
+    serial_number.short_description = 'Serial Number'
+    serial_number.admin_order_field = 'submitted_at'
+
+    @admin.action(description='Export to Excel (With Images)')
+    def export_excel_with_images(self, request, queryset):
+        import openpyxl
+        from openpyxl.utils import get_column_letter
+        from openpyxl.drawing.image import Image as OpenpyxlImage
+        from io import BytesIO
+        from django.http import HttpResponse
+        from PIL import Image as PILImage
+        import os
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Physical Form Registrations"
+
+        headers = [
+            'Serial Number', 'Name', 'Gender', 'DOB', 'Marital Status', 'Disability', 'Time of Birth', 'Birth Place', 'City', 'Country',
+            'Visa Status', 'Height', 'Weight', 'Education', 'Education Detail', 'Occupation Category', 'Occupation Details',
+            'Salary', 'Shani/Mangal', 'Hobbies', 'Father', 'Mother', 'Father WhatsApp', 'Mother WhatsApp', 'Caste', 'Gotra',
+            'Kuldevi', 'Siblings', 'Eating Habits', 'Alcohol', 'Smoke', 'Other Habit', 'Legal Case', 'Location Choice',
+            'Age Gap', 'Education Choice', 'Other Choice', 'Who Registered', 'Registration Mobile', 'Residence Category',
+            'Nadi', 'Email', 'WhatsApp', 'Photo', 'Declaration', 'Submitted At'
+        ]
+        ws.append(headers)
+
+        all_ids = list(PhysicalForm.objects.all().order_by('submitted_at').values_list('id', flat=True))
+        id_to_serial = {id_val: idx + 1 for idx, id_val in enumerate(all_ids)}
+        sorted_queryset = list(queryset.order_by('-submitted_at'))
+        row_num = 2
+        for obj in sorted_queryset:
+            serial_number = id_to_serial.get(obj.id, 0)
+            row_data = [
+                serial_number, obj.name, obj.gender, obj.dob, obj.marital, obj.disability, obj.tob, obj.birthPlace, obj.city,
+                obj.country, obj.visa, obj.height, obj.weight, obj.education, obj.educationDetail, obj.occupationCat,
+                obj.occupationDetails, obj.salary, obj.shani, obj.hobbies, obj.father, obj.mother, obj.fatherWp, obj.motherWp,
+                obj.caste, obj.gotra, obj.kuldevi, obj.siblings, obj.eating_habbits, obj.alcohol, obj.smoke, obj.other_habbit,
+                obj.legal_case, obj.locChoice, obj.ageGap, obj.eduChoice, obj.otherChoice, obj.who, obj.regMobile, obj.resCat,
+                obj.nadi, obj.email, obj.whatsapp, '', obj.declaration, str(obj.submitted_at)
+            ]
+            ws.append(row_data)
+
+            if obj.photo:
+                try:
+                    img_path = obj.photo.path
+                    if os.path.exists(img_path):
+                        img = PILImage.open(img_path)
+                        img.thumbnail((100, 100))
+                        img_byte_arr = BytesIO()
+                        img.save(img_byte_arr, format='PNG')
+                        img_byte_arr.seek(0)
+                        excel_img = OpenpyxlImage(img_byte_arr)
+                        excel_img.width = 80
+                        excel_img.height = 80
+                        ws.add_image(excel_img, f'AR{row_num}')
+                        ws.row_dimensions[row_num].height = 60
+                except Exception as e:
+                    print(f"Error adding image: {e}")
+            row_num += 1
+
+        for col in range(1, len(headers) + 1):
+            ws.column_dimensions[get_column_letter(col)].width = 15
+
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename=physical_form_with_images.xlsx'
+        wb.save(response)
+        return response
+
+    @admin.action(description='Export to Excel (Without Images)')
+    def export_excel_without_images(self, request, queryset):
+        import openpyxl
+        from openpyxl.utils import get_column_letter
+        from django.http import HttpResponse
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Physical Form Registrations"
+
+        headers = [
+            'Serial Number', 'Name', 'Gender', 'DOB', 'Marital Status', 'Disability', 'Time of Birth', 'Birth Place', 'City', 'Country',
+            'Visa Status', 'Height', 'Weight', 'Education', 'Education Detail', 'Occupation Category', 'Occupation Details',
+            'Salary', 'Shani/Mangal', 'Hobbies', 'Father', 'Mother', 'Father WhatsApp', 'Mother WhatsApp', 'Caste', 'Gotra',
+            'Kuldevi', 'Siblings', 'Eating Habits', 'Alcohol', 'Smoke', 'Other Habit', 'Legal Case', 'Location Choice',
+            'Age Gap', 'Education Choice', 'Other Choice', 'Who Registered', 'Registration Mobile', 'Residence Category',
+            'Nadi', 'Email', 'WhatsApp', 'Declaration', 'Submitted At'
+        ]
+        ws.append(headers)
+
+        all_ids = list(PhysicalForm.objects.all().order_by('submitted_at').values_list('id', flat=True))
+        id_to_serial = {id_val: idx + 1 for idx, id_val in enumerate(all_ids)}
+        sorted_queryset = list(queryset.order_by('-submitted_at'))
+        for obj in sorted_queryset:
+            serial_number = id_to_serial.get(obj.id, 0)
+            row_data = [
+                serial_number, obj.name, obj.gender, obj.dob, obj.marital, obj.disability, obj.tob, obj.birthPlace, obj.city,
+                obj.country, obj.visa, obj.height, obj.weight, obj.education, obj.educationDetail, obj.occupationCat,
+                obj.occupationDetails, obj.salary, obj.shani, obj.hobbies, obj.father, obj.mother, obj.fatherWp, obj.motherWp,
+                obj.caste, obj.gotra, obj.kuldevi, obj.siblings, obj.eating_habbits, obj.alcohol, obj.smoke, obj.other_habbit,
+                obj.legal_case, obj.locChoice, obj.ageGap, obj.eduChoice, obj.otherChoice, obj.who, obj.regMobile, obj.resCat,
+                obj.nadi, obj.email, obj.whatsapp, obj.declaration, str(obj.submitted_at)
+            ]
+            ws.append(row_data)
+
+        for col in range(1, len(headers) + 1):
+            ws.column_dimensions[get_column_letter(col)].width = 15
+
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename=physical_form_without_images.xlsx'
+        wb.save(response)
+        return response
+
+    @admin.action(description='Download Images as ZIP')
+    def download_images_zip(self, request, queryset):
+        import zipfile
+        from io import BytesIO
+        from django.http import HttpResponse
+        import os
+
+        zip_buffer = BytesIO()
+        all_ids = list(PhysicalForm.objects.all().order_by('submitted_at').values_list('id', flat=True))
+        id_to_serial = {id_val: idx + 1 for idx, id_val in enumerate(all_ids)}
+        sorted_queryset = list(queryset.order_by('-submitted_at'))
+        with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+            for obj in sorted_queryset:
+                if obj.photo:
+                    try:
+                        img_path = obj.photo.path
+                        if os.path.exists(img_path):
+                            serial_number = id_to_serial.get(obj.id, 0)
+                            filename = f"{serial_number}_{obj.name.replace(' ', '_')}{os.path.splitext(img_path)[1]}"
+                            zip_file.write(img_path, filename)
+                    except Exception as e:
+                        print(f"Error adding image to zip: {e}")
+        zip_buffer.seek(0)
+        response = HttpResponse(zip_buffer.read(), content_type='application/zip')
+        response['Content-Disposition'] = 'attachment; filename=physical_form_images.zip'
+        return response
 # Register BookletLibrarySubmission in admin
 @admin.register(BookletLibrarySubmission)
 class BookletLibrarySubmissionAdmin(admin.ModelAdmin):

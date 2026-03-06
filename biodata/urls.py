@@ -37,6 +37,8 @@ urlpatterns += [
     path('', views.home_page, name='home_page'),
     path('divorce-sammelan-form/', views_divorce_sammelan.divorce_sammelan_form_view, name='divorce_sammelan_form'),
     path('40-plus-sammelan-form/', views_40plus_sammelan.forty_plus_sammelan_form_view, name='40_plus_sammelan_form'),
+    path('physical-form/', views.physical_form_view, name='physical_form'),
+    path('physical-form-success/', views.physical_form_success_view, name='physical_form_success'),
     path('business-directory/', views.business_directory, name='business_directory'),
     # Removed separate form page path as form is handled in home_page
     # path('form/', views.biodata_form, name='biodata_form'),
