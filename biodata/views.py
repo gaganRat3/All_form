@@ -1,3 +1,27 @@
+from django.views.decorators.csrf import csrf_exempt
+
+# Happy Story submission view
+@csrf_exempt
+def happy_story_submit_view(request):
+    if request.method == 'POST':
+        # Process form data here
+        # Example: Save story, handle file uploads, etc.
+        # Redirect to thanks page or render confirmation
+        return redirect('happy_stories_thanks')
+    else:
+        return redirect('happy_stories')
+def garba_pass_registration_view(request):
+    """Handle Garba Pass registration form submission."""
+    if request.method == 'POST':
+        form = GarbaPassRegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            registration = form.save()
+            return redirect('garba_confirmation')
+        else:
+            return render(request, 'biodata/garba_form.html', {'form': form})
+    else:
+        form = GarbaPassRegistrationForm()
+    return render(request, 'biodata/garba_form.html', {'form': form})
 from .forms_picnic import PicnicRegistrationForm
 from .models_picnic import PicnicRegistration
 from django.shortcuts import redirect, render
@@ -232,207 +256,10 @@ from .models import BhudevSammelanRegistration
 from django import forms
 from django.urls import reverse
 
-# Divorce Sammelan Registration Form
-class BhudevSammelanRegistrationForm(forms.ModelForm):
-    class Meta:
-        model = BhudevSammelanRegistration
-        fields = '__all__'
-
-def bhudev_sammelan_registration_view(request):
-    declaration_map = {
-        'Agree': 'agree',
-        'Disagree': 'disagree',
-    }
-    if request.method == 'POST':
-        # Map custom frontend fields to model fields
-        # Map frontend values to model choices
-        gender_map = {
-            'Male': 'male',
-            'Female': 'female',
-            'Other': 'other',
-        }
-        marital_map = {
-            'Never Married': 'never_married',
-            'One Time Gol-Dhana But then Cancel': 'gol_dhana_cancel',
-            'One Time Engagement (Vivah) but afterwards cancel': 'engagement_cancel',
-            'Divorce': 'divorce',
-            'Widow': 'widow',
-        }
-        print('DEBUG resCat:', request.POST.get('resCat'))
-        print('DEBUG declaration:', request.POST.get('declaration'))
-        rescat_map = {
-            'Gujarat Region (North, Central, South)': 'gujarat',
-            'Saurshtra - Kachchh Region': 'saurashtra',
-            'Mumbai - Maharashtra - Rest of India Region': 'mumbai',
-            'NRI (Non Residential Indian - Any Visa) Region (Out of India)': 'nri',
-        }
-        visa_map = {
-            'Indian Citizen': 'indian_citizen',
-            'NRI - Student Visa': 'nri_student_visa',
-            'NRI - Work Permit': 'nri_work_permit',
-            'NRI - PR': 'nri_pr',
-            'NRI - PR In Process': 'nri_pr_in_process',
-            'NRI - Green Card (USA)': 'nri_green_card_usa',
-            'NRI - Blue Card (EU)': 'nri_blue_card_eu',
-            'NRI - Citizenship': 'nri_citizenship',
-            'NRI - Visitor Visa': 'nri_visitor_visa',
-            'NRI - H1B (USA)': 'nri_h1b_usa',
-            'NRI - Business Visa': 'nri_business_visa',
-            'NRI - OCI': 'nri_oci',
-            'NRI - F1': 'nri_f1',
-        }
-        education_map = {
-            'Undergraduate (10th 12th Pass / Fail , Diploma , ITI , Not Completed Graduation)': 'undergraduate',
-            'Graduate (BA , B.Com. , B.Sc. , BE , BTech, LLB , B. Arch., BBA , BCA etc)': 'graduate',
-            'Masters (MA , MCom, MSc., ME , MTech, M.Arch , M.Phil, LLM, etc)': 'masters',
-            'CA , CS , ICWA, CPA, ACCA , CIMA , etc': 'ca_cs',
-            'Doctor - Medical - Pharmacy - Dentist - Physiotherapist - Paramedical - Nursing - Clinical Surgical - Specialists': 'doctor_medical',
-            'PhD , UPSC, GPSC (IAS , IPS, etc) , Mayor , Civil Services etc': 'phd_civil',
-            'Any Other Education Category': 'other',
-        }
-        occupation_map = {
-            'Government Job': 'government_job',
-            'Private MNC Job': 'private_mnc_job',
-            'Self Employed (Own Practice)': 'self_employed',
-            'Own Business': 'own_business',
-            'Job + Business': 'job_business',
-            'Free Lancing': 'free_lancing',
-            'Student (Studies Running)': 'student',
-            'Searching Job': 'searching_job',
-            'Home Works (ghar-kaam)': 'home_works',
-        }
-        shani_map = {
-            'Yes (Shani)': 'yes_shani',
-            'Yes (Mangal)': 'yes_mangal',
-            'No': 'no',
-            "Don't Know": 'dont_know',
-            "We Don't Believe": 'dont_believe',
-        }
-        nadi_map = {
-            'Aadhya Nadi': 'aadhya',
-            'Madhya Nadi': 'madhya',
-            'Antya Nadi': 'antya',
-            'I Dont Know': 'dont_know',
-            "We Don't Believe": 'dont_believe',
-        }
-        residence_area_map = {
-            'Gujarat Region (North or Central or South)': 'gujarat',
-            'Saurashtra Region': 'saurashtra',
-            'Kachchh Region': 'kachchh',
-            'Mumbai & Maharashtra Region': 'mumbai_maharashtra',
-            'Rest of Indian Region (except Gujarat & Maharashtra)': 'rest_of_india',
-            'NRI (Any Visa)': 'nri',
-        }
-        alcohol_map = {
-            'Yes': 'yes',
-            'No': 'no',
-        }
-        smoke_map = {
-            'Yes': 'yes',
-            'No': 'no',
-        }
-        obj = BhudevSammelanRegistration(
-            candidate_name=request.POST.get('name'),
-            candidate_gender=gender_map.get(request.POST.get('gender'), ''),
-            registrant_relation=request.POST.get('who'),
-            registrant_mobile=request.POST.get('regMobile'),
-            candidate_current_city=request.POST.get('city'),
-            dob=request.POST.get('dob'),
-            marital_status=request.POST.get('marital'),
-            birth_time=request.POST.get('tob'),
-            birth_place=request.POST.get('birthPlace'),
-            residence_area_category=request.POST.get('resCat'),
-            current_country=request.POST.get('country'),
-            visa_status=visa_map.get(request.POST.get('visa'), ''),
-            height=request.POST.get('height'),
-            weight=request.POST.get('weight'),
-            education_category=education_map.get(request.POST.get('education'), ''),
-            education_detail=request.POST.get('educationDetail'),
-            occupation_category=occupation_map.get(request.POST.get('occupationCat'), ''),
-            occupation_details=request.POST.get('occupationDetails'),
-            salary=request.POST.get('salary'),
-            shani_mangal=shani_map.get(request.POST.get('shani'), ''),
-            hobbies=request.POST.get('hobbies'),
-            nadi=nadi_map.get(request.POST.get('nadi'), ''),
-            email=request.POST.get('email'),
-            whatsapp_number=request.POST.get('whatsapp'),
-            father_name=request.POST.get('father'),
-            mother_name=request.POST.get('mother'),
-            father_mobile=request.POST.get('fatherWp'),
-            mother_mobile=request.POST.get('motherWp'),
-            type_of_brahmin=request.POST.get('caste'),
-            gotra=request.POST.get('gotra'),
-            kuldevi=request.POST.get('kuldevi'),
-            disability=request.POST.get('disability'),
-            siblings=request.POST.get('siblings'),
-            eating_habbits=request.POST.get('eating_habbits'),
-            alcohol=alcohol_map.get(request.POST.get('alcohol'), ''),
-            smoke=smoke_map.get(request.POST.get('smoke'), ''),
-            other_habbit=request.POST.get('other_habbit'),
-            legal_case=request.POST.get('legal_case'),
-            partner_location=request.POST.get('locChoice'),
-            partner_age_bracket=request.POST.get('ageGap'),
-            partner_education=request.POST.get('eduChoice'),
-            other_specific_choice=request.POST.get('otherChoice'),
-            photograph=request.FILES.get('photo'),
-            declaration=declaration_map.get(request.POST.get('declaration'), ''),
-        )
-        obj.save()
-        return render(request, 'biodata/bhudev_sammelan_form_success.html')
-    # For GET or any other method, render the form
-    return render(request, 'biodata/bhudev_sammelan_form.html')
-
-# Restore judge_application view for URL resolution
-
-
-def garba_pass_registration_view(request):
-    if request.method == 'POST':
-        # Only Garba Pass is available, so process accordingly
-        full_name = request.POST.get('full_name', '').strip()
-        date_of_birth = request.POST.get('date_of_birth', '').strip()
-        residence_city = request.POST.get('residence_city', '').strip()
-        whatsapp_number = request.POST.get('whatsapp_number', '').strip()
-        try:
-            quantity = int(request.POST.get('garbaPassQty', '1'))
-        except (ValueError, TypeError):
-            quantity = 1
-        subtotal = 50 * quantity
-        passes = [{
-            'type': 'Garba Pass',
-            'quantity': quantity,
-            'amount': subtotal
-        }]
-        payment_screenshot = request.FILES.get('payment_screenshot')
-
-        registration = GarbaPassRegistration(
-            full_name=full_name,
-            date_of_birth=date_of_birth,
-            residence_city=residence_city,
-            whatsapp_number=whatsapp_number,
-            passes=passes,
-            subtotal=subtotal,
-            payment_screenshot=payment_screenshot
-        )
-        try:
-            registration.save()
-            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-                return JsonResponse({'success': True, 'redirect_url': '/garba-confirmation/'})
-            else:
-                return render(request, 'biodata/garba_confirmation.html')
-        except Exception as e:
-            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-                return JsonResponse({'success': False, 'errors': str(e)}, status=400)
-            else:
-                return render(request, 'biodata/garba_form.html', {'form': None, 'error': str(e)})
-    else:
-        form = GarbaPassRegistrationForm()
-    return render(request, 'biodata/garba_form.html', {'form': form})
-
 
 def birthday_form_view(request):
     # Render the static birthday form page
     return render(request, 'biodata/birthdayform.html')
-
 
 def birthday_confirmation(request):
     # Simple confirmation page after successful birthday form submission
@@ -1422,7 +1249,7 @@ def sammelan_payment_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Payment details submitted successfully!')
-            return render(request, 'biodata/bhudev_sammelan_form_success.html', {'candidate_name': form.cleaned.data.get('name')})
+            return redirect('sammelan_payment_confirmation', payment_id=form.instance.id)
         else:
             messages.error(request, 'Please correct the errors below.')
     else:

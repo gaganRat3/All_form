@@ -17,6 +17,7 @@ urlpatterns = [
     path('submit-birthday/', views.submit_birthday, name='submit_birthday'),
     path('happy-stories/', views.happy_stories_view, name='happy_stories'),
     path('happy-stories/thanks/', views.happy_stories_thanks_view, name='happy_stories_thanks'),
+    path('happy-stories/submit/', views.happy_story_submit_view, name='submit_story'),
     path('35th-courier-booklet/', views.courier_booklet_35th_view, name='35th_courier_booklet'),
     path('35th-curier-booklet-success/', views.courier_booklet_35th_success, name='35th_curier_booklet_success'),
     path('booklet-camp-adv-booking/', views.booklet_camp_adv_booking_view, name='booklet_camp_adv_booking'),
@@ -27,7 +28,7 @@ urlpatterns = [
     path('mega-booklet-correction-confirmation/<int:request_id>/', views.mega_booklet_correction_confirmation, name='mega_booklet_correction_confirmation'),
 
     # Removed old mela_booklet_correction_confirmation path
-    path('bhudev-sammelan-form/', views.bhudev_sammelan_registration_view, name='bhudev_sammelan_form'),
+
 ]
 
 from .views import astrology_form_view, technical_support
