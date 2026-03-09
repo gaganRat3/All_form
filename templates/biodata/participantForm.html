@@ -398,7 +398,7 @@
                 <p class="mb-0">Complete your registration for the event</p>
             </div>
             <div class="form-body">
-                <img src="{% static 'images/Events.png' %}" alt="Event" class="form-image">
+                {% comment %} <img src="{% static 'images/bk2026.jpeg' %}" alt="Event" class="form-image"> {% endcomment %}
 
                 <form id="participantForm" method="POST" action="{% url 'participant_form' %}" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -436,18 +436,6 @@
                         <div class="form-check">
                             <input class="form-check-input event-checkbox" type="checkbox" value="Singing" id="eventSinging" name="events[]">
                             <label class="form-check-label" for="eventSinging">Singing</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input event-checkbox" type="checkbox" value="Dance" id="eventDance" name="events[]">
-                            <label class="form-check-label" for="eventDance">Dance</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input event-checkbox" type="checkbox" value="Music Instrument" id="eventMusic" name="events[]">
-                            <label class="form-check-label" for="eventMusic">Music Instrument</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input event-checkbox" type="checkbox" value="Others" id="eventOthers" name="events[]">
-                            <label class="form-check-label" for="eventOthers">Others</label>
                         </div>
                     </div>
                     <div class="form-group total-section">
@@ -491,7 +479,7 @@
                 </form>
                   <!-- Poster Image -->
                 <div class="d-flex justify-content-center mt-4">
-                        <img src="{% static 'Poster (3).jpg' %}" alt="Poster" class="rounded shadow-lg img-fluid" />
+                        <img src="{% static 'images/bk2026.jpeg' %}" alt="Poster" class="rounded shadow-lg img-fluid" />
                 </div>
 
                 <br>

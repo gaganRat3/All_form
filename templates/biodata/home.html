@@ -279,10 +279,21 @@
 
   <!-- Cards grid -->
   <div class="grid" id="cardGrid">
+    
+    <a href="{% url 'participant_form' %}" class="card">
+      <div class="icon-wrap">📝</div>
+      <div class="label">Participant Form</div>
+      <span class="arrow">OPEN &rarr;</span>
+    </a>
 
 
 
 
+    <a href="{% url 'audience_form' %}" class="card">
+      <div class="icon-wrap">🧑‍🤝‍🧑</div>
+      <div class="label">Audience Form</div>
+      <span class="arrow">OPEN &rarr;</span>
+    </a>
     <a href="{% url 'physical_form' %}" class="card">
       <div class="icon-wrap">🤝</div>
       <div class="label">Physical Sammelan Form</div>
