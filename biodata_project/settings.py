@@ -218,6 +218,7 @@ ALLOWED_HOSTS = [
     '5f8e-103-241-224-105.ngrok-free.app',
     'af8c-2405-201-2012-408a-bc7f-ef33-5b1b-cbeb.ngrok-free.app',
     '3093-103-241-224-69.ngrok-free.app',
+    'form.bhudevstore.com'
 ]
     
 #import cloudinary
