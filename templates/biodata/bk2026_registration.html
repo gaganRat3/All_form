@@ -105,6 +105,21 @@
             background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
         }
 
+        .event-description {
+            background: linear-gradient(135deg, #fef3c7 0%, #dbeafe 100%);
+            border: 2px solid #f59e0b;
+            border-radius: 1rem;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .event-description .line-gap {
+            margin-top: 0.5rem;
+        }
+
         .input-group {
             margin-bottom: 2rem;
             animation: fadeInUp 0.3s ease-out forwards;
@@ -1797,12 +1812,12 @@
             <div class="splash-content">
                 <div class="logo-container">
                     <!-- You can replace this with your actual logo -->
-                    <img src="{% static 'images/event_form_header.png' %}" alt="Bhudev Kalakaar Logo"
+                    <img src="{% static 'images/event_bk_2026.jpeg' %}" alt="Bhudev Kalakaar Logo"
                         class="splash-logo">
                 </div>
                 <div class="splash-text">
                     <h1 class="splash-title">Bhudev Kalakaar</h1>
-                    <p class="splash-subtitle">Mega Talent Event 2025</p>
+                    <p class="splash-subtitle">Mega Talent Event 2026</p>
                     <div class="splash-loader"></div>
                 </div>
             </div>
@@ -1813,7 +1828,7 @@
             <div class="header-bg relative">
                 <div class="logo-placeholder"></div>
                 <!-- Confetti image placeholder -->
-                <img src="{% static 'images/event_form_header.png' %}" alt="Confetti background"
+                <img src="{% static 'images/bk_2026.jpeg' %}" alt="Confetti background"
                     class="w-full h-full object-cover absolute top-0 left-0 rounded-t-2xl opacity-100">
                 <!-- <div class="relative z-10 text-center py-8" style="z-index: 20;">
                     <h1 class="text-2xl font-bold text-white mb-1 drop-shadow-lg">Bhudev Kalakaar</h1>
@@ -1822,6 +1837,16 @@
             </div>
 
             <div class="form-content">
+                <div class="event-description">
+                    <div>🟡🔵🟡🔵🟡</div>
+                    <div class="line-gap">BK 2026, Woman's Special</div>
+                    <div>Bhudev - Singing Superstar Contest</div>
+                    <div class="line-gap">* Registration Launch Date : 10-03-2026</div>
+                    <div>* Reg. End Date : 30-04-2026</div>
+                    <div>* Auditions Date : May 2026</div>
+                    <div class="line-gap">🔵🟡🔵🟡🔵</div>
+                </div>
+
             <!--Bhudev Kalakaar - 2026  <br>-->
 <!--🔴 Registration Form is now closed 🔴 <br>-->
 <!--<br>-->
@@ -1913,50 +1938,19 @@
                         <p class="input-label">4. Which Age Group *</p>
                         <div class="flex flex-col radio-group">
                             <label>
-                                <input type="radio" name="ageGroup" value="5-10" required>
-                                <span>5 Yrs to 10 Yrs</span>
+                                <input type="radio" name="ageGroup" value="10-20" required>
+                                <span>10 Yrs to 20 Yrs</span>
                             </label>
                             <label>
-                                <input type="radio" name="ageGroup" value="11-20" required>
-                                <span>11 Yrs to 20 Yrs</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="ageGroup" value="21-40" required>
-                                <span>21 Yrs to 40 Yrs</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="ageGroup" value="41-above" required>
-                                <span>41 Yrs and Above</span>
-                            </label>
-                        </div>
-                    </div>
-
-                     <!--Event Participation Section-->
-                    <div class="input-group">
-                        <p class="input-label">5. Which Event You are Participating ? *</p>
-                        <div class="flex flex-col radio-group">
-                            <label>
-                                <input type="radio" name="event" value="singing" required>
-                                <span>Singing</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="event" value="dancing" required>
-                                <span>Dancing</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="event" value="musical-instrument" required>
-                                <span>Musical Instrument</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="event" value="others" required>
-                                <span>Others</span>
+                                <input type="radio" name="ageGroup" value="21-45" required>
+                                <span>21 Yrs to 45 Yrs</span>
                             </label>
                         </div>
                     </div>
 
                      <!--talent details-->
                     <div class="input-group">
-                        <label for="talent" class="input-label">6. Mention here some Details about your Talent (eg.
+                        <label for="talent" class="input-label">5. Mention here some Details about your Talent (eg.
                             Which
                             Instrument, any National or international Shows, Contest Winner, awards etc) *</label>
                         <input type="text" id="talent" name="talent" placeholder="Enter your talent" class="input-field"
@@ -1965,21 +1959,21 @@
 
                      <!--Current Residence City Section-->
                     <div class="input-group">
-                        <label for="city" class="input-label">7. Your Current Residence City *</label>
+                        <label for="city" class="input-label">6. Your Current Residence City *</label>
                         <input type="text" id="city" name="city" placeholder="Enter your city" class="input-field"
                             required>
                     </div>
 
                      <!--WhatsApp Number Section-->
                     <div class="input-group">
-                        <label for="whatsappNumber" class="input-label">8. WhatsApp Number *</label>
+                        <label for="whatsappNumber" class="input-label">7. WhatsApp Number *</label>
                         <input type="tel" id="whatsappNumber" name="whatsappNumber" placeholder="Enter WhatsApp number"
                             class="input-field" required>
                     </div>
 
                      <!--Photo Upload Section-->
                     <div class="input-group">
-                        <label for="photo" class="input-label">9. Attach Your Photo here : (FREE Entry chhe) *</label>
+                        <label for="photo" class="input-label">8. Attach Your Photo here : (FREE Entry chhe) *</label>
 
                          <!--Upload Placeholder (shown when no image selected)-->
                         <div id="uploadPlaceholder" class="upload-placeholder"
@@ -2009,7 +2003,7 @@
 
                      <!--Terms and Conditions Section-->
                     <div class="input-group">
-                        <p class="input-label">10. Terms & Conditions Agreement *</p>
+                        <p class="input-label">9. Terms & Conditions Agreement *</p>
 
                          <!--Terms Text Box-->
                         <div class="terms-container">
@@ -2022,7 +2016,7 @@
                                     <li> Include the following information with your video:</li>
                                     <ul class="terms-sublist">
                                         <li> <strong>Full Name</strong></li>
-                                        <li><strong>Event Category</strong></li>
+                                        <li><strong>Talent Details</strong></li>
                                         <li><strong>Date of Birth</strong></li>
                                         <li> <strong>City</strong></li>
                                     </ul>
@@ -2069,7 +2063,7 @@
             <!-- First Image Container -->
             <div class="image-container-card">
                 <div class="image-container-content">
-                    <img src="{% static 'images/bk2026.jpeg' %}" alt="Event Poster"
+                    <img src="{% static 'images/poster_event_2026.jpeg' %}" alt="Event Poster"
                         class="container-image clickable-image" onclick="openImageModal(this)">
                 </div>
             </div>
@@ -2121,11 +2115,7 @@
                     </div>
 
                     <div class="review-section">
-                        <h3>🎭 Event Information</h3>
-                        <div class="review-item">
-                            <span class="review-label">Event Category:</span>
-                            <span class="review-value" id="reviewEvent">-</span>
-                        </div>
+                        <h3>🎭 Talent Information</h3>
                         <div class="review-item">
                             <span class="review-label">Talent Details:</span>
                             <span class="review-value" id="reviewTalent">-</span>
@@ -2315,7 +2305,6 @@
                         gender: document.querySelector('input[name="gender"]:checked')?.value || '',
                         dateOfBirth: document.getElementById('dateOfBirth')?.value || '',
                         ageGroup: document.querySelector('input[name="ageGroup"]:checked')?.value || '',
-                        event: document.querySelector('input[name="event"]:checked')?.value || '',
                         talent: document.getElementById('talent')?.value || '',
                         city: document.getElementById('city')?.value || '',
                         whatsappNumber: document.getElementById('whatsappNumber')?.value || '',
@@ -2330,7 +2319,6 @@
                         data.gender &&
                         data.dateOfBirth &&
                         data.ageGroup &&
-                        data.event &&
                         data.talent &&
                         data.city &&
                         data.whatsappNumber &&
@@ -2347,21 +2335,10 @@
 
                     // Format age group
                     const ageGroupMap = {
-                        '5-10': '🧒 5 Yrs to 10 Yrs',
-                        '11-20': '👦 11 Yrs to 20 Yrs',
-                        '21-40': '👨 21 Yrs to 40 Yrs',
-                        '41-above': '👴 41 Yrs and Above'
+                        '10-20': '👧 10 Yrs to 20 Yrs',
+                        '21-45': '👩 21 Yrs to 45 Yrs'
                     };
                     document.getElementById('reviewAgeGroup').textContent = ageGroupMap[data.ageGroup] || '-';
-
-                    // Format event
-                    const eventMap = {
-                        'singing': '🎤 Singing',
-                        'dancing': '💃 Dancing',
-                        'musical-instrument': '🎸 Musical Instrument',
-                        'others': '🎭 Others'
-                    };
-                    document.getElementById('reviewEvent').textContent = eventMap[data.event] || '-';
 
                     document.getElementById('reviewTalent').textContent = data.talent || '-';
                     document.getElementById('reviewCity').textContent = data.city || '-';

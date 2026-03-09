@@ -1812,7 +1812,6 @@ class BhudevKalakaar2026RegistrationAdmin(admin.ModelAdmin):
         'gender',
         'dateOfBirth',
         'ageGroup',
-        'event',
         'talent',
         'city',
         'whatsappNumber',
@@ -1820,15 +1819,15 @@ class BhudevKalakaar2026RegistrationAdmin(admin.ModelAdmin):
         'photo_link',
         'submitted_at',
     )
-    search_fields = ('fullName', 'city', 'whatsappNumber', 'event', 'talent', 'dateOfBirth')
-    list_filter = ('gender', 'ageGroup', 'event', 'terms', 'submitted_at')
+    search_fields = ('fullName', 'city', 'whatsappNumber', 'talent', 'dateOfBirth')
+    list_filter = ('gender', 'ageGroup', 'terms', 'submitted_at')
     readonly_fields = ('submitted_at', 'photo_link')
     fieldsets = (
         ('Personal Information', {
             'fields': ('fullName', 'gender', 'dateOfBirth', 'ageGroup')
         }),
-        ('Event Details', {
-            'fields': ('event', 'talent')
+        ('Talent Details', {
+            'fields': ('talent',)
         }),
         ('Contact Information', {
             'fields': ('city', 'whatsappNumber')

@@ -799,17 +799,8 @@ class BhudevKalakaar2026Registration(models.Model):
     ]
     
     AGE_GROUP_CHOICES = [
-        ('5-10', '5 Yrs to 10 Yrs'),
-        ('11-20', '11 Yrs to 20 Yrs'),
-        ('21-40', '21 Yrs to 40 Yrs'),
-        ('41-above', '41 Yrs and Above'),
-    ]
-    
-    EVENT_CHOICES = [
-        ('singing', 'Singing'),
-        ('dancing', 'Dancing'),
-        ('musical-instrument', 'Musical Instrument'),
-        ('others', 'Others'),
+        ('10-20', '10 Yrs to 20 Yrs'),
+        ('21-45', '21 Yrs to 45 Yrs'),
     ]
     
     TERMS_CHOICES = [
@@ -823,8 +814,7 @@ class BhudevKalakaar2026Registration(models.Model):
     dateOfBirth = models.CharField(max_length=10, verbose_name='Date of Birth (DD-MM-YYYY)')
     ageGroup = models.CharField(max_length=20, choices=AGE_GROUP_CHOICES, verbose_name='Age Group')
     
-    # Event Information
-    event = models.CharField(max_length=50, choices=EVENT_CHOICES, verbose_name='Event Category')
+    # Talent Information
     talent = models.CharField(max_length=500, verbose_name='Talent Details', help_text='Mention details about your talent (e.g., Which Instrument, Awards, etc.)')
     
     # Contact Information
@@ -846,4 +836,4 @@ class BhudevKalakaar2026Registration(models.Model):
         ordering = ['-submitted_at']
     
     def __str__(self):
-        return f"{self.fullName} - {self.event} ({self.submitted_at.strftime('%Y-%m-%d')})"
+        return f"{self.fullName} ({self.submitted_at.strftime('%Y-%m-%d')})"

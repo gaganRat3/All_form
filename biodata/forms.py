@@ -276,13 +276,12 @@ from .models import BhudevKalakaar2026Registration
 class BhudevKalakaar2026Form(forms.ModelForm):
     class Meta:
         model = BhudevKalakaar2026Registration
-        fields = ['fullName', 'gender', 'dateOfBirth', 'ageGroup', 'event', 'talent', 'city', 'whatsappNumber', 'photo', 'terms']
+        fields = ['fullName', 'gender', 'dateOfBirth', 'ageGroup', 'talent', 'city', 'whatsappNumber', 'photo', 'terms']
         labels = {
             'fullName': 'Full Name of the Participant',
             'gender': 'Gender (Male / Female)',
             'dateOfBirth': 'Date of Birth (DD-MM-YYYY)',
             'ageGroup': 'Age Group',
-            'event': 'Event Category',
             'talent': 'Talent Details',
             'city': 'Current Residence City',
             'whatsappNumber': 'WhatsApp Number',
@@ -303,7 +302,6 @@ class BhudevKalakaar2026Form(forms.ModelForm):
                 'required': True
             }),
             'ageGroup': forms.RadioSelect(),
-            'event': forms.RadioSelect(),
             'talent': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter talent details',
