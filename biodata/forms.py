@@ -268,3 +268,62 @@ class PhysicalFormForm(forms.ModelForm):
             'photo': 'Upload Candidate Photo',
             'declaration': 'Declaration',
         }
+
+
+# Bhudev Kalakaar 2026 Talent Registration Form
+from .models import BhudevKalakaar2026Registration
+
+class BhudevKalakaar2026Form(forms.ModelForm):
+    class Meta:
+        model = BhudevKalakaar2026Registration
+        fields = ['fullName', 'gender', 'dateOfBirth', 'ageGroup', 'event', 'talent', 'city', 'whatsappNumber', 'photo', 'terms']
+        labels = {
+            'fullName': 'Full Name of the Participant',
+            'gender': 'Gender (Male / Female)',
+            'dateOfBirth': 'Date of Birth (DD-MM-YYYY)',
+            'ageGroup': 'Age Group',
+            'event': 'Event Category',
+            'talent': 'Talent Details',
+            'city': 'Current Residence City',
+            'whatsappNumber': 'WhatsApp Number',
+            'photo': 'Participant Photo',
+            'terms': 'Terms & Conditions Agreement',
+        }
+        widgets = {
+            'fullName': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter full name',
+                'required': True
+            }),
+            'gender': forms.RadioSelect(choices=[('male', 'Male'), ('female', 'Female')]),
+            'dateOfBirth': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'DD-MM-YYYY',
+                'maxlength': '10',
+                'required': True
+            }),
+            'ageGroup': forms.RadioSelect(),
+            'event': forms.RadioSelect(),
+            'talent': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter talent details',
+                'required': True
+            }),
+            'city': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter city name',
+                'required': True
+            }),
+            'whatsappNumber': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter WhatsApp number',
+                'type': 'tel',
+                'required': True
+            }),
+            'photo': forms.FileInput(attrs={
+                'class': 'form-control',
+                'accept': 'image/*',
+                'required': True
+            }),
+            'terms': forms.RadioSelect(choices=[('yes', 'Yes, I Agree'), ('no', "No, I Don't Agree")]),
+        }

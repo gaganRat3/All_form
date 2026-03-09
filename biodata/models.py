@@ -790,3 +790,60 @@ class PhysicalForm(models.Model):
         verbose_name = "Physical Form Registration"
         verbose_name_plural = "Physical Form Registrations"
 
+
+# Bhudev Kalakaar 2026 - Talent Event Registration
+class BhudevKalakaar2026Registration(models.Model):
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+    ]
+    
+    AGE_GROUP_CHOICES = [
+        ('5-10', '5 Yrs to 10 Yrs'),
+        ('11-20', '11 Yrs to 20 Yrs'),
+        ('21-40', '21 Yrs to 40 Yrs'),
+        ('41-above', '41 Yrs and Above'),
+    ]
+    
+    EVENT_CHOICES = [
+        ('singing', 'Singing'),
+        ('dancing', 'Dancing'),
+        ('musical-instrument', 'Musical Instrument'),
+        ('others', 'Others'),
+    ]
+    
+    TERMS_CHOICES = [
+        ('yes', 'Yes, I Agree'),
+        ('no', "No, I Don't Agree"),
+    ]
+    
+    # Personal Information
+    fullName = models.CharField(max_length=200, verbose_name='Full Name of Participant')
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, verbose_name='Gender')
+    dateOfBirth = models.CharField(max_length=10, verbose_name='Date of Birth (DD-MM-YYYY)')
+    ageGroup = models.CharField(max_length=20, choices=AGE_GROUP_CHOICES, verbose_name='Age Group')
+    
+    # Event Information
+    event = models.CharField(max_length=50, choices=EVENT_CHOICES, verbose_name='Event Category')
+    talent = models.CharField(max_length=500, verbose_name='Talent Details', help_text='Mention details about your talent (e.g., Which Instrument, Awards, etc.)')
+    
+    # Contact Information
+    city = models.CharField(max_length=100, verbose_name='Current Residence City')
+    whatsappNumber = models.CharField(max_length=20, verbose_name='WhatsApp Number')
+    
+    # Photo
+    photo = models.ImageField(upload_to='bk2026_registration_photos/', verbose_name='Participant Photo')
+    
+    # Terms & Conditions
+    terms = models.CharField(max_length=10, choices=TERMS_CHOICES, verbose_name='Terms & Conditions Agreement')
+    
+    # Metadata
+    submitted_at = models.DateTimeField(auto_now_add=True, verbose_name='Submission Date')
+    
+    class Meta:
+        verbose_name = "Bhudev Kalakaar 2026 Talent Registration"
+        verbose_name_plural = "Bhudev Kalakaar 2026 Talent Registrations"
+        ordering = ['-submitted_at']
+    
+    def __str__(self):
+        return f"{self.fullName} - {self.event} ({self.submitted_at.strftime('%Y-%m-%d')})"

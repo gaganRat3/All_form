@@ -1,0 +1,2449 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhudev Kalakaar 2025 - Talent Registration</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 50%, #FFD93D 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 2rem;
+            box-shadow:
+                0 25px 50px -12px rgba(0, 0, 0, 0.25),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+            max-width: 750px;
+            width: 100%;
+            overflow: hidden;
+            margin-top: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-bg {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 50%, #FF5E78 100%);
+            height: 300px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.1) 50%, transparent 51%);
+            background-size: 20px 20px;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .form-content {
+            padding: 3rem 2.5rem;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.3s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .input-group:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .input-group:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .input-group:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .input-group:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        .input-group:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        .input-group:nth-child(6) {
+            animation-delay: 0.3s;
+        }
+
+        .input-group:nth-child(7) {
+            animation-delay: 0.35s;
+        }
+
+        .input-group:nth-child(8) {
+            animation-delay: 0.4s;
+        }
+
+        .input-group:nth-child(9) {
+            animation-delay: 0.45s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .input-label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #2d3748;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .input-label::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF6B6B, #FF8E53);
+            border-radius: 2px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 1rem;
+            font-size: 1rem;
+            color: #2d3748;
+            background: linear-gradient(145deg, #ffffff, #f7fafc);
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .input-field:focus {
+            border-color: #FF6B6B;
+            box-shadow:
+                0 0 0 4px rgba(255, 107, 107, 0.2),
+                0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .input-field::placeholder {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .radio-group {
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            color: #4a5568;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #f7fafc, #edf2f7);
+            border: 2px solid transparent;
+            margin-bottom: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .radio-group label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .radio-group label:hover::before {
+            left: 100%;
+        }
+
+        .radio-group label:hover {
+            background: linear-gradient(145deg, #ffe6e6, #ffe8d9);
+            border-color: #FF6B6B;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.15);
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right: 0.75rem;
+            width: 20px;
+            height: 20px;
+            accent-color: #FF6B6B;
+            transform: scale(1.2);
+        }
+
+        .radio-group input[type="radio"]:checked+span {
+            color: #FF6B6B;
+            font-weight: 600;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.25rem 2rem;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .submit-button:hover::before {
+            left: 100%;
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(135deg, #FF5252 0%, #FF7043 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .submit-button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Modal Styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border-radius: 1.5rem 1.5rem 0 0;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 2rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .review-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+            border-radius: 1rem;
+            border: 2px solid #cbd5e0;
+        }
+
+        .review-section h3 {
+            color: #2d3748;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #cbd5e0;
+        }
+
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-label {
+            font-weight: 600;
+            color: #4a5568;
+            flex: 1;
+        }
+
+        .review-value {
+            flex: 1;
+            text-align: right;
+            font-weight: 500;
+            color: #2d3748;
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 2px solid #e2e8f0;
+            display: flex;
+            gap: 1rem;
+            background: #f8fafc;
+            border-radius: 0 0 1.5rem 1.5rem;
+        }
+
+        .edit-button,
+        .confirm-button {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .edit-button {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .edit-button:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            transform: translateY(-2px);
+        }
+
+        .confirm-button {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .confirm-button:hover {
+            background: linear-gradient(135deg, #047857, #065f46);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive modal */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+        }
+
+        /* Confirmation Page Styles */
+        .confirmation-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .success-checkmark {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+
+        .check-icon {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            border-radius: 50%;
+            box-sizing: content-box;
+            border: 4px solid #4caf50;
+            background: #ffffff;
+            animation: checkmark-bounce 0.6s ease-in-out;
+        }
+
+        .check-icon::before {
+            top: 3px;
+            left: -2px;
+            width: 30px;
+            height: 60px;
+            border-radius: 50px 50px 50px 50px;
+            position: absolute;
+            transform: rotate(-45deg);
+            background: #ffffff;
+            content: '';
+            animation: checkmark-circle 0.6s ease-in-out 0.36s both;
+        }
+
+        .icon-line {
+            height: 5px;
+            background-color: #4caf50;
+            display: block;
+            border-radius: 2px;
+            position: absolute;
+            z-index: 10;
+        }
+
+        .icon-line.line-tip {
+            top: 46px;
+            left: 14px;
+            width: 25px;
+            transform: rotate(45deg);
+            animation: checkmark-icon-tip 0.75s 0.36s ease-in-out both;
+        }
+
+        .icon-line.line-long {
+            top: 38px;
+            right: 8px;
+            width: 47px;
+            transform: rotate(-45deg);
+            animation: checkmark-icon-long 0.75s 0.71s ease-in-out both;
+        }
+
+        .icon-circle {
+            top: -4px;
+            left: -4px;
+            z-index: 10;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            position: absolute;
+            border: 4px solid rgba(76, 175, 80, 0.5);
+            animation: checkmark-circle 0.6s ease-in-out both;
+        }
+
+        .icon-fix {
+            top: 8px;
+            width: 5px;
+            left: 26px;
+            z-index: 1;
+            height: 85px;
+            position: absolute;
+            transform: rotate(-45deg);
+            background-color: #ffffff;
+        }
+
+        @keyframes checkmark-bounce {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            25% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes checkmark-circle {
+            0% {
+                stroke-dashoffset: 166;
+            }
+
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes checkmark-icon-tip {
+            0% {
+                width: 0;
+                left: 1px;
+                top: 19px;
+            }
+
+            54% {
+                width: 0;
+                left: 1px;
+                top: 19px;
+            }
+
+            70% {
+                width: 50px;
+                left: -8px;
+                top: 37px;
+            }
+
+            84% {
+                width: 17px;
+                left: 21px;
+                top: 48px;
+            }
+
+            100% {
+                width: 25px;
+                left: 14px;
+                top: 45px;
+            }
+        }
+
+        @keyframes checkmark-icon-long {
+            0% {
+                width: 0;
+                right: 46px;
+                top: 54px;
+            }
+
+            65% {
+                width: 0;
+                right: 46px;
+                top: 54px;
+            }
+
+            84% {
+                width: 55px;
+                right: 0px;
+                top: 35px;
+            }
+
+            100% {
+                width: 47px;
+                right: 8px;
+                top: 38px;
+            }
+        }
+
+        .confirmation-content {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .confirmation-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .confirmation-message {
+            font-size: 1.25rem;
+            color: #4a5568;
+            margin-bottom: 2rem;
+        }
+
+        .next-steps {
+            text-align: left;
+            margin: 2rem 0;
+        }
+
+        .next-steps h3 {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-card {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 2px solid #cbd5e0;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.15);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            color: #4a5568;
+            margin: 0;
+        }
+
+        .contact-info {
+            background: linear-gradient(145deg, #ffe6e6, #ffe8d9);
+            border: 2px solid #FF6B6B;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin: 2rem 0;
+            font-size: 1.1rem;
+        }
+
+        /* File input styling */
+        input[type="file"] {
+            padding: 0.75rem;
+            border: 2px dashed #cbd5e0;
+            background: linear-gradient(145deg, #f7fafc, #edf2f7);
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"]:hover {
+            border-color: #FF6B6B;
+            background: linear-gradient(145deg, #ffe6e6, #ffe8d9);
+        }
+
+        /* Image Preview Styling */
+        .image-preview-container {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 1rem;
+            background: linear-gradient(145deg, #f8fafc, #edf2f7);
+            text-align: center;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .image-preview-container.show {
+            display: block;
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        .image-preview {
+            max-width: 200px;
+            max-height: 200px;
+            width: auto;
+            height: auto;
+            border-radius: 1rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border: 3px solid #ffffff;
+            object-fit: cover;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .image-preview-info {
+            margin-top: 1rem;
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .image-preview-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.25rem;
+        }
+
+        .image-preview-size {
+            color: #718096;
+            font-size: 0.8rem;
+        }
+
+        .image-remove-btn {
+            background: linear-gradient(135deg, #f56565, #e53e3e);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .image-remove-btn:hover {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(245, 101, 101, 0.3);
+        }
+
+        .upload-placeholder {
+            padding: 2rem;
+            border: 2px dashed #cbd5e0;
+            border-radius: 1rem;
+            background: linear-gradient(145deg, #f7fafc, #edf2f7);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-placeholder:hover {
+            border-color: #FF6B6B;
+            background: linear-gradient(145deg, #ffe6e6, #ffe8d9);
+        }
+
+        .upload-placeholder-icon {
+            font-size: 3rem;
+            color: #a0aec0;
+            margin-bottom: 1rem;
+        }
+
+        .upload-placeholder-text {
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-placeholder-subtext {
+            color: #718096;
+            font-size: 0.875rem;
+        }
+
+        /* Enhanced text styling */
+        .text-sm {
+            font-size: 0.875rem;
+            color: #718096;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Terms and Conditions Styling */
+        .terms-container {
+            background: linear-gradient(145deg, #f0f9ff, #e0f2fe);
+            border: 2px solid #bae6fd;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        .terms-content {
+            color: #1e40af;
+            line-height: 1.6;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        .terms-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+            text-align: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #bae6fd;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        .terms-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1rem;
+        }
+
+        .terms-list li {
+            margin-bottom: 0.75rem;
+            padding-left: 0.5rem;
+            position: relative;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .terms-sublist {
+            list-style: none;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .terms-sublist li {
+            margin-bottom: 0.4rem;
+            color: #1e40af;
+            font-size: 0.95rem;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        .highlight-number {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.5rem;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            word-break: break-all;
+            white-space: nowrap;
+        }
+
+        .terms-highlight {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            color: #92400e;
+            margin-top: 1rem;
+            animation: highlightPulse 2s ease-in-out infinite;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        @keyframes highlightPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 8px rgba(245, 158, 11, 0.1);
+            }
+        }
+
+        .agreement-section {
+            margin-top: 1rem;
+        }
+
+        .agreement-question {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .agreement-option {
+            background: linear-gradient(145deg, #ffffff, #f8fafc) !important;
+            border: 2px solid #e2e8f0 !important;
+            border-radius: 1rem !important;
+            padding: 1rem 1.5rem !important;
+            margin: 0.5rem !important;
+            transition: all 0.3s ease !important;
+            font-weight: 600 !important;
+            min-width: 180px !important;
+            text-align: center !important;
+            justify-content: center !important;
+        }
+
+        .agreement-option:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.2) !important;
+        }
+
+        .agreement-option input[type="radio"]:checked+span {
+            color: #10b981 !important;
+            font-weight: 700 !important;
+        }
+
+        .agreement-option:has(input[type="radio"]:checked) {
+            background: linear-gradient(145deg, #d1fae5, #a7f3d0) !important;
+            border-color: #10b981 !important;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .form-container {
+                margin: 20px;
+                border-radius: 1.5rem;
+            }
+
+            .form-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .header-bg {
+                height: 250px;
+            }
+
+            /* Mobile-specific agreement button fixes */
+            .agreement-section .radio-group {
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+            }
+
+            .agreement-option {
+                min-width: auto !important;
+                width: 100% !important;
+                margin: 0 !important;
+                margin-bottom: 0.75rem !important;
+                padding: 1rem !important;
+                font-size: 1rem !important;
+                text-align: center !important;
+            }
+
+            .agreement-option input[type="radio"] {
+                margin-right: 0.5rem !important;
+                transform: scale(1.1) !important;
+            }
+
+            .agreement-option span {
+                font-size: 1rem !important;
+                line-height: 1.4 !important;
+            }
+
+            /* Mobile image preview styles */
+            .image-preview {
+                max-width: 150px !important;
+                max-height: 150px !important;
+            }
+
+            .image-preview-container {
+                padding: 0.75rem !important;
+            }
+
+            .upload-placeholder {
+                padding: 1.5rem !important;
+            }
+
+            .upload-placeholder-icon {
+                font-size: 2.5rem !important;
+            }
+        }
+
+        /* Additional mobile breakpoint for very small screens */
+        @media (max-width: 480px) {
+            .form-content {
+                padding: 1.5rem 1rem;
+            }
+
+            .agreement-option {
+                padding: 0.875rem 0.75rem !important;
+                font-size: 0.95rem !important;
+            }
+
+            .agreement-option span {
+                font-size: 0.95rem !important;
+            }
+
+            .terms-container {
+                padding: 1rem !important;
+                margin-bottom: 1rem !important;
+                border-radius: 0.75rem !important;
+            }
+
+            .terms-title {
+                font-size: 1rem !important;
+                margin-bottom: 0.75rem !important;
+                padding-bottom: 0.375rem !important;
+            }
+
+            .terms-content {
+                line-height: 1.5 !important;
+            }
+
+            .terms-list {
+                margin-bottom: 0.75rem !important;
+            }
+
+            .terms-list li {
+                margin-bottom: 0.5rem !important;
+                padding-left: 0.25rem !important;
+                font-size: 0.9rem !important;
+                line-height: 1.4 !important;
+            }
+
+            .terms-sublist {
+                padding-left: 1rem !important;
+                margin-top: 0.375rem !important;
+                margin-bottom: 0.375rem !important;
+            }
+
+            .terms-sublist li {
+                margin-bottom: 0.3rem !important;
+                font-size: 0.85rem !important;
+                line-height: 1.3 !important;
+            }
+
+            .highlight-number {
+                padding: 0.15rem 0.4rem !important;
+                font-size: 1rem !important;
+                border-radius: 0.375rem !important;
+                display: inline-block !important;
+                word-break: break-all !important;
+            }
+
+            .terms-highlight {
+                padding: 0.75rem !important;
+                font-size: 0.9rem !important;
+                line-height: 1.4 !important;
+                border-radius: 0.5rem !important;
+                margin-top: 0.75rem !important;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #FF5252, #FF7043);
+        }
+
+        /* Main Layout Styles */
+        .main-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border-radius: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .form-container:hover {
+            box-shadow: 0 35px 70px -12px rgba(255, 107, 107, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Splash Screen Styles */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: splashFadeOut 0.5s ease-in-out 4s forwards;
+        }
+
+        .splash-content {
+            text-align: center;
+            color: white;
+            animation: splashContentIn 0.8s ease-out forwards;
+        }
+
+        .logo-container {
+            margin-bottom: 2rem;
+            animation: logoZoomIn 0.6s ease-out forwards;
+        }
+
+        .splash-logo {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            animation: logoFloat 1.5s ease-in-out infinite alternate;
+        }
+
+        .splash-text {
+            animation: textSlideUp 0.5s ease-out 0.3s forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .splash-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #ffd700, #ffffff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleShimmer 1.5s ease-in-out infinite;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .splash-subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            letter-spacing: 2px;
+        }
+
+        .splash-loader {
+            width: 60px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .splash-loader::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+            animation: loaderSlide 1s ease-in-out infinite;
+        }
+
+        /* Splash Animations */
+        @keyframes splashFadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes splashContentIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes logoZoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0);
+                rotate: -180deg;
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+                rotate: 0deg;
+            }
+        }
+
+        @keyframes logoFloat {
+            from {
+                transform: translateY(0px);
+            }
+
+            to {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes textSlideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes titleShimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes loaderSlide {
+            0% {
+                left: -100%;
+            }
+
+            50% {
+                left: 0%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Form appears after splash */
+        .form-show {
+            display: block !important;
+            animation: formSlideIn 0.5s ease-out forwards;
+        }
+
+        @keyframes formSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Image Containers Styles */
+        .image-containers-section {
+            display: flex;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .image-container-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+        }
+
+        .image-container-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(255, 107, 107, 0.2);
+            border-color: #FF6B6B;
+        }
+
+        .image-container-header {
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .image-container-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-container-subtitle {
+            font-size: 1rem;
+            margin: 0;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .image-container-content {
+            position: relative;
+            overflow: hidden;
+            height: auto;
+            min-height: 200px;
+        }
+
+        .container-image {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            transition: all 0.4s ease;
+            display: block;
+        }
+
+        .clickable-image {
+            cursor: pointer;
+        }
+
+        .clickable-image:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .image-container-card:hover .container-image {
+            transform: scale(1.1);
+        }
+
+        /* Image Modal Styles */
+        .image-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .image-modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: modalImageSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalImageSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            max-width: 80vw;
+            max-height: 80vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        .image-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2001;
+        }
+
+        .image-modal-close:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+        }
+
+        .image-modal-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: all 0.4s ease;
+        }
+
+        .image-container-card:hover .image-overlay {
+            transform: translateY(0);
+        }
+
+        .overlay-text h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .overlay-text p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive design for image containers */
+        @media (max-width: 768px) {
+            .image-containers-section {
+                flex-direction: column;
+                gap: 1.5rem;
+                margin: 2rem auto;
+                padding: 0 1rem;
+            }
+
+            .image-container-card {
+                min-width: auto;
+                max-width: 100%;
+            }
+
+            .image-container-content {
+                height: auto;
+                min-height: 180px;
+            }
+
+            .image-container-header {
+                padding: 1rem 1.5rem;
+            }
+
+            .image-container-title {
+                font-size: 1.2rem;
+            }
+
+            .image-container-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .image-overlay {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 2rem 2rem 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .review-section {
+            margin-bottom: 2rem;
+        }
+
+        .review-section h3 {
+            color: #2d3748;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .review-label {
+            font-weight: 600;
+            color: #4a5568;
+            flex: 1;
+        }
+
+        .review-value {
+            color: #2d3748;
+            font-weight: 500;
+            flex: 2;
+            text-align: right;
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .modal-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .modal-button.secondary {
+            background: #f7fafc;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+        }
+
+        .modal-button.secondary:hover {
+            background: #edf2f7;
+            transform: translateY(-2px);
+        }
+
+        .modal-button.primary {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+
+        .modal-button.primary:hover {
+            background: linear-gradient(135deg, #38a169, #2f855a);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(72, 187, 120, 0.3);
+        }
+
+        /* Image Container Styles */
+        .image-container {
+            margin: 1rem auto;
+            max-width: 400px;
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .image-container:hover {
+            box-shadow: 0 20px 40px -5px rgba(255, 107, 107, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Container Spacing */
+        .image-containers {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem;
+            align-items: center;
+        }
+
+        /* Additional responsive styles for image containers */
+        @media (max-width: 768px) {
+            .image-containers {
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .image-container {
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-[#F8E7D1] min-h-screen p-7">
+    <div class="main-layout">
+        <!-- Splash Screen -->
+        <div id="splashScreen" class="splash-screen">
+            <div class="splash-content">
+                <div class="logo-container">
+                    <!-- You can replace this with your actual logo -->
+                    <img src="{% static 'images/event_form_header.png' %}" alt="Bhudev Kalakaar Logo"
+                        class="splash-logo">
+                </div>
+                <div class="splash-text">
+                    <h1 class="splash-title">Bhudev Kalakaar</h1>
+                    <p class="splash-subtitle">Mega Talent Event 2025</p>
+                    <div class="splash-loader"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Form (Initially Hidden) -->
+        <div class="form-container" id="mainForm" style="display: none;">
+            <div class="header-bg relative">
+                <div class="logo-placeholder"></div>
+                <!-- Confetti image placeholder -->
+                <img src="{% static 'images/event_form_header.png' %}" alt="Confetti background"
+                    class="w-full h-full object-cover absolute top-0 left-0 rounded-t-2xl opacity-100">
+                <!-- <div class="relative z-10 text-center py-8" style="z-index: 20;">
+                    <h1 class="text-2xl font-bold text-white mb-1 drop-shadow-lg">Bhudev Kalakaar</h1>
+                    <p class="text-xl font-bold text-white drop-shadow-lg">Birthday Form 2025</p>
+                </div> -->
+            </div>
+
+            <div class="form-content">
+            <!--Bhudev Kalakaar - 2026  <br>-->
+<!--🔴 Registration Form is now closed 🔴 <br>-->
+<!--<br>-->
+<!--* Reg. Start Date : 09-08-2025 <br>-->
+<!--* Reg. End Date : 15-09-2025 <br>-->
+<!--<br>-->
+<!--Total 1760+ Participatant Registration Forms Received (Singing, Dance, Music Instrument, Other Categories) <br>-->
+<!--<br>-->
+<!--* Vadodara Auditions : 05-10-2025 <br>-->
+<!--* Amdavad Auditions : 12-10-2025 <br>-->
+<!--* Surat Auditions : 02-11-2025 <br>-->
+<!--* Rajkot Auditions : 09-11-2025 <br>-->
+<!--<br>-->
+<!--Contact : 9099048986, 9662766565, 9099798986, 6352144677, 9054816565-->
+                 <!--Django Form-->
+                <form method="post" action="{% url 'submit_registration' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                     <!--Display Django Messages-->
+                    {% if messages %}
+                    <div class="messages-container mb-6">
+                        {% for message in messages %}
+                        <div
+                            class="alert alert-{{ message.tags }} p-4 mb-4 rounded-lg border-l-4 {% if message.tags == 'error' %}bg-red-50 border-red-500 text-red-700{% elif message.tags == 'warning' %}bg-yellow-50 border-yellow-500 text-yellow-700{% elif message.tags == 'success' %}bg-green-50 border-green-500 text-green-700{% else %}bg-blue-50 border-blue-500 text-blue-700{% endif %}">
+                            <div class="flex items-center">
+                                {% if message.tags == 'error' %}
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                {% elif message.tags == 'warning' %}
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                {% elif message.tags == 'success' %}
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                {% else %}
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                {% endif %}
+                                <span class="font-medium">{{ message }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                     <!--Full Name Section-->
+                    <div class="input-group">
+                        <label for="fullName" class="input-label">1. Full Name of the Participant *</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter full name"
+                            class="input-field" required>
+                    </div>
+
+                     <!--Gender Section-->
+                    <div class="input-group">
+                        <p class="input-label">2. Male / Female *</p>
+                        <div class="flex radio-group">
+                            <label>
+                                <input type="radio" name="gender" value="male" required>
+                                <span>Male</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" value="female" required>
+                                <span>Female</span>
+                            </label>
+                        </div>
+                    </div>
+
+                     <!--Date of Birth Section-->
+                    <div class="input-group">
+                        <label for="dateOfBirth" class="input-label">3. Date of Birth *</label>
+                        <input type="text" id="dateOfBirth" name="dateOfBirth" placeholder="DD-MM-YYYY"
+                            class="input-field" required maxlength="10">
+                    </div>
+
+                     <!--Age Group Section-->
+                    <div class="input-group">
+                        <p class="input-label">4. Which Age Group *</p>
+                        <div class="flex flex-col radio-group">
+                            <label>
+                                <input type="radio" name="ageGroup" value="5-10" required>
+                                <span>5 Yrs to 10 Yrs</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="ageGroup" value="11-20" required>
+                                <span>11 Yrs to 20 Yrs</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="ageGroup" value="21-40" required>
+                                <span>21 Yrs to 40 Yrs</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="ageGroup" value="41-above" required>
+                                <span>41 Yrs and Above</span>
+                            </label>
+                        </div>
+                    </div>
+
+                     <!--Event Participation Section-->
+                    <div class="input-group">
+                        <p class="input-label">5. Which Event You are Participating ? *</p>
+                        <div class="flex flex-col radio-group">
+                            <label>
+                                <input type="radio" name="event" value="singing" required>
+                                <span>Singing</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="event" value="dancing" required>
+                                <span>Dancing</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="event" value="musical-instrument" required>
+                                <span>Musical Instrument</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="event" value="others" required>
+                                <span>Others</span>
+                            </label>
+                        </div>
+                    </div>
+
+                     <!--talent details-->
+                    <div class="input-group">
+                        <label for="talent" class="input-label">6. Mention here some Details about your Talent (eg.
+                            Which
+                            Instrument, any National or international Shows, Contest Winner, awards etc) *</label>
+                        <input type="text" id="talent" name="talent" placeholder="Enter your talent" class="input-field"
+                            required>
+                    </div>
+
+                     <!--Current Residence City Section-->
+                    <div class="input-group">
+                        <label for="city" class="input-label">7. Your Current Residence City *</label>
+                        <input type="text" id="city" name="city" placeholder="Enter your city" class="input-field"
+                            required>
+                    </div>
+
+                     <!--WhatsApp Number Section-->
+                    <div class="input-group">
+                        <label for="whatsappNumber" class="input-label">8. WhatsApp Number *</label>
+                        <input type="tel" id="whatsappNumber" name="whatsappNumber" placeholder="Enter WhatsApp number"
+                            class="input-field" required>
+                    </div>
+
+                     <!--Photo Upload Section-->
+                    <div class="input-group">
+                        <label for="photo" class="input-label">9. Attach Your Photo here : (FREE Entry chhe) *</label>
+
+                         <!--Upload Placeholder (shown when no image selected)-->
+                        <div id="uploadPlaceholder" class="upload-placeholder"
+                            onclick="document.getElementById('photo').click()">
+                            <div class="upload-placeholder-icon">📸</div>
+                            <div class="upload-placeholder-text">Click to upload your photo</div>
+                            <div class="upload-placeholder-subtext">JPG, PNG, GIF up to 100MB</div>
+                        </div>
+
+                         <!--Hidden file input-->
+                        <input type="file" id="photo" name="photo" accept="image/*" class="input-field" required
+                            style="display: none;">
+
+                         <!--Image Preview Container (hidden initially)-->
+                        <div id="imagePreviewContainer" class="image-preview-container">
+                            <img id="imagePreview" class="image-preview" src="" alt="Preview">
+                            <div class="image-preview-info">
+                                <div id="imageName" class="image-preview-name">No file selected</div>
+                                <div id="imageSize" class="image-preview-size">0 MB</div>
+                                <button type="button" id="removeImage" class="image-remove-btn">🗑️ Remove
+                                    Image</button>
+                            </div>
+                        </div>
+
+                        <p class="text-sm text-gray-500 mt-1">Upload 1 supported file. Max 100 MB.</p>
+                    </div>
+
+                     <!--Terms and Conditions Section-->
+                    <div class="input-group">
+                        <p class="input-label">10. Terms & Conditions Agreement *</p>
+
+                         <!--Terms Text Box-->
+                        <div class="terms-container">
+                            <div class="terms-content">
+                                <h4 class="terms-title">📝 Video Submission Requirements:</h4>
+                                <ul class="terms-list">
+                                    <li>📤 Send your <strong>1 Minute Talent Video clip</strong> to WhatsApp Number
+                                        <strong class="highlight-number"> 9662766565</strong>
+                                    </li>
+                                    <li> Include the following information with your video:</li>
+                                    <ul class="terms-sublist">
+                                        <li> <strong>Full Name</strong></li>
+                                        <li><strong>Event Category</strong></li>
+                                        <li><strong>Date of Birth</strong></li>
+                                        <li> <strong>City</strong></li>
+                                    </ul>
+                                    <li> By submitting, you agree to follow all <strong>rules, regulations, and Terms &
+                                            Conditions</strong> of this Mega Talent Event</li>
+                                </ul>
+                                 <!--Agreement Radio Buttons-->
+                                <div class="agreement-section">
+                                     <p class="agreement-question">Do you agree to the above terms and conditions? *</p>
+                                    <div class="flex flex-col sm:flex-row radio-group">
+                                        <label class="agreement-option">
+                                            <input type="radio" name="terms" value="yes" required>
+                                            <span>✅ Yes, I Agree</span>
+                                        </label>
+                                        <label class="agreement-option">
+                                            <input type="radio" name="terms" value="no" required>
+                                            <span>❌ No, I Don't Agree</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="terms-highlight">
+                                    🎪 <strong>FREE Entry Registration!</strong>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                     <!--Submit Button-->
+                    <div class="text-center">
+                        <button type="button" id="submitButton" class="submit-button">🚀 Submit Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Two Image Containers Below Form -->
+        <div class="image-containers-section">
+            <!-- First Image Container -->
+            <div class="image-container-card">
+                <div class="image-container-content">
+                    <img src="{% static 'images/bk2026.jpeg' %}" alt="Event Poster"
+                        class="container-image clickable-image" onclick="openImageModal(this)">
+                </div>
+            </div>
+
+            <!-- Second Image Container -->
+            <div class="image-container-card">
+                <div class="image-container-content">
+                    <img src="{% static 'images/team.jpg' %}" alt="Team Members"
+                        class="container-image clickable-image" onclick="openImageModal(this)">
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Modal -->
+        <div id="imageModal" class="image-modal-overlay" style="display: none;">
+            <div class="image-modal-content">
+                <button type="button" id="closeImageModal" class="image-modal-close">✕</button>
+                <img id="modalImage" src="" alt="" class="modal-image">
+                <div class="image-modal-caption" id="imageModalCaption"></div>
+            </div>
+        </div>
+
+        <!-- Review Modal -->
+        <div id="reviewModal" class="modal-overlay" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>📋 Form Review</h2>
+                    <button type="button" id="closeModal" class="close-button">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="review-section">
+                        <h3>📝 Personal Information</h3>
+                        <div class="review-item">
+                            <span class="review-label">Full Name:</span>
+                            <span class="review-value" id="reviewFullName">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Gender:</span>
+                            <span class="review-value" id="reviewGender">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Date of Birth:</span>
+                            <span class="review-value" id="reviewDateOfBirth">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Age Group:</span>
+                            <span class="review-value" id="reviewAgeGroup">-</span>
+                        </div>
+                    </div>
+
+                    <div class="review-section">
+                        <h3>🎭 Event Information</h3>
+                        <div class="review-item">
+                            <span class="review-label">Event Category:</span>
+                            <span class="review-value" id="reviewEvent">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Talent Details:</span>
+                            <span class="review-value" id="reviewTalent">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">City:</span>
+                            <span class="review-value" id="reviewCity">-</span>
+                        </div>
+                    </div>
+
+                    <div class="review-section">
+                        <h3>📞 Contact Information</h3>
+                        <div class="review-item">
+                            <span class="review-label">WhatsApp Number:</span>
+                            <span class="review-value" id="reviewWhatsApp">-</span>
+                        </div>
+                    </div>
+
+                    <div class="review-section">
+                        <h3>📸 Photo & Agreement</h3>
+                        <div class="review-item">
+                            <span class="review-label">Photo:</span>
+                            <span class="review-value" id="reviewPhoto">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Terms Agreement:</span>
+                            <span class="review-value" id="reviewTerms">-</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="editForm" class="modal-button secondary">✏️ Go Back & Edit</button>
+                    <button type="button" id="confirmSubmit" class="modal-button primary">✅ Confirm & Submit</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Splash Screen and Form handling
+            document.addEventListener('DOMContentLoaded', () => {
+                const splashScreen = document.getElementById('splashScreen');
+                const mainForm = document.getElementById('mainForm');
+                const dateOfBirthInput = document.getElementById('dateOfBirth');
+                const submitButton = document.getElementById('submitButton');
+                const reviewModal = document.getElementById('reviewModal');
+                const closeModal = document.getElementById('closeModal');
+                const editForm = document.getElementById('editForm');
+                const confirmSubmit = document.getElementById('confirmSubmit');
+                const form = document.querySelector('form');
+
+                // Date formatting function
+                function formatDateInput(input) {
+                    // Remove all non-numeric characters
+                    let value = input.value.replace(/\D/g, '');
+
+                    // Add dashes at appropriate positions
+                    if (value.length >= 2) {
+                        value = value.substring(0, 2) + '-' + value.substring(2);
+                    }
+                    if (value.length >= 5) {
+                        value = value.substring(0, 5) + '-' + value.substring(5, 9);
+                    }
+
+                    // Limit to 10 characters (DD-MM-YYYY)
+                    value = value.substring(0, 10);
+
+                    input.value = value;
+                }
+
+                // Add event listener for date input formatting
+                if (dateOfBirthInput) {
+                    dateOfBirthInput.addEventListener('input', function (e) {
+                        formatDateInput(e.target);
+                    });
+
+                    // Prevent non-numeric input except dashes
+                    dateOfBirthInput.addEventListener('keypress', function (e) {
+                        const char = String.fromCharCode(e.which);
+                        if (!/[0-9]/.test(char) && char !== '-') {
+                            e.preventDefault();
+                        }
+                    });
+                }
+
+                // Image Preview Functionality
+                const photoInput = document.getElementById('photo');
+                const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+                const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+                const imagePreview = document.getElementById('imagePreview');
+                const imageName = document.getElementById('imageName');
+                const imageSize = document.getElementById('imageSize');
+                const removeImageBtn = document.getElementById('removeImage');
+
+                if (photoInput) {
+                    photoInput.addEventListener('change', function (e) {
+                        const file = e.target.files[0];
+                        if (file) {
+                            // Validate file type
+                            if (!file.type.startsWith('image/')) {
+                                alert('Please select a valid image file (JPG, PNG, GIF).');
+                                this.value = '';
+                                return;
+                            }
+
+                            // Validate file size (100MB = 100 * 1024 * 1024 bytes)
+                            if (file.size > 100 * 1024 * 1024) {
+                                alert('File size must be less than 100MB.');
+                                this.value = '';
+                                return;
+                            }
+
+                            // Show preview
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                imagePreview.src = e.target.result;
+                                imageName.textContent = file.name;
+                                imageSize.textContent = `${(file.size / 1024 / 1024).toFixed(2)} MB`;
+
+                                // Hide upload placeholder and show preview
+                                uploadPlaceholder.style.display = 'none';
+                                imagePreviewContainer.classList.add('show');
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                }
+
+                // Remove image functionality
+                if (removeImageBtn) {
+                    removeImageBtn.addEventListener('click', function () {
+                        photoInput.value = '';
+                        imagePreview.src = '';
+                        imageName.textContent = 'No file selected';
+                        imageSize.textContent = '0 MB';
+
+                        // Show upload placeholder and hide preview
+                        imagePreviewContainer.classList.remove('show');
+                        uploadPlaceholder.style.display = 'block';
+                    });
+                }
+
+                // Submit Button - Show Review Modal First
+                if (submitButton) {
+                    submitButton.addEventListener('click', () => {
+                        const formData = collectFormData();
+                        if (validateForm(formData)) {
+                            populateReviewModal(formData);
+                            reviewModal.style.display = 'flex';
+                        } else {
+                            alert('Please fill in all required fields before submitting the form.');
+                        }
+                    });
+                }
+
+                if (closeModal) {
+                    closeModal.addEventListener('click', () => {
+                        reviewModal.style.display = 'none';
+                    });
+                }
+
+                if (editForm) {
+                    editForm.addEventListener('click', () => {
+                        reviewModal.style.display = 'none';
+                    });
+                }
+
+                if (confirmSubmit) {
+                    confirmSubmit.addEventListener('click', () => {
+                        reviewModal.style.display = 'none';
+                        form.submit();
+                    });
+                }
+
+                // Close modal when clicking outside
+                if (reviewModal) {
+                    reviewModal.addEventListener('click', (e) => {
+                        if (e.target === reviewModal) {
+                            reviewModal.style.display = 'none';
+                        }
+                    });
+                }
+
+                // Collect form data function
+                function collectFormData() {
+                    return {
+                        fullName: document.getElementById('fullName')?.value || '',
+                        gender: document.querySelector('input[name="gender"]:checked')?.value || '',
+                        dateOfBirth: document.getElementById('dateOfBirth')?.value || '',
+                        ageGroup: document.querySelector('input[name="ageGroup"]:checked')?.value || '',
+                        event: document.querySelector('input[name="event"]:checked')?.value || '',
+                        talent: document.getElementById('talent')?.value || '',
+                        city: document.getElementById('city')?.value || '',
+                        whatsappNumber: document.getElementById('whatsappNumber')?.value || '',
+                        photo: document.getElementById('photo')?.files[0] || null,
+                        terms: document.querySelector('input[name="terms"]:checked')?.value || ''
+                    };
+                }
+
+                // Validate form function
+                function validateForm(data) {
+                    return data.fullName &&
+                        data.gender &&
+                        data.dateOfBirth &&
+                        data.ageGroup &&
+                        data.event &&
+                        data.talent &&
+                        data.city &&
+                        data.whatsappNumber &&
+                        data.photo &&
+                        data.terms === 'yes';
+                }
+
+                // Populate review modal function
+                function populateReviewModal(data) {
+                    document.getElementById('reviewFullName').textContent = data.fullName || '-';
+                    document.getElementById('reviewGender').textContent = data.gender ?
+                        (data.gender === 'male' ? '👨 Male' : '👩 Female') : '-';
+                    document.getElementById('reviewDateOfBirth').textContent = data.dateOfBirth || '-';
+
+                    // Format age group
+                    const ageGroupMap = {
+                        '5-10': '🧒 5 Yrs to 10 Yrs',
+                        '11-20': '👦 11 Yrs to 20 Yrs',
+                        '21-40': '👨 21 Yrs to 40 Yrs',
+                        '41-above': '👴 41 Yrs and Above'
+                    };
+                    document.getElementById('reviewAgeGroup').textContent = ageGroupMap[data.ageGroup] || '-';
+
+                    // Format event
+                    const eventMap = {
+                        'singing': '🎤 Singing',
+                        'dancing': '💃 Dancing',
+                        'musical-instrument': '🎸 Musical Instrument',
+                        'others': '🎭 Others'
+                    };
+                    document.getElementById('reviewEvent').textContent = eventMap[data.event] || '-';
+
+                    document.getElementById('reviewTalent').textContent = data.talent || '-';
+                    document.getElementById('reviewCity').textContent = data.city || '-';
+                    document.getElementById('reviewWhatsApp').textContent = data.whatsappNumber || '-';
+                    document.getElementById('reviewPhoto').textContent = data.photo ?
+                        `📸 ${data.photo.name} (${(data.photo.size / 1024 / 1024).toFixed(2)} MB)` : '-';
+                    document.getElementById('reviewTerms').textContent = data.terms === 'yes' ?
+                        '✅ Agreed' : '❌ Not Agreed';
+                }
+
+                // Show form after splash screen animation completes
+                setTimeout(() => {
+                    // Hide splash screen
+                    if (splashScreen) {
+                        splashScreen.style.display = 'none';
+                    }
+
+                    // Show main form with animation
+                    if (mainForm) {
+                        mainForm.style.display = 'block';
+                        mainForm.classList.add('form-show');
+                    }
+
+                    console.log('Talent Event Registration Form loaded');
+                }, 1500); // 1.5 seconds for splash screen
+
+                // Optional: Click to skip splash screen
+                if (splashScreen) {
+                    splashScreen.addEventListener('click', () => {
+                        splashScreen.style.display = 'none';
+                        if (mainForm) {
+                            mainForm.style.display = 'block';
+                            mainForm.classList.add('form-show');
+                        }
+                        console.log('Splash screen skipped');
+                    });
+                }
+            });
+
+            // Image Modal Functions
+            function openImageModal(imgElement) {
+                const modal = document.getElementById('imageModal');
+                const modalImage = document.getElementById('modalImage');
+                const caption = document.getElementById('imageModalCaption');
+
+                modal.style.display = 'flex';
+                modalImage.src = imgElement.src;
+                modalImage.alt = imgElement.alt;
+                caption.textContent = imgElement.alt;
+            }
+
+            function closeImageModal() {
+                const modal = document.getElementById('imageModal');
+                modal.style.display = 'none';
+            }
+
+            // Add event listeners for image modal
+            document.addEventListener('DOMContentLoaded', () => {
+                const closeImageModalBtn = document.getElementById('closeImageModal');
+                const imageModal = document.getElementById('imageModal');
+
+                if (closeImageModalBtn) {
+                    closeImageModalBtn.addEventListener('click', closeImageModal);
+                }
+
+                // Close modal when clicking outside the image
+                if (imageModal) {
+                    imageModal.addEventListener('click', (e) => {
+                        if (e.target === imageModal) {
+                            closeImageModal();
+                        }
+                    });
+                }
+
+                // Close modal with Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closeImageModal();
+                    }
+                });
+            });
+        </script>
+</body>
+
+</html>

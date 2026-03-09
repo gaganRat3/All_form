@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 from . import views_divorce_sammelan
 from . import views_40plus_sammelan
-
+from .views import astrology_form_view, technical_support, technical_support_confirmation, bk2026_registration_view, submit_bk2026_registration
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -29,24 +29,17 @@ urlpatterns = [
 
     # Removed old mela_booklet_correction_confirmation path
 
-]
-
-from .views import astrology_form_view, technical_support
-from .views import technical_support_confirmation
-
-urlpatterns += [
+    path('bk2026-registration/', views.bk2026_registration_view, name='bk2026_registration'),
+    path('submit-registration/', submit_bk2026_registration, name='submit_registration'),
+    path('bk2026-registration/confirmation/<int:registration_id>/', views.bk2026_registration_confirmation, name='bk2026_registration_confirmation'),
     path('', views.home_page, name='home_page'),
     path('divorce-sammelan-form/', views_divorce_sammelan.divorce_sammelan_form_view, name='divorce_sammelan_form'),
     path('40-plus-sammelan-form/', views_40plus_sammelan.forty_plus_sammelan_form_view, name='40_plus_sammelan_form'),
     path('physical-form/', views.physical_form_view, name='physical_form'),
     path('physical-form-success/', views.physical_form_success_view, name='physical_form_success'),
     path('business-directory/', views.business_directory, name='business_directory'),
-    # Removed separate form page path as form is handled in home_page
-    # path('form/', views.biodata_form, name='biodata_form'),
     path('download-pdf/<int:candidate_id>/', views.download_biodata_pdf, name='download_biodata_pdf'),
     path('confirmation/<int:candidate_id>/', views.confirmation_page, name='confirmation'),
-    # path('confirmation/', views.confirmation_redirect, name='confirmation_redirect'),  # Removed: no such view exists
-    # path('gallery/', views.gallery_page, name='gallery_page'),  # Removed: no such view exists
     path('contact-us/', views.contact_us_page, name='contact_us_page'),
     path('about-us/', views.about_us_page, name='about_us_page'),
     path('advance-pass-booking/', views.advance_pass_booking, name='advance_pass_booking'),
@@ -66,10 +59,7 @@ urlpatterns += [
          __import__('biodata.views_karmkand_directory').views_karmkand_directory.global_karmkand_directory,
          name='global_karmkand_directory'),
     path('garba-form/', views.garba_pass_registration_view, name='garba_form'),
-    # Removed submit_garba_form path as it is redundant and removed from views.py
-    # path('garba-form/submit/', views.submit_garba_form, name='submit_form'),
     path('garba-confirmation/', views.garba_confirmation, name='garba_confirmation'),
-    
     # Audience registration URLs
     path('submit-ticket/', views.audience_registration_view, name='audience_registration'),
     path('audience-form/', views.audience_registration_view, name='audience_form'),

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import AdvancePassBooking, BookletLibrarySubmission, FortyPlusSammelan
+from .models import AdvancePassBooking, BookletLibrarySubmission, FortyPlusSammelan, BhudevKalakaar2026Registration
 
 @admin.register(FortyPlusSammelan)
 class FortyPlusSammelanAdmin(admin.ModelAdmin):
@@ -1802,3 +1802,45 @@ class BookletCampAdvBookingAdmin(admin.ModelAdmin):
         # DateField as date input
         forms.DateField: {'widget': forms.DateInput(attrs={'type': 'date'})},
     }
+
+
+# Bhudev Kalakaar 2026 Talent Registration Admin
+@admin.register(BhudevKalakaar2026Registration)
+class BhudevKalakaar2026RegistrationAdmin(admin.ModelAdmin):
+    list_display = (
+        'fullName',
+        'gender',
+        'dateOfBirth',
+        'ageGroup',
+        'event',
+        'talent',
+        'city',
+        'whatsappNumber',
+        'terms',
+        'photo_link',
+        'submitted_at',
+    )
+    search_fields = ('fullName', 'city', 'whatsappNumber', 'event', 'talent', 'dateOfBirth')
+    list_filter = ('gender', 'ageGroup', 'event', 'terms', 'submitted_at')
+    readonly_fields = ('submitted_at', 'photo_link')
+    fieldsets = (
+        ('Personal Information', {
+            'fields': ('fullName', 'gender', 'dateOfBirth', 'ageGroup')
+        }),
+        ('Event Details', {
+            'fields': ('event', 'talent')
+        }),
+        ('Contact Information', {
+            'fields': ('city', 'whatsappNumber')
+        }),
+        ('Submission', {
+            'fields': ('photo', 'photo_link', 'terms', 'submitted_at')
+        }),
+    )
+    
+    def photo_link(self, obj):
+        if obj.photo:
+            return format_html('<a href="{}" target="_blank">View Image</a>', obj.photo.url)
+        return "No photo uploaded"
+    
+    photo_link.short_description = "Photo Link"

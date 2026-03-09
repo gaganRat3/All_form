@@ -1,4 +1,52 @@
+from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import redirect, render
+from django.http import JsonResponse
+from django.contrib import messages
+
+def bk2026_registration_view(request):
+    """Display Bhudev Kalakaar 2026 talent registration form"""
+    return render(request, 'biodata/bk2026_registration.html')
+
+
+@require_http_methods(["POST"])
+def submit_bk2026_registration(request):
+    """Handle submission of Bhudev Kalakaar 2026 talent registration form"""
+    from django.contrib import messages
+    from .forms import BhudevKalakaar2026Form
+    
+    if request.method == 'POST':
+        form = BhudevKalakaar2026Form(request.POST, request.FILES)
+        if form.is_valid():
+            registration = form.save()
+            # Store the registration ID in session for confirmation page
+            request.session['bk2026_registration_id'] = registration.id
+            messages.success(request, '✅ Registration submitted successfully! Thank you for registering.')
+            return redirect('bk2026_registration_confirmation', registration_id=registration.id)
+        else:
+            # If form is invalid, return form with errors
+            context = {'form': form, 'form_errors': form.errors}
+            return render(request, 'biodata/bk2026_registration.html', context)
+    return redirect('bk2026_registration')
+
+
+def bk2026_registration_confirmation(request, registration_id):
+    """Display confirmation page after successful registration"""
+    from .models import BhudevKalakaar2026Registration
+    
+    try:
+        registration = BhudevKalakaar2026Registration.objects.get(id=registration_id)
+        context = {
+            'registration': registration,
+            'date_submitted': registration.submitted_at.strftime('%d-%m-%Y %H:%M:%S'),
+        }
+        return render(request, 'biodata/bk2026_registration_confirmation.html', context)
+    except BhudevKalakaar2026Registration.DoesNotExist:
+        from django.contrib import messages
+        messages.error(request, 'Registration not found.')
+        return redirect('bk2026_registration')
+
+
 
 # Happy Story submission view
 @csrf_exempt
@@ -22,6 +70,8 @@ def garba_pass_registration_view(request):
     else:
         form = GarbaPassRegistrationForm()
     return render(request, 'biodata/garba_form.html', {'form': form})
+    def bk2026_registration_view(request):
+        return render(request, 'biodata/bk2026_registration.html')
 from .forms_picnic import PicnicRegistrationForm
 from .models_picnic import PicnicRegistration
 from django.shortcuts import redirect, render
