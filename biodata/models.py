@@ -52,6 +52,60 @@ class FortyPlusSammelan(models.Model):
         verbose_name = "40 Plus Sammelan Registration"
         verbose_name_plural = "40 Plus Sammelan Registrations"
 
+
+# Saurashtra & Kutch Sammelan Form Model
+class SaurasthraKutchSammelan(models.Model):
+    name = models.CharField(max_length=100)
+    gender = models.CharField(max_length=10)
+    dob = models.CharField(max_length=20)
+    marital = models.CharField(max_length=50)
+    disability = models.TextField(blank=True)
+    tob = models.CharField(max_length=20, blank=True)
+    birthPlace = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100, blank=True)
+    visa = models.CharField(max_length=50, blank=True)
+    height = models.CharField(max_length=10, blank=True)
+    weight = models.CharField(max_length=10, blank=True)
+    education = models.CharField(max_length=100, blank=True)
+    educationDetail = models.CharField(max_length=200, blank=True)
+    occupationCat = models.CharField(max_length=100, blank=True)
+    occupationDetails = models.TextField(blank=True)
+    salary = models.CharField(max_length=20, blank=True)
+    shani = models.CharField(max_length=30, blank=True)
+    hobbies = models.CharField(max_length=200, blank=True)
+    father = models.CharField(max_length=100, blank=True)
+    mother = models.CharField(max_length=100, blank=True)
+    fatherWp = models.CharField(max_length=20, blank=True)
+    motherWp = models.CharField(max_length=20, blank=True)
+    caste = models.CharField(max_length=100, blank=True)
+    gotra = models.CharField(max_length=100, blank=True)
+    kuldevi = models.CharField(max_length=100, blank=True)
+    siblings = models.TextField(blank=True)
+    eating_habbits = models.CharField(max_length=100, blank=True)
+    alcohol = models.CharField(max_length=10, blank=True)
+    smoke = models.CharField(max_length=10, blank=True)
+    other_habbit = models.CharField(max_length=100, blank=True)
+    legal_case = models.CharField(max_length=100, blank=True)
+    locChoice = models.CharField(max_length=100, blank=True)
+    ageGap = models.CharField(max_length=20, blank=True)
+    eduChoice = models.CharField(max_length=100, blank=True)
+    otherChoice = models.TextField(blank=True)
+    who = models.CharField(max_length=100, blank=True)
+    regMobile = models.CharField(max_length=20)
+    resCat = models.CharField(max_length=50, blank=True)
+    nadi = models.CharField(max_length=50, blank=True)
+    email = models.EmailField()
+    whatsapp = models.CharField(max_length=20, blank=True)
+    photo = models.ImageField(upload_to='saurashtra_kutch_photos/', blank=True)
+    declaration = models.CharField(max_length=10)
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Saurashtra & Kutch Sammelan Registration"
+        verbose_name_plural = "Saurashtra & Kutch Sammelan Registrations"
+
+
 from django.db import models
 from .models_booklet_camp_adv import BookletCampAdvBooking
 from django.utils import timezone

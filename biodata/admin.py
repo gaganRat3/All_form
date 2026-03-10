@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import AdvancePassBooking, BookletLibrarySubmission, FortyPlusSammelan, BhudevKalakaar2026Registration
+from .models import AdvancePassBooking, BookletLibrarySubmission, FortyPlusSammelan, BhudevKalakaar2026Registration, SaurasthraKutchSammelan
+from .admin_37th_sammelan import *
 
 @admin.register(FortyPlusSammelan)
 class FortyPlusSammelanAdmin(admin.ModelAdmin):
@@ -39,6 +40,30 @@ class FortyPlusSammelanAdmin(admin.ModelAdmin):
         response = HttpResponse(zip_buffer.read(), content_type='application/zip')
         response['Content-Disposition'] = 'attachment; filename=physical_form_images.zip'
         return response
+
+
+@admin.register(SaurasthraKutchSammelan)
+class SaurasthraKutchSammelanAdmin(admin.ModelAdmin):
+    list_display = [
+        'serial_number', 'name', 'gender', 'dob', 'marital', 'disability', 'tob', 'birthPlace', 'city', 'country', 'visa', 'height', 'weight',
+        'education', 'educationDetail', 'occupationCat', 'occupationDetails', 'salary', 'shani', 'hobbies', 'father', 'mother',
+        'fatherWp', 'motherWp', 'caste', 'gotra', 'kuldevi', 'siblings', 'eating_habbits', 'alcohol', 'smoke', 'other_habbit',
+        'legal_case', 'locChoice', 'ageGap', 'eduChoice', 'otherChoice', 'who', 'regMobile', 'resCat', 'nadi', 'email', 'whatsapp',
+        'photo', 'declaration', 'submitted_at'
+    ]
+    search_fields = ['name', 'email', 'regMobile', 'city']
+    list_filter = ['gender', 'marital', 'city', 'resCat']
+    actions = ['export_excel_with_images', 'export_excel_without_images', 'download_images_zip']
+
+    def serial_number(self, obj):
+        """Display serial number based on submitted_at timestamp"""
+        all_ids = list(SaurasthraKutchSammelan.objects.all().order_by('submitted_at').values_list('id', flat=True))
+        try:
+            position = all_ids.index(obj.id)
+            return position + 1
+        except ValueError:
+            return 0
+
 # Register BookletLibrarySubmission in admin
 @admin.register(BookletLibrarySubmission)
 class BookletLibrarySubmissionAdmin(admin.ModelAdmin):

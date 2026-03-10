@@ -6,6 +6,7 @@ urlpatterns = [
     path('grappelli/', include('grappelli.urls')),  # grappelli URLS
     path('admin/', admin.site.urls),
     path('', include('biodata.urls')),
+    path('test/', include('test_form.urls')),       # ← test form app
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,212 @@
+/* ─── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f4f8;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 16px;
+}
+
+/* ─── Card ──────────────────────────────────────────────────── */
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+  padding: 40px 48px;
+  width: 100%;
+  max-width: 560px;
+}
+
+h1 {
+  font-size: 1.75rem;
+  color: #1a1a2e;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+/* ─── Form Fields ───────────────────────────────────────────── */
+.field {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.req { color: #ef4444; }
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #111827;
+  background: #f9fafb;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  background: #fff;
+}
+
+textarea { resize: vertical; }
+
+input[type="file"] {
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+/* ─── Image Preview ─────────────────────────────────────────── */
+.preview-wrap {
+  margin-top: 10px;
+}
+
+.preview-wrap img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #6366f1;
+}
+
+/* ─── Validation Errors ─────────────────────────────────────── */
+.field-error {
+  color: #ef4444;
+  font-size: 0.82rem;
+  font-weight: 500;
+  min-height: 16px;
+}
+
+.error-banner {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  color: #b91c1c;
+  font-size: 0.9rem;
+}
+
+.error-banner ul {
+  margin-top: 8px;
+  padding-left: 20px;
+}
+
+/* ─── Submit Button ─────────────────────────────────────────── */
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+button[type="submit"]:hover  { opacity: 0.92; }
+button[type="submit"]:active { transform: scale(0.98); }
+button[type="submit"]:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ─── Success Page ──────────────────────────────────────────── */
+.success-card { text-align: center; }
+
+.tick {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes pop {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.success-card h1 { color: #16a34a; margin-bottom: 10px; }
+
+.links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 28px 0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 22px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
+}
+.btn:hover { opacity: 0.88; }
+
+.btn-outline {
+  background: #fff;
+  color: #4f46e5;
+  border: 2px solid #6366f1;
+}
+.btn-outline:hover { background: #eef2ff; }
+
+.info-box {
+  background: #f8fafc;
+  border-left: 4px solid #6366f1;
+  border-radius: 8px;
+  padding: 18px 22px;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #374151;
+  line-height: 1.7;
+}
+
+.info-box strong {
+  display: block;
+  margin-bottom: 10px;
+  color: #1a1a2e;
+  font-size: 0.95rem;
+}
+
+.info-box ol { padding-left: 20px; }
+.info-box code {
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+/* ─── Responsive ────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .card { padding: 28px 20px; }
+  h1    { font-size: 1.4rem; }
+}

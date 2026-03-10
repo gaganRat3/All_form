@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Form — Success</title>
+  <link rel="stylesheet" href="{% static 'css/test_form_style.css' %}" />
+</head>
+<body>
+
+  <div class="card success-card">
+    <div class="tick">✅</div>
+    <h1>Form Submitted Successfully!</h1>
+    <p class="subtitle">
+      Your data has been saved to the Django database.<br>
+      The uploaded image is stored in <code>/media/profile_images/</code>.
+    </p>
+
+    <div class="links">
+      <a href="/test/" class="btn">📋 Submit Another</a>
+      <a href="/admin/test_form/submission/" class="btn btn-outline" target="_blank">🔧 View in Admin</a>
+    </div>
+
+    <div class="info-box">
+      <strong>What just happened?</strong>
+      <ol>
+        <li>JS sent form data via <code>fetch()</code> POST request.</li>
+        <li>Django view validated the data and called <code>Submission.objects.create()</code>.</li>
+        <li>Django saved the record to <code>db.sqlite3</code>.</li>
+        <li>The image was saved to <code>/media/profile_images/</code>.</li>
+        <li>JS received a <code>200 OK</code> JSON response and redirected here.</li>
+      </ol>
+    </div>
+  </div>
+
+</body>
+</html>

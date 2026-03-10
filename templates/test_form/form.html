@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Form — Submit</title>
+  <link rel="stylesheet" href="{% static 'css/test_form_style.css' %}" />
+</head>
+<body>
+
+  <div class="card">
+    <h1>📋 Test Form</h1>
+    <p class="subtitle">Fill in the fields and upload an image. Data is saved to Django + Admin.</p>
+
+    <!-- Error banner (hidden by default, shown by JS on validation failure) -->
+    <div class="error-banner" id="errorBanner" hidden>
+      <strong>Please fix the errors below:</strong>
+      <ul id="errorList"></ul>
+    </div>
+
+    <form id="testForm" novalidate>
+      {% csrf_token %}
+
+      <div class="field">
+        <label for="name">Name <span class="req">*</span></label>
+        <input type="text" id="name" name="name" placeholder="Your full name" />
+        <span class="field-error" id="nameErr"></span>
+      </div>
+
+      <div class="field">
+        <label for="email">Email <span class="req">*</span></label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" />
+        <span class="field-error" id="emailErr"></span>
+      </div>
+
+      <div class="field">
+        <label for="city">City <span class="req">*</span></label>
+        <input type="text" id="city" name="city" placeholder="Your city" />
+        <span class="field-error" id="cityErr"></span>
+      </div>
+
+      <div class="field">
+        <label for="message">Message <span class="req">*</span></label>
+        <textarea id="message" name="message" rows="4" placeholder="Write something..."></textarea>
+        <span class="field-error" id="messageErr"></span>
+      </div>
+
+      <div class="field">
+        <label for="profile_image">Profile Image <span class="req">*</span></label>
+        <input type="file" id="profile_image" name="profile_image" accept="image/*" />
+        <div class="preview-wrap" id="previewWrap" hidden>
+          <img id="previewImg" src="" alt="Preview" />
+        </div>
+        <span class="field-error" id="imageErr"></span>
+      </div>
+
+      <button type="submit" id="submitBtn">
+        <span id="btnText">Submit</span>
+        <span id="btnSpinner" hidden>Sending…</span>
+      </button>
+    </form>
+  </div>
+
+  <script src="{% static 'js/test_form_script.js' %}"></script>
+</body>
+</html>

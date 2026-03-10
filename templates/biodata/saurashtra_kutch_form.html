@@ -1,0 +1,1224 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0066cc" />
+  <meta name="description" content="Saurashtra & Kutch Sammelan Registration - Register for matrimonial matchmaking" />
+  <title>Saurashtra & Kutch Sammelan Registration</title>
+  <link rel="stylesheet" href="{% static 'css/40plus_sammelan_form.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(0, 102, 204, 0.5);
+      }
+      50% {
+        box-shadow: 0 0 0 12px rgba(0, 102, 204, 0);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -1000px 0;
+      }
+      100% {
+        background-position: 1000px 0;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    * {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f7 25%, #f0f8fc 50%, #d9ecf5 75%, #e8f4f8 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: #1a3a52;
+      line-height: 1.7;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 30%, rgba(0, 102, 204, 0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(0, 150, 200, 0.1) 0%, transparent 40%),
+                  radial-gradient(circle at 50% 90%, rgba(30, 144, 255, 0.08) 0%, transparent 30%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #0066cc 0%, #0096c8 25%, #1f90ff 50%, #0096c8 75%, #0066cc 100%);
+      background-size: 200% 100%;
+      animation: gradientShift 3s ease infinite;
+      z-index: 999;
+      box-shadow: 0 2px 20px rgba(0, 102, 204, 0.5);
+    }
+
+    .header {
+      text-align: center;
+      position: relative;
+      padding: 50px 18px 40px 18px;
+      z-index: 20;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(224, 244, 248, 0.95) 100%);
+      border-bottom: 3px solid;
+      border-image: linear-gradient(90deg, #0066cc, #0096c8, #1f90ff, #0096c8, #0066cc) 1;
+      box-shadow: 0 8px 40px rgba(0, 102, 204, 0.12);
+      margin-top: 5px;
+      animation: fadeInDown 0.8s ease-out;
+      backdrop-filter: blur(10px);
+    }
+
+    .sub-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 100px;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: transparent;
+      border-radius: 20px;
+    }
+
+    .logo-responsive {
+      height: 65px;
+      width: auto;
+      max-width: 140px;
+      object-fit: contain;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 12px;
+      filter: drop-shadow(0 4px 15px rgba(0, 102, 204, 0.2));
+      animation: slideInUp 0.6s ease-out, float 4s ease-in-out infinite;
+      animation-delay: 0s, 1s;
+    }
+
+    .logo-responsive:hover {
+      transform: scale(1.18) translateY(-10px);
+      filter: drop-shadow(0 12px 30px rgba(0, 102, 204, 0.35));
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    @media (max-width: 768px) {
+      .sub-logos {
+        gap: 40px;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+
+      .logo-responsive {
+        height: 50px;
+        max-width: 90px;
+      }
+
+      .poster-image {
+        max-width: 90% !important;
+        margin: 0 auto;
+      }
+    }
+
+    .title-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 90px;
+      position: relative;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .title-wrapper::before,
+    .title-wrapper::after {
+      content: '⚓';
+      color: #0066cc;
+      font-size: 2rem;
+      margin: 0 25px;
+      opacity: 0;
+      animation: fadeInDown 1.2s ease-out 0.3s forwards, pulse 2s ease-in-out infinite;
+      animation-delay: 0.3s, 1.5s;
+    }
+
+    .title-wrapper h3 {
+      font-family: 'Lora', serif;
+      font-size: 3rem;
+      background: linear-gradient(135deg, #0066cc 0%, #0096c8 30%, #1f90ff 50%, #0096c8 70%, #0066cc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin: 0;
+      text-shadow: none;
+      animation: slideInUp 0.8s ease-out 0.2s backwards;
+    }
+
+    .event-description-box {
+      max-width: 750px;
+      margin: 0 auto 35px auto;
+      background: linear-gradient(135deg, rgba(232, 244, 248, 0.95) 0%, rgba(212, 233, 247, 0.95) 50%, rgba(240, 248, 252, 0.95) 100%);
+      border-left: 5px solid #0066cc;
+      border-right: 3px solid #0096c8;
+      border-radius: 20px;
+      padding: 35px;
+      font-size: 1rem;
+      color: #1a3a52;
+      box-shadow: 0 15px 50px rgba(0, 102, 204, 0.15), 0 0 25px rgba(0, 150, 200, 0.1);
+      line-height: 2;
+      border-top: 3px solid #0096c8;
+      animation: slideInUp 0.8s ease-out 0.4s backwards;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-description-box::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(0, 150, 200, 0.3), transparent);
+      transform: rotate(45deg);
+      animation: shimmer 4s infinite;
+    }
+
+    .event-description-box:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 20px 60px rgba(0, 102, 204, 0.2), 0 0 40px rgba(0, 150, 200, 0.15);
+    }
+
+    .event-description-box b {
+      color: #0066cc;
+      font-weight: 700;
+      font-size: 1.05em;
+    }
+
+    .event-description-box::before {
+      content: '⚓';
+      color: #0096c8;
+      margin-right: 10px;
+      font-size: 1.3em;
+      z-index: 1;
+      position: relative;
+    }
+
+    .sammelan-form-40plus {
+      max-width: 930px;
+      margin: 35px auto;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 248, 252, 0.98) 50%, rgba(224, 244, 248, 0.98) 100%);
+      padding: 55px;
+      border-radius: 25px;
+      box-shadow: 0 25px 70px rgba(0, 102, 204, 0.12), 0 0 40px rgba(0, 150, 200, 0.08);
+      border: 2px solid rgba(0, 102, 204, 0.2);
+      position: relative;
+      overflow: hidden;
+      animation: slideInUp 0.8s ease-out 0.5s backwards;
+      backdrop-filter: blur(10px);
+    }
+
+    .sammelan-form-40plus::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #0066cc 0%, #0096c8 25%, #1f90ff 50%, #0096c8 75%, #0066cc 100%);
+      z-index: 10;
+    }
+
+    .form-section {
+      margin-bottom: 48px;
+      animation: slideInUp 0.6s ease-out backwards;
+    }
+
+    .form-section:nth-child(1) { animation-delay: 0.6s; }
+    .form-section:nth-child(2) { animation-delay: 0.7s; }
+    .form-section:nth-child(3) { animation-delay: 0.8s; }
+    .form-section:nth-child(4) { animation-delay: 0.9s; }
+    .form-section:nth-child(5) { animation-delay: 1s; }
+
+    .form-section-title {
+      font-family: 'Lora', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #0066cc 0%, #0096c8 50%, #1f90ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 3px solid;
+      border-image: linear-gradient(90deg, #0066cc, #0096c8, #0066cc) 1;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .form-section-title::before {
+      content: '⚓';
+      color: #0066cc;
+      margin-right: 12px;
+      font-size: 1.2em;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+
+    .form-section-title:hover {
+      transform: translateX(8px);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .form-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="file"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 15px 18px;
+      border: 2px solid #b3d9f0;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      background: rgba(255, 255, 255, 0.9);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-sizing: border-box;
+      position: relative;
+      backdrop-filter: blur(10px);
+    }
+
+    input[type="text"]:hover,
+    input[type="email"]:hover,
+    input[type="tel"]:hover,
+    select:hover,
+    textarea:hover {
+      border-color: #0096c8;
+      background: rgba(224, 244, 248, 0.98);
+      box-shadow: 0 8px 25px rgba(0, 102, 204, 0.12), inset 0 0 0 1px rgba(0, 150, 200, 0.1);
+      transform: translateY(-3px);
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #0066cc;
+      background: rgba(255, 255, 255, 0.99);
+      box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.12), 0 12px 35px rgba(0, 102, 204, 0.15);
+      transform: translateY(-4px);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+      font-family: inherit;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #1a3a52;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus ~ label,
+    input[type="email"]:focus ~ label,
+    input[type="tel"]:focus ~ label,
+    select:focus ~ label,
+    textarea:focus ~ label {
+      color: #0066cc;
+    }
+
+    .form-progress {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 48px;
+      background: linear-gradient(135deg, rgba(232, 244, 248, 0.95) 0%, rgba(212, 233, 247, 0.95) 50%, rgba(240, 248, 252, 0.95) 100%);
+      padding: 35px 25px;
+      border-radius: 20px;
+      flex-wrap: wrap;
+      border: 2px solid rgba(0, 102, 204, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 102, 204, 0.1), inset 0 0 30px rgba(255, 255, 255, 0.6);
+      animation: slideInUp 0.6s ease-out backwards;
+    }
+
+    .progress-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #6b94b8;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 12px;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+    }
+
+    .progress-step:hover {
+      transform: translateY(-8px);
+      color: #0066cc;
+    }
+
+    .progress-step.active {
+      color: #0066cc;
+      animation: pulse 2s infinite;
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f7 100%);
+      border: 3px solid #0096c8;
+      border-radius: 50%;
+      margin-bottom: 12px;
+      font-weight: 700;
+      color: #0066cc;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 5px 20px rgba(0, 102, 204, 0.2);
+      position: relative;
+    }
+
+    .progress-step.active .step-num {
+      background: linear-gradient(135deg, #0066cc 0%, #0096c8 50%, #1f90ff 100%);
+      color: #ffffff;
+      border-color: #0096c8;
+      transform: scale(1.2);
+      box-shadow: 0 10px 30px rgba(0, 102, 204, 0.4), 0 0 25px rgba(0, 150, 200, 0.3);
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 20px 40px;
+      background: linear-gradient(135deg, #0066cc 0%, #0096c8 50%, #1f90ff 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 15px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      margin-top: 45px;
+      box-shadow: 0 12px 40px rgba(0, 102, 204, 0.35), 0 0 25px rgba(0, 150, 200, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      overflow: hidden;
+      animation: slideInUp 0.8s ease-out backwards;
+    }
+
+    button[type="submit"]::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.6s ease;
+    }
+
+    button[type="submit"]:hover::before {
+      left: 100%;
+    }
+
+    button[type="submit"]:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 18px 55px rgba(0, 102, 204, 0.45), 0 0 35px rgba(0, 150, 200, 0.3);
+      background: linear-gradient(135deg, #1f90ff 0%, #0096c8 50%, #0066cc 100%);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(-3px) scale(0.98);
+      box-shadow: 0 8px 25px rgba(0, 102, 204, 0.3);
+    }
+
+    .radio-row {
+      display: flex;
+      gap: 32px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .radio-row label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      color: #1a3a52;
+    }
+
+    .radio-row label:hover {
+      color: #0066cc;
+      transform: translateX(5px);
+    }
+
+    .radio-row input[type="radio"] {
+      margin-right: 12px;
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      accent-color: #0066cc;
+      transition: all 0.3s ease;
+    }
+
+    .radio-row input[type="radio"]:hover {
+      transform: scale(1.25);
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      pointer-events: none;
+      font-size: 1.25rem;
+      transition: all 0.3s ease;
+    }
+
+    .input-wrap input:focus ~ .input-icon,
+    .input-wrap input:hover ~ .input-icon {
+      transform: scale(1.3) rotate(10deg);
+    }
+
+    .input-wrap input {
+      padding-left: 48px;
+    }
+
+    .field-note {
+      font-size: 0.85rem;
+      color: #6b94b8;
+      margin-top: 8px;
+      font-weight: 500;
+      font-style: italic;
+      animation: fadeInDown 0.5s ease-out backward;
+    }
+
+    .photo-upload-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: start;
+      animation: slideInUp 0.6s ease-out backwards;
+    }
+
+    .photo-preview {
+      background: linear-gradient(135deg, rgba(232, 244, 248, 0.95) 0%, rgba(212, 233, 247, 0.95) 100%);
+      border: 3px dashed #0096c8;
+      border-radius: 18px;
+      padding: 35px;
+      text-align: center;
+      color: #6b94b8;
+      font-size: 0.95rem;
+      box-shadow: 0 10px 30px rgba(0, 102, 204, 0.1), inset 0 0 15px rgba(255, 255, 255, 0.6);
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    .photo-preview:hover {
+      border-color: #0066cc;
+      box-shadow: 0 15px 45px rgba(0, 102, 204, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.8);
+      transform: translateY(-5px);
+    }
+
+    .photo-preview img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 102, 204, 0.2);
+      border: 3px solid #0096c8;
+      transition: all 0.4s ease;
+      animation: slideInUp 0.6s ease-out;
+    }
+
+    .photo-preview img:hover {
+      transform: scale(1.06);
+      box-shadow: 0 15px 45px rgba(0, 102, 204, 0.3);
+    }
+
+    .divider {
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #b3d9f0 15%, #0096c8 35%, #0066cc 50%, #0096c8 65%, #b3d9f0 85%, transparent);
+      margin: 45px 0;
+      box-shadow: 0 4px 20px rgba(0, 102, 204, 0.15);
+      animation: slideInUp 0.6s ease-out backwards;
+    }
+
+    .image-container-content {
+      max-width: 930px;
+      margin: 55px auto;
+      padding: 0 20px;
+      animation: slideInUp 0.8s ease-out backwards;
+    }
+
+    .placeholder-poster {
+      text-align: center;
+    }
+
+    .placeholder-poster img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 18px 55px rgba(0, 102, 204, 0.2), 0 0 35px rgba(0, 150, 200, 0.1);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 4px solid rgba(0, 102, 204, 0.3);
+      animation: slideInUp 0.8s ease-out backwards;
+    }
+
+    .placeholder-poster img:hover {
+      transform: scale(1.04) translateY(-10px);
+      box-shadow: 0 25px 70px rgba(0, 102, 204, 0.3), 0 0 50px rgba(0, 150, 200, 0.2);
+      border-color: rgba(0, 102, 204, 0.6);
+    }
+
+    .errors {
+      background: linear-gradient(135deg, rgba(232, 244, 248, 0.98) 0%, rgba(212, 233, 247, 0.98) 100%) !important;
+      border-left: 5px solid #0066cc !important;
+      border-right: 3px solid #0096c8 !important;
+      border-radius: 15px !important;
+      padding: 22px 28px !important;
+      margin: 24px 32px !important;
+      border-top: 3px solid #0096c8 !important;
+      box-shadow: 0 10px 30px rgba(0, 102, 204, 0.15) !important;
+      animation: slideInUp 0.5s ease-out;
+    }
+
+    .errors strong {
+      color: #0066cc;
+      font-weight: 700;
+    }
+
+    .errors li {
+      color: #0066cc;
+      font-weight: 600;
+      margin: 8px 0;
+      transition: all 0.3s ease;
+    }
+
+    .errors li:hover {
+      transform: translateX(6px);
+      color: #1f90ff;
+    }
+
+    .important-box {
+      background: linear-gradient(135deg, rgba(232, 244, 248, 0.98) 0%, rgba(212, 233, 247, 0.98) 50%, rgba(240, 248, 252, 0.98) 100%);
+      border-left: 5px solid #0066cc;
+      border-right: 3px solid #0096c8;
+      padding: 30px;
+      font-size: 0.98rem;
+      font-weight: 500;
+      color: #1a3a52;
+      border-radius: 16px;
+      line-height: 2;
+      border-top: 3px solid #0096c8;
+      box-shadow: 0 10px 35px rgba(0, 102, 204, 0.12), inset 0 0 15px rgba(255, 255, 255, 0.6);
+      transition: all 0.4s ease;
+      animation: slideInUp 0.6s ease-out backwards;
+    }
+
+    .important-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(0, 102, 204, 0.18), inset 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+
+    .important-box p {
+      margin: 16px 0;
+      animation: fadeInDown 0.5s ease-out backwards;
+    }
+
+    .important-box ul {
+      margin: 16px 0 16px 28px;
+      padding: 0;
+    }
+
+    .important-box li {
+      margin: 10px 0;
+      color: #0f172a;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .important-box li:hover {
+      color: #0066cc;
+      transform: translateX(4px);
+    }
+
+    .important-box a {
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: 900;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      border-bottom: 2px solid transparent;
+    }
+
+    .important-box a:hover {
+      color: #0096c8;
+      text-decoration: underline wavy;
+      border-bottom-color: #0096c8;
+      text-shadow: 0 0 20px rgba(0, 102, 204, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .divorce-sammelan-form {
+        padding: 32px 24px;
+        margin: 25px 10px;
+      }
+
+      .photo-upload-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .title-wrapper h3 {
+        font-size: 1.95rem;
+        letter-spacing: 1px;
+      }
+
+      .form-section-title {
+        font-size: 1.2rem;
+      }
+
+      button[type="submit"] {
+        padding: 16px 28px;
+        font-size: 0.95rem;
+      }
+
+      .sub-logos {
+        gap: 50px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="sub-logos">
+      <img id="subLogoLeft" src="{% static 'images/img3.png' %}" alt="Left Logo" class="logo-responsive">
+      <img id="subLogoCenter" src="{% static 'images/img4.png' %}" alt="Center Logo" class="logo-responsive">
+      <img id="subLogoRight2" src="{% static 'images/img51.png' %}" alt="Right Logo 2" class="logo-responsive">
+    </div>
+  </div>
+
+  <div class="title-wrapper">
+    <h3>Saurashtra & Kutch Sammelan Registration</h3>
+  </div>
+
+  <!-- Event Description Start -->
+  <div class="event-description-box">
+    <b>સૌરાષ્ટ્ર અને કચ્છ આપણી અનેક યુવતીઓ અને યુવકો માટે જીવનસાથી પસંદગી સંમેલન</b><br><br>
+    ✓ આ એક વિશેષ સમમલન છે જે વિશેષ રીતે સૌરાષ્ટ્ર અને કચ્છ વિસ્તાર માટે આયોજિત છે.<br>
+    ✓ બાયોડેટા રેજીસ્ટ્રેશન Last Date : <b>25/03/2026</b><br><br>
+    <b>સંમેલન તા.</b> : 30-03-2026 (સોમવાર)<br>
+    <b>સમય</b> : સવારે 9 AM થી 5 PM<br>
+    <b>સ્થળ</b> : Online Zoom મિટિંગ<br><br>
+    <b>ખાસ તથ્યો :</b><br>
+    ✓ બધી યુવતીઓ (Girls) માટે Free Biodata Registration<br>
+    ✓ પરિચય અને ઓનલાઈન મીટિંગ અંગે વધુ મહત્વપૂર્ણ માહિતી મળશે<br>
+    ✓ યુવકો (Boys) માટે: Registration Fees = Rs 600 (Special Booklet સાથે)
+  </div>
+  <!-- Event Description End -->
+
+  <form method="post" enctype="multipart/form-data" class="sammelan-form-40plus">
+    {% csrf_token %}
+
+    {% if errors %}
+    <div class="errors">
+      <strong>Please fix the following errors:</strong>
+      <ul style="margin: 10px 0 0 20px; padding: 0;">
+        {% for field, error_list in errors.items %}
+          <li><strong>{{ field }}:</strong> {{ error_list.0 }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <div class="form-section personal-form">
+      <div class="form-section-title">Personal Details</div>
+      <div class="form-grid">
+        <div class="full">
+          <label for="name">1. Candidate Name</label>
+          <div class="input-wrap">
+            <span class="input-icon">👤</span>
+            <input type="text" id="name" name="name" placeholder="Enter full name" value="{{ form.name.value|default_if_none:'' }}" required />
+          </div>
+        </div>
+        <div class="full">
+          <label>2. Gender</label>
+          <div class="radio-row">
+            <label><input type="radio" name="gender" value="Male" {% if form.gender.value == 'Male' %}checked{% endif %} required /> Male</label>
+            <label><input type="radio" name="gender" value="Female" {% if form.gender.value == 'Female' %}checked{% endif %} required /> Female</label>
+          </div>
+        </div>
+        <div>
+          <label for="dob">3. Date of Birth</label>
+          <div class="input-wrap">
+            <span class="input-icon">🎂</span>
+            <input type="text" id="dob" name="dob" placeholder="DD-MM-YYYY" value="{{ form.dob.value|default_if_none:'' }}" required />
+          </div>
+        </div>
+        <div>
+          <label for="tob">6. Birth Time</label>
+          <input type="text" id="tob" name="tob" placeholder="e.g. 07:30 AM" value="{{ form.tob.value|default_if_none:'' }}" required />
+        </div>
+        <div class="full">
+          <label for="marital">4. Marital Status</label>
+          <select id="marital" name="marital" required>
+            <option value="">Choose one</option>
+            <option value="never_married">Never Married (Unmarried)</option>
+            <option value="divorce_no_child">Divorce (No Child)</option>
+            <option value="divorce_having_child">Divorce (Having Child)</option>
+            <option value="widow_no_child">Widow (No Child)</option>
+            <option value="widow_having_child">Widow (Having Child)</option>
+            <option value="divorce_annulled">Divorce (Annulled)</option>
+            <option value="divorce_in_process">Divorce in Process</option>
+            <option value="separated">Separated</option>
+            <option value="gol_dhana_cancel">1 Time Gol-Dhana Done, but then Cancelled</option>
+            <option value="engagement_cancel">1 Time Engagement Done, but then Cancelled</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="disability">5. Any Disability or Minor Problem?</label>
+          <textarea id="disability" name="disability" placeholder="Please describe if any, otherwise write 'None'" required>{{ form.disability.value|default_if_none:'' }}</textarea>
+        </div>
+        <div>
+          <label for="birthPlace">7. Birth Place</label>
+          <input type="text" id="birthPlace" name="birthPlace" placeholder="City where you were born" value="{{ form.birthPlace.value|default_if_none:'' }}" required />
+        </div>
+        <div>
+          <label for="city">8. Current City</label>
+          <input type="text" id="city" name="city" placeholder="Your current city" value="{{ form.city.value|default_if_none:'' }}" required />
+        </div>
+        <div>
+          <label for="country">9. Current Country</label>
+          <input type="text" id="country" name="country" placeholder="e.g. India" value="{{ form.country.value|default_if_none:'' }}" required />
+        </div>
+        <div>
+          <label for="visa">10. Visa Status</label>
+          <select id="visa" name="visa" required>
+            <option value="">Select an Option</option>
+            <option>Indian Citizen</option>
+            <option>NRI - Student Visa</option>
+            <option>NRI - Work Permit</option>
+            <option>NRI - PR</option>
+            <option>NRI - PR In Process</option>
+            <option>NRI - Green Card (USA)</option>
+            <option>NRI - Blue Card (EU)</option>
+            <option>NRI - Citizenship</option>
+            <option>NRI - Visitor Visa</option>
+            <option>NRI - H1B (USA)</option>
+            <option>NRI - Business Visa</option>
+            <option>NRI - OCI</option>
+            <option>NRI - F1</option>
+          </select>
+        </div>
+        <div>
+          <label for="height">11. Height</label>
+          <input type="text" id="height" name="height" placeholder="e.g. 5'6&quot; or 168 cm" value="{{ form.height.value|default_if_none:'' }}" required />
+        </div>
+        <div>
+          <label for="weight">12. Weight (kg)</label>
+          <input type="text" id="weight" name="weight" placeholder="e.g. 65" value="{{ form.weight.value|default_if_none:'' }}" required />
+        </div>
+        <div class="full">
+          <label for="education">13. Education</label>
+          <select id="education" name="education" required>
+            <option value="">Select an Option</option>
+            <option>Undergraduate (10th 12th Pass / Fail , Diploma , ITI , Not Completed Graduation)</option>
+            <option>Graduate (BA , B.Com. , B.Sc. , BE , BTech, LLB , B. Arch., BBA , BCA etc)</option>
+            <option>Masters (MA , MCom, MSc., ME , MTech, M.Arch , M.Phil, LLM, etc)</option>
+            <option>CA , CS , ICWA, CPA, ACCA , CIMA , etc</option>
+            <option>Doctor - Medical - Pharmacy - Dentist - Physiotherapist - Paramedical - Nursing - Clinical Surgical - Specialists</option>
+            <option>PhD , UPSC, GPSC (IAS , IPS, etc) , Mayor , Civil Services etc</option>
+            <option>Any Other Education Category</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="educationDetail">14. Education Detail</label>
+          <input type="text" id="educationDetail" name="educationDetail" placeholder="Specify your degree/qualification" value="{{ form.educationDetail.value|default_if_none:'' }}" required />
+        </div>
+        <div>
+          <label for="occupationCat">15. Occupation Type</label>
+          <select id="occupationCat" name="occupationCat" required>
+            <option value="">Select an Option</option>
+            <option>Government Job</option>
+            <option>Private MNC Job</option>
+            <option>Self Employed (Own Practice)</option>
+            <option>Own Business</option>
+            <option>Job + Business</option>
+            <option>Free Lancing</option>
+            <option>Student (Studies Running)</option>
+            <option>Searching Job</option>
+            <option>Home Works (ghar-kaam)</option>
+          </select>
+        </div>
+        <div>
+          <label for="salary">17. Monthly Income (₹)</label>
+          <input type="text" id="salary" name="salary" placeholder="e.g. 35000" value="{{ form.salary.value|default_if_none:'' }}" required />
+        </div>
+        <div class="full">
+          <label for="occupationDetails">16. Company / Business Name</label>
+          <textarea id="occupationDetails" name="occupationDetails" placeholder="Enter company name or business details" required>{{ form.occupationDetails.value|default_if_none:'' }}</textarea>
+        </div>
+        <div>
+          <label for="shani">18. Shani / Mangal</label>
+          <select id="shani" name="shani" required>
+            <option value="">Select an Option</option>
+            <option>Yes (Shani)</option>
+            <option>Yes (Mangal)</option>
+            <option>No</option>
+            <option>Don't Know</option>
+            <option>We Don't Believe</option>
+          </select>
+        </div>
+        <div>
+          <label for="hobbies">19. Hobbies</label>
+          <input type="text" id="hobbies" name="hobbies" placeholder="e.g. Reading, Music, Sports" value="{{ form.hobbies.value|default_if_none:'' }}" required />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section family-form">
+      <div class="form-section-title">Family Details</div>
+      <div class="form-grid">
+        <div>
+          <label for="father">20. Father's Name</label>
+          <input type="text" id="father" name="father" placeholder="Father's full name" value="{{ form.father.value|default_if_none:'' }}" required />
+        </div>
+        <div>
+          <label for="mother">21. Mother's Name</label>
+          <input type="text" id="mother" name="mother" placeholder="Mother's full name" value="{{ form.mother.value|default_if_none:'' }}" required />
+        </div>
+        <div>
+          <label for="fatherWp">22. Father's Mobile No.</label>
+          <input type="tel" id="fatherWp" name="fatherWp" pattern="\d{7,15}" placeholder="10 digit mobile number" value="{{ form.fatherWp.value|default_if_none:'' }}" required />
+        </div>
+        <div>
+          <label for="motherWp">23. Mother's Mobile No.</label>
+          <input type="tel" id="motherWp" name="motherWp" pattern="\d{7,15}" placeholder="10 digit mobile number" value="{{ form.motherWp.value|default_if_none:'' }}" required />
+        </div>
+        <div>
+          <label for="caste">24. Type of Brahmin</label>
+          <input type="text" id="caste" name="caste" placeholder="e.g. Anavil, Audichya, etc." value="{{ form.caste.value|default_if_none:'' }}" required />
+        </div>
+        <div>
+          <label for="gotra">25. Gotra</label>
+          <input type="text" id="gotra" name="gotra" placeholder="Enter your gotra" value="{{ form.gotra.value|default_if_none:'' }}" required />
+        </div>
+        <div class="full">
+          <label for="kuldevi">26. Kuldevi</label>
+          <input type="text" id="kuldevi" name="kuldevi" placeholder="Enter Kuldevi name" value="{{ form.kuldevi.value|default_if_none:'' }}" required />
+        </div>
+        <div class="full">
+          <label for="siblings">27. Siblings (Brother/Sister)</label>
+          <textarea id="siblings" name="siblings" placeholder="Name, Age, Married/Unmarried, Occupation" required>{{ form.siblings.value|default_if_none:'' }}</textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section habits-form">
+      <div class="form-section-title">Lifestyle & Habits</div>
+      <div class="form-grid">
+        <div>
+          <label for="eating_habbits">28. Eating Habits</label>
+          <input type="text" id="eating_habbits" name="eating_habbits" placeholder="e.g. Pure Veg, Jain, etc." value="{{ form.eating_habbits.value|default_if_none:'' }}" required />
+        </div>
+        <div>
+          <label for="alcohol">29. Alcoholic Drinks?</label>
+          <select id="alcohol" name="alcohol" required>
+            <option value="">Select</option>
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
+        </div>
+        <div>
+          <label for="smoke">30. Smoke?</label>
+          <select id="smoke" name="smoke" required>
+            <option value="">Select</option>
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
+        </div>
+        <div>
+          <label for="other_habbit">31. Any Other Habit?</label>
+          <input type="text" id="other_habbit" name="other_habbit" placeholder="If any, otherwise 'None'" value="{{ form.other_habbit.value|default_if_none:'' }}" required />
+        </div>
+        <div class="full">
+          <label for="legal_case">32. Any Legal or Police Case?</label>
+          <input type="text" id="legal_case" name="legal_case" placeholder="If any, otherwise 'None'" value="{{ form.legal_case.value|default_if_none:'' }}" required />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section preferences-form">
+      <div class="form-section-title">Partner Preferences</div>
+      <div class="form-grid">
+        <div>
+          <label for="locChoice">33. Partner's Location</label>
+          <input type="text" id="locChoice" name="locChoice" placeholder="Preferred location" value="{{ form.locChoice.value|default_if_none:'' }}" required />
+        </div>
+        <div>
+          <label for="ageGap">34. Partner's Age Bracket</label>
+          <input type="text" id="ageGap" name="ageGap" placeholder="e.g. 25-30 years" value="{{ form.ageGap.value|default_if_none:'' }}" required />
+        </div>
+        <div class="full">
+          <label for="eduChoice">35. Partner's Education</label>
+          <input type="text" id="eduChoice" name="eduChoice" placeholder="Preferred education level" value="{{ form.eduChoice.value|default_if_none:'' }}" required />
+        </div>
+        <div class="full">
+          <label for="otherChoice">36. Any Other Specific Choice</label>
+          <textarea id="otherChoice" name="otherChoice" placeholder="Mention any other preferences" required>{{ form.otherChoice.value|default_if_none:'' }}</textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section details-form">
+      <div class="form-section-title">Registration Details</div>
+      <div class="form-grid">
+        <div class="full">
+          <label for="who">37. Who is doing this Registration?</label>
+          <input type="text" id="who" name="who" placeholder="e.g. SELF or Candidate's Father (Name)" value="{{ form.who.value|default_if_none:'' }}" required />
+        </div>
+        <div>
+          <label for="regMobile">38. Mobile Number (of person registering)</label>
+          <div class="input-wrap">
+            <span class="input-icon">📱</span>
+            <input type="tel" id="regMobile" name="regMobile" placeholder="9876543210" pattern="\d{7,15}" value="{{ form.regMobile.value|default_if_none:'' }}" required />
+          </div>
+          <div class="field-note">For reference & verification</div>
+        </div>
+        <div>
+          <label for="resCat">39. Current Residence Area</label>
+          <select id="resCat" name="resCat" required>
+            <option value="">Select an Option</option>
+            <option value="saurashtra">Saurashtra Region</option>
+            <option value="kachchh">Kachchh Region</option>
+            <option value="gujarat">Gujarat Region (Other)</option>
+            <option value="mumbai_maharashtra">Mumbai & Maharashtra Region</option>
+            <option value="rest_of_india">Rest of Indian Region (except Gujarat & Maharashtra)</option>
+            <option value="nri">NRI (Any Visa)</option>
+          </select>
+        </div>
+        <div>
+          <label for="nadi">40. Nadi</label>
+          <select id="nadi" name="nadi" required>
+            <option value="">Select an Option</option>
+            <option>Aadhya Nadi</option>
+            <option>Madhya Nadi</option>
+            <option>Antya Nadi</option>
+            <option>I Dont Know</option>
+            <option>We Don't Believe</option>
+          </select>
+        </div>
+        <div>
+          <label for="email">41. Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">✉️</span>
+            <input type="email" id="email" name="email" placeholder="example@email.com" value="{{ form.email.value|default_if_none:'' }}" required />
+          </div>
+        </div>
+        <div>
+          <label for="whatsapp">42. WhatsApp Number</label>
+          <div class="input-wrap">
+            <span class="input-icon">💬</span>
+            <input type="tel" id="whatsapp" name="whatsapp" pattern="\d{7,15}" placeholder="For verification" value="{{ form.whatsapp.value|default_if_none:'' }}" required />
+          </div>
+        </div>
+        <div class="full">
+          <label for="photo">43. Upload Candidate Photo</label>
+          <div class="photo-upload-wrap">
+            <input type="file" id="photo" name="photo" accept="image/*" required />
+            <div class="photo-preview" id="preview">
+              <span>📷 Photo preview will appear here</span>
+            </div>
+          </div>
+          <div class="field-note">Clear front-face photo, no goggles or cap. Max 5MB.</div>
+        </div>
+        <div class="full">
+          <label style="font-weight: 600; line-height: 1.8; font-size: 1rem;">
+            44. <strong>Declaration</strong><br>
+
+            <div class="important-box">
+              <p>
+બધી યુવતીઓ (Girls / Female) માટે Free Biodata Registration ઉપલબ્ધ છે.
+              </p>
+
+              <p>
+વિશેષ જાણકારી: આ સંમેલન માં સૌરાષ્ટ્ર અને કચ્છના તમામ યુવતીઓ અને યુવકોને ગણતરીમાં લેવા આવે છે.
+              </p>
+
+              <ul>
+                <li>Free Biodata Registration for Girls</li>
+                <li>Special PDF Booklet સાથે</li>
+                <li>દરેક ઉમેદવારે પોતાનું Online Registration પોતે જ કરવાનું રહેશે</li>
+              </ul>
+
+              <p>
+યુવક (Boys) માટે Registration Charges:
+              </p>
+
+              <ul>
+                <li>Registration Charges: Rs. 600</li>
+                <li>Special Saurashtra & Kutch Booklet સાથે</li>
+              </ul>
+            </div>
+          </label>
+          <div class="radio-row">
+            <label><input type="radio" name="declaration" value="Agree" required /> I Agree</label>
+            <label><input type="radio" name="declaration" value="Disagree" required /> I Disagree</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <button type="submit">Submit Registration</button>
+  </form>
+
+  <div class="image-container-content">
+    <div class="placeholder-poster">
+      <img src="{% static 'images/divorce_poster_image.jpeg' %}" alt="Event Poster">
+    </div>
+  </div>
+
+  <div class="image-container-content">
+    <div class="placeholder-poster">
+      <img src="{% static 'images/team.jpg' %}" alt="Our Team">
+    </div>
+  </div>
+
+  {% include 'partials/footer.html' %}
+  {% include 'biodata/employa_footer.html' %}
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var dobInput = document.getElementById('dob');
+      if (dobInput) {
+        dobInput.addEventListener('input', function(e) {
+          var val = dobInput.value.replace(/[^0-9]/g, '');
+          if (val.length > 8) val = val.slice(0, 8);
+          var formatted = val;
+          if (val.length > 4) {
+            formatted = val.slice(0, 2) + '-' + val.slice(2, 4) + '-' + val.slice(4);
+          } else if (val.length > 2) {
+            formatted = val.slice(0, 2) + '-' + val.slice(2);
+          }
+          dobInput.value = formatted;
+        });
+      }
+    });
+
+    document.getElementById('photo').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      const preview = document.getElementById('preview');
+
+      if (file) {
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            preview.innerHTML = '<img src="' + e.target.result + '" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 8px;">';
+          };
+          reader.readAsDataURL(file);
+        } else {
+          preview.innerHTML = '<span>📄 ' + file.name + '</span>';
+        }
+      } else {
+        preview.innerHTML = '<span>📷 Photo preview will appear here</span>';
+      }
+    });
+  </script>
+
+</body>
+</html>

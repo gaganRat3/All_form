@@ -1,11 +1,17 @@
 # Ensure forms is imported for new form
 from django import forms
 # 40 Plus Sammelan Form
-from .models import FortyPlusSammelan
+from .models import FortyPlusSammelan, SaurasthraKutchSammelan
 
 class FortyPlusSammelanForm(forms.ModelForm):
     class Meta:
         model = FortyPlusSammelan
+        fields = '__all__'
+
+
+class SaurasthraKutchSammelanForm(forms.ModelForm):
+    class Meta:
+        model = SaurasthraKutchSammelan
         fields = '__all__'
 
 from django import forms

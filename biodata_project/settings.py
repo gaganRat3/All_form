@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'biodata',
     'widget_tweaks',
+    'test_form',          # ← small test app for form/file upload workflow
     
     # Removed cloudinary apps for PythonAnywhere free plan compatibility
     # 'cloudinary',
