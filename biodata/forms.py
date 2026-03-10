@@ -1,3 +1,13 @@
+class Sammelan37MumbaiMaharashtraForm(forms.ModelForm):
+    RESCAT_CHOICES = [
+        ('mumbai_maharashtra', 'Mumbai & Maharashtra Region'),
+        ('rest_of_india', 'Rest of Indian Region (except Gujarat & Maharashtra)'),
+        ('nri', 'NRI (Any Visa)'),
+    ]
+    resCat = forms.ChoiceField(choices=RESCAT_CHOICES, required=True, label='Current Residence Area')
+    class Meta:
+        model = FortyPlusSammelan  # Replace with correct model if needed
+        fields = '__all__'
 # Ensure forms is imported for new form
 from django import forms
 # 40 Plus Sammelan Form
@@ -10,6 +20,12 @@ class FortyPlusSammelanForm(forms.ModelForm):
 
 
 class SaurasthraKutchSammelanForm(forms.ModelForm):
+    RESCAT_CHOICES = [
+        ('saurashtra', 'Saurashtra Region'),
+        ('kachchh', 'Kachchh Region'),
+        ('nri', 'NRI (Any Visa)'),
+    ]
+    resCat = forms.ChoiceField(choices=RESCAT_CHOICES, required=True, label='Current Residence Area')
     class Meta:
         model = SaurasthraKutchSammelan
         fields = '__all__'
