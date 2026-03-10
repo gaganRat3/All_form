@@ -788,7 +788,7 @@
     <div class="sub-logos">
       <img id="subLogoLeft" src="{% static 'images/img3.png' %}" alt="Left Logo" class="logo-responsive">
       <img id="subLogoCenter" src="{% static 'images/img4.png' %}" alt="Center Logo" class="logo-responsive">
-      <img id="subLogoRight2" src="{% static 'images/img51.png' %}" alt="Right Logo 2" class="logo-responsive">
+      <img id="subLogoRight2" src="{% static 'images/sau.jpeg' %}" alt="Right Logo 2" class="logo-responsive">
     </div>
   </div>
 
@@ -797,13 +797,23 @@
   </div>
 
   <!-- Event Description Start -->
-  <div class="event-description-box">
-    <b> આપણા સૌરાષ્ટ્ર અને કચ્છ ના  અનેક યુવતીઓ અને યુવકો માટે જીવનસાથી પસંદગી સંમેલન</b><br><br>
-    ✓ આ એક વિશેષ સંમેલન છે જે વિશેષ રીતે સૌરાષ્ટ્ર અને કચ્છ વિસ્તાર માટે આયોજિત છે.<br>
-    <b>સંમેલન તા.</b> : 19-04-2026<br>
-
-  </div>
+    <div class="event-description-box">
+      <b>આપણા સૌરાષ્ટ્ર અને કચ્છના યુવક-યુવતીઓ માટે વિશેષ જીવનસાથી પસંદગી સંમેલન</b><br><br>
+      ✓ આ સંમેલન ખાસ સૌરાષ્ટ્ર અને કચ્છ વિસ્તારના યુવક-યુવતીઓ માટે આયોજિત છે.<br>
+      <b>સંમેલન તારીખ:</b> 19-04-2026<br>
+      <br>
+      <span>
+        🔹 જીવનસાથી પસંદગી માટે યોગ્ય પ્લેટફોર્મ<br>
+        🔹 પરિવાર સાથે આવવાની સુવિધા<br>
+        🔹 વિવિધ સમાજના યુવક-યુવતીઓની હાજરી<br>
+        🔹 સ્થળ: રાજકોટ, ગુજરાત<br>
+        🔹 સમય: સવારે 10:00 થી સાંજે 5:00<br>
+        🔹 વધુ માહિતી માટે સંપર્ક કરો: 9876543210<br>
+      </span>
+    </div>
   <!-- Event Description End -->
+
+ 
 
   <form method="post" enctype="multipart/form-data" class="sammelan-form-40plus">
     {% csrf_token %}
@@ -844,11 +854,11 @@
           </div>
         </div>
         <div>
-          <label for="tob">6. Birth Time</label>
+          <label for="tob">4. Birth Time</label>
           <input type="text" id="tob" name="tob" placeholder="e.g. 07:30 AM" value="{{ form.tob.value|default_if_none:'' }}" required />
         </div>
         <div class="full">
-          <label for="marital">4. Marital Status</label>
+          <label for="marital">5. Marital Status</label>
           <select id="marital" name="marital" required>
             <option value="">Choose one</option>
             <option value="never_married">Never Married (Unmarried)</option>
@@ -864,7 +874,7 @@
           </select>
         </div>
         <div class="full">
-          <label for="disability">5. Any Disability or Minor Problem?</label>
+          <label for="disability">6. Any Disability or Minor Problem?</label>
           <textarea id="disability" name="disability" placeholder="Please describe if any, otherwise write 'None'" required>{{ form.disability.value|default_if_none:'' }}</textarea>
         </div>
         <div>
@@ -1125,28 +1135,18 @@
             44. <strong>Declaration</strong><br>
 
             <div class="important-box">
-              <p>
-બધી યુવતીઓ (Girls / Female) માટે Free Biodata Registration ઉપલબ્ધ છે.
-              </p>
-
-              <p>
-વિશેષ જાણકારી: આ સંમેલન માં સૌરાષ્ટ્ર અને કચ્છના તમામ યુવતીઓ અને યુવકોને ગણતરીમાં લેવા આવે છે.
-              </p>
-
-              <ul>
-                <li>Free Biodata Registration for Girls</li>
-                <li>Special PDF Booklet સાથે</li>
-                <li>દરેક ઉમેદવારે પોતાનું Online Registration પોતે જ કરવાનું રહેશે</li>
-              </ul>
-
-              <p>
-યુવક (Boys) માટે Registration Charges:
-              </p>
-
-              <ul>
-                <li>Registration Charges: Rs. 600</li>
-                <li>Special Saurashtra & Kutch Booklet સાથે</li>
-              </ul>
+                <p>બધી યુવતીઓ (Girls / Female) માટે Free Biodata Registration ઉપલબ્ધ છે.</p>
+                <p>જે ઉમેદવારો (યુવક-યુવતીઓ) પાસે <b>saurashtra.bhudevnetworkvivah.com</b> વેબસાઈટ પર Premium Membership છે, તેમને Saurashtra & Kutch સંમેલનમાં નીચેના લાભ મળશે:</p>
+                <ul style="margin-left: 20px;">
+                  <li>Free Biodata Registration</li>
+                  <li>Free PDF મળશે</li>
+                  <li>દરેક ઉમેદવારે પોતાનું Online Registration પોતે જ કરવાનું રહેશે</li>
+                </ul>
+                <p>જે યુવકો (Boys / Male) પાસે વેબસાઈટ પર Premium Membership નથી, તેમના માટે Registration Charges નીચે મુજબ રહેશે:</p>
+                <ul style="margin-left: 20px;">
+                  <li>Registration Charges: Rs. 500</li>
+                  <li>સાથે Courier દ્વારા 1 Booklet આપવામાં આવશે</li>
+                </ul>
             </div>
           </label>
           <div class="radio-row">
