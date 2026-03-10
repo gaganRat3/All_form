@@ -1,22 +1,144 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="gu">
 <head>
-  <meta charset="UTF-8">
-  <title>Registration Successful</title>
-  <style>
-    body { font-family: 'Poppins', Arial, sans-serif; background: #f0f2f8; text-align: center; padding: 60px 20px; }
-    .success-box { background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(60,60,120,0.10); max-width: 480px; margin: 0 auto; padding: 40px 24px; }
-    h1 { color: #5c2d91; font-size: 2rem; margin-bottom: 18px; }
-    p { color: #333; font-size: 1.1rem; margin-bottom: 24px; }
-    .btn { background: linear-gradient(90deg, #3a3a7c 0%, #e36db6 100%); color: #fff; font-weight: 700; border: none; border-radius: 8px; padding: 14px 32px; font-size: 1.1em; cursor: pointer; text-decoration: none; }
-    .btn:hover { background: linear-gradient(90deg, #e36db6 0%, #3a3a7c 100%); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Confirmation - Saurashtra Kutch Sammelan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f7f3ee;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 520px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(181,69,27,0.10);
+            padding: 32px 24px 24px 24px;
+        }
+        .success-icon {
+            font-size: 3rem;
+            color: #25D366;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        .main-title {
+            color: #b5451b;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .step-section {
+            margin-bottom: 28px;
+            background: #fdf6ee;
+            border-radius: 12px;
+            padding: 18px 16px;
+            box-shadow: 0 2px 8px rgba(181,69,27,0.06);
+        }
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #b5451b;
+            margin-bottom: 8px;
+        }
+        .step-content {
+            color: #5a3a27;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .contact-list {
+            margin: 12px 0 0 0;
+            padding-left: 18px;
+        }
+        .contact-list li {
+            margin-bottom: 6px;
+            font-size: 1rem;
+            color: #3a1f0e;
+        }
+        .time-note {
+            color: #b09080;
+            font-size: 0.92rem;
+            margin-left: 6px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            transition: background 0.2s, color 0.2s;
+            background: #b5451b;
+            color: #fff;
+        }
+        .btn:hover {
+            background: #f4a23a;
+            color: #fff;
+        }
+        .btn-wa {
+            background: #25D366;
+            color: #fff;
+            margin-top: 8px;
+        }
+        .btn-wa:hover {
+            background: #1ebea5;
+        }
+        .wa-icon {
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 16px;
+                padding: 18px 8px 12px 8px;
+            }
+            .main-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="success-box">
-    <h1>🎉 Registration Successful!</h1>
-    <p>Your 37th Sammelan form has been submitted.<br>Thank you for registering!</p>
-    <a href="/" class="btn">Go to Home</a>
-  </div>
+    <div class="container">
+        <div class="success-icon">🎉</div>
+        <div class="main-title">Registration Successful!</div>
+        <div class="step-section step-1">
+            <div class="step-title">🟠 Step - 1 : Registration Complete</div>
+            <div class="step-content">
+                Thank you for Biodata Registration.<br>
+                બાયોડેટા રેજીસ્ટ્રેશન માટે ધન્યવાદ.<br>
+                અમને આપનો બાયોડેટા મળી ગયો છે.<br>
+                <b>You have just Completed Step - 1.</b>
+            </div>
+        </div>
+        <div class="step-section step-2">
+            <div class="step-title">🔴 Step - 2 : Biodata Verification</div>
+            <div class="step-content">
+                હવે તમે તમારા બાયોડેટા વેરિફિકેશન માટે, નીચે મુજબ કોઈ પણ 1 નંબર ઉપર ફૉન કરશો :
+                <span class="time-note">(ફૉન નો સમય : 10 થી 6 only)</span>
+                <ul class="contact-list">
+                    <li>Prabhuta : <b>7043922323</b></li>
+                    <li>Krishna : <b>9428642903</b></li>
+                    <li>Himanshi : <b>9662362626</b></li>
+                    <li>Pranjal : <b>8849935537</b></li>
+                    <li>Pina : <b>6352348949</b></li>
+                    <!--<li>Gayatri : <b>7990252977</b></li>-->
+                </ul>
+            </div>
+        </div>
+        <a href="/saurashtra-kutch-sammelan-form/" class="btn">Back to Form</a>
+        <a href="https://chat.whatsapp.com/JnO2auZ6p7S8OnZmYzhMtl" target="_blank" class="btn btn-wa">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="wa-icon"> Join WhatsApp Group
+        </a>
+    </div>
 </body>
 </html>
