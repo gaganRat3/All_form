@@ -18,13 +18,13 @@ def forty_plus_sammelan_form_view(request):
             })
         else:
             print("Form Errors:", form.errors)
-            return render(request, 'biodata/physical_form.html', {
+            return render(request, 'biodata/40+_sammelan_Form.html', {
                 'form': form,
                 'errors': form.errors
             })
     else:
         form = FortyPlusSammelanForm()
-    return render(request, 'biodata/physical_form.html', {'form': form})
+    return render(request, 'biodata/40+_sammelan_Form.html', {'form': form})
 
 
 def saurashtra_kutch_sammelan_form_view(request):
