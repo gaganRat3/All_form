@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import AdvancePassBooking, BookletLibrarySubmission, FortyPlusSammelan, BhudevKalakaar2026Registration, SaurasthraKutchSammelan
+from .models import AdvancePassBooking, BookletLibrarySubmission, FortyPlusSammelan, BhudevKalakaar2026Registration, SaurasthraKutchSammelan, CandidateBiodata
+# Register CandidateBiodata in admin
+@admin.register(CandidateBiodata)
+class CandidateBiodataAdmin(admin.ModelAdmin):
+    list_display = ('candidate_name', 'gender', 'registrant_mobile', 'candidate_current_city', 'dob', 'marital_status', 'birth_time', 'birth_place', 'residence_area_category')
+    search_fields = ('candidate_name', 'registrant_mobile', 'candidate_current_city', 'birth_place')
+    list_filter = ('gender', 'marital_status', 'residence_area_category')
 from .admin_37th_sammelan import *
 
 @admin.register(FortyPlusSammelan)

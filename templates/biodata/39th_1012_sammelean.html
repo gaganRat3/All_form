@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#5c2d91" />
+  <meta name="theme-color" content="#5BA4CF" />
   <meta name="description" content="37th Bhudev Jivansathi Sammelan - Mumbai & Maharashtra & Rest of India" />
   <title>37th Bhudev Jivansathi Sammelan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,146 +12,202 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Poppins', sans-serif; background: #f0f2f8; min-height: 100vh; }
+    body { font-family: 'Poppins', sans-serif; background: #F0F7FC; min-height: 100vh; }
 
-    /* HEADER */
+    /* HEADER — compact centered strip */
     .site-header {
-      background: linear-gradient(135deg, #5c2d91 0%, #8e44ad 60%, #c0392b 100%);
-      padding: 18px 16px 0;
+      background: #5BA4CF;
+      padding: 28px 16px 24px;
       text-align: center;
     }
     .logo-row {
-      display: flex; justify-content: center; align-items: center;
-      gap: 24px; flex-wrap: wrap; padding-bottom: 14px;
+      display: inline-flex; align-items: center;
+      gap: 16px; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 14px;
     }
     .logo-row img {
-      height: 56px; width: auto; max-width: 100px; object-fit: contain;
-      background: rgba(255,255,255,0.92); border-radius: 10px; padding: 5px 8px;
+      height: 48px; width: auto; max-width: 85px; object-fit: contain;
+      background: rgba(255,255,255,0.95); border-radius: 12px; padding: 5px 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
-    .event-title-band { background: rgba(0,0,0,0.28); padding: 14px 20px 20px; }
+    .event-title-band { padding: 0; background: none; }
     .event-title-band h1 {
-      color: #fff; font-size: clamp(1.05rem, 4vw, 1.6rem);
-      font-weight: 700; letter-spacing: 0.5px; line-height: 1.3;
+      color: #FFFFFF; font-size: clamp(1rem, 3.5vw, 1.45rem);
+      font-weight: 700; letter-spacing: 0.3px; line-height: 1.4;
     }
-    .event-title-band p { color: #ffd6f0; font-size: 0.9rem; margin-top: 5px; }
+    .event-title-band p { color: #E0F0FF; font-size: 0.82rem; margin-top: 4px; opacity: 0.85; }
 
-    /* INFO BANNER */
+    /* INFO BANNER — top-border card style */
     .info-banner {
-      max-width: 760px; margin: 24px auto 0; padding: 18px 22px;
-      background: #fff8e1; border-left: 5px solid #f39c12; border-radius: 10px;
-      font-size: 0.94rem; color: #4a3200; line-height: 1.85;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      max-width: 700px; margin: 28px auto 0; padding: 24px 28px;
+      background: #fff; border-top: 3px solid #A8D4F0; border-radius: 18px;
+      font-size: 0.9rem; color: #3A4F5C; line-height: 2;
+      box-shadow: 0 2px 16px rgba(91,164,207,0.07);
     }
-    .info-banner strong { color: #7b2d00; }
-    .chk { color: #27ae60; font-weight: 700; }
+    .info-banner strong { color: #3A8BBF; }
+    .chk { color: #3A8BBF; font-weight: 700; }
 
-    /* FORM WRAPPER */
-    .form-wrapper { max-width: 760px; margin: 28px auto 40px; padding: 0 12px; }
+    /* FORM WRAPPER — separated cards */
+    .form-wrapper { max-width: 700px; margin: 28px auto 40px; padding: 0 12px; }
     .form-card {
-      background: #fff; border-radius: 16px;
-      box-shadow: 0 4px 30px rgba(92,45,145,0.12); overflow: hidden;
+      background: transparent; border-radius: 0;
+      box-shadow: none; overflow: visible;
     }
 
     /* ERROR */
     .form-errors {
-      background: #fef2f2; border-left: 4px solid #e74c3c;
-      color: #b71c1c; padding: 14px 20px; font-size: 0.92rem;
+      background: #fef2f2; border-left: 3px solid #e74c3c;
+      color: #b71c1c; padding: 14px 20px; font-size: 0.88rem;
+      border-radius: 10px; margin-bottom: 20px;
     }
     .form-errors ul { margin: 8px 0 0 18px; }
 
-    /* SECTION */
-    .f-section { border-bottom: 1px solid #ede9f7; }
-    .f-section:last-of-type { border-bottom: none; }
-    .f-section-header {
-      display: flex; align-items: center; gap: 10px;
-      background: linear-gradient(90deg, #5c2d91 0%, #8e44ad 100%);
-      padding: 12px 22px;
+    /* SECTION — individual floating cards */
+    .f-section {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 2px 16px rgba(91,164,207,0.07);
+      margin-bottom: 22px;
+      border: none;
+      overflow: hidden;
     }
-    .f-section-header .sec-icon { font-size: 1.2rem; }
-    .f-section-header h2 { color: #fff; font-size: 0.98rem; font-weight: 600; letter-spacing: 0.5px; }
+    .f-section:last-of-type { margin-bottom: 0; }
+    .f-section-header {
+      display: flex; align-items: center; gap: 12px;
+      background: #F6FBFF;
+      padding: 20px 28px 16px;
+      border-bottom: 1px solid #E8F2FA;
+    }
+    .f-section-header .sec-icon {
+      font-size: 1.15rem; width: 40px; height: 40px;
+      background: #5BA4CF; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #FFFFFF; transition: transform 0.3s ease;
+      box-shadow: 0 2px 6px rgba(91,164,207,0.15);
+    }
+    .f-section-header:hover .sec-icon { transform: scale(1.08); }
+    .f-section-header h2 { color: #3A8BBF; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.3px; }
     .f-section-body {
-      padding: 20px 22px 14px;
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+      padding: 22px 28px 26px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 18px 22px;
     }
     .f-section-body .full { grid-column: 1 / -1; }
 
-    /* FIELD */
-    .field { display: flex; flex-direction: column; gap: 5px; }
+    /* FIELD — cozy padded inputs */
+    .field { display: flex; flex-direction: column; gap: 6px; }
     .field > label {
-      font-size: 0.82rem; font-weight: 600; color: #5c2d91;
+      font-size: 0.78rem; font-weight: 600; color: #3A8BBF;
       display: flex; align-items: center; gap: 6px;
+      text-transform: uppercase; letter-spacing: 0.3px;
     }
     .field-num {
       display: inline-flex; align-items: center; justify-content: center;
-      background: #5c2d91; color: #fff; border-radius: 50%;
-      width: 20px; height: 20px; font-size: 0.7rem; font-weight: 700; flex-shrink: 0;
+      background: #5BA4CF; color: #FFFFFF; border-radius: 6px;
+      width: 20px; height: 20px; font-size: 0.65rem; font-weight: 700; flex-shrink: 0;
+      transition: transform 0.22s ease;
     }
+    .field:hover .field-num { transform: scale(1.1); }
     .field input, .field select, .field textarea {
-      width: 100%; padding: 10px 13px;
-      border: 1.5px solid #d5c9e8; border-radius: 8px;
-      font-family: 'Poppins', sans-serif; font-size: 0.9rem;
-      color: #2d2d2d; background: #faf9ff;
-      transition: border-color 0.22s, box-shadow 0.22s; outline: none;
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid #D8EAF5;
+      border-radius: 10px;
+      font-family: 'Poppins', sans-serif; font-size: 0.88rem;
+      color: #2d2d2d; background: #FAFCFF;
+      transition: all 0.25s ease; outline: none;
     }
     .field input:focus, .field select:focus, .field textarea:focus {
-      border-color: #8e44ad; box-shadow: 0 0 0 3px rgba(142,68,173,0.13); background: #fff;
+      border-color: #5BA4CF; background: #fff;
+      box-shadow: 0 0 0 3px rgba(91,164,207,0.1);
     }
-    .field textarea { resize: vertical; min-height: 72px; }
-    .field .hint { font-size: 0.75rem; color: #999; margin-top: 2px; }
+    .field select {
+      padding: 11px 14px; cursor: pointer;
+      -webkit-appearance: none; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235BA4CF'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 28px; background-color: #FAFCFF;
+    }
+    .field textarea { resize: vertical; min-height: 70px; border: 1.5px solid #D8EAF5; border-radius: 12px; padding: 12px 14px; background: #FAFCFF; }
+    .field textarea:focus { border-color: #5BA4CF; background: #fff; box-shadow: 0 0 0 3px rgba(91,164,207,0.1); }
+    .field .hint { font-size: 0.72rem; color: #999; margin-top: 2px; }
 
-    /* RADIO */
-    .radio-group { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 5px; }
+    /* RADIO — pill style */
+    .radio-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
     .radio-group label {
       display: flex; align-items: center; gap: 6px;
-      font-size: 0.9rem; font-weight: 500; color: #2d2d2d; cursor: pointer;
+      font-size: 0.85rem; font-weight: 500; color: #2d2d2d; cursor: pointer;
+      padding: 8px 18px; border: 1.5px solid #D8EAF5; border-radius: 50px;
+      background: #FAFCFF;
+      transition: all 0.25s ease;
     }
-    .radio-group input[type=radio] { width: 16px; height: 16px; accent-color: #8e44ad; }
+    .radio-group label:hover { border-color: #A8D4F0; background: #F0F7FC; }
+    .radio-group label:has(input:checked) {
+      background: #5BA4CF; color: #fff; border-color: #5BA4CF;
+      box-shadow: 0 2px 8px rgba(91,164,207,0.18);
+    }
+    .radio-group input[type=radio] { width: 0; height: 0; opacity: 0; position: absolute; }
 
-    /* PHOTO UPLOAD */
+    /* PHOTO UPLOAD — rounded card */
     .photo-upload-box {
-      border: 2px dashed #c9b8e8; border-radius: 10px; padding: 20px;
-      text-align: center; background: #faf9ff; cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
+      border: 2px dashed #C8DFF0; border-radius: 18px; padding: 34px 24px;
+      text-align: center; background: #F6FBFF; cursor: pointer;
+      transition: all 0.3s ease; position: relative;
     }
-    .photo-upload-box:hover { border-color: #8e44ad; background: #f3eeff; }
+    .photo-upload-box:hover {
+      border-color: #5BA4CF; background: #EFF6FC;
+      box-shadow: 0 4px 18px rgba(91,164,207,0.1);
+    }
     .photo-upload-box input[type=file] { display: none; }
-    .photo-upload-box .upload-icon { font-size: 2.2rem; margin-bottom: 6px; }
-    .photo-upload-box .upload-text { font-size: 0.85rem; color: #7a7a7a; line-height: 1.5; }
-    #photoPreview { max-width: 150px; max-height: 150px; border-radius: 10px; margin-top: 12px; display: none; }
+    .photo-upload-box .upload-icon { font-size: 2rem; margin-bottom: 8px; transition: transform 0.3s ease; }
+    .photo-upload-box:hover .upload-icon { transform: scale(1.1); }
+    .photo-upload-box .upload-text { font-size: 0.82rem; color: #7a7a7a; line-height: 1.55; }
+    #photoPreview { max-width: 130px; max-height: 130px; border-radius: 12px; margin-top: 12px; display: none; }
 
-    /* DECLARATION */
+    /* DECLARATION — clean card */
     .declaration-box {
-      background: #fff3e0; border-left: 4px solid #e67e22;
-      border-radius: 8px; padding: 14px 16px;
-      font-size: 0.88rem; color: #4a2600; line-height: 1.75; margin-bottom: 10px;
+      background: #F6FBFF; border: 1.5px solid #D8EAF5;
+      border-radius: 14px; padding: 20px 22px;
+      font-size: 0.84rem; color: #3A4F5C; line-height: 1.9; margin-bottom: 14px;
     }
     .declaration-box ul { margin: 8px 0 0 18px; }
 
-    /* SUBMIT */
-    .submit-row { padding: 24px 22px; text-align: center; background: #faf9ff; }
+    /* SUBMIT — full width inside its own card */
+    .submit-row {
+      padding: 0; text-align: center;
+      margin-top: 24px;
+    }
     .submit-btn {
-      background: linear-gradient(135deg, #5c2d91 0%, #c0392b 100%);
+      background: #5BA4CF;
       color: #fff; font-family: 'Poppins', sans-serif;
       font-size: 1.05rem; font-weight: 700; border: none;
-      border-radius: 50px; padding: 15px 52px; cursor: pointer;
-      box-shadow: 0 4px 18px rgba(92,45,145,0.30);
-      transition: transform 0.18s, box-shadow 0.18s; letter-spacing: 0.5px;
+      border-radius: 14px; padding: 18px 0; cursor: pointer;
+      box-shadow: 0 3px 14px rgba(91,164,207,0.2);
+      transition: all 0.25s ease; letter-spacing: 0.5px;
+      width: 100%; display: block;
     }
-    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(92,45,145,0.38); }
-    .submit-btn:active { transform: translateY(0); }
+    .submit-btn::after {
+      content: ' →';
+      transition: letter-spacing 0.25s ease;
+    }
+    .submit-btn:hover {
+      background: #74B5DA;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(91,164,207,0.28);
+    }
+    .submit-btn:hover::after { letter-spacing: 4px; }
 
     /* POSTER */
-    .poster-section { max-width: 760px; margin: 20px auto 10px; padding: 0 12px; text-align: center; }
-    .poster-section img { max-width: 100%; border-radius: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.10); margin-bottom: 16px; }
+    .poster-section { max-width: 700px; margin: 20px auto 10px; padding: 0 12px; text-align: center; }
+    .poster-section img { max-width: 100%; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 16px; }
 
     /* RESPONSIVE */
     @media (max-width: 620px) {
-      .f-section-body { grid-template-columns: 1fr; padding: 14px 12px 8px; gap: 12px; }
+      .f-section-body { grid-template-columns: 1fr; padding: 16px 18px 20px; gap: 14px; }
       .f-section-body .full { grid-column: 1; }
-      .f-section-header { padding: 10px 12px; }
+      .f-section-header { padding: 16px 18px 12px; }
       .logo-row img { height: 40px; }
-      .submit-btn { width: 100%; padding: 14px 20px; font-size: 1rem; }
-      .info-banner { margin: 16px 10px 0; padding: 14px 14px; }
+      .info-banner { margin: 18px 8px 0; padding: 20px 18px; }
+      .f-section { border-radius: 16px; }
     }
   </style>
 </head>
@@ -166,21 +222,21 @@
     <img src="{% static 'images/img5.png' %}" alt="Logo">
   </div>
   <div class="event-title-band">
-    <h1>✨ 37th Bhudev Jivansathi Sammelan ✨</h1>
+    <h1>✨ 39th Bhudev Jivansathi Sammelan ✨</h1>
     <p>Mumbai &amp; Maharashtra &amp; Rest of India Candidates Only</p>
   </div>
 </div>
 
 <!-- INFO BANNER -->
 <div class="info-banner">
-  <strong>37મુ સમસ્ત બ્રાહ્મણ ભૂદેવ જીવનસાથી પસંદગી સંમેલન</strong><br>
-  <span class="chk">✔</span> Mumbai &amp; Maharashtra &amp; Rest of India Candidates only.<br>
-  <span class="chk">✔</span> Biodata Registration Last Date : <strong>26/04/2026</strong><br><br>
-  <strong>સંમેલન તા.</strong> : 26-04-2026 (રવિવાર) &nbsp;|&nbsp;
+  <strong>39th Bhudev Jivansathi Sammelan</strong><br>
+  <span class="chk">✔</span> 10/12 of India Candidates only.<br>
+  <span class="chk">✔</span> Biodata Registration Last Date : <strong>05/06/2026</strong><br><br>
+  <strong>સંમેલન તા.</strong> : 14-06-2026  (રવિવાર) &nbsp;|&nbsp;
   <strong>સમય</strong> : સવારે 10 AM થી 4 PM<br>
   <strong>સ્થળ</strong> : Online Zoom Meeting (Only registered candidates get Zoom link)<br><br>
   <span class="chk">✔</span> All Girls (Female) &ndash; <strong>Free</strong> Biodata Registration.<br>
-  <span class="chk">✔</span> Premium Members on mumbai.bhudevnetworkvivah.com and maharashtra.bhudevnetworkvivah.com &ndash; <strong>100% Free</strong> Registration &amp; PDF.<br>
+  <span class="chk">✔</span> Premium Members on 1012.bhudevnetworkvivah.com  &ndash; <strong>100% Free</strong> Registration &amp; PDF.<br>
   <span class="chk">✔</span> Boys (Male) Registration Fees = <strong>Rs 500</strong> (with 1 Booklet by Courier).
 </div>
 
@@ -507,7 +563,7 @@
             <label><span class="field-num">44</span> Declaration</label>
             <div class="declaration-box">
               બધી યુવતીઓ (Girls / Female) માટે Free Biodata Registration ઉપલબ્ધ છે.<br><br>
-              જે ઉમેદવારો (યુવક-યુવતીઓ) પાસે maharashtra.bhudevnetworkvivah.com and mumbai.bhudevnetworkvivah.com વેબસાઈટ પર Premium Membership છે, તેમને Saurashtra & Kutch સંમેલનમાં નીચેના લાભ મળશે:<br><br>
+              જે ઉમેદવારો (યુવક-યુવતીઓ) પાસે 1012.bhudevnetworkvivah.com વેબસાઈટ પર Premium Membership છે, તેમને 10/12 સંમેલનમાં નીચેના લાભ મળશે:<br><br>
               Free Biodata Registration<br>
               Free PDF મળશે<br>
               દરેક ઉમેદવારે પોતાનું Online Registration પોતે જ કરવાનું રહેશે<br><br>

@@ -1353,3 +1353,22 @@ def physical_form_view(request):
 
 def physical_form_success_view(request):
     return render(request, 'biodata/physical_form_success.html')
+
+def sammelan_39th_form_view(request):
+    """Display and process 39th Sammelan form"""
+    from .forms import Sammelan39BiodataForm
+    errors = None
+    if request.method == 'POST':
+        form = Sammelan39BiodataForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('39th_sammelan_success')
+        else:
+            errors = form.errors
+    else:
+        form = Sammelan39BiodataForm()
+    return render(request, 'biodata/39th_1012_sammelean.html', {'form': form, 'errors': errors})
+
+def sammelan_39th_success(request):
+    """Display 39th Sammelan success page"""
+    return render(request, 'biodata/39th_1012_sammelean_success.html')

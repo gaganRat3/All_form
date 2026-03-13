@@ -1,5 +1,60 @@
-# Ensure forms is imported for new form
 from django import forms
+
+# Form for 39th Sammelan Biodata
+from .models import Sammelan39Biodata
+
+class Sammelan39BiodataForm(forms.ModelForm):
+    class Meta:
+        model = Sammelan39Biodata
+        fields = '__all__'
+        labels = {
+            'name': 'Candidate Full Name',
+            'gender': 'Gender',
+            'dob': 'Date of Birth',
+            'marital': 'Marital Status',
+            'disability': 'Any Disability or Minor Problem?',
+            'tob': 'Birth Time',
+            'birthPlace': 'Birth Place',
+            'city': 'Current City',
+            'country': 'Current Country',
+            'visa': 'Visa Status',
+            'height': 'Height',
+            'weight': 'Weight (kg)',
+            'education': 'Education',
+            'educationDetail': 'Education Detail',
+            'occupationCat': 'Occupation Type',
+            'occupationDetails': 'Company / Business Name',
+            'salary': 'Monthly Income (Rs.)',
+            'shani': 'Shani / Mangal',
+            'hobbies': 'Hobbies',
+            'father': "Father's Name",
+            'mother': "Mother's Name",
+            'fatherWp': "Father's Mobile No.",
+            'motherWp': "Mother's Mobile No.",
+            'caste': 'Type of Brahmin',
+            'gotra': 'Gotra',
+            'kuldevi': 'Kuldevi',
+            'siblings': 'Siblings (Brother / Sister)',
+            'eating_habbits': 'Eating Habits',
+            'alcohol': 'Alcoholic Drinks?',
+            'smoke': 'Smoke?',
+            'other_habbit': 'Any Other Habit?',
+            'legal_case': 'Any Legal or Police Case?',
+            'locChoice': "Partner's Location",
+            'ageGap': "Partner's Age Bracket",
+            'eduChoice': "Partner's Education",
+            'otherChoice': 'Any Other Specific Choice',
+            'who': 'Who is doing this Registration?',
+            'regMobile': 'Mobile No. (person registering)',
+            'resCat': 'Current Residence Area',
+            'nadi': 'Nadi',
+            'email': 'Email Address',
+            'whatsapp': 'WhatsApp Number',
+            'photo': 'Upload Candidate Photo',
+            'declaration': 'Declaration',
+        }
+# Ensure forms is imported for new form
+
 # 40 Plus Sammelan Form
 from .models import FortyPlusSammelan, SaurasthraKutchSammelan
 from .models_37th_sammelan import Sammelan37MumbaiMaharashtra

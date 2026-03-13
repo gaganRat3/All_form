@@ -1,3 +1,60 @@
+from django.db import models
+
+# 39th Sammelan Biodata Model
+class Sammelan39Biodata(models.Model):
+    # Personal Details
+    name = models.CharField(max_length=255)
+    gender = models.CharField(max_length=10)
+    dob = models.CharField(max_length=20)
+    marital = models.CharField(max_length=50)
+    disability = models.CharField(max_length=100)
+    tob = models.CharField(max_length=20)
+    birthPlace = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    visa = models.CharField(max_length=50)
+    height = models.CharField(max_length=20)
+    weight = models.CharField(max_length=20)
+    education = models.CharField(max_length=100)
+    educationDetail = models.CharField(max_length=200)
+    occupationCat = models.CharField(max_length=100)
+    occupationDetails = models.CharField(max_length=200)
+    salary = models.CharField(max_length=20)
+    shani = models.CharField(max_length=30)
+    hobbies = models.CharField(max_length=200)
+
+    # Family Details
+    father = models.CharField(max_length=100)
+    mother = models.CharField(max_length=100)
+    fatherWp = models.CharField(max_length=20)
+    motherWp = models.CharField(max_length=20)
+    caste = models.CharField(max_length=100)
+    gotra = models.CharField(max_length=100)
+    kuldevi = models.CharField(max_length=100)
+    siblings = models.TextField()
+
+    # Lifestyle & Habits
+    eating_habbits = models.CharField(max_length=100)
+    alcohol = models.CharField(max_length=10)
+    smoke = models.CharField(max_length=10)
+    other_habbit = models.CharField(max_length=100)
+    legal_case = models.CharField(max_length=100)
+
+    # Partner Preferences
+    locChoice = models.CharField(max_length=100)
+    ageGap = models.CharField(max_length=20)
+    eduChoice = models.CharField(max_length=100)
+    otherChoice = models.TextField()
+
+    # Registration Details
+    who = models.CharField(max_length=100)
+    regMobile = models.CharField(max_length=20)
+    resCat = models.CharField(max_length=50)
+    nadi = models.CharField(max_length=30)
+    email = models.EmailField()
+    whatsapp = models.CharField(max_length=20)
+    photo = models.ImageField(upload_to='sammelan39_photos/')
+    declaration = models.CharField(max_length=20)
 # Ensure models is imported for new model
 from django.db import models
 # 40 Plus Sammelan Form Model
