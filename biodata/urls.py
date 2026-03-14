@@ -7,6 +7,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('flipbook-access-registration/', views.flipbook_access_registration_view, name='flipbook_access_registration'),
     path('picnic-registration/', views.picnic_registration_view, name='picnic_registration_form'),
     path('picnic-registration-confirmation/', views.picnic_registration_confirmation, name='picnic_registration_confirmation'),
     path('garba-pass-registration', views.garba_pass_registration_view, name='garba_pass_registration'),
@@ -85,3 +86,6 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Fix: Ensure urlpatterns list is properly closed
+    

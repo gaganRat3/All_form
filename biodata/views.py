@@ -1,3 +1,37 @@
+
+from .forms import FlipBookAccessRegistrationForm
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
+
+@csrf_exempt
+def flipbook_access_registration_view(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+        except Exception:
+            data = request.POST
+        print('Received POST data:', data)
+        # Map camelCase keys to snake_case for the form
+        mapped_data = {
+            'candidate_name': data.get('candidate_name') or data.get('candidateName'),
+            'dob': data.get('dob'),
+            'gender': data.get('gender'),
+            'city': data.get('city'),
+            'whatsapp': data.get('whatsapp'),
+            'email': data.get('email'),
+        }
+        form = FlipBookAccessRegistrationForm(mapped_data)
+        if form.is_valid():
+            instance = form.save()
+            print('Saved instance:', instance)
+            return JsonResponse({'success': True, 'message': 'Registration successful.'})
+        else:
+            print('Form errors:', form.errors)
+            return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+    # For GET requests, render your custom form page
+    from django.shortcuts import render
+    return render(request, 'biodata/Flip-Book_Access _Registration _Form.html')
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect, render

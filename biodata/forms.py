@@ -1,4 +1,20 @@
+
 from django import forms
+from .models import FlipBookAccessRegistration
+
+# Form for Flip-Book Access Registration
+class FlipBookAccessRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = FlipBookAccessRegistration
+        fields = ['candidate_name', 'dob', 'gender', 'city', 'whatsapp', 'email']
+        labels = {
+            'candidate_name': 'Name of Candidate',
+            'dob': 'Candidate Date of Birth',
+            'gender': 'Candidate Gender',
+            'city': 'Current City',
+            'whatsapp': 'WhatsApp Number',
+            'email': 'Email ID',
+        }
 
 # Form for 39th Sammelan Biodata
 from .models import Sammelan39Biodata

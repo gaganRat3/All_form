@@ -1,8 +1,25 @@
 from django.db import models
 
+class FlipBookAccessRegistration(models.Model):
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other'),
+        ('prefer_not_to_say', 'Prefer not to say'),
+    ]
+    candidate_name = models.CharField(max_length=100)
+    dob = models.DateField()
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES)
+    city = models.CharField(max_length=100)
+    whatsapp = models.CharField(max_length=20)
+    email = models.EmailField()
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.candidate_name} - {self.city} - {self.email}"
+
 # 39th Sammelan Biodata Model
 class Sammelan39Biodata(models.Model):
-    # Personal Details
     name = models.CharField(max_length=255)
     gender = models.CharField(max_length=10)
     dob = models.CharField(max_length=20)
@@ -111,6 +128,8 @@ class FortyPlusSammelan(models.Model):
 
 
 # Saurashtra & Kutch Sammelan Form Model
+from django.db import models
+
 class SaurasthraKutchSammelan(models.Model):
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10)

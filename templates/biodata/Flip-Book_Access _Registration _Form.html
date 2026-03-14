@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip-Book Access Registration</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            900: '#134e4a',
+                        },
+                        premium: {
+                            dark: '#0f172a',
+                            gold: '#fbbf24'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    
+    <!-- Babel for in-browser JSX compilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Custom input focus transition */
+        .input-transition {
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Hide scrollbar for select but keep functionality */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+        }
+    </style>
+</head>
+<body class="antialiased text-slate-800 min-h-screen py-10 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+
+    <div id="root" class="w-full max-w-3xl"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const InputField = ({ label, helperText, id, type = "text", required = true, placeholder, ...props }) => (
+            <div className="flex flex-col mb-5">
+                <label htmlFor={id} className="text-sm font-semibold text-slate-700 mb-1">
+                    {label} {required && <span className="text-red-500">*</span>}
+                </label>
+                {helperText && <p className="text-xs text-slate-500 mb-2 leading-relaxed">{helperText}</p>}
+                <input
+                    type={type}
+                    id={id}
+                    name={id}
+                    required={required}
+                    placeholder={placeholder}
+                    className="input-transition w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 shadow-sm"
+                    {...props}
+                />
+            </div>
+        );
+
+        const SelectField = ({ label, id, options, required = true, ...props }) => (
+            <div className="flex flex-col mb-5">
+                <label htmlFor={id} className="text-sm font-semibold text-slate-700 mb-1">
+                    {label} {required && <span className="text-red-500">*</span>}
+                </label>
+                <select
+                    id={id}
+                    name={id}
+                    required={required}
+                    className="input-transition w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 shadow-sm cursor-pointer"
+                    {...props}
+                >
+                    <option value="" disabled>Select {label}</option>
+                    {options.map((opt) => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
+                </select>
+            </div>
+        );
+
+        const RegistrationForm = () => {
+
+            const [formData, setFormData] = useState({
+                candidateName: '',
+                dob: '',
+                gender: '',
+                city: '',
+                whatsapp: '',
+                email: ''
+            });
+            const [isSubmitting, setIsSubmitting] = useState(false);
+            const [isSubmitted, setIsSubmitted] = useState(false);
+            const [error, setError] = useState(null);
+
+            const handleChange = (e) => {
+                const { name, value } = e.target;
+                setFormData(prev => ({ ...prev, [name]: value }));
+            };
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                setIsSubmitting(true);
+                setError(null);
+                try {
+                    const response = await fetch('/flipbook-access-registration/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                    if (response.ok) {
+                        setIsSubmitted(true);
+                    } else {
+                        const data = await response.json();
+                        setError(data.error || 'Registration failed.');
+                    }
+                } catch (err) {
+                    setError('Network error. Please try again.');
+                } finally {
+                    setIsSubmitting(false);
+                }
+            };
+
+            if (isSubmitted) {
+                return (
+                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden animate-[fadeIn_0.5s_ease-out]">
+                        <div className="p-10 text-center">
+                            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <h2 className="text-3xl font-bold text-slate-900 mb-4">Registration Successful!</h2>
+                            <p className="text-slate-600 mb-8 max-w-md mx-auto">
+                                Thank you, <span className="font-semibold text-slate-900">{formData.candidateName}</span>. Your details have been received. We will send your Flip-Book Library Login ID & Password to your provided WhatsApp number and Email ID shortly.
+                            </p>
+                            <button 
+                                onClick={() => { setIsSubmitted(false); setFormData({candidateName: '', dob: '', gender: '', city: '', whatsapp: '', email: ''}); }}
+                                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-brand-600 bg-brand-50 hover:bg-brand-100 transition-colors"
+                            >
+                                Register Another Member
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="bg-white rounded-2xl shadow-xl overflow-hidden ring-1 ring-slate-900/5">
+                    {error && (
+                        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+                            {error}
+                        </div>
+                    )}
+                    {/* Header Section */}
+                    <div className="bg-premium-dark px-6 py-10 sm:px-10 relative overflow-hidden">
+                        {/* Decorative background elements */}
+                        <div className="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white opacity-5 rounded-full blur-2xl"></div>
+                        <div className="absolute bottom-0 left-0 -mb-4 -ml-4 w-24 h-24 bg-brand-500 opacity-20 rounded-full blur-xl"></div>
+                        
+                        <div className="relative z-10">
+                            <div className="flex items-center space-x-2 mb-4">
+                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-premium-gold text-yellow-900">
+                                    Premium Members Only
+                                </span>
+                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700">
+                                    New Service
+                                </span>
+                            </div>
+                            <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
+                                Flip-Book Access <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-200">Registration</span>
+                            </h1>
+                            <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
+                                Applicable only for our Latest Premium Members after 1st Jan 2026. Fill up these details, and then submit, to get access to our exclusive Flipbook Library.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Form Section */}
+                    <form onSubmit={handleSubmit} className="px-6 py-8 sm:p-10">
+                        <div className="space-y-2 mb-8 border-b border-slate-100 pb-6">
+                            <h3 className="text-lg font-medium leading-6 text-slate-900">Candidate Information</h3>
+                            <p className="text-sm text-slate-500">Please provide accurate details to generate your credentials.</p>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-y-2 gap-x-6 sm:grid-cols-2">
+                            {/* 1. Name */}
+                            <div className="sm:col-span-2">
+                                <InputField 
+                                    label="(1) Name of Candidate" 
+                                    id="candidateName" 
+                                    value={formData.candidateName}
+                                    onChange={handleChange}
+                                    placeholder="e.g. John Doe"
+                                />
+                            </div>
+
+                            {/* 2. DOB */}
+                            <InputField 
+                                label="(2) Candidate Date of Birth" 
+                                id="dob" 
+                                type="date"
+                                value={formData.dob}
+                                onChange={handleChange}
+                            />
+
+                            {/* 3. Gender */}
+                            <SelectField 
+                                label="(3) Candidate Gender" 
+                                id="gender" 
+                                value={formData.gender}
+                                onChange={handleChange}
+                                options={[
+                                    { value: 'male', label: 'Male' },
+                                    { value: 'female', label: 'Female' },
+                                    { value: 'other', label: 'Other' },
+                                    { value: 'prefer_not_to_say', label: 'Prefer not to say' }
+                                ]}
+                            />
+
+                            {/* 4. City */}
+                            <div className="sm:col-span-2">
+                                <InputField 
+                                    label="(4) Current City" 
+                                    id="city" 
+                                    value={formData.city}
+                                    onChange={handleChange}
+                                    placeholder="e.g. New York"
+                                />
+                            </div>
+                            
+                            <div className="sm:col-span-2 my-4">
+                                <div className="relative">
+                                    <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                                        <div className="w-full border-t border-slate-200"></div>
+                                    </div>
+                                    <div className="relative flex justify-start">
+                                        <span className="pr-3 bg-white text-sm font-medium text-slate-900">Contact for Credentials</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* 5. WhatsApp */}
+                            <div className="sm:col-span-2">
+                                <InputField 
+                                    label="(5) WhatsApp Number" 
+                                    helperText="Mention here, on which WhatsApp Number we can send your Flip-Book Library Login ID & Password."
+                                    id="whatsapp" 
+                                    type="tel"
+                                    value={formData.whatsapp}
+                                    onChange={handleChange}
+                                    placeholder="+1 (555) 000-0000"
+                                />
+                            </div>
+
+                            {/* 6. Email */}
+                            <div className="sm:col-span-2">
+                                <InputField 
+                                    label="(6) Email ID" 
+                                    helperText="Mention here, on which Email ID we can send your Flip-Book Library Login ID & Password."
+                                    id="email" 
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    placeholder="candidate@example.com"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Submit Button */}
+                        <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-end">
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className={`w-full sm:w-auto inline-flex justify-center items-center rounded-lg border border-transparent px-8 py-3.5 text-base font-medium text-white shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                                    isSubmitting 
+                                    ? 'bg-brand-400 cursor-not-allowed' 
+                                    : 'bg-brand-600 hover:bg-brand-700 hover:shadow-md'
+                                }`}
+                            >
+                                {isSubmitting ? (
+                                    <React.Fragment>
+                                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        Processing...
+                                    </React.Fragment>
+                                ) : (
+                                    'Submit Registration'
+                                )}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<RegistrationForm />);
+    </script>
+</body>
+</html>
