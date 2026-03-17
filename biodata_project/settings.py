@@ -34,6 +34,7 @@ DEBUG = True
 CSRF_TRUSTED_ORIGINS = [
     "https://5f8e-103-241-224-105.ngrok-free.app",
     "https://3093-103-241-224-69.ngrok-free.app",
+    "https://a2d3-103-228-147-158.ngrok-free.app",
 ]
 
 # Application definition
@@ -208,7 +209,7 @@ EMAIL_SEND_AUTOMATIC = os.environ.get('EMAIL_SEND_AUTOMATIC', 'True') == 'True'
 
 # Public base URL for media files - set to your current ngrok URL
 # Removed ngrok URL as it is no longer needed
-PUBLIC_BASE_URL = 'https://3093-103-241-224-69.ngrok-free.app'
+PUBLIC_BASE_URL = 'https://a2d3-103-228-147-158.ngrok-free.app'
 
 # ALLOWED_HOSTS setup for current domain
 ALLOWED_HOSTS = [
@@ -219,6 +220,7 @@ ALLOWED_HOSTS = [
     '5f8e-103-241-224-105.ngrok-free.app',
     'af8c-2405-201-2012-408a-bc7f-ef33-5b1b-cbeb.ngrok-free.app',
     '3093-103-241-224-69.ngrok-free.app',
+    'a2d3-103-228-147-158.ngrok-free.app',
     'form.bhudevstore.com'
 ]
     
