@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FlipBookAccessRegistration
+from .models import FlipBookAccessRegistration, GetTogetherRegistration
 
 # Register FlipBookAccessRegistration in admin
 @admin.register(FlipBookAccessRegistration)
@@ -7,6 +7,113 @@ class FlipBookAccessRegistrationAdmin(admin.ModelAdmin):
     list_display = ('candidate_name', 'dob', 'gender', 'city', 'whatsapp', 'email', 'submitted_at')
     search_fields = ('candidate_name', 'city', 'whatsapp', 'email')
     list_filter = ('gender', 'city')
+
+# Register GetTogetherRegistration in admin
+@admin.register(GetTogetherRegistration)
+class GetTogetherRegistrationAdmin(admin.ModelAdmin):
+    list_display = ('candidate_name', 'gender', 'dob', 'city', 'whatsapp', 'members', 'submitted_at')
+    search_fields = ('candidate_name', 'city', 'whatsapp')
+    list_filter = ('gender', 'city', 'members', 'submitted_at')
+    readonly_fields = ('submitted_at', 'id')
+    actions = ['export_as_csv', 'export_as_excel']
+    
+    @admin.action(description='Export selected registrations to CSV')
+    def export_as_csv(self, request, queryset):
+        """Export Get-Together registrations to CSV format"""
+        import csv
+        from django.http import HttpResponse
+        
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=get_together_registrations.csv'
+        
+        writer = csv.writer(response)
+        writer.writerow(['ID', 'Candidate Name', 'Gender', 'Date of Birth', 'City', 'WhatsApp No.', 'Members', 'Submitted At'])
+        
+        for registration in queryset:
+            writer.writerow([
+                registration.id,
+                registration.candidate_name,
+                registration.get_gender_display(),
+                registration.dob.strftime('%Y-%m-%d'),
+                registration.city,
+                registration.whatsapp,
+                registration.get_members_display(),
+                registration.submitted_at.strftime('%Y-%m-%d %H:%M:%S'),
+            ])
+        
+        return response
+    
+    @admin.action(description='Export selected registrations to Excel')
+    def export_as_excel(self, request, queryset):
+        """Export Get-Together registrations to Excel format"""
+        import openpyxl
+        from openpyxl.utils import get_column_letter
+        from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+        from django.http import HttpResponse
+        
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Get-Together Registrations"
+        
+        # Define headers
+        headers = ['ID', 'Candidate Name', 'Gender', 'Date of Birth', 'City', 'WhatsApp No.', 'Members', 'Submitted At']
+        ws.append(headers)
+        
+        # Style header row
+        header_fill = PatternFill(start_color='A8652C', end_color='A8652C', fill_type='solid')
+        header_font = Font(bold=True, color='FFFFFF', size=11)
+        
+        for cell in ws[1]:
+            cell.fill = header_fill
+            cell.font = header_font
+            cell.alignment = Alignment(horizontal='center', vertical='center')
+        
+        # Set column widths
+        column_widths = [8, 20, 12, 15, 15, 15, 15, 20]
+        for i, width in enumerate(column_widths, 1):
+            ws.column_dimensions[get_column_letter(i)].width = width
+        
+        # Add data rows
+        border = Border(
+            left=Side(style='thin'),
+            right=Side(style='thin'),
+            top=Side(style='thin'),
+            bottom=Side(style='thin')
+        )
+        
+        for row_num, registration in enumerate(queryset, 2):
+            row_data = [
+                registration.id,
+                registration.candidate_name,
+                registration.get_gender_display(),
+                registration.dob.strftime('%Y-%m-%d'),
+                registration.city,
+                registration.whatsapp,
+                registration.get_members_display(),
+                registration.submitted_at.strftime('%Y-%m-%d %H:%M:%S'),
+            ]
+            ws.append(row_data)
+            
+            # Apply styling to data rows
+            for col_num, value in enumerate(row_data, 1):
+                cell = ws.cell(row=row_num, column=col_num)
+                cell.border = border
+                cell.alignment = Alignment(horizontal='left', vertical='center')
+                
+                # Center align certain columns
+                if col_num in [1, 3, 7]:  # ID, Gender, Members
+                    cell.alignment = Alignment(horizontal='center', vertical='center')
+        
+        # Freeze header row
+        ws.freeze_panes = 'A2'
+        
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response['Content-Disposition'] = 'attachment; filename=get_together_registrations.xlsx'
+        wb.save(response)
+        return response
+    
 from .models import AdvancePassBooking, BookletLibrarySubmission, FortyPlusSammelan, BhudevKalakaar2026Registration, SaurasthraKutchSammelan, CandidateBiodata
 # Register CandidateBiodata in admin
 @admin.register(CandidateBiodata)

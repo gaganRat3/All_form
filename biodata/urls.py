@@ -33,6 +33,10 @@ urlpatterns = [
     path('bk2026-registration/', views.bk2026_registration_view, name='bk2026_registration'),
     path('submit-registration/', submit_bk2026_registration, name='submit_registration'),
     path('bk2026-registration/confirmation/<int:registration_id>/', views.bk2026_registration_confirmation, name='bk2026_registration_confirmation'),
+    
+    # Get-Together Registration Routes
+    path('get-together-registration/', views.get_together_registration_view, name='get_together_registration'),
+    path('get-together-confirmation/<int:registration_id>/', views.get_together_confirmation, name='get_together_confirmation'),
     path('', views.home_page, name='home_page'),
     path('divorce-sammelan-form/', views_divorce_sammelan.divorce_sammelan_form_view, name='divorce_sammelan_form'),
         path('37th-sammelan-mumbai-maharashtra/', __import__('biodata.views_37th_sammelan').views_37th_sammelan.sammelan_37_mumbai_maharashtra_view, name='37th_sammelan_mumbai_maharashtra'),

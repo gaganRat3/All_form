@@ -967,3 +967,36 @@ class BhudevKalakaar2026Registration(models.Model):
     
     def __str__(self):
         return f"{self.fullName} ({self.submitted_at.strftime('%Y-%m-%d')})"
+
+
+# Get-Together, Lunch, Website Training & Entertainment Program Registration
+class GetTogetherRegistration(models.Model):
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('parent', 'Parent'),
+    ]
+    
+    MEMBERS_CHOICES = [
+        ('1', '1 Member'),
+        ('2', '2 Members'),
+        ('3', '3 Members'),
+        ('4', '4 Members'),
+        ('5+', '5+ Members'),
+    ]
+    
+    candidate_name = models.CharField(max_length=100, verbose_name='Candidate Name')
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES, verbose_name='Gender')
+    dob = models.DateField(verbose_name='Date of Birth')
+    city = models.CharField(max_length=100, verbose_name='Current City')
+    whatsapp = models.CharField(max_length=20, verbose_name='WhatsApp No.')
+    members = models.CharField(max_length=10, choices=MEMBERS_CHOICES, verbose_name='Members Attending')
+    submitted_at = models.DateTimeField(auto_now_add=True, verbose_name='Submission Date')
+    
+    class Meta:
+        verbose_name = "Get-Together Registration"
+        verbose_name_plural = "Get-Together Registrations"
+        ordering = ['-submitted_at']
+    
+    def __str__(self):
+        return f"{self.candidate_name} ({self.city}) - {self.submitted_at.strftime('%Y-%m-%d')}"

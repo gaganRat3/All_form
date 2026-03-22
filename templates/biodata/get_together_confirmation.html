@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get-Together Registration - Confirmation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6efe5;
+      --bg-2:#efe2d0;
+      --paper:rgba(255,255,255,0.72);
+      --paper-strong:rgba(255,255,255,0.88);
+      --text:#2b1d16;
+      --muted:#6f5a4d;
+      --line:rgba(77,53,39,0.14);
+      --accent:#a8652c;
+      --accent-2:#d8a35f;
+      --shadow:0 24px 60px rgba(70,38,15,0.14);
+      --radius:28px;
+      --success:#4f8e4f;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      min-height:100vh;
+      font-family:"Manrope",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(216,163,95,0.28), transparent 32%),
+        radial-gradient(circle at 85% 15%, rgba(168,101,44,0.16), transparent 22%),
+        linear-gradient(135deg,var(--bg) 0%, #f8f3ea 35%, var(--bg-2) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px);
+      background-size:32px 32px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,0.35), transparent 80%);
+      opacity:.35;
+    }
+
+    .page{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px 18px;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:600px;
+      position:relative;
+      animation:floatIn .9s ease both;
+    }
+
+    .confirmation-shell{
+      position:relative;
+      border:1px solid rgba(255,255,255,0.5);
+      background:linear-gradient(180deg, var(--paper-strong), var(--paper));
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:44px 40px;
+    }
+
+    .confirmation-shell::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,0.65), transparent 28%, transparent 72%, rgba(255,255,255,0.28)),
+        radial-gradient(circle at top right, rgba(216,163,95,0.10), transparent 30%);
+      pointer-events:none;
+    }
+
+    .content{
+      position:relative;
+      text-align:center;
+    }
+
+    .success-badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:80px;
+      height:80px;
+      background:linear-gradient(135deg, rgba(79,142,79,0.22), rgba(79,142,79,0.08));
+      border:2px solid rgba(79,142,79,0.30);
+      border-radius:50%;
+      margin-bottom:24px;
+      animation:scaleIn .5s ease;
+    }
+
+    .success-badge::before{
+      content:"✓";
+      font-size:40px;
+      color:var(--success);
+      font-weight:700;
+    }
+
+    h1{
+      margin:0 0 12px;
+      font-family:"Cormorant Garamond",serif;
+      font-size:clamp(32px,5vw,48px);
+      line-height:.95;
+      font-weight:700;
+      letter-spacing:-0.02em;
+      color:var(--success);
+    }
+
+    .lead{
+      margin:0 0 32px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
+    }
+
+    .details-box{
+      background:rgba(79,142,79,0.06);
+      border:1px solid rgba(79,142,79,0.15);
+      border-radius:16px;
+      padding:24px;
+      margin:24px 0;
+      text-align:left;
+    }
+
+    .detail-row{
+      display:grid;
+      grid-template-columns:140px 1fr;
+      gap:16px;
+      padding:12px 0;
+      border-bottom:1px solid rgba(79,142,79,0.10);
+    }
+
+    .detail-row:last-child{
+      border-bottom:none;
+    }
+
+    .detail-label{
+      font-weight:700;
+      color:var(--accent);
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .detail-value{
+      color:var(--text);
+      font-size:15px;
+      word-break:break-word;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      margin-top:32px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      font:inherit;
+      font-weight:700;
+      padding:14px 28px;
+      border-radius:999px;
+      transition:.25s ease;
+      text-decoration:none;
+      display:inline-block;
+    }
+
+    .btn-primary{
+      color:#fff;
+      background:linear-gradient(135deg, #b16e35, #8f5425);
+      box-shadow:0 12px 24px rgba(143,84,37,0.22);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 28px rgba(143,84,37,0.26);
+    }
+
+    .btn-secondary{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid rgba(168,101,44,0.22);
+    }
+
+    .btn-secondary:hover{
+      background:rgba(168,101,44,0.06);
+    }
+
+    .note{
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.6;
+      margin-top:20px;
+      font-style:italic;
+    }
+
+    @keyframes floatIn{
+      from{opacity:0; transform:translateY(24px) scale(.985)}
+      to{opacity:1; transform:translateY(0) scale(1)}
+    }
+
+    @keyframes scaleIn{
+      from{transform:scale(0.8); opacity:0}
+      to{transform:scale(1); opacity:1}
+    }
+
+    @media (max-width: 560px){
+      .page{padding:14px}
+      .wrap{max-width:100%}
+      .confirmation-shell{
+        border-radius:22px;
+        padding:28px 20px;
+      }
+      .details-box{
+        padding:16px;
+      }
+      .detail-row{
+        grid-template-columns:1fr;
+        gap:4px;
+      }
+      h1{
+        font-size:36px;
+      }
+      .actions{
+        flex-direction:column;
+      }
+      .btn{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="wrap">
+      <div class="confirmation-shell">
+        <div class="content">
+          <div class="success-badge"></div>
+          <h1>Registration Confirmed!</h1>
+          <p class="lead">
+            Thank you for registering for the Bhudev Matrimony Get-Together, Lunch, Website Training & Entertainment Program.
+          </p>
+
+          <div class="details-box">
+            <div class="detail-row">
+              <span class="detail-label">Registration ID</span>
+              <span class="detail-value">#{{ registration_id }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Name</span>
+              <span class="detail-value">{{ registration.candidate_name }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Gender</span>
+              <span class="detail-value">{{ registration.get_gender_display }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Date of Birth</span>
+              <span class="detail-value">{{ registration.dob|date:"d-m-Y" }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">City</span>
+              <span class="detail-value">{{ registration.city }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">WhatsApp No.</span>
+              <span class="detail-value">{{ registration.whatsapp }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Members Attending</span>
+              <span class="detail-value">{{ registration.get_members_display }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Submitted On</span>
+              <span class="detail-value">{{ registration.submitted_at|date:"d-m-Y H:i" }}</span>
+            </div>
+          </div>
+
+          <p class="note">
+            📌 Our team will connect with you soon via WhatsApp at {{ registration.whatsapp }}. Please keep your device handy for updates and event details.
+          </p>
+
+          <div class="actions">
+            <a href="{% url 'get_together_registration' %}" class="btn btn-primary">Register Another</a>
+            {% comment %} <a href="{% url 'home_page' %}" class="btn btn-secondary">Back to Home</a> {% endcomment %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

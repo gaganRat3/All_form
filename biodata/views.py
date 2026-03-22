@@ -1,5 +1,5 @@
 
-from .forms import FlipBookAccessRegistrationForm
+from .forms import FlipBookAccessRegistrationForm, GetTogetherRegistrationForm
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
@@ -737,6 +737,40 @@ def mega_booklet_correction_confirmation(request, request_id):
     correction_request = get_object_or_404(MegaBookletCorrectionRequest, id=request_id)
     return render(request, 'biodata/mega_booklet_correction_confirmation.html', {'correction_request': correction_request})
 
+
+# Get-Together Registration View
+def get_together_registration_view(request):
+    """Handle Get-Together registration form submission."""
+    if request.method == 'POST':
+        form = GetTogetherRegistrationForm(request.POST)
+        if form.is_valid():
+            registration = form.save()
+            return redirect('get_together_confirmation', registration_id=registration.id)
+        else:
+            print("Form Errors:", form.errors)
+            return render(request, 'biodata/Get-Together_from.html', {
+                'form': form,
+                'errors': form.errors
+            })
+    else:
+        form = GetTogetherRegistrationForm()
+    return render(request, 'biodata/Get-Together_from.html', {'form': form})
+
+
+def get_together_confirmation(request, registration_id):
+    """Display confirmation page after successful Get-Together registration."""
+    from django.shortcuts import get_object_or_404
+    from .models import GetTogetherRegistration
+    
+    registration = get_object_or_404(GetTogetherRegistration, id=registration_id)
+    return render(request, 'biodata/get_together_confirmation.html', {
+        'registration': registration,
+        'name': registration.candidate_name,
+        'whatsapp': registration.whatsapp,
+        'city': registration.city,
+        'members': registration.members,
+        'registration_id': registration.id,
+    })
 
 
 def home_page(request):

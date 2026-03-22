@@ -1,0 +1,672 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bhudev Matrimony Program Registration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6efe5;
+      --bg-2:#efe2d0;
+      --paper:rgba(255,255,255,0.72);
+      --paper-strong:rgba(255,255,255,0.88);
+      --text:#2b1d16;
+      --muted:#6f5a4d;
+      --line:rgba(77,53,39,0.14);
+      --accent:#a8652c;
+      --accent-2:#d8a35f;
+      --shadow:0 24px 60px rgba(70,38,15,0.14);
+      --radius:28px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      min-height:100vh;
+      font-family:"Manrope",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(216,163,95,0.28), transparent 32%),
+        radial-gradient(circle at 85% 15%, rgba(168,101,44,0.16), transparent 22%),
+        linear-gradient(135deg,var(--bg) 0%, #f8f3ea 35%, var(--bg-2) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px);
+      background-size:32px 32px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,0.35), transparent 80%);
+      opacity:.35;
+    }
+
+    .page{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px 18px;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:960px;
+      position:relative;
+      animation:floatIn .9s ease both;
+    }
+
+    .form-shell{
+      position:relative;
+      border:1px solid rgba(255,255,255,0.5);
+      background:linear-gradient(180deg, var(--paper-strong), var(--paper));
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .form-shell::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,0.65), transparent 28%, transparent 72%, rgba(255,255,255,0.28)),
+        radial-gradient(circle at top right, rgba(216,163,95,0.10), transparent 30%);
+      pointer-events:none;
+    }
+
+    .content{
+      position:relative;
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:0;
+    }
+
+    .info-panel{
+      padding:44px 42px 40px;
+      border-right:1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.02));
+      animation:fadeUp 1s .15s ease both;
+    }
+
+    .form-panel{
+      padding:44px 34px 40px;
+      animation:fadeUp 1s .3s ease both;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+      color:var(--accent);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-weight:700;
+      font-size:12px;
+    }
+
+    .brand .om{
+      width:40px;
+      height:40px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:linear-gradient(135deg, rgba(216,163,95,0.22), rgba(168,101,44,0.08));
+      border:1px solid rgba(168,101,44,0.18);
+      font-size:20px;
+      animation:softPulse 4s ease-in-out infinite;
+    }
+
+    h1{
+      margin:0 0 12px;
+      font-family:"Cormorant Garamond",serif;
+      font-size:clamp(38px,5vw,62px);
+      line-height:.95;
+      font-weight:700;
+      letter-spacing:-0.02em;
+    }
+
+    .lead{
+      margin:0 0 26px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
+      max-width:52ch;
+    }
+
+    .event-box{
+      display:grid;
+      gap:14px;
+      margin-bottom:28px;
+    }
+
+    .event-item{
+      display:grid;
+      grid-template-columns:118px 1fr;
+      gap:12px;
+      align-items:start;
+      padding-bottom:12px;
+      border-bottom:1px dashed rgba(77,53,39,0.14);
+    }
+
+    .event-item:last-child{border-bottom:none;padding-bottom:0}
+
+    .label{
+      font-size:12px;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--accent);
+      font-weight:700;
+    }
+
+    .value{
+      font-size:15px;
+      line-height:1.65;
+      color:var(--text);
+    }
+
+    .section-title{
+      margin:20px 0 10px;
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--accent);
+    }
+
+    .topics, .cities{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:8px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+
+    .topics li::before,
+    .cities li::before{
+      content:"✦";
+      color:var(--accent-2);
+      margin-right:10px;
+    }
+
+    .form-head{
+      margin-bottom:24px;
+    }
+
+    .form-head h2{
+      margin:0 0 8px;
+      font-family:"Cormorant Garamond",serif;
+      font-size:34px;
+      line-height:1;
+      font-weight:700;
+    }
+
+    .form-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    form{
+      display:grid;
+      gap:14px;
+    }
+
+    .field{
+      display:grid;
+      gap:8px;
+    }
+
+    .field.two{
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    label{
+      font-size:13px;
+      font-weight:700;
+      color:#5f4738;
+    }
+
+    input, select, textarea{
+      width:100%;
+      border:none;
+      outline:none;
+      background:rgba(255,255,255,0.72);
+      border:1px solid rgba(108,73,50,0.10);
+      color:var(--text);
+      padding:14px 15px;
+      border-radius:16px;
+      font:inherit;
+      transition:.25s ease;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+
+    input:focus, select:focus, textarea:focus{
+      border-color:rgba(168,101,44,0.35);
+      background:rgba(255,255,255,0.95);
+      box-shadow:0 0 0 4px rgba(168,101,44,0.08);
+      transform:translateY(-1px);
+    }
+
+    input::placeholder, textarea::placeholder{
+      color:#9a8577;
+    }
+
+    /* Django form field styling */
+    form .field input,
+    form .field select,
+    form .field textarea {
+      width: 100%;
+    }
+
+    form .errorlist {
+      list-style: none;
+      margin: 0 0 10px 0;
+      padding: 10px;
+      background: rgba(220, 53, 69, 0.1);
+      border: 1px solid rgba(220, 53, 69, 0.3);
+      border-radius: 8px;
+      color: #dc3545;
+      font-size: 13px;
+    }
+
+    form .errorlist li {
+      margin: 5px 0;
+    }
+
+    .error {
+      display: block;
+      font-size: 12px;
+      color: #dc3545;
+      margin-top: 4px;
+    }
+
+    .error-message {
+      background: rgba(220, 53, 69, 0.1);
+      border: 1px solid rgba(220, 53, 69, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+      color: #dc3545;
+      font-size: 14px;
+    }
+
+    .error-message p {
+      margin: 5px 0;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-top:6px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      font:inherit;
+      font-weight:700;
+      padding:14px 20px;
+      border-radius:999px;
+      transition:.25s ease;
+    }
+
+    .btn-primary{
+      color:#fff;
+      background:linear-gradient(135deg, #b16e35, #8f5425);
+      box-shadow:0 12px 24px rgba(143,84,37,0.22);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 28px rgba(143,84,37,0.26);
+    }
+
+    .btn-secondary{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid rgba(168,101,44,0.22);
+    }
+
+    .btn-secondary:hover{
+      background:rgba(168,101,44,0.06);
+    }
+
+    .note{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.6;
+      margin-top:2px;
+    }
+
+    .success{
+      display:none;
+      margin-top:14px;
+      padding:14px 16px;
+      border-radius:16px;
+      background:rgba(83, 142, 89, 0.10);
+      border:1px solid rgba(83, 142, 89, 0.20);
+      color:#2f6034;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .success.show{
+      display:block;
+      animation:fadeUp .4s ease;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0; transform:translateY(20px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    @keyframes floatIn{
+      from{opacity:0; transform:translateY(24px) scale(.985)}
+      to{opacity:1; transform:translateY(0) scale(1)}
+    }
+
+    @keyframes softPulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.06)}
+    }
+
+    @media (max-width: 860px){
+      .content{
+        grid-template-columns:1fr;
+      }
+      .info-panel{
+        border-right:none;
+        border-bottom:1px solid var(--line);
+        padding:34px 24px 28px;
+      }
+      .form-panel{
+        padding:30px 24px 32px;
+      }
+      .event-item{
+        grid-template-columns:1fr;
+        gap:4px;
+      }
+    }
+
+    @media (max-width: 560px){
+      .page{padding:14px}
+      .wrap{max-width:100%}
+      .form-shell{border-radius:22px}
+      .field.two{
+        grid-template-columns:1fr;
+      }
+      h1{
+        font-size:42px;
+      }
+      .form-head h2{
+        font-size:30px;
+      }
+    }
+
+    .image-container-content {
+      width: 100%;
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 18px;
+      animation: floatIn 0.9s ease both;
+    }
+
+    .placeholder-poster {
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.5);
+      background: linear-gradient(180deg, var(--paper-strong), var(--paper));
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .placeholder-poster img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+      .image-container-content {
+        margin: 30px auto;
+      }
+    }
+
+
+    
+    .header {
+      text-align: center;
+      padding: 40px 20px 32px;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      margin-top: 4px;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .sub-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+      margin-bottom: 8px;
+      padding: 12px;
+    }
+
+    .logo-responsive {
+      height: 60px;
+      width: auto;
+      max-width: 130px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: #ffffff;
+      padding: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-responsive:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .sub-logos {
+        gap: 24px;
+        padding: 8px;
+      }
+      .logo-responsive {
+        height: 44px;
+        max-width: 80px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+     <div class="header">
+    <div class="sub-logos">
+      <img id="subLogoLeft" src="{% static 'images/img3.png' %}" alt="Left Logo" class="logo-responsive">
+      <img id="subLogoCenter" src="{% static 'images/img4.png' %}" alt="Center Logo" class="logo-responsive">
+      <img id="subLogoRight2" src="{% static 'images/sau.jpeg' %}" alt="Right Logo 2" class="logo-responsive">
+    </div>
+  </div>
+  <div class="page">
+    <div class="wrap">
+      <div class="form-shell">
+        <div class="content">
+          <section class="info-panel">
+            <div class="brand">
+              <div class="om">🕉️</div>
+              <span>Bhudev Matrimony Presents</span>
+            </div>
+
+            <h1>Get-Together, Lunch, Website Training & Entertainment Program</h1>
+            <p class="lead">
+              Premium Members - યુવક - યુવતીઓ - પૅરેન્ટ્સ માટે ખાસ આયોજન. A warm, elegant registration form for Bhudev Matrimony's upcoming training and networking event.
+            </p>
+
+            <div class="event-box">
+              <div class="event-item">
+                <div class="label">Date</div>
+                <div class="value">29-03-2026 (Sunday)</div>
+              </div>
+              <div class="event-item">
+                <div class="label">Time</div>
+                <div class="value">12pm onwards</div>
+              </div>
+              <div class="event-item">
+                <div class="label">Venue</div>
+                <div class="value">Delicacy Banquet Hall, 1st Floor, Siddharth Upscale, Vasna Road, Vadodara.</div>
+              </div>
+              <div class="event-item">
+                <div class="label">Map</div>
+                <div class="value">
+                  <a href="https://share.google/tNl2qhFbEgkUX5CPH" target="_blank" style="color:var(--accent); text-decoration:none; font-weight:700;">Open Location</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-title">Main Topics</div>
+            <ul class="topics">
+              <li>Our Vivah Website Usage</li>
+              <li>15 Services & Benefits</li>
+              <li>Buffet Lunch, Games, Music</li>
+            </ul>
+
+            <div class="section-title">Program Cities</div>
+            <ul class="cities">
+              <li>Vadodara : 29-03-2026</li>
+              <li>Amdavad : 05-04-2026</li>
+              <li>Rajkot : 12-04-2026</li>
+              <li>Surat : 26-04-2026</li>
+              <li>Mumbai : 03-05-2026</li>
+            </ul>
+          </section>
+
+          <section class="form-panel">
+            <div class="form-head">
+              <h2>Register Now</h2>
+              <p>Please fill in the details below to confirm your participation in the Bhudev Matrimony program.</p>
+            </div>
+
+            <form id="registrationForm" method="POST" action="{% url 'get_together_registration' %}">
+              {% csrf_token %}
+              
+              <div class="field">
+                <label for="candidate_name">Candidate Name</label>
+                <input type="text" id="candidate_name" name="candidate_name" placeholder="Enter candidate name" required>
+              </div>
+
+              <div class="field two">
+                <div class="field">
+                  <label for="gender">Gender</label>
+                  <select id="gender" name="gender" required>
+                    <option value="">Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="parent">Parent</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="dob">Date of Birth</label>
+                  <input type="text" id="dob" name="dob" placeholder="DD-MM-YYYY" maxlength="10" required>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="city">Current City</label>
+                <input type="text" id="city" name="city" placeholder="Enter current city" required>
+              </div>
+
+              <div class="field">
+                <label for="whatsapp">WhatsApp No.</label>
+                <input type="tel" id="whatsapp" name="whatsapp" placeholder="Enter WhatsApp number" required>
+              </div>
+
+              <div class="field">
+                <label for="members">How many Members can attend this Program</label>
+                <select id="members" name="members" required>
+                  <option value="">Select number of attendees</option>
+                  <option value="1">1 Member</option>
+                  <option value="2">2 Members</option>
+                  <option value="3">3 Members</option>
+                  <option value="4">4 Members</option>
+                  <option value="5+">5+ Members</option>
+                </select>
+              </div>
+
+              <div class="actions">
+                <button type="submit" class="btn btn-primary">Submit Registration</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+              </div>
+
+              <div class="note">
+                By submitting this form, you confirm your interest in attending the training and get-together program.
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Team Image Section -->
+    <div class="image-container-content">
+      <div class="placeholder-poster">
+        <img src="{% static 'images/team.jpg' %}" alt="Our Team">
+      </div>
+    </div>
+   
+
+    {% include 'partials/footer.html' %}
+    {% include 'biodata/employa_footer.html' %}
+
+    
+
+  <script>
+    const dobInput = document.getElementById('dob');
+
+    // Auto-format Date of Birth with dashes (DD-MM-YYYY)
+    dobInput.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, ''); // Remove all non-digits
+      let formattedValue = '';
+      
+      if (value.length > 0) {
+        formattedValue = value.substring(0, 2);
+      }
+      if (value.length > 2) {
+        formattedValue += '-' + value.substring(2, 4);
+      }
+      if (value.length > 4) {
+        formattedValue += '-' + value.substring(4, 8);
+      }
+      
+      e.target.value = formattedValue;
+    });
+  </script>
+</body>
+</html>

@@ -421,3 +421,25 @@ class BhudevKalakaar2026Form(forms.ModelForm):
             }),
             'terms': forms.RadioSelect(choices=[('yes', 'Yes, I Agree'), ('no', "No, I Don't Agree")]),
         }
+
+
+# Get-Together Registration Form
+from .models import GetTogetherRegistration
+
+class GetTogetherRegistrationForm(forms.ModelForm):
+    dob = forms.DateField(
+        input_formats=['%d-%m-%Y'],
+        error_messages={'invalid': 'Please enter date in DD-MM-YYYY format.'}
+    )
+
+    class Meta:
+        model = GetTogetherRegistration
+        fields = ['candidate_name', 'gender', 'dob', 'city', 'whatsapp', 'members']
+        labels = {
+            'candidate_name': 'Candidate Name',
+            'gender': 'Gender',
+            'dob': 'Date of Birth',
+            'city': 'Current City',
+            'whatsapp': 'WhatsApp No.',
+            'members': 'How many Members can attend this Program',
+        }
