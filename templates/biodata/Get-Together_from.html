@@ -510,7 +510,7 @@
     <div class="sub-logos">
       <img id="subLogoLeft" src="{% static 'images/img3.png' %}" alt="Left Logo" class="logo-responsive">
       <img id="subLogoCenter" src="{% static 'images/img4.png' %}" alt="Center Logo" class="logo-responsive">
-      <img id="subLogoRight2" src="{% static 'images/sau.jpeg' %}" alt="Right Logo 2" class="logo-responsive">
+      <img id="subLogoRight2" src="{% static 'images/img5.png' %}" alt="Right Logo 2" class="logo-responsive">
     </div>
   </div>
   <div class="page">
@@ -525,7 +525,7 @@
 
             <h1>Get-Together, Lunch, Website Training & Entertainment Program</h1>
             <p class="lead">
-              Premium Members - યુવક - યુવતીઓ - પૅરેન્ટ્સ માટે ખાસ આયોજન. A warm, elegant registration form for Bhudev Matrimony's upcoming training and networking event.
+              આપણા Vivah Website ના Premium Members (Girls - Boys - Parents) માટે, આપણે Get-Together, Orientation, Training, & Lunch પ્રોગ્રામ નું આયોજન કર્યું છે.
             </p>
 
             <div class="event-box">
@@ -556,14 +556,25 @@
               <li>Buffet Lunch, Games, Music</li>
             </ul>
 
+            <div class="section-title">Entry + Full Buffet Lunch</div>
+            <ul class="cities">
+              <li>Candidate : Rs 100</li>
+              <li>Parents : Rs 300</li>
+              <li>Others : Rs 500</li>
+            </ul>
+
             <div class="section-title">Program Cities</div>
             <ul class="cities">
               <li>Vadodara : 29-03-2026</li>
               <li>Amdavad : 05-04-2026</li>
               <li>Rajkot : 12-04-2026</li>
               <li>Surat : 26-04-2026</li>
-              <li>Mumbai : 03-05-2026</li>
+              <li>Gandhinagar : 03-05-2026</li>
             </ul>
+
+            <p class="lead" style="margin-top:16px; margin-bottom:0;">
+              આ Training & Get-Together Program મા ભાગ લેવાથી આપણા લગ્નેચ્છુક દીકરા - દીકરી - પૅરેન્ટ્સ ને Vivah માટે, સારુ પાત્ર સર્ચ કરવામાં ખુબજ સારો Benefit થશે. સારુ Training & ગાઈડન્સ મળશે. Girls - Boys - Parents સાથે નવી મુલાકાત થશે.
+            </p>
           </section>
 
           <section class="form-panel">
@@ -574,49 +585,62 @@
 
             <form id="registrationForm" method="POST" action="{% url 'get_together_registration' %}">
               {% csrf_token %}
+
+              {% if form.errors %}
+              <div class="error-message">
+                <p>Please correct the highlighted fields and submit again.</p>
+                {{ form.non_field_errors }}
+              </div>
+              {% endif %}
               
               <div class="field">
-                <label for="candidate_name">Candidate Name</label>
-                <input type="text" id="candidate_name" name="candidate_name" placeholder="Enter candidate name" required>
+                <label for="candidate_name">1) Candidate Name</label>
+                <input type="text" id="candidate_name" name="candidate_name" placeholder="Enter candidate name" value="{{ form.candidate_name.value|default:'' }}" required>
+                {% if form.candidate_name.errors %}<span class="error">{{ form.candidate_name.errors.0 }}</span>{% endif %}
               </div>
 
               <div class="field two">
                 <div class="field">
-                  <label for="gender">Gender</label>
+                  <label for="gender">2) Gender</label>
                   <select id="gender" name="gender" required>
                     <option value="">Select gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="parent">Parent</option>
+                    <option value="male" {% if form.gender.value == 'male' %}selected{% endif %}>Male</option>
+                    <option value="female" {% if form.gender.value == 'female' %}selected{% endif %}>Female</option>
+                    <option value="parent" {% if form.gender.value == 'parent' %}selected{% endif %}>Parent</option>
                   </select>
+                  {% if form.gender.errors %}<span class="error">{{ form.gender.errors.0 }}</span>{% endif %}
                 </div>
 
                 <div class="field">
-                  <label for="dob">Date of Birth</label>
-                  <input type="text" id="dob" name="dob" placeholder="DD-MM-YYYY" maxlength="10" required>
+                  <label for="dob">3) Date of Birth</label>
+                  <input type="text" id="dob" name="dob" placeholder="DD-MM-YYYY" maxlength="10" value="{{ form.dob.value|default:'' }}" required>
+                  {% if form.dob.errors %}<span class="error">{{ form.dob.errors.0 }}</span>{% endif %}
                 </div>
               </div>
 
               <div class="field">
-                <label for="city">Current City</label>
-                <input type="text" id="city" name="city" placeholder="Enter current city" required>
+                <label for="city">4) Current City</label>
+                <input type="text" id="city" name="city" placeholder="Enter current city" value="{{ form.city.value|default:'' }}" required>
+                {% if form.city.errors %}<span class="error">{{ form.city.errors.0 }}</span>{% endif %}
               </div>
 
               <div class="field">
-                <label for="whatsapp">WhatsApp No.</label>
-                <input type="tel" id="whatsapp" name="whatsapp" placeholder="Enter WhatsApp number" required>
+                <label for="whatsapp">5) WhatsApp No.</label>
+                <input type="tel" id="whatsapp" name="whatsapp" placeholder="Enter WhatsApp number" value="{{ form.whatsapp.value|default:'' }}" required>
+                {% if form.whatsapp.errors %}<span class="error">{{ form.whatsapp.errors.0 }}</span>{% endif %}
               </div>
 
               <div class="field">
-                <label for="members">How many Members can attend this Program</label>
+                <label for="members">6) How many Members can attend this Program</label>
                 <select id="members" name="members" required>
                   <option value="">Select number of attendees</option>
-                  <option value="1">1 Member</option>
-                  <option value="2">2 Members</option>
-                  <option value="3">3 Members</option>
-                  <option value="4">4 Members</option>
-                  <option value="5+">5+ Members</option>
+                  <option value="1" {% if form.members.value == '1' %}selected{% endif %}>1 Member</option>
+                  <option value="2" {% if form.members.value == '2' %}selected{% endif %}>2 Members</option>
+                  <option value="3" {% if form.members.value == '3' %}selected{% endif %}>3 Members</option>
+                  <option value="4" {% if form.members.value == '4' %}selected{% endif %}>4 Members</option>
+                  <option value="5+" {% if form.members.value == '5+' %}selected{% endif %}>5+ Members</option>
                 </select>
+                {% if form.members.errors %}<span class="error">{{ form.members.errors.0 }}</span>{% endif %}
               </div>
 
               <div class="actions">
