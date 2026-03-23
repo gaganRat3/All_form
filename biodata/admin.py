@@ -185,6 +185,118 @@ class SaurasthraKutchSammelanAdmin(admin.ModelAdmin):
         except ValueError:
             return 0
 
+    @admin.action(description='Download selected images as ZIP')
+    def download_images_zip(self, request, queryset):
+        import os
+        import zipfile
+        from io import BytesIO
+        from django.http import HttpResponse
+
+        zip_buffer = BytesIO()
+        id_to_serial = {obj.id: i+1 for i, obj in enumerate(queryset.order_by('submitted_at'))}
+        with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+            for obj in queryset.order_by('submitted_at'):
+                if obj.photo:
+                    try:
+                        img_path = obj.photo.path
+                        if os.path.exists(img_path):
+                            serial_number = id_to_serial.get(obj.id, 0)
+                            filename = f"{serial_number}_{obj.name.replace(' ', '_')}{os.path.splitext(img_path)[1]}"
+                            zip_file.write(img_path, filename)
+                    except Exception as e:
+                        print(f"Error adding image to zip: {e}")
+        zip_buffer.seek(0)
+        response = HttpResponse(zip_buffer.read(), content_type='application/zip')
+        response['Content-Disposition'] = 'attachment; filename=saurashtra_kutch_images.zip'
+        return response
+
+    @admin.action(description='Export selected to Excel with images')
+    def export_excel_with_images(self, request, queryset):
+        import openpyxl
+        from openpyxl.utils import get_column_letter
+        from openpyxl.drawing.image import Image as OpenpyxlImage
+        from io import BytesIO
+        from django.http import HttpResponse
+        from PIL import Image as PILImage
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Saurashtra Kutch Registrations"
+
+        headers = ['Serial No.', 'Name', 'Gender', 'DOB', 'City', 'Photo', 'Submitted At']
+        ws.append(headers)
+        for i, width in enumerate([10, 20, 10, 15, 15, 15, 20], 1):
+            ws.column_dimensions[get_column_letter(i)].width = width
+
+        row_num = 2
+        for obj in queryset.order_by('submitted_at'):
+            row = [
+                self.serial_number(obj),
+                obj.name,
+                obj.gender,
+                obj.dob.strftime('%Y-%m-%d') if obj.dob else '',
+                obj.city,
+                '',  # Placeholder for image
+                obj.submitted_at.strftime('%Y-%m-%d %H:%M:%S') if obj.submitted_at else '',
+            ]
+            ws.append(row)
+            if obj.photo:
+                try:
+                    img_path = obj.photo.path
+                    pil_img = PILImage.open(img_path)
+                    img_byte_arr = BytesIO()
+                    pil_img.save(img_byte_arr, format='PNG')
+                    img_byte_arr.seek(0)
+                    img = OpenpyxlImage(img_byte_arr)
+                    img.width = 80
+                    img.height = 80
+                    img.anchor = f"F{row_num}"
+                    ws.add_image(img)
+                    ws.row_dimensions[row_num].height = 60
+                except Exception as e:
+                    pass
+            row_num += 1
+
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        )
+        response['Content-Disposition'] = 'attachment; filename=saurashtra_kutch_with_images.xlsx'
+        wb.save(response)
+        return response
+
+    @admin.action(description='Export selected to Excel without images')
+    def export_excel_without_images(self, request, queryset):
+        import openpyxl
+        from openpyxl.utils import get_column_letter
+        from django.http import HttpResponse
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Saurashtra Kutch Registrations"
+
+        headers = ['Serial No.', 'Name', 'Gender', 'DOB', 'City', 'Submitted At']
+        ws.append(headers)
+        for i, width in enumerate([10, 20, 10, 15, 15, 20], 1):
+            ws.column_dimensions[get_column_letter(i)].width = width
+
+        for obj in queryset.order_by('submitted_at'):
+            row = [
+                self.serial_number(obj),
+                obj.name,
+                obj.gender,
+                obj.dob.strftime('%Y-%m-%d') if obj.dob else '',
+                obj.city,
+                obj.submitted_at.strftime('%Y-%m-%d %H:%M:%S') if obj.submitted_at else '',
+            ]
+            ws.append(row)
+
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        )
+        response['Content-Disposition'] = 'attachment; filename=saurashtra_kutch_without_images.xlsx'
+        wb.save(response)
+        return response
+
 # Register BookletLibrarySubmission in admin
 @admin.register(BookletLibrarySubmission)
 class BookletLibrarySubmissionAdmin(admin.ModelAdmin):
