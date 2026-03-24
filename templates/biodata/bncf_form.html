@@ -9,25 +9,25 @@
     <style>
         .side-logo-container {
             display: flex;
-            flex-direction: row;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
             width: 100vw;
             min-height: 100vh;
         }
         .sub-logos {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            justify-content: flex-start;
-            gap: 32px;
-            margin-right: 32px;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 32px;
             margin-top: 0;
-            min-width: 60px;
+            width: 100%;
             z-index: 2;
         }
         .sub-logos img {
-            height: 48px;
+            height: 56px;
             width: auto;
             object-fit: contain;
             filter: grayscale(30%) brightness(0.95);
@@ -39,15 +39,8 @@
             transform: scale(1.08);
         }
         @media (max-width: 900px) {
-            .side-logo-container {
-                flex-direction: column;
-                align-items: center;
-            }
             .sub-logos {
-                flex-direction: row;
                 gap: 18px;
-                margin: 0 0 18px 0;
-                min-width: unset;
             }
             .sub-logos img {
                 height: 32px;
@@ -748,14 +741,35 @@
         <div class="form-container">
         <div class="form-header">
             <h1>BNC & BNF Application</h1>
-            <p>
-ગુજરાત - ભારત કે Globally, જે ભૂદેવ બહેનો કે ભાઈઓ ને, પોતાના City - 
-Area મા પોતાના ઘરે કે ઓફિસ મા ભૂદેવ નેટવર્ક સેન્ટર (BNC kendra) ઓપન 
-કરીને બુકલેટ વિતરણ, મેરેજ સર્વિસ, Work From Home, IT Services, Travels,
- Event Management Services, Insurance Franchisee, વગેરે નું કાર્ય કરવામાં 
- interest હોય તેઓ નીચે આપેલ ફોર્મ ભરીને, 20-02-2026 સુધી સબમિટ કરશો. 
- ભૂદેવ નેટવર્ક સંસ્થા સાથે જોડાઈને તમે સારુ કાર્ય કરશો તો તમને અનેક પ્રકારના લાભ થશે. 
- જેમ કે સામાજિક લાભ, આર્થિક લાભ, સેવાકીય લાભ, Personality Development,  Free Business Seminars, Picnic, Travels વગેરે.</p>
+            <div style="text-align:left; font-size:1.05rem; line-height:1.7; margin-top:10px;">
+                <strong>Who can apply?</strong><br>
+                <ul style="margin: 8px 0 12px 20px;">
+                    <li>Any Bhudev sisters or brothers from Gujarat, India, or globally</li>
+                    <li>Interested in opening a <b>Bhudev Network Center (BNC Kendra)</b> at your home or office in your city/area</li>
+                </ul>
+                <strong>Opportunities at BNC Kendra:</strong>
+                <ul style="margin: 8px 0 12px 20px;">
+                    <li>Booklet Distribution</li>
+                    <li>Marriage Services</li>
+                    <li>Work From Home</li>
+                    <li>IT Services</li>
+                    <li>Travels &amp; Event Management</li>
+                    <li>Insurance Franchisee</li>
+                    <li>And more...</li>
+                </ul>
+                <strong>How to apply?</strong><br>
+                <ul style="margin: 8px 0 12px 20px;">
+                    <li>Fill out and submit the form below by <b>20-02-2026</b></li>
+                </ul>
+                <strong>Benefits of joining Bhudev Network:</strong>
+                <ul style="margin: 8px 0 0 20px;">
+                    <li>Social, Economic, and Service Benefits</li>
+                    <li>Personality Development</li>
+                    <li>Free Business Seminars</li>
+                    <li>Picnics &amp; Travels</li>
+                    <li>And many more!</li>
+                </ul>
+            </div>
         </div>
         
         <div class="form-body">
