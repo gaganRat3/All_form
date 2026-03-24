@@ -4,4 +4,4 @@ from .models import BncBnfApplication
 class BncBnfApplicationForm(forms.ModelForm):
     class Meta:
         model = BncBnfApplication
-        fields = '__all__'
+        fields = '__all__'  # dedication_time is included automatically

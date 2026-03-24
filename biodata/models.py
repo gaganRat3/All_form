@@ -225,6 +225,17 @@ class BncBnfApplication(models.Model):
     phone_number = models.CharField(max_length=15)
     education = models.CharField(max_length=100)
     occupation = models.CharField(max_length=100)
+    dedication_time = models.CharField(
+        max_length=30,
+        choices=[
+            ("Full-time", "Full-time"),
+            ("Part-time", "Part-time"),
+            ("Occasional", "Occasional"),
+            ("Very less time", "Very less time")
+        ],
+        default="",
+        blank=True
+    )
     current_city = models.CharField(max_length=100)
     area_name = models.CharField(max_length=100, blank=True)
     home_address = models.TextField()

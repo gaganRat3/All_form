@@ -654,6 +654,7 @@ def bncf_application_view(request):
                     phone_number=data.get('phone', ''),
                     education=data.get('education', ''),
                     occupation=data.get('occupation', ''),
+                    dedication_time=data.get('dedicationTime', ''),
                     current_city=data.get('city', ''),
                     area_name=data.get('area', ''),
                     home_address=data.get('address', ''),

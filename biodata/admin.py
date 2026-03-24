@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FlipBookAccessRegistration, GetTogetherRegistration
+from .models import FlipBookAccessRegistration, GetTogetherRegistration, BncBnfApplication
 
 # Register FlipBookAccessRegistration in admin
 @admin.register(FlipBookAccessRegistration)
@@ -1032,7 +1032,11 @@ class AudienceRegistrationAdmin(admin.ModelAdmin):
 # Register BNCF Application model for admin panel
 @admin.register(BncBnfApplication)
 class BncBnfApplicationAdmin(admin.ModelAdmin):
-    list_display = ['full_name', 'gender', 'date_of_birth', 'marriage_status', 'whatsapp_number', 'phone_number', 'education', 'occupation', 'current_city', 'area_name', 'home_address']
+    def desication_time_for_work(self, obj):
+        return obj.dedication_time
+    desication_time_for_work.short_description = 'Desication Time For Work'
+
+    list_display = ['full_name', 'gender', 'date_of_birth', 'marriage_status', 'whatsapp_number', 'phone_number', 'education', 'occupation', 'desication_time_for_work', 'current_city', 'area_name', 'home_address']
     search_fields = ['full_name', 'whatsapp_number', 'phone_number', 'current_city', 'area_name']
 from .models_astrology import AstrologyFormSubmission
 

@@ -741,34 +741,34 @@
         <div class="form-container">
         <div class="form-header">
             <h1>BNC & BNF Application</h1>
-            <div style="text-align:left; font-size:1.05rem; line-height:1.7; margin-top:10px;">
-                <strong>Who can apply?</strong><br>
+            <div style="text-align:left; font-size:1.08rem; line-height:1.7; margin-top:10px;">
+                <div style="font-size:1.15rem; font-weight:700; color:#ffe082; margin-bottom:8px;">Bhudev Women Entrepreneur Summit - 2026 @ Vadodara</div>
+                <div style="margin-bottom:8px;">
+                    <b>Date:</b> 29-03-2026 (Sunday)<br>
+                    <b>Time:</b> 5 pm Onwards<br>
+                    <b>Venue:</b> Delicacy Banquets Hall, Vasna Road, Vadodara
+                </div>
+                <div style="margin-bottom:10px;">
+                    ભૂદેવ નેટવર્ક Team દ્વારા જે ભૂદેવ બહેનો પોતાનો બિઝનેસ, વ્યવસાય, ગૃહઉદ્યોગ ચલાવી રહ્યા હોય, કે પછી પોતાનું કોઈ Startup Launch કરવાનું વિચારી રહ્યા છે, કે પછી કોઈ સારી Franchisee લેવાનું વિચારી રહ્યા હોય, તો તેમના માટે ખાસ આ <b>Free Business & Startup Guidance Seminar & Dinner</b> નું આયોજન કરવામાં આવેલ છે.
+                </div>
                 <ul style="margin: 8px 0 12px 20px;">
-                    <li>Any Bhudev sisters or brothers from Gujarat, India, or globally</li>
-                    <li>Interested in opening a <b>Bhudev Network Center (BNC Kendra)</b> at your home or office in your city/area</li>
+                    <li>✔️ Bhudev Network Center (BNC)</li>
+                    <li>✔️ How to Launch Startup</li>
+                    <li>✔️ Startup Gujarat Certificate</li>
+                    <li>✔️ 3 Years Tax Benefits</li>
+                    <li>✔️ 5 Lakh to 50 Lakh Gov. Loan</li>
+                    <li>✔️ Scale your Small Business to Gujarat, India or International Level</li>
                 </ul>
-                <strong>Opportunities at BNC Kendra:</strong>
-                <ul style="margin: 8px 0 12px 20px;">
-                    <li>Booklet Distribution</li>
-                    <li>Marriage Services</li>
-                    <li>Work From Home</li>
-                    <li>IT Services</li>
-                    <li>Travels &amp; Event Management</li>
-                    <li>Insurance Franchisee</li>
-                    <li>And more...</li>
-                </ul>
-                <strong>How to apply?</strong><br>
-                <ul style="margin: 8px 0 12px 20px;">
-                    <li>Fill out and submit the form below by <b>20-02-2026</b></li>
-                </ul>
-                <strong>Benefits of joining Bhudev Network:</strong>
-                <ul style="margin: 8px 0 0 20px;">
-                    <li>Social, Economic, and Service Benefits</li>
-                    <li>Personality Development</li>
-                    <li>Free Business Seminars</li>
-                    <li>Picnics &amp; Travels</li>
-                    <li>And many more!</li>
-                </ul>
+                <div style="margin-bottom:8px;">
+                    <b>Schedule:</b>
+                    <ul style="margin: 8px 0 0 20px;">
+                        <li>5.00 pm : Spot Registration</li>
+                        <li>5.30 pm : Introduction Speech by Bhudev Entrepreneurs</li>
+                        <li>6.00 pm : Startup Business Ideas & Launch Process</li>
+                        <li>8.00 pm : Dinner & Networking</li>
+                        <li>9.00 pm : Ending Session</li>
+                    </ul>
+                </div>
             </div>
         </div>
         
@@ -856,8 +856,8 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="area">(8) Area Name</label>
-                        <input type="text" id="area" class="form-control" placeholder="Your area or locality name" required>
+                        <label for="area">(8) Area Name (Locality)</label>
+                        <input type="text" id="area" class="form-control" placeholder="Your area name (locality)" required>
                         <i class="fas fa-map-pin"></i>
                     </div>
                     
@@ -886,9 +886,21 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="occupation">(11)Occupation</label>
-                        <input type="text" id="occupation" class="form-control" placeholder="Your current job title" required>
+                        <label for="occupation">(11) Current Occupation (Job, Business, etc)</label>
+                        <input type="text" id="occupation" class="form-control" placeholder="Your current job, business, etc" required>
                         <i class="fas fa-briefcase"></i>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dedicationTime">(12) How much time you can dedicate to this work?</label>
+                        <select id="dedicationTime" class="form-control" required>
+                            <option value="">Select an option</option>
+                            <option value="Full-time">Full-time</option>
+                            <option value="Part-time">Part-time</option>
+                            <option value="Occasional">Occasional</option>
+                            <option value="Very less time">Very less time</option>
+                        </select>
+                        <i class="fas fa-clock"></i>
                     </div>
                     
                     <div class="form-navigation">
@@ -947,7 +959,7 @@
                             <span class="preview-value" id="preview-city">-</span>
                         </div>
                         <div class="preview-item">
-                            <span class="preview-label">Area Name</span>
+                            <span class="preview-label">Area Name (Locality)</span>
                             <span class="preview-value" id="preview-area">-</span>
                         </div>
                         <div class="preview-item">
@@ -965,8 +977,12 @@
                             <span class="preview-value" id="preview-education">-</span>
                         </div>
                         <div class="preview-item">
-                            <span class="preview-label">Occupation</span>
+                            <span class="preview-label">Current Occupation (Job, Business, etc)</span>
                             <span class="preview-value" id="preview-occupation">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">How much time you can dedicate to this work?</span>
+                            <span class="preview-value" id="preview-dedicationTime">-</span>
                         </div>
                     </div>
                     
@@ -1184,6 +1200,7 @@
             document.getElementById('preview-address').textContent = document.getElementById('address').value;
             document.getElementById('preview-education').textContent = document.getElementById('education').value;
             document.getElementById('preview-occupation').textContent = document.getElementById('occupation').value;
+            document.getElementById('preview-dedicationTime').textContent = document.getElementById('dedicationTime').value;
         }
         
         function validateCurrentSection() {
@@ -1226,6 +1243,7 @@
                 phone: document.getElementById('phone').value,
                 education: document.getElementById('education').value,
                 occupation: document.getElementById('occupation').value,
+                dedicationTime: document.getElementById('dedicationTime').value,
                 city: document.getElementById('city').value,
                 area: document.getElementById('area').value,
                 address: document.getElementById('address').value
