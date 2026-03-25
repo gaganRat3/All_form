@@ -234,21 +234,25 @@ class SaurasthraKutchSammelanAdmin(admin.ModelAdmin):
         ws = wb.active
         ws.title = "Saurashtra Kutch Registrations"
 
-        headers = ['Serial No.', 'Name', 'Gender', 'DOB', 'City', 'Photo', 'Submitted At']
+        headers = [
+            'Serial No.', 'Name', 'Gender', 'DOB', 'Marital', 'Disability', 'Birth Time', 'Birth Place', 'City', 'Country', 'Visa',
+            'Height', 'Weight', 'Education', 'Education Detail', 'Occupation Type', 'Occupation Details', 'Monthly Income', 'Shani', 'Hobbies',
+            'Father', 'Mother', 'Father WhatsApp', 'Mother WhatsApp', 'Caste', 'Gotra', 'Kuldevi', 'Siblings', 'Eating Habits', 'Alcohol', 'Smoke',
+            'Other Habit', 'Legal Case', 'Location Choice', 'Age Gap', 'Education Choice', 'Other Choice', 'Who', 'Registered Mobile', 'Residence Category',
+            'Nadi', 'Email', 'WhatsApp', 'Photo', 'Declaration', 'Submitted At'
+        ]
         ws.append(headers)
-        for i, width in enumerate([10, 20, 10, 15, 15, 15, 20], 1):
+        for i, width in enumerate([10, 20, 10, 15, 15, 15, 20, 15, 15, 15, 15, 10, 10, 15, 20, 15, 20, 15, 10, 20, 15, 15, 15, 15, 15, 15, 20, 15, 10, 10, 15, 15, 15, 15, 15, 15, 15, 15, 15, 20, 20, 20, 15, 20], 1):
             ws.column_dimensions[get_column_letter(i)].width = width
 
         row_num = 2
         for obj in queryset.order_by('submitted_at'):
             row = [
-                self.serial_number(obj),
-                obj.name,
-                obj.gender,
-                obj.dob if obj.dob else '',
-                obj.city,
-                '',  # Placeholder for image
-                obj.submitted_at.strftime('%Y-%m-%d %H:%M:%S') if obj.submitted_at else '',
+                self.serial_number(obj), obj.name, obj.gender, obj.dob, obj.marital, obj.disability, obj.tob, obj.birthPlace, obj.city, obj.country, obj.visa,
+                obj.height, obj.weight, obj.education, obj.educationDetail, obj.occupationCat, obj.occupationDetails, obj.salary, obj.shani, obj.hobbies,
+                obj.father, obj.mother, obj.fatherWp, obj.motherWp, obj.caste, obj.gotra, obj.kuldevi, obj.siblings, obj.eating_habbits, obj.alcohol, obj.smoke,
+                obj.other_habbit, obj.legal_case, obj.locChoice, obj.ageGap, obj.eduChoice, obj.otherChoice, obj.who, obj.regMobile, obj.resCat,
+                obj.nadi, obj.email, obj.whatsapp, '', obj.declaration, obj.submitted_at.strftime('%Y-%m-%d %H:%M:%S') if obj.submitted_at else ''
             ]
             ws.append(row)
             if obj.photo:
@@ -261,7 +265,7 @@ class SaurasthraKutchSammelanAdmin(admin.ModelAdmin):
                     img = OpenpyxlImage(img_byte_arr)
                     img.width = 80
                     img.height = 80
-                    img.anchor = f"F{row_num}"
+                    img.anchor = f"AT{row_num}"
                     ws.add_image(img)
                     ws.row_dimensions[row_num].height = 60
                 except Exception as e:
@@ -285,19 +289,24 @@ class SaurasthraKutchSammelanAdmin(admin.ModelAdmin):
         ws = wb.active
         ws.title = "Saurashtra Kutch Registrations"
 
-        headers = ['Serial No.', 'Name', 'Gender', 'DOB', 'City', 'Submitted At']
+        headers = [
+            'Serial No.', 'Name', 'Gender', 'DOB', 'Marital', 'Disability', 'Birth Time', 'Birth Place', 'City', 'Country', 'Visa',
+            'Height', 'Weight', 'Education', 'Education Detail', 'Occupation Type', 'Occupation Details', 'Monthly Income', 'Shani', 'Hobbies',
+            'Father', 'Mother', 'Father WhatsApp', 'Mother WhatsApp', 'Caste', 'Gotra', 'Kuldevi', 'Siblings', 'Eating Habits', 'Alcohol', 'Smoke',
+            'Other Habit', 'Legal Case', 'Location Choice', 'Age Gap', 'Education Choice', 'Other Choice', 'Who', 'Registered Mobile', 'Residence Category',
+            'Nadi', 'Email', 'WhatsApp', 'Declaration', 'Submitted At'
+        ]
         ws.append(headers)
-        for i, width in enumerate([10, 20, 10, 15, 15, 20], 1):
+        for i, width in enumerate([10, 20, 10, 15, 15, 15, 20, 15, 15, 15, 15, 10, 10, 15, 20, 15, 20, 15, 10, 20, 15, 15, 15, 15, 15, 15, 20, 15, 10, 10, 15, 15, 15, 15, 15, 15, 15, 15, 15, 20, 20, 20, 15, 20], 1):
             ws.column_dimensions[get_column_letter(i)].width = width
 
         for obj in queryset.order_by('submitted_at'):
             row = [
-                self.serial_number(obj),
-                obj.name,
-                obj.gender,
-                obj.dob if obj.dob else '',
-                obj.city,
-                obj.submitted_at.strftime('%Y-%m-%d %H:%M:%S') if obj.submitted_at else '',
+                self.serial_number(obj), obj.name, obj.gender, obj.dob, obj.marital, obj.disability, obj.tob, obj.birthPlace, obj.city, obj.country, obj.visa,
+                obj.height, obj.weight, obj.education, obj.educationDetail, obj.occupationCat, obj.occupationDetails, obj.salary, obj.shani, obj.hobbies,
+                obj.father, obj.mother, obj.fatherWp, obj.motherWp, obj.caste, obj.gotra, obj.kuldevi, obj.siblings, obj.eating_habbits, obj.alcohol, obj.smoke,
+                obj.other_habbit, obj.legal_case, obj.locChoice, obj.ageGap, obj.eduChoice, obj.otherChoice, obj.who, obj.regMobile, obj.resCat,
+                obj.nadi, obj.email, obj.whatsapp, obj.declaration, obj.submitted_at.strftime('%Y-%m-%d %H:%M:%S') if obj.submitted_at else ''
             ]
             ws.append(row)
 
