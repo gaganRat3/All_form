@@ -201,7 +201,8 @@ class SaurasthraKutchSammelanAdmin(admin.ModelAdmin):
                         img_path = obj.photo.path
                         if os.path.exists(img_path):
                             serial_number = id_to_serial.get(obj.id, 0)
-                            filename = f"{serial_number}_{obj.name.replace(' ', '_')}{os.path.splitext(img_path)[1]}"
+                            dob_str = obj.dob.strftime('%d-%m-%Y') if obj.dob else 'nodob'
+                            filename = f"{serial_number}_{obj.name.replace(' ', '_')}_{dob_str}{os.path.splitext(img_path)[1]}"
                             zip_file.write(img_path, filename)
                     except Exception as e:
                         print(f"Error adding image to zip: {e}")
