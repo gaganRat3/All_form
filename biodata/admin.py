@@ -193,7 +193,8 @@ class SaurasthraKutchSammelanAdmin(admin.ModelAdmin):
         from django.http import HttpResponse
 
         zip_buffer = BytesIO()
-        id_to_serial = {obj.id: i+1 for i, obj in enumerate(queryset.order_by('submitted_at'))}
+        # Use global serial number as in admin list
+        all_ids = list(SaurasthraKutchSammelan.objects.all().order_by('submitted_at').values_list('id', flat=True))
         with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
             for obj in queryset.order_by('submitted_at'):
                 if not obj.photo:
@@ -204,8 +205,11 @@ class SaurasthraKutchSammelanAdmin(admin.ModelAdmin):
                     if not os.path.exists(img_path):
                         print(f"[DEBUG] Skipping {obj.name}: File does not exist at {img_path}")
                         continue
-                    serial_number = id_to_serial.get(obj.id, 0)
-                    # dob is a string, so use as-is, sanitize for filename
+                    try:
+                        position = all_ids.index(obj.id)
+                        serial_number = position + 1
+                    except ValueError:
+                        serial_number = 0
                     dob_str = obj.dob.replace(' ', '_').replace('/', '-').replace('\\', '-') if obj.dob else 'nodob'
                     filename = f"{serial_number}_{obj.name.replace(' ', '_')}_{dob_str}{os.path.splitext(img_path)[1]}"
                     print(f"[DEBUG] Adding file: {filename}")
