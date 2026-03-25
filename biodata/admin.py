@@ -245,7 +245,7 @@ class SaurasthraKutchSammelanAdmin(admin.ModelAdmin):
                 self.serial_number(obj),
                 obj.name,
                 obj.gender,
-                obj.dob.strftime('%Y-%m-%d') if obj.dob else '',
+                obj.dob if obj.dob else '',
                 obj.city,
                 '',  # Placeholder for image
                 obj.submitted_at.strftime('%Y-%m-%d %H:%M:%S') if obj.submitted_at else '',
@@ -295,7 +295,7 @@ class SaurasthraKutchSammelanAdmin(admin.ModelAdmin):
                 self.serial_number(obj),
                 obj.name,
                 obj.gender,
-                obj.dob.strftime('%Y-%m-%d') if obj.dob else '',
+                obj.dob if obj.dob else '',
                 obj.city,
                 obj.submitted_at.strftime('%Y-%m-%d %H:%M:%S') if obj.submitted_at else '',
             ]
