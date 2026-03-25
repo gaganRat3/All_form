@@ -196,16 +196,22 @@ class SaurasthraKutchSammelanAdmin(admin.ModelAdmin):
         id_to_serial = {obj.id: i+1 for i, obj in enumerate(queryset.order_by('submitted_at'))}
         with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
             for obj in queryset.order_by('submitted_at'):
-                if obj.photo:
-                    try:
-                        img_path = obj.photo.path
-                        if os.path.exists(img_path):
-                            serial_number = id_to_serial.get(obj.id, 0)
-                            dob_str = obj.dob.strftime('%d-%m-%Y') if obj.dob else 'nodob'
-                            filename = f"{serial_number}_{obj.name.replace(' ', '_')}_{dob_str}{os.path.splitext(img_path)[1]}"
-                            zip_file.write(img_path, filename)
-                    except Exception as e:
-                        print(f"Error adding image to zip: {e}")
+                if not obj.photo:
+                    print(f"[DEBUG] Skipping {obj.name}: No photo attached.")
+                    continue
+                try:
+                    img_path = obj.photo.path
+                    if not os.path.exists(img_path):
+                        print(f"[DEBUG] Skipping {obj.name}: File does not exist at {img_path}")
+                        continue
+                    serial_number = id_to_serial.get(obj.id, 0)
+                    # dob is a string, so use as-is, sanitize for filename
+                    dob_str = obj.dob.replace(' ', '_').replace('/', '-').replace('\\', '-') if obj.dob else 'nodob'
+                    filename = f"{serial_number}_{obj.name.replace(' ', '_')}_{dob_str}{os.path.splitext(img_path)[1]}"
+                    print(f"[DEBUG] Adding file: {filename}")
+                    zip_file.write(img_path, filename)
+                except Exception as e:
+                    print(f"[DEBUG] Error adding image for {obj.name}: {e}")
         zip_buffer.seek(0)
         response = HttpResponse(zip_buffer.read(), content_type='application/zip')
         response['Content-Disposition'] = 'attachment; filename=saurashtra_kutch_images.zip'
