@@ -80,8 +80,65 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(20, 184, 166, 0.7);
         }
+
+  
+    .header {
+      text-align: center;
+      padding: 40px 20px 32px;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      margin-top: 4px;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .sub-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+      margin-bottom: 8px;
+      padding: 12px;
+    }
+
+    .logo-responsive {
+      height: 60px;
+      width: auto;
+      max-width: 130px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: #ffffff;
+      padding: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-responsive:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .sub-logos {
+        gap: 24px;
+        padding: 8px;
+      }
+      .logo-responsive {
+        height: 44px;
+        max-width: 80px;
+      }
+    }
+
+
+
     </style>
 </head>
+
+ <div class="header">
+    <div class="sub-logos">
+      <img id="subLogoLeft" src="{% static 'images/img3.png' %}" alt="Left Logo" class="logo-responsive">
+      <img id="subLogoCenter" src="{% static 'images/img4.png' %}" alt="Center Logo" class="logo-responsive">
+      <img id="subLogoRight2" src="{% static 'images/img5.png' %}" alt="Right Logo 2" class="logo-responsive">
+    </div>
+  </div>
 <body class="antialiased text-slate-800">
     <div class="min-h-screen flex flex-col items-center justify-center py-8 px-4">
         <div id="root" class="w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl"></div>
@@ -226,10 +283,11 @@
                                 </span>
                             </div>
                             <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
-                                Flip-Book Access <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-200">Registration</span>
+                                Bhudev Matrimony 
+Flip-Book Library  <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-200">Registration</span>
                             </h1>
                             <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
-                                Applicable only for our Latest Premium Members after 1st Jan 2026. Fill up these details, and then submit, to get access to our exclusive Flipbook Library.
+                                To get the Flip-Book Library access, please Fill-up below online Registration Form and Submit. Then within 24 hrs, one of our Amdavad or Vadodara staff will contact you for Account Activation and Flip-Book access.
                             </p>
                         </div>
                     </div>
