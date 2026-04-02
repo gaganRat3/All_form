@@ -1,3 +1,4 @@
+
 from django.db import models
 
 class FlipBookAccessRegistration(models.Model):
@@ -21,6 +22,66 @@ class FlipBookAccessRegistration(models.Model):
 # 39th Sammelan Biodata Model
 class Sammelan39Biodata(models.Model):
     name = models.CharField(max_length=255)
+    gender = models.CharField(max_length=10)
+    dob = models.CharField(max_length=20)
+    marital = models.CharField(max_length=50)
+    disability = models.CharField(max_length=100)
+    tob = models.CharField(max_length=20)
+    birthPlace = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    visa = models.CharField(max_length=50)
+    height = models.CharField(max_length=20)
+    weight = models.CharField(max_length=20)
+    education = models.CharField(max_length=100)
+    educationDetail = models.CharField(max_length=200)
+    occupationCat = models.CharField(max_length=100)
+    occupationDetails = models.CharField(max_length=200)
+    salary = models.CharField(max_length=20)
+    shani = models.CharField(max_length=30)
+
+# Student Book Resale Registration Model (top-level)
+class StudentBookResaleRegistration(models.Model):
+    GENDER_CHOICES = [
+        ("Male", "Male"),
+        ("Female", "Female"),
+        ("Other", "Other"),
+        ("Prefer not to say", "Prefer not to say"),
+    ]
+    BOARD_CHOICES = [
+        ("CBSE", "CBSE"),
+        ("ICSE", "ICSE"),
+        ("State Board", "State Board"),
+        ("IB", "IB"),
+        ("IGCSE", "IGCSE"),
+        ("Other", "Other"),
+    ]
+    CLASS_CHOICES = [
+        ("Nursery", "Nursery"),
+        ("LKG", "LKG"),
+        ("UKG", "UKG"),
+        ("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5"),
+        ("6", "6"), ("7", "7"), ("8", "8"), ("9", "9"), ("10", "10"),
+        ("11", "11"), ("12", "12"),
+    ]
+
+    student_name = models.CharField(max_length=100)
+    father_name = models.CharField(max_length=100, blank=True)
+    mother_name = models.CharField(max_length=100, blank=True)
+    dob = models.DateField()
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES)
+    standard = models.CharField(max_length=10, choices=CLASS_CHOICES)
+    school = models.CharField(max_length=100)
+    board = models.CharField(max_length=20, choices=BOARD_CHOICES)
+    mother_whatsapp = models.CharField(max_length=10)
+    father_whatsapp = models.CharField(max_length=10)
+    area = models.CharField(max_length=100)
+    contact_details = models.TextField(blank=True)
+    participate = models.BooleanField(default=True)
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.student_name} ({self.standard}, {self.school})"
     gender = models.CharField(max_length=10)
     dob = models.CharField(max_length=20)
     marital = models.CharField(max_length=50)

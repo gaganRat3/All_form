@@ -1,6 +1,7 @@
 
 from django import forms
-from .models import FlipBookAccessRegistration
+
+from .models import FlipBookAccessRegistration, StudentBookResaleRegistration
 
 # Form for Flip-Book Access Registration
 class FlipBookAccessRegistrationForm(forms.ModelForm):
@@ -18,6 +19,28 @@ class FlipBookAccessRegistrationForm(forms.ModelForm):
 
 # Form for 39th Sammelan Biodata
 from .models import Sammelan39Biodata
+class StudentBookResaleRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = StudentBookResaleRegistration
+        fields = [
+            'student_name', 'father_name', 'mother_name', 'dob', 'gender', 'standard', 'school', 'board',
+            'mother_whatsapp', 'father_whatsapp', 'area', 'contact_details', 'participate'
+        ]
+        labels = {
+            'student_name': 'Student Name',
+            'father_name': 'Father Name',
+            'mother_name': 'Mother Name',
+            'dob': 'Date of Birth',
+            'gender': 'Gender',
+            'standard': 'Std (Class)',
+            'school': 'School',
+            'board': 'Board',
+            'mother_whatsapp': 'Mother WhatsApp Number',
+            'father_whatsapp': 'Father WhatsApp Number',
+            'area': 'Area / Locality',
+            'contact_details': 'Contact Details (Address / Landmark / Email)',
+            'participate': 'I want to participate',
+        }
 
 class Sammelan39BiodataForm(forms.ModelForm):
     class Meta:

@@ -1,0 +1,248 @@
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookCircle – Student Book Resale Registration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{font-family:'Outfit',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    :root{color-scheme:light}
+    .glass{background:rgba(255,255,255,.75);backdrop-filter:blur(16px)}
+    .shadow-soft{box-shadow:0 20px 40px -12px rgba(79,70,229,.25)}
+    .input{transition:all .2s}
+    .input:focus{transform:translateY(-1px)}
+    .scrollbar-hide::-webkit-scrollbar{display:none}
+    .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
+    @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .animate-in{animation:slideIn .4s ease-out}
+
+    /* Logo CSS */
+    .logo-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4rem;
+      padding: 1.5rem 0;
+      background: rgba(255,255,255,0.7);
+      border-radius: 0 0 1rem 1rem;
+      box-shadow: 0 20px 40px -12px rgba(79,70,229,.08);
+    }
+    .logo-responsive {
+      height: 60px;
+      width: auto;
+      max-width: 120px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.9);
+      padding: 5px;
+      transition: transform 0.3s ease;
+    }
+    .logo-responsive:hover {
+      transform: scale(1.05);
+    }
+    @media (max-width: 600px) {
+      .logo-bar { gap: 1.5rem; padding: 0.75rem 0; }
+      .logo-responsive { height: 40px; max-width: 80px; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-violet-50 text-slate-800">
+
+  <!-- Top Logos -->
+  <div class="logo-bar">
+    <img id="subLogoLeft" src="{% static 'images/img3.png' %}" alt="Left Logo" class="logo-responsive" />
+    <img id="subLogoCenter" src="{% static 'images/img4.png' %}" alt="Center Logo" class="logo-responsive" />
+    <img id="subLogoRight2" src="{% static 'images/img5.png' %}" alt="Right Logo 2" class="logo-responsive" />
+  </div>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16 grid lg:grid-cols-2 gap-10 items-center">
+      <div>
+        <span class="inline-flex items-center gap-2 rounded-full bg-indigo-600/10 px-3 py-1 text-xs font-semibold text-indigo-700 ring-1 ring-indigo-600/15">Pass the book forward</span>
+        <h1 class="mt-5 text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1]">
+          Give your <span class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">used books</span> a second life
+        </h1>
+        <p class="mt-4 text-slate-600 text-lg">
+          Students who have passed this year can register to sell their important textbooks and guides. Parents connect via WhatsApp. Simple, local, and trusted.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#register" class="inline-flex items-center justify-center rounded-2xl bg-indigo-600 px-5 py-3 font-semibold text-white shadow-soft hover:bg-indigo-700 active:scale-[.98]">Register Now</a>
+          <a href="#how" class="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 font-semibold hover:bg-slate-50">Learn More</a>
+        </div>
+        <div class="mt-8 flex items-center gap-6 text-sm text-slate-600">
+          <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span> No fees</div>
+          <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span> Parent-approved contacts</div>
+          <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span> Local pickup</div>
+        </div>
+      </div>
+      
+  </section>
+
+  <!-- Registration Form -->
+  <section id="register" class="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8 pb-8 sm:pb-12">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-8">
+      <div class="lg:col-span-3">
+        <form method="post" id="studentForm" class="glass rounded-2xl sm:rounded-[2rem] shadow-soft border border-white/60 p-3 sm:p-6 md:p-8 animate-in">
+          {% csrf_token %}
+          {% if success %}
+            <div class="mb-4 p-4 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-200">Registration successful!</div>
+          {% endif %}
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-bold">Student Registration</h2>
+              <p class="text-slate-600 mt-1">Fill once per student. You can edit later from the list below.</p>
+            </div>
+            <span class="hidden sm:inline-flex rounded-xl bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800 ring-1 ring-amber-200">Parent contact required</span>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+
+            <!-- Name -->
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium mb-1.5">Student Name <span class="text-rose-600">*</span></label>
+              <input name="studentName" required placeholder="e.g., Aarav Sharma" class="input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400" />
+            </div>
+
+            <!-- Father Name -->
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Father Name</label>
+              <input name="father_name" placeholder="e.g., Rajesh Sharma" class="input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400" />
+            </div>
+
+            <!-- Mother Name -->
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Mother Name</label>
+              <input name="mother_name" placeholder="e.g., Sunita Sharma" class="input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400" />
+            </div>
+
+            <!-- DOB -->
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Date of Birth <span class="text-rose-600">*</span></label>
+              <input type="date" name="dob" required max="" class="input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400" />
+            </div>
+
+            <!-- Gender -->
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Gender <span class="text-rose-600">*</span></label>
+              <select name="gender" required class="input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400">
+                <option value="" disabled selected>Select gender</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+
+            <!-- Class -->
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Std (Class) <span class="text-rose-600">*</span></label>
+              <select name="standard" required class="input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400">
+                <option value="" disabled selected>Select class</option>
+                <option>Nursery</option><option>LKG</option><option>UKG</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+                <option>11</option><option>12</option>
+              </select>
+            </div>
+
+            <!-- School -->
+            <div>
+              <label class="block text-sm font-medium mb-1.5">School <span class="text-rose-600">*</span></label>
+              <input name="school" required placeholder="School name" class="input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400" />
+            </div>
+
+            <!-- Board -->
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Board <span class="text-rose-600">*</span></label>
+              <select name="board" required class="input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400">
+                <option value="" disabled selected>Select board</option>
+                <option>CBSE</option>
+                <option>ICSE</option>
+                <option>State Board</option>
+                <option>IB</option>
+                <option>IGCSE</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <!-- Mother WhatsApp -->
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Mother WhatsApp Number <span class="text-rose-600">*</span></label>
+              <input type="tel" inputmode="numeric" pattern="[6-9][0-9]{9}" name="motherWhatsapp" required placeholder="10-digit number" class="input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400" />
+              <p class="mt-1 text-[11px] text-slate-500">India format, no +91</p>
+            </div>
+
+            <!-- Father WhatsApp -->
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Father WhatsApp Number <span class="text-rose-600">*</span></label>
+              <input type="tel" inputmode="numeric" pattern="[6-9][0-9]{9}" name="fatherWhatsapp" required placeholder="10-digit number" class="input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400" />
+            </div>
+
+            <!-- Area -->
+            <div>
+              <label class="block text-sm font-medium mb-1.5">Area / Locality <span class="text-rose-600">*</span></label>
+              <input list="areas" name="area" required placeholder="e.g., Kothrud, Pune" class="input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400" />
+              <datalist id="areas">
+                <option value="Kothrud"></option><option value="Baner"></option><option value="Wakad"></option>
+                <option value="Hadapsar"></option><option value="Viman Nagar"></option><option value="Kondhwa"></option>
+              </datalist>
+            </div>
+
+            <!-- Contact details -->
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium mb-1.5">Contact Details (Address / Landmark / Email)</label>
+              <textarea name="contactDetails" rows="3" placeholder="Flat no, society, landmark, alternate phone or email" class="input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400"></textarea>
+            </div>
+
+            <!-- Participate -->
+            <div class="sm:col-span-2 flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4">
+              <input id="participate" name="participate" type="checkbox" class="mt-1 h-5 w-5 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500" checked />
+              <label for="participate" class="text-sm">
+                <span class="font-semibold">I want to participate</span> in the book resale / exchange program and allow interested parents to contact me on the provided WhatsApp numbers.
+              </label>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <button type="submit" class="inline-flex items-center justify-center rounded-2xl bg-indigo-600 px-6 py-3 font-semibold text-white shadow-soft hover:bg-indigo-700 active:scale-[.99]">Submit Registration</button>
+            <button type="reset" class="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 font-semibold hover:bg-slate-50">Reset</button>
+            <p class="text-xs text-slate-500 ml-auto">By submitting, you agree to share contact details with verified parents only.</p>
+          </div>
+        </form>
+      </div>
+
+      <!-- Side info -->
+      <aside class="lg:col-span-2 mt-8 lg:mt-0">
+        <div id="how" class="glass rounded-2xl sm:rounded-[2rem] shadow-soft border border-white/60 p-3 sm:p-6 md:p-8 lg:sticky lg:top-24">
+          <h3 class="text-xl font-bold">How it works</h3>
+          <ol class="mt-4 space-y-4 text-sm">
+            <li class="flex gap-3"><span class="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-white text-xs font-bold">1</span><p><span class="font-semibold">Register</span> with student & parent WhatsApp. Takes 60 seconds.</p></li>
+            <li class="flex gap-3"><span class="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-white text-xs font-bold">2</span><p><span class="font-semibold">Get matched</span> with nearby parents looking for the same class & board.</p></li>
+            <li class="flex gap-3"><span class="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-white text-xs font-bold">3</span><p><span class="font-semibold">Meet & exchange</span> at a safe public place. No platform fees.</p></li>
+          </ol>
+          <div class="mt-6 rounded-2xl bg-emerald-50 p-4 text-sm text-emerald-800 ring-1 ring-emerald-200">
+            Pro tip: Mention exact edition/year in contact details to sell faster.
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+    {% include 'partials/footer.html' %}
+    {% include 'biodata/employa_footer.html' %}
+
+  <!-- Toasts -->
+  <div id="toasts" class="fixed top-4 right-4 z-50 space-y-2"></div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 py-8 text-center text-xs text-slate-500">
+    © <span id="year"></span> BookCircle • Made for students & parents • Privacy-first
+  </footer>
+
+  
+</body>
+</html>

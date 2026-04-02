@@ -26,9 +26,21 @@ SECRET_KEY = 'django-insecure-please-replace-this-with-your-own-secret-key'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# Add your PythonAnywhere domain or IP address here
 
-
+# Unified ALLOWED_HOSTS (remove duplicate/conflicting definitions)
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '46b5-103-228-147-142.ngrok-free.app',
+    'Shivani19.pythonanywhere.com',
+    'bhudevnetwork.pythonanywhere.com',
+    'fea1-103-241-224-11.ngrok-free.app',
+    '5f8e-103-241-224-105.ngrok-free.app',
+    'af8c-2405-201-2012-408a-bc7f-ef33-5b1b-cbeb.ngrok-free.app',
+    '3093-103-241-224-69.ngrok-free.app',
+    'a2d3-103-228-147-158.ngrok-free.app',
+    'form.bhudevstore.com',
+]
 
 # Remove CSRF_TRUSTED_ORIGINS if not using ngrok or multiple domains
 CSRF_TRUSTED_ORIGINS = [
@@ -36,6 +48,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://5f8e-103-241-224-105.ngrok-free.app",
     "https://3093-103-241-224-69.ngrok-free.app",
     "https://a2d3-103-228-147-158.ngrok-free.app",
+    "https://46b5-103-228-147-142.ngrok-free.app",
 ]
 
 # Application definition
@@ -212,19 +225,7 @@ EMAIL_SEND_AUTOMATIC = os.environ.get('EMAIL_SEND_AUTOMATIC', 'True') == 'True'
 # Removed ngrok URL as it is no longer needed
 PUBLIC_BASE_URL = 'https://a2d3-103-228-147-158.ngrok-free.app'
 
-# ALLOWED_HOSTS setup for current domain
-ALLOWED_HOSTS = [
-    'Shivani19.pythonanywhere.com',
-    '127.0.0.1',
-    'localhost',
-    'bhudevnetwork.pythonanywhere.com',
-    'fea1-103-241-224-11.ngrok-free.app',
-    '5f8e-103-241-224-105.ngrok-free.app',
-    'af8c-2405-201-2012-408a-bc7f-ef33-5b1b-cbeb.ngrok-free.app',
-    '3093-103-241-224-69.ngrok-free.app',
-    'a2d3-103-228-147-158.ngrok-free.app',
-    'form.bhudevstore.com'
-]
+## (Removed duplicate ALLOWED_HOSTS block above)
     
 #import cloudinary
 

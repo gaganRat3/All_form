@@ -1,5 +1,12 @@
 from django.contrib import admin
-from .models import FlipBookAccessRegistration, GetTogetherRegistration, BncBnfApplication
+from .models import FlipBookAccessRegistration, GetTogetherRegistration, BncBnfApplication, StudentBookResaleRegistration
+# Register StudentBookResaleRegistration in admin
+@admin.register(StudentBookResaleRegistration)
+class StudentBookResaleRegistrationAdmin(admin.ModelAdmin):
+    list_display = ('student_name', 'father_name', 'mother_name', 'dob', 'gender', 'standard', 'school', 'board', 'mother_whatsapp', 'father_whatsapp', 'area', 'participate', 'submitted_at')
+    search_fields = ('student_name', 'father_name', 'mother_name', 'school', 'area')
+    list_filter = ('gender', 'standard', 'board', 'area', 'participate')
+    readonly_fields = ('submitted_at',)
 
 # Register FlipBookAccessRegistration in admin
 @admin.register(FlipBookAccessRegistration)

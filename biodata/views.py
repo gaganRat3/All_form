@@ -1,5 +1,50 @@
 
-from .forms import FlipBookAccessRegistrationForm, GetTogetherRegistrationForm
+from .forms import FlipBookAccessRegistrationForm, GetTogetherRegistrationForm, StudentBookResaleRegistrationForm
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
+
+# Student Book Resale Registration View
+@csrf_exempt
+
+def student_book_resale_registration_view(request):
+    from .models import StudentBookResaleRegistration
+    context = {}
+    if request.method == 'POST':
+        # Map POST data from custom HTML form to model fields
+        data = request.POST
+        student_name = data.get('studentName')
+        father_name = data.get('father_name')
+        mother_name = data.get('mother_name')
+        dob = data.get('dob')
+        gender = data.get('gender')
+        standard = data.get('standard')
+        school = data.get('school')
+        board = data.get('board')
+        mother_whatsapp = data.get('motherWhatsapp')
+        father_whatsapp = data.get('fatherWhatsapp')
+        area = data.get('area')
+        contact_details = data.get('contactDetails')
+        participate = data.get('participate') == 'on'
+
+        # Save to DB
+        StudentBookResaleRegistration.objects.create(
+            student_name=student_name,
+            father_name=father_name,
+            mother_name=mother_name,
+            dob=dob,
+            gender=gender,
+            standard=standard,
+            school=school,
+            board=board,
+            mother_whatsapp=mother_whatsapp,
+            father_whatsapp=father_whatsapp,
+            area=area,
+            contact_details=contact_details,
+            participate=participate
+        )
+        context['success'] = True
+    return render(request, 'biodata/Student_Book_Resale_Registration.html', context)
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
