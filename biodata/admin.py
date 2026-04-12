@@ -346,7 +346,7 @@ class CourierBooklet35thBookingAdmin(admin.ModelAdmin):
 
     def payment_screenshot_preview(self, obj):
         if obj.payment_screenshot:
-            return format_html('<img src="{}" style="max-height: 100px; max-width: 100px;" />', obj.payment_screenshot.url)
+            return mark_safe(f'<img src="{obj.payment_screenshot.url}" style="max-height: 100px; max-width: 100px;" />')
         return "-"
     payment_screenshot_preview.short_description = 'Payment Screenshot'
 
