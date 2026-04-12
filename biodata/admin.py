@@ -346,7 +346,7 @@ class CourierBooklet35thBookingAdmin(admin.ModelAdmin):
 
     def payment_screenshot_preview(self, obj):
         if obj.payment_screenshot:
-            return format_html(f'<img src="{obj.payment_screenshot.url}" style="max-height: 100px; max-width: 100px;" />')
+            return format_html('<img src="{}" style="max-height: 100px; max-width: 100px;" />', obj.payment_screenshot.url)
         return "-"
     payment_screenshot_preview.short_description = 'Payment Screenshot'
 
@@ -427,7 +427,7 @@ class AdvancePassBookingAdmin(admin.ModelAdmin):
 
     def payment_screenshot_preview(self, obj):
         if obj.payment_screenshot:
-            return format_html(f'<img src="{obj.payment_screenshot.url}" style="max-height: 100px; max-width: 100px;" />')
+            return format_html('<img src="{}" style="max-height: 100px; max-width: 100px;" />', obj.payment_screenshot.url)
         return "-"
     payment_screenshot_preview.short_description = 'Payment Screenshot'
 
@@ -1588,7 +1588,7 @@ class TechnicalSupportRequestAdmin(admin.ModelAdmin):
                     previews.append(f'<img src="{a.file.url}" style="max-width:80px;max-height:80px;border-radius:8px;margin-right:8px;" />')
                 else:
                     previews.append(f'<a href="{a.file.url}" target="_blank">{a.filename}</a>')
-            return format_html(''.join(previews))
+            return mark_safe(''.join(previews))
         return "No images"
     image_preview.short_description = "Images"
 
