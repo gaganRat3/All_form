@@ -1023,11 +1023,11 @@ def advance_booklet_booking(request):
             print("POST data:", request.POST)
             print("FILES data:", request.FILES)
             # --- DEBUG CODE END ---
-            return render(request, 'biodata/Advance_booklet_booking.html', {'form': form})
+            return render(request, 'biodata/advance_booklet_booking.html', {'form': form})
     else:
         logger.info("GET request, rendering form")
         form = AdvanceBookletBookingForm()
-    return render(request, 'biodata/Advance_booklet_booking.html', {'form': form})
+    return render(request, 'biodata/advance_booklet_booking.html', {'form': form})
 
 def export_booklet_booking_and_images(request):
     bookings = AdvanceBookletBooking.objects.all()
