@@ -738,7 +738,7 @@ def technical_support_confirmation(request):
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms_astrology import AstrologyForm
 
-from .form_spot import AdvanceBookletBookingForm
+from .form_spot import AdvanceBookletBookingForm as SpotAdvanceBookletBookingForm
 from .forms_booklet_camp_adv import BookletCampAdvBookingForm
 
 from django.http import FileResponse, HttpResponseRedirect, HttpResponse
@@ -908,13 +908,13 @@ def advance_pass_booking(request):
         form = AdvancePassBookingForm(request.POST, request.FILES)
 
         if form.is_valid():
-            entry_token_qty = int(form.cleaned.data.get('entry_token_quantity', 0))
-            unlimited_buffet_qty = int(form.cleaned.data.get('unlimited_buffet_quantity', 0))
-
-            total_amount = (entry_token_qty * 20 + unlimited_buffet_qty * 200)
+            cleaned_data = form.cleaned_data
+            entry_token_qty = int(cleaned_data.get('entry_token_quantity', 0))
+            unlimited_buffet_qty = int(cleaned_data.get('unlimited_buffet_quantity', 0))
+            total_amount = cleaned_data.get('total_amount', 0)
 
             existing_booking = AdvancePassBooking.objects.filter(
-                email=form.cleaned.data['email'],
+                email=cleaned_data['email'],
                 entry_token_quantity=entry_token_qty,
                 unlimited_buffet_quantity=unlimited_buffet_qty,
             ).first()
@@ -924,36 +924,36 @@ def advance_pass_booking(request):
                 return render(request, 'biodata/advance_pass_booking.html', {'form': form, 'error_message': error_message})
 
             advance_pass_booking = AdvancePassBooking(
-                name=form.cleaned.data['name'],
-                city=form.cleaned.data['city'],
-                whatsapp_number=form.cleaned.data['whatsapp_number'],
-                email=form.cleaned.data['email'],
+                name=cleaned_data['name'],
+                city=cleaned_data['city'],
+                whatsapp_number=cleaned_data['whatsapp_number'],
+                email=cleaned_data['email'],
                 entry_token_quantity=entry_token_qty,
                 unlimited_buffet_quantity=unlimited_buffet_qty,
-                payment_screenshot=form.cleaned.data['payment_screenshot'],
+                payment_screenshot=cleaned_data['payment_screenshot'],
                 total_amount=total_amount,
             )
             advance_pass_booking.save()
 
             # Send confirmation email asynchronously
             email_subject = 'Advance Pass Booking Confirmation'
-            email_body = f"Dear {form.cleaned.data['name']},\n\nThank you for your advance pass booking.\n\nDetails:\n"
+            email_body = f"Dear {cleaned_data['name']},\n\nThank you for your advance pass booking.\n\nDetails:\n"
             if entry_token_qty > 0:
                 email_body += f"Entry Token Pass x {entry_token_qty}\n"
             if unlimited_buffet_qty > 0:
                 email_body += f"Unlimited Buffet Lunch x {unlimited_buffet_qty}\n"
             email_body += f"Total Amount: ₹{total_amount}\n\nThis booking Confirmation is valid only if your Payment is valid and if we have duly received your Payment as per your information given to us.\n\nRegards,\nEvent Team"
-            print(f"Sending email from: {settings.DEFAULT_FROM_EMAIL} to: {form.cleaned.data['email']}")
+            print(f"Sending email from: {settings.DEFAULT_FROM_EMAIL} to: {cleaned_data['email']}")
             if getattr(settings, 'EMAIL_SEND_AUTOMATIC', True):
                 email = EmailMessage(
                     email_subject,
                     email_body,
                     settings.DEFAULT_FROM_EMAIL,
-                    [form.cleaned.data['email']],
+                    [cleaned_data['email']],
                 )
                 threading.Thread(target=send_email_async, args=(email,)).start()
             else:
-                logger.info(f"EMAIL_SEND_AUTOMATIC is False: skipping advance_pass_booking confirmation email to {form.cleaned.data.get('email')}")
+                logger.info(f"EMAIL_SEND_AUTOMATIC is False: skipping advance_pass_booking confirmation email to {cleaned_data.get('email')}")
 
             return render(request, 'biodata/advance_pass_booking_success.html', {'form': form, 'total_amount': total_amount})
         else:
@@ -983,33 +983,33 @@ def advance_booklet_booking(request):
         form = AdvanceBookletBookingForm(request.POST, request.FILES)
         if form.is_valid():
             logger.info("Form is valid")
-            total_amount = form.cleaned.data.get('total_amount', 0)
+            cleaned_data = form.cleaned_data
+            total_amount = cleaned_data.get('total_amount', 0)
 
             advance_booklet_booking = form.save(commit=False)
             advance_booklet_booking.total_amount = total_amount
-            advance_booklet_booking.with_courier = True
             advance_booklet_booking.save()
 
             # Send confirmation email asynchronously
             email_subject = 'Advance Booklet Booking Confirmation'
-            email_body = f"Dear {form.cleaned.data['name']},\n\nThank you for your advance booklet booking.\n\nDetails:\n"
-            if form.cleaned.data.get('girls_booklet_with'):
+            email_body = f"Dear {cleaned_data['name']},\n\nThank you for your advance booklet booking.\n\nDetails:\n"
+            if cleaned_data.get('girls_booklet_with'):
                 email_body += "Girls Biodata Booklet (With Courier)\n"
-            if form.cleaned.data.get('boys_booklet_with'):
+            if cleaned_data.get('boys_booklet_with'):
                 email_body += "Boys Biodata Booklet (With Courier)\n"
-            email_body += f"Courier Address: {form.cleaned.data.get('courier_address')}\n"
+            email_body += f"Courier Address: {cleaned_data.get('courier_address', '')}\n"
             email_body += f"Total Amount: ₹{total_amount}\n\nThis booking Confirmation is valid only if your Payment is valid and if we have duly received your Payment as per your information given to us.\n\nRegards,\nEvent Team"
-            print(f"Sending email from: {settings.DEFAULT_FROM_EMAIL} to: {form.cleaned.data['email']}")
+            print(f"Sending email from: {settings.DEFAULT_FROM_EMAIL} to: {cleaned_data['email']}")
             if getattr(settings, 'EMAIL_SEND_AUTOMATIC', True):
                 email = EmailMessage(
                     email_subject,
                     email_body,
                     settings.DEFAULT_FROM_EMAIL,
-                    [form.cleaned.data['email']],
+                    [cleaned_data['email']],
                 )
                 threading.Thread(target=send_email_async, args=(email,)).start()
             else:
-                logger.info(f"EMAIL_SEND_AUTOMATIC is False: skipping advance_booklet_booking confirmation email to {form.cleaned.data.get('email')}")
+                logger.info(f"EMAIL_SEND_AUTOMATIC is False: skipping advance_booklet_booking confirmation email to {cleaned_data.get('email')}")
 
             logger.info("Redirecting to confirmation page")
             return redirect('advance_booklet_booking_confirmation', booking_id=advance_booklet_booking.id)

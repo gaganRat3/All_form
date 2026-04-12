@@ -59,7 +59,6 @@ class AdvanceBookletBookingForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        instance.with_courier = True  # Force with_courier to always be True
         # Set total_amount from cleaned_data calculated value
         if 'total_amount' in self.cleaned_data:
             instance.total_amount = self.cleaned_data['total_amount']
