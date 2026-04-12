@@ -85,6 +85,13 @@
     }
 </style>
 
+
+<div class="logo-bar">
+    <img id="subLogoLeft" src="{% static 'images/img3.png' %}" alt="Left Logo" class="logo-responsive" />
+    <img id="subLogoCenter" src="{% static 'images/img4.png' %}" alt="Center Logo" class="logo-responsive" />
+    <img id="subLogoRight2" src="{% static 'images/img5.png' %}" alt="Right Logo 2" class="logo-responsive" />
+  </div>
+
 <div class="event-header-gujarati">
     <span>
         35th સમસ્ત બ્રાહ્મણ - ભુદેવ જીવનસાથી પસંદગી સંમેલન
@@ -947,6 +954,36 @@
         height: 100%;
         background: currentColor;
         opacity: 0.7;
+    }
+
+
+        /* Logo CSS */
+    .logo-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4rem;
+      padding: 1.5rem 0;
+      background: rgba(255,255,255,0.7);
+      border-radius: 0 0 1rem 1rem;
+      box-shadow: 0 20px 40px -12px rgba(79,70,229,.08);
+    }
+    .logo-responsive {
+      height: 60px;
+      width: auto;
+      max-width: 120px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.9);
+      padding: 5px;
+      transition: transform 0.3s ease;
+    }
+    .logo-responsive:hover {
+      transform: scale(1.05);
+    }
+    @media (max-width: 600px) {
+      .logo-bar { gap: 1.5rem; padding: 0.75rem 0; }
+      .logo-responsive { height: 40px; max-width: 80px; }
     }
 </style>
 
