@@ -121,8 +121,11 @@ class Sammelan37MumbaiMaharashtraForm(forms.ModelForm):
 
 class SaurasthraKutchSammelanForm(forms.ModelForm):
     RESCAT_CHOICES = [
-        ('saurashtra', 'Saurashtra Region'),
-        ('kachchh', 'Kachchh Region'),
+        ('gujarat_region', 'Gujarat Region (North or Central or South)'),
+        ('saurashtra_region', 'Saurashtra Region'),
+        ('kachchh_region', 'Kachchh Region'),
+        ('mumbai_maharashtra', 'Mumbai & Maharashtra Region'),
+        ('rest_of_india', 'Rest of Indian Region (except Gujarat & Maharashtra)'),
         ('nri', 'NRI (Any Visa)'),
     ]
     resCat = forms.ChoiceField(choices=RESCAT_CHOICES, required=True, label='Current Residence Area')

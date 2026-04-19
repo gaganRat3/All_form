@@ -951,9 +951,12 @@
           <label for="resCat">39. Current Residence Area</label>
           <select id="resCat" name="resCat" required>
             <option value="">Select an Option</option>
-            <option value="saurashtra">Saurashtra Region</option>
-            <option value="kutch">Kutch Region</option>
-            <option value="nri">NRI (Any Visa)</option>
+            <option value="gujarat_region" {% if form.resCat.value == 'gujarat_region' %}selected{% endif %}>Gujarat Region (North or Central or South)</option>
+            <option value="saurashtra_region" {% if form.resCat.value == 'saurashtra_region' %}selected{% endif %}>Saurashtra Region</option>
+            <option value="kachchh_region" {% if form.resCat.value == 'kachchh_region' %}selected{% endif %}>Kachchh Region</option>
+            <option value="mumbai_maharashtra" {% if form.resCat.value == 'mumbai_maharashtra' %}selected{% endif %}>Mumbai & Maharashtra Region</option>
+            <option value="rest_of_india" {% if form.resCat.value == 'rest_of_india' %}selected{% endif %}>Rest of Indian Region (except Gujarat & Maharashtra)</option>
+            <option value="nri" {% if form.resCat.value == 'nri' %}selected{% endif %}>NRI (Any Visa)</option>
           </select>
         </div>
         <div>
