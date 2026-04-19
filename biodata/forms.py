@@ -106,6 +106,9 @@ class FortyPlusSammelanForm(forms.ModelForm):
 
 class Sammelan37MumbaiMaharashtraForm(forms.ModelForm):
     RESCAT_CHOICES = [
+        ('gujarat_region', 'Gujarat Region (North or Central or South)'),
+        ('saurashtra_region', 'Saurashtra Region'),
+        ('kachchh_region', 'Kachchh Region'),
         ('mumbai_maharashtra', 'Mumbai & Maharashtra Region'),
         ('rest_of_india', 'Rest of Indian Region (except Gujarat & Maharashtra)'),
         ('nri', 'NRI (Any Visa)'),

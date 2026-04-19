@@ -17,7 +17,9 @@ def validate_email(email):
         return False
     return True
 
-def sammelan_37_mumbai_maharashtra_view(request):
+def sammelan_37_uk_europe_view(request):
+    residence_choices = Sammelan37MumbaiMaharashtra.RESIDENCE_CHOICES
+
     if request.method == 'POST':
         data = request.POST.copy()
         photo = request.FILES.get('photo')
@@ -64,7 +66,9 @@ def sammelan_37_mumbai_maharashtra_view(request):
         if errors:
             context = {
                 'form': data,
-                'errors': errors
+                'errors': errors,
+                'residence_choices': residence_choices,
+                'selected_rescat': data.get('resCat', ''),
             }
             return render(request, 'biodata/37_sammelan_UK_europe.html', context)
         
@@ -77,17 +81,45 @@ def sammelan_37_mumbai_maharashtra_view(request):
                     instance.photo = photo
                 elif fname in data:
                     setattr(instance, fname, data.get(fname))
+            # Ensure all mapped values are valid before saving to DB.
+            instance.full_clean()
             instance.save()
             messages.success(request, 'Your registration has been submitted successfully!')
-            return redirect('37th_sammelan_mumbai_maharashtra_success')
+            return redirect('37th_sammelan_uk_europe_success')
+        except ValidationError as e:
+            model_errors = {}
+            for field_name, messages_list in e.message_dict.items():
+                if isinstance(messages_list, list) and messages_list:
+                    model_errors[field_name] = messages_list[0]
+                else:
+                    model_errors[field_name] = str(messages_list)
+
+            context = {
+                'form': data,
+                'errors': model_errors,
+                'residence_choices': residence_choices,
+                'selected_rescat': data.get('resCat', ''),
+            }
+            return render(request, 'biodata/37_sammelan_UK_europe.html', context)
         except Exception as e:
             context = {
                 'form': data,
-                'errors': {'general': f'Error saving registration: {str(e)}'}
+                'errors': {'general': f'Error saving registration: {str(e)}'},
+                'residence_choices': residence_choices,
+                'selected_rescat': data.get('resCat', ''),
             }
             return render(request, 'biodata/37_sammelan_UK_europe.html', context)
     
-    return render(request, 'biodata/37_sammelan_UK_europe.html')
+    context = {
+        'residence_choices': residence_choices,
+        'selected_rescat': '',
+    }
+    return render(request, 'biodata/37_sammelan_UK_europe.html', context)
 
-def sammelan_37_mumbai_maharashtra_success(request):
-    return render(request, 'biodata/37_sammelan_success.html')
+def sammelan_37_uk_europe_success(request):
+    return render(request, 'biodata/37_sammelan_UK_europe_success.html')
+
+
+# Backward-compatible aliases
+sammelan_37_mumbai_maharashtra_view = sammelan_37_uk_europe_view
+sammelan_37_mumbai_maharashtra_success = sammelan_37_uk_europe_success

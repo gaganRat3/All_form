@@ -98,5 +98,5 @@ class Sammelan37MumbaiMaharashtra(models.Model):
         return self.name
     
     class Meta:
-        verbose_name = "37th Sammelan - Mumbai & Maharashtra"
-        verbose_name_plural = "37th Sammelan - Mumbai & Maharashtra"
+        verbose_name = "37th Sammelan - UK & Europe"
+        verbose_name_plural = "37th Sammelan - UK & Europe"

@@ -3,6 +3,7 @@ from . import views
 from . import views_divorce_sammelan
 from . import views_40plus_sammelan
 from .views import astrology_form_view, technical_support, technical_support_confirmation, bk2026_registration_view, submit_bk2026_registration
+from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -38,10 +39,12 @@ urlpatterns = [
     # Get-Together Registration Routes
     path('get-together-registration/', views.get_together_registration_view, name='get_together_registration'),
     path('get-together-confirmation/<int:registration_id>/', views.get_together_confirmation, name='get_together_confirmation'),
+    path('37th-uk-europe/admin', RedirectView.as_view(url='/admin/', permanent=False)),
+    path('37th-uk-europe/admin/', RedirectView.as_view(url='/admin/', permanent=False)),
     path('', views.home_page, name='home_page'),
     path('divorce-sammelan-form/', views_divorce_sammelan.divorce_sammelan_form_view, name='divorce_sammelan_form'),
-        path('37th-uk-europe/', __import__('biodata.views_37th_sammelan').views_37th_sammelan.sammelan_37_mumbai_maharashtra_view, name='37th_sammelan_uk_europe'),
-        path('37th-uk-europe/success/', __import__('biodata.views_37th_sammelan').views_37th_sammelan.sammelan_37_mumbai_maharashtra_success, name='37th_sammelan_uk_europe_success'),
+        path('37th-uk-europe/', __import__('biodata.views_37th_sammelan').views_37th_sammelan.sammelan_37_uk_europe_view, name='37th_sammelan_uk_europe'),
+        path('37th-uk-europe/success/', __import__('biodata.views_37th_sammelan').views_37th_sammelan.sammelan_37_uk_europe_success, name='37th_sammelan_uk_europe_success'),
     path('39th-sammelan-form/', views.sammelan_39th_form_view, name='39th_sammelan_form'),
     path('39th-sammelan-form/success/', views.sammelan_39th_success, name='39th_sammelan_success'),
     path('40-plus-sammelan-form/', views_40plus_sammelan.forty_plus_sammelan_form_view, name='40_plus_sammelan_form'),
