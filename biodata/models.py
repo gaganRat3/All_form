@@ -718,6 +718,9 @@ class ParticipantRegistration(models.Model):
         return str(self.events)
         # ...existing code...
 
+        # Import ReferralProgram for migrations
+        from .models_referral_program import ReferralProgram
+
 class BhudevSammelanRegistration(models.Model):
     declaration = models.CharField(max_length=10, choices=[
         ('agree', 'Agree (ઉપર મુજબ હું માનું છું)'),

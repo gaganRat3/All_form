@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral Submitted Successfully</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .success-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 60px 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            animation: scaleIn 0.6s ease-out;
+            font-size: 3.5em;
+            color: white;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            color: #2d3748;
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        p {
+            color: #718096;
+            font-size: 1.05em;
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        .info-box {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .info-box strong {
+            color: #2d3748;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .info-box span {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-direction: column;
+        }
+
+        a, button {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #7c3aed;
+            border: 2px solid #7c3aed;
+        }
+
+        .btn-secondary:hover {
+            background: #f7fafc;
+            transform: translateY(-2px);
+        }
+
+        .success-message {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .check-mark {
+            display: inline-block;
+            animation: checkAnimation 0.6s ease-out 0.3s both;
+        }
+
+        @keyframes checkAnimation {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-45deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .success-container {
+                padding: 40px 25px;
+            }
+
+            h2 {
+                font-size: 1.6em;
+            }
+
+            p {
+                font-size: 0.95em;
+            }
+
+            .success-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5em;
+            }
+
+            a, button {
+                padding: 12px 24px;
+                font-size: 0.9em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">
+            <span class="check-mark">✓</span>
+        </div>
+        <h2>Thank You!</h2>
+        <p>Your referral has been <strong>successfully submitted</strong>. We appreciate your participation in our program.</p>
+        
+        <div class="info-box">
+            <strong>What's Next?</strong>
+            <span>Our team will review your referral and contact you soon with updates and rewards details.</span>
+        </div>
+
+        <div class="button-group">
+            {% comment %} <a href="/" class="btn-primary">
+                <i class="fas fa-home"></i> Back to Home
+            </a> {% endcomment %}
+            <a href="{% url 'referral_program_form' %}" class="btn-secondary">
+                <i class="fas fa-plus"></i> Submit Another Referral
+            </a>
+        </div>
+    </div>
+</body>
+</html>

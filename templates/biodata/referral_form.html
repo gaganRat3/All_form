@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhudev Matrimony - Referral Program</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            --secondary-gradient: linear-gradient(135deg, #c4b5fd 0%, #ddd6fe 100%);
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --border-light: #e2e8f0;
+            --success: #6366f1;
+            --error: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            max-width: 700px;
+            width: 100%;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            background: var(--primary-gradient);
+            color: #fff;
+            padding: 45px 35px 35px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        header h1 {
+            font-size: 2.4em;
+            font-weight: 800;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: 1em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        header .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro-text {
+            padding: 35px;
+            background: #f7fafc;
+            border-bottom: 2px solid var(--border-light);
+            line-height: 1.8;
+        }
+
+        .intro-text strong {
+            color: #667eea;
+            font-size: 1.05em;
+        }
+
+        .intro-text p {
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            font-size: 0.95em;
+        }
+
+        .intro-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .benefit-item {
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.85em;
+            color: var(--text-dark);
+            border: 1px solid var(--border-light);
+        }
+
+        form {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        form h2 {
+            text-align: center;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        .form-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group label .icon {
+            color: #7c3aed;
+            font-size: 1.1em;
+            width: 20px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group input[type="date"] {
+            padding: 14px 16px;
+            border: 2px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #7c3aed;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+        }
+
+        .form-group input:valid {
+            border-color: var(--success);
+            background: rgba(99, 102, 241, 0.02);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 30px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .radio-option input[type="radio"] {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border-light);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .radio-option input[type="radio"]:hover {
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+        }
+
+        .radio-option input[type="radio"]:checked {
+            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            border-color: #7c3aed;
+            box-shadow: inset 0 0 0 3px white;
+        }
+
+        .radio-option label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.85em;
+            margin-top: -8px;
+        }
+
+        button[type="submit"] {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+        }
+
+        button[type="submit"]::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button[type="submit"]:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(124, 58, 237, 0.4);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(-1px);
+        }
+
+        button[type="submit"]:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .error-summary {
+            background: #fff5f5;
+            color: var(--error);
+            padding: 16px;
+            border-radius: 10px;
+            border-left: 4px solid var(--error);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            header {
+                padding: 30px 20px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .intro-text {
+                padding: 20px;
+                font-size: 0.9em;
+            }
+
+            form {
+                padding: 25px;
+                gap: 20px;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            button[type="submit"] {
+                font-size: 1em;
+                padding: 14px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            header .icon {
+                font-size: 2em;
+            }
+
+            .intro-text {
+                padding: 15px;
+                text-align: left;
+            }
+
+            form {
+                padding: 18px;
+                gap: 18px;
+            }
+
+            .form-group label {
+                font-size: 0.9em;
+            }
+
+            .radio-option {
+                gap: 10px;
+            }
+
+            button[type="submit"] {
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="icon">🎁</div>
+            <h1>Referral Program</h1>
+            <p class="subtitle">Join Free & Get Gifts (By Bhudev Matrimony)</p>
+        </header>
+
+        <section class="intro-text">
+            <p><strong>હવે તમે પણ, દેશ - વિદેશ થી, ઘરે બેઠા આપણી ભૂદેવ મેટ્રિમોની નું આ Vivah - લગ્ન મેળાપક નું શુભ કાર્ય કરીને પુણ્ય મેળવી શકો છો. સાથે, Cashback - Discount - Refund - Gifts પણ ખરું. (Zero Joining Fees)</strong></p>
+            <p>✔️ આ Referal પ્રોગ્રામ મા, તમે, તમારા સગા - સંબંધી ને આપણુ ભૂદેવ મેટ્રિમોની Refer કરીને, આપણી Website મા જોડી ને, આપણાજ દીકરા - દીકરીઓ ને વધુ ચોઈસ મળે, તથા, વધુ મા વધુ vivah - લગ્નો થાય તે માટે આ ઉત્તમ કાર્ય મા જોડાઈ શકો છો.</p>
+            <div class="benefits">
+                <div class="benefit-item">💰 Cashback</div>
+                <div class="benefit-item">🎁 Gifts</div>
+                <div class="benefit-item">🏆 Fame</div>
+                <div class="benefit-item">🎯 Rewards</div>
+            </div>
+        </section>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <h2>Your Information</h2>
+            <div class="form-divider"></div>
+
+            {% if form.errors %}
+                <div class="error-summary">
+                    <i class="fas fa-exclamation-circle"></i> Please correct the errors below.
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">
+                    <i class="fas fa-user icon"></i>{{ form.name.label }}
+                </label>
+                {{ form.name }}
+                {% if form.name.errors %}<div class="error-message">{{ form.name.errors.0 }}</div>{% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.city.id_for_label }}">
+                    <i class="fas fa-map-marker-alt icon"></i>{{ form.city.label }}
+                </label>
+                {{ form.city }}
+                {% if form.city.errors %}<div class="error-message">{{ form.city.errors.0 }}</div>{% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.candidate_name.id_for_label }}">
+                    <i class="fas fa-child icon"></i>{{ form.candidate_name.label }}
+                </label>
+                {{ form.candidate_name }}
+                {% if form.candidate_name.errors %}<div class="error-message">{{ form.candidate_name.errors.0 }}</div>{% endif %}
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <i class="fas fa-venus-mars icon"></i>{{ form.candidate_gender.label }}
+                </label>
+                <div class="radio-group">
+                    {% for value, choice_label in form.candidate_gender.field.choices %}
+                        {% if value %}
+                        <label class="radio-option">
+                            <input type="radio" name="candidate_gender" value="{{ value }}" {% if form.candidate_gender.value == value %}checked{% endif %} required>
+                            <span>{{ choice_label }}</span>
+                        </label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% if form.candidate_gender.errors %}<div class="error-message">{{ form.candidate_gender.errors.0 }}</div>{% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.candidate_dob.id_for_label }}">
+                    <i class="fas fa-birthday-cake icon"></i>{{ form.candidate_dob.label }}
+                </label>
+                {{ form.candidate_dob }}
+                {% if form.candidate_dob.errors %}<div class="error-message">{{ form.candidate_dob.errors.0 }}</div>{% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.mobile_no.id_for_label }}">
+                    <i class="fas fa-phone icon"></i>{{ form.mobile_no.label }}
+                </label>
+                {{ form.mobile_no }}
+                {% if form.mobile_no.errors %}<div class="error-message">{{ form.mobile_no.errors.0 }}</div>{% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.whatsapp_no.id_for_label }}">
+                    <i class="fab fa-whatsapp icon"></i>{{ form.whatsapp_no.label }}
+                </label>
+                {{ form.whatsapp_no }}
+                {% if form.whatsapp_no.errors %}<div class="error-message">{{ form.whatsapp_no.errors.0 }}</div>{% endif %}
+            </div>
+
+            <button type="submit">
+                <i class="fas fa-paper-plane"></i> Submit Referral
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('input[type="text"], input[type="tel"]');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.value.trim() !== '') {
+                        this.style.borderColor = '#6366f1';
+                    }
+                });
+            });
+
+            // Auto-format DOB with dashes (DD-MM-YYYY)
+            // Works even if Django generates an auto id like "id_candidate_dob".
+            const dobInput =
+                document.querySelector('input[name="candidate_dob"]') ||
+                document.getElementById('id_candidate_dob') ||
+                document.getElementById('dobInput');
+
+            // If the widget is a native <input type="date">, browsers already format with dashes.
+            if (dobInput && dobInput.type !== 'date') {
+                if (!dobInput.placeholder) dobInput.placeholder = 'DD-MM-YYYY';
+
+                dobInput.addEventListener('input', function() {
+                    let digits = this.value.replace(/\D/g, '').slice(0, 8);
+                    if (digits.length <= 2) {
+                        this.value = digits;
+                        return;
+                    }
+                    if (digits.length <= 4) {
+                        this.value = `${digits.slice(0, 2)}-${digits.slice(2)}`;
+                        return;
+                    }
+                    this.value = `${digits.slice(0, 2)}-${digits.slice(2, 4)}-${digits.slice(4)}`;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

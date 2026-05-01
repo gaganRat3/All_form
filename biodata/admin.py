@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import FlipBookAccessRegistration, GetTogetherRegistration, BncBnfApplication, StudentBookResaleRegistration
+from .models_referral_program import ReferralProgram
 # Register StudentBookResaleRegistration in admin
 @admin.register(StudentBookResaleRegistration)
 class StudentBookResaleRegistrationAdmin(admin.ModelAdmin):
@@ -7,6 +8,14 @@ class StudentBookResaleRegistrationAdmin(admin.ModelAdmin):
     search_fields = ('student_name', 'father_name', 'mother_name', 'school', 'area')
     list_filter = ('gender', 'standard', 'board', 'area', 'participate')
     readonly_fields = ('submitted_at',)
+
+# Register ReferralProgram in admin
+@admin.register(ReferralProgram)
+class ReferralProgramAdmin(admin.ModelAdmin):
+    list_display = ('name', 'city', 'candidate_name', 'candidate_gender', 'candidate_dob', 'mobile_no', 'whatsapp_no', 'created_at')
+    search_fields = ('name', 'city', 'candidate_name', 'mobile_no', 'whatsapp_no')
+    list_filter = ('candidate_gender', 'city', 'created_at')
+    readonly_fields = ('created_at',)
 
 # Register FlipBookAccessRegistration in admin
 @admin.register(FlipBookAccessRegistration)

@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . import views_referral_program
 from . import views_divorce_sammelan
 from . import views_40plus_sammelan
 from .views import astrology_form_view, technical_support, technical_support_confirmation, bk2026_registration_view, submit_bk2026_registration
@@ -15,6 +16,9 @@ urlpatterns = [
     path('garba-pass-registration', views.garba_pass_registration_view, name='garba_pass_registration'),
     path('bncf-application/', views.bncf_application_view, name='bncf_application'),
     # Other URL patterns...
+
+    # Referral Program
+    path('referral-program/', views_referral_program.join_referral_program, name='referral_program_form'),
 
     path('birthday-form/', views.birthday_form_view, name='birthday_form'),
     path('submit-birthday/', views.submit_birthday, name='submit_birthday'),
