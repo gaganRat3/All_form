@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -379,10 +380,106 @@
                 font-size: 0.95em;
             }
         }
+
+          .header {
+      text-align: center;
+      position: relative;
+      padding: 45px 18px 35px 18px;
+      z-index: 20;
+      background: linear-gradient(180deg, #f5e6d3 0%, #fef5e7 100%);
+      border-bottom: 4px solid #d4af37;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+      margin-top: 8px;
+    }
+
+    /* Logo section styles */
+    .sub-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 100px;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: transparent;
+      border-radius: 15px;
+    }
+
+    .logo-responsive {
+      height: 65px;
+      width: auto;
+      max-width: 140px;
+      object-fit: contain;
+      transition: transform 0.4s ease, filter 0.4s ease;
+      border-radius: 8px;
+      background: transparent;
+      padding: 8px;
+      filter: drop-shadow(0 3px 8px rgba(196, 30, 58, 0.15));
+    }
+
+    .logo-responsive:hover {
+      transform: scale(1.12) translateY(-5px);
+      filter: drop-shadow(0 6px 15px rgba(196, 30, 58, 0.25));
+    }
+
+    /* Mobile logo adjustments */
+    @media (max-width: 768px) {
+      .sub-logos {
+        gap: 40px;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+
+      .logo-responsive {
+        height: 50px;
+        max-width: 90px;
+      }
+
+      .poster-image {
+        max-width: 90% !important;
+        margin: 0 auto;
+      }
+    }
+
+
+    
+    .image-container-content {
+      max-width: 930px;
+      margin: 55px auto;
+      padding: 0 20px;
+    }
+
+    .placeholder-poster {
+      text-align: center;
+    }
+
+    .placeholder-poster img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 14px;
+      box-shadow: 0 12px 40px rgba(196, 30, 58, 0.25);
+      transition: transform 0.4s ease;
+      border: 4px solid #d4af37;
+    }
+
+    .placeholder-poster img:hover {
+      transform: scale(1.03);
+    }
+
     </style>
 </head>
 <body>
+   
     <div class="container">
+          <div class="header">
+            <div class="sub-logos">
+                <img id="subLogoLeft" src="{% static 'images/img3.png' %}" alt="Left Logo" class="logo-responsive"><!-- Left sub-logo URL -->
+                <img id="subLogoCenter" src="{% static 'images/img4.png' %}" alt="Center Logo" class="logo-responsive"><!-- Center sub-logo URL -->
+
+<img id="subLogoRight2" src="{% static 'images/img5.png' %}" alt="Right Logo 2" class="logo-responsive">
+            </div>
+
+  {% comment %} <img id="subLogoRight1" src="{% static 'images/img5.png' %}" alt="Right Logo 1" class="logo-responsive"><!-- Right sub-logo 1 URL --> {% endcomment %}
+        </div>
         <header>
             <div class="icon">🎁</div>
             <h1>Referral Program</h1>
@@ -479,7 +576,17 @@
             <button type="submit">
                 <i class="fas fa-paper-plane"></i> Submit Referral
             </button>
+            
         </form>
+         <!-- Team Image Section -->
+    <div class="image-container-content">
+      <div class="placeholder-poster">
+        <img src="{% static 'images/team.jpg' %}" alt="Our Team">
+      </div>
+    </div>
+
+    {% include 'partials/footer.html' %}
+    {% include 'biodata/employa_footer.html' %}
     </div>
 
     <script>
