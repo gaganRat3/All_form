@@ -808,6 +808,10 @@
     <h3>36મું ભૂદેવ જીવનસાથી સંમેલન</h3>
 </div>
 
+  <div style="max-width:700px;margin:24px auto 0 auto;padding:18px 24px;background:linear-gradient(90deg,#ffe4ec,#fff0f5);border:2px solid #e91e8c;border-radius:14px;text-align:center;font-size:1.3rem;font-weight:700;color:#e91e8c;box-shadow:0 4px 18px rgba(233,30,140,0.10);">
+    🚫 Form is Closed Now
+  </div>
+
   <!-- Event Description Start -->
   <div class="event-description-box">
   <b>36મું ભૂદેવ જીવનસાથી સંમેલન — સૌરાષ્ટ્ર અને કચ્છ</b><br><br>
@@ -821,9 +825,13 @@
   ✓ બુકલેટ રેજીસ્ટર્ડ યુવતીઓ ઓનલાઈન પરિચય આપશે અને Free Booklet મળશે<br>
   ✓ અન્ય યુવકો (Boys) માટે: Registration Fees = Rs 600 (1 Booklet સાથે)
   </div>
+
+  <div>
+    Form is Close Now  
+
   <!-- Event Description End -->
 
-    <form method="post" action="{% url 'saurashtra_kutch_sammelan_form' %}" enctype="multipart/form-data" class="sammelan-form-40plus">
+    {% comment %} <form method="post" action="{% url 'saurashtra_kutch_sammelan_form' %}" enctype="multipart/form-data" class="sammelan-form-40plus">
       {% csrf_token %}
 
       {% if errors %}
@@ -846,7 +854,7 @@
         <div class="progress-step"><span class="step-num">5</span> Submit</div>
       </div> {% endcomment %}
 
-      <div class="form-section personal-form">
+      {% comment %} <div class="form-section personal-form">
         <div class="form-section-title">Personal Details</div>
         <div class="form-grid">
           <div class="full">
@@ -1228,7 +1236,7 @@
 
       <div class="divider"></div>
       <button type="submit">Submit Registration</button>
-    </form>
+    </form> {% endcomment %} 
 
     <div class="image-container-content">
       <div class="placeholder-poster">
