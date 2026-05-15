@@ -1,3 +1,644 @@
+from django.views.decorators.csrf import csrf_exempt
+import pandas as pd
+import uuid
+import os
+import openpyxl
+import pickle
+import hashlib
+from django.conf import settings
+from django.shortcuts import render
+from .serial_search_forms import SerialSearchForm
+from .models import ExcelFile
+import logging
+import re
+import datetime
+
+@csrf_exempt
+def serial_search(request):
+    logger = logging.getLogger(__name__)
+    results = []
+    columns_info = None
+
+    # Directory to store cache files
+    cache_dir = os.path.join(settings.MEDIA_ROOT, 'excel_cache')
+    if not os.path.exists(cache_dir):
+        os.makedirs(cache_dir)
+
+    def get_cache_file_paths(file_path):
+        # Use hash of file path and last modified time as cache file name base
+        try:
+            mtime = str(os.path.getmtime(file_path))
+        except Exception:
+            mtime = '0'
+        cache_key = file_path + '_' + mtime
+        file_hash = hashlib.md5(cache_key.encode('utf-8')).hexdigest()
+        df_cache_path = os.path.join(cache_dir, f"{file_hash}_df.pkl")
+        img_cache_path = os.path.join(cache_dir, f"{file_hash}_img.pkl")
+        return df_cache_path, img_cache_path
+
+    def load_cache(file_path):
+        df_cache_path, img_cache_path = get_cache_file_paths(file_path)
+        if os.path.exists(df_cache_path) and os.path.exists(img_cache_path):
+            try:
+                with open(df_cache_path, 'rb') as f:
+                    df = pickle.load(f)
+                with open(img_cache_path, 'rb') as f:
+                    image_map = pickle.load(f)
+                logger.info(f"Loaded cache for {file_path}")
+                return df, image_map
+            except Exception as e:
+                logger.warning(f"Failed to load cache for {file_path}: {e}")
+        return None, None
+
+    def _media_url_to_disk_path(url):
+        if not isinstance(url, str):
+            return None
+        if not url.startswith(settings.MEDIA_URL):
+            return None
+        rel = url[len(settings.MEDIA_URL):].lstrip('/\\')
+        return os.path.join(settings.MEDIA_ROOT, rel)
+
+    def image_cache_looks_broken(image_map):
+        """Detect stale/broken cached image_map entries.
+
+        Common failure: images saved without file extensions -> served as octet-stream
+        or missing files after manual cleanup.
+        """
+        if not isinstance(image_map, dict) or not image_map:
+            return False
+        checked = 0
+        for url in image_map.values():
+            disk_path = _media_url_to_disk_path(url)
+            if not disk_path:
+                continue
+            checked += 1
+            ext = os.path.splitext(disk_path)[1].lower()
+            if os.path.exists(disk_path) and ext in ('.png', '.jpg', '.jpeg', '.gif', '.webp'):
+                return False
+            if checked >= 5:
+                break
+        return True
+
+    def save_cache(file_path, df, image_map):
+        df_cache_path, img_cache_path = get_cache_file_paths(file_path)
+        try:
+            with open(df_cache_path, 'wb') as f:
+                pickle.dump(df, f)
+            with open(img_cache_path, 'wb') as f:
+                pickle.dump(image_map, f)
+            logger.info(f"Saved cache for {file_path}")
+        except Exception as e:
+            logger.warning(f"Failed to save cache for {file_path}: {e}")
+
+    def build_df_and_images(file_path):
+        """Build DataFrame + image map directly from the Excel file.
+
+        This is used as a fallback when the persistent cache is missing/stale.
+        """
+        wb = openpyxl.load_workbook(file_path, data_only=True)
+        sheet = wb.active
+        image_map = {}
+        for image in getattr(sheet, '_images', []):
+            try:
+                anchor = image.anchor._from
+                img_uuid = str(uuid.uuid4())
+                img_ext = os.path.splitext(getattr(image, 'path', '.png'))[1] or '.png'
+                img_name = f"excel_images/{img_uuid}{img_ext}"
+                img_path = os.path.join(settings.MEDIA_ROOT, img_name)
+                os.makedirs(os.path.dirname(img_path), exist_ok=True)
+                with open(img_path, 'wb') as f:
+                    f.write(image._data())
+                image_map[(anchor.row + 1, anchor.col + 1)] = settings.MEDIA_URL + img_name
+            except Exception as e:
+                logger.warning(f"Failed to extract an embedded image from {file_path}: {e}")
+
+        try:
+            df = pd.read_excel(file_path)
+        except Exception:
+            df = pd.read_excel(file_path, engine='openpyxl')
+
+        return df, image_map
+
+    def apply_excel_header_row(df, file_path):
+        """Read Excel using the detected header row and normalize column names.
+
+        Fixes cases where pandas reads a different header row than what the sheet
+        visually shows (leading to wrong values under the wrong columns).
+        """
+
+        def _score_header_row(row_vals):
+            if not row_vals:
+                return -10
+            score = 0
+            keywords = ('sr', 'sr.', 'srno', 'sr.no', 'photo', 'dob', 'birth', 'candidate', 'name', 'height', 'weight', 'caste', 'gotra', 'father', 'mother', 'partner')
+            for v in row_vals:
+                if v is None:
+                    continue
+                s = str(v).strip()
+                if not s:
+                    continue
+                # Prefer string-ish header text over numeric-ish data
+                has_alpha = any(ch.isalpha() for ch in s)
+                if has_alpha:
+                    score += 3
+                else:
+                    # numeric-only cells are less likely to be headers
+                    score -= 2
+                low = s.lower()
+                for kw in keywords:
+                    if kw in low:
+                        score += 6
+                        break
+            return score
+
+        def _detect_header_row(max_rows=15):
+            wb = openpyxl.load_workbook(file_path, read_only=True, data_only=True)
+            sheet = wb.active
+            best_vals = None
+            best_score = -10**9
+            best_row_num = 1
+            for r in range(1, max_rows + 1):
+                try:
+                    row_vals = list(sheet.iter_rows(min_row=r, max_row=r, values_only=True))[0]
+                except Exception:
+                    continue
+                s = _score_header_row(row_vals)
+                if s > best_score:
+                    best_score = s
+                    best_vals = row_vals
+                    best_row_num = r
+            return best_vals, best_row_num
+
+        try:
+            header_cells, header_row_num = _detect_header_row(max_rows=15)
+        except Exception as e:
+            logger.warning(f"Could not detect Excel header row for {file_path}: {e}")
+            header_cells, header_row_num = None, 1
+
+        # Re-read the dataframe with the detected header row so columns align with values
+        try:
+            df2 = pd.read_excel(file_path, header=header_row_num - 1)
+        except Exception:
+            df2 = pd.read_excel(file_path, header=header_row_num - 1, engine='openpyxl')
+
+        # If we couldn't read header cells, just return the re-read df
+        if not header_cells:
+            return df2, header_row_num
+
+        # Normalize/fill column names (handle merged/blank header cells)
+        headers = []
+        used = {}
+        for idx, col in enumerate(df2.columns):
+            raw = header_cells[idx] if idx < len(header_cells) else None
+            name = str(raw).strip() if raw is not None else ""
+
+            if not name or name.lower().startswith('unnamed'):
+                name = str(col).strip()
+            name = re.sub(r"\s+", " ", name)
+
+            base = name
+            count = used.get(base, 0)
+            if count:
+                name = f"{base}_{count+1}"
+            used[base] = count + 1
+            headers.append(name)
+
+        try:
+            df2 = df2.copy()
+            df2.columns = headers
+        except Exception as e:
+            logger.warning(f"Failed to normalize headers for {file_path}: {e}")
+
+        return df2, header_row_num
+
+    def is_display_column(col_name):
+        if col_name in (None, ''):
+            return False
+        name = str(col_name).strip()
+        if not name:
+            return False
+        low = name.lower()
+        if low == 'dob_str':
+            return False
+        if low.startswith('unnamed'):
+            return False
+        return True
+
+    def mask_phone_numbers_in_text(value):
+        """Mask phone-like numbers in free text while preserving formatting.
+
+        Masks sequences with >= 7 digits (common mobile/landline), leaving other
+        numeric content (e.g., salary, pincode) mostly untouched.
+        """
+        if not isinstance(value, str):
+            return value
+
+        text = value
+
+        # Avoid masking URLs (e.g., image URLs)
+        if re.match(r'^(https?://|/media/|/static/)', text.strip(), re.IGNORECASE):
+            return value
+
+        pattern = re.compile(r'(\+?[\d\s\-()]{7,})')
+
+        def _mask_match(m):
+            s = m.group(0)
+            digits = [c for c in s if c.isdigit()]
+            if len(digits) < 7:
+                return s
+
+            if len(digits) > 5:
+                masked_digits = digits[:-5] + list('*****')
+            else:
+                masked_digits = list('*' * len(digits))
+
+            out = []
+            di = 0
+            for ch in s:
+                if ch.isdigit():
+                    out.append(masked_digits[di])
+                    di += 1
+                else:
+                    out.append(ch)
+            return ''.join(out)
+
+        return pattern.sub(_mask_match, text)
+
+    def _normalize_header_cell(v):
+        if v is None:
+            return ''
+        s = str(v).strip().lower()
+        s = re.sub(r"\s+", " ", s)
+        s = re.sub(r"[^a-z0-9 ]", "", s)
+        return s
+
+    def detect_excel_col_index(file_path, header_row_num, predicates, max_columns=50):
+        """Return 1-based Excel column index for a header cell matching any predicate."""
+        try:
+            wb = openpyxl.load_workbook(file_path, read_only=True, data_only=True)
+            sheet = wb.active
+            row_vals = list(sheet.iter_rows(min_row=header_row_num, max_row=header_row_num, values_only=True))[0]
+        except Exception as e:
+            logger.warning(f"Failed reading header row {header_row_num} for column detection in {file_path}: {e}")
+            return None
+
+        for idx, v in enumerate(row_vals[:max_columns], start=1):
+            norm = _normalize_header_cell(v)
+            if not norm:
+                continue
+            for pred in predicates:
+                try:
+                    if pred(norm):
+                        return idx
+                except Exception:
+                    continue
+        return None
+
+    def _normalize_cell_value(v):
+        if v is None:
+            return None
+        if isinstance(v, float) and v.is_integer():
+            return str(int(v))
+        if isinstance(v, (int,)):
+            return str(v)
+        s = str(v).strip()
+        if s.endswith('.0') and s.replace('.', '', 1).isdigit():
+            try:
+                return str(int(float(s)))
+            except Exception:
+                return s
+        return s
+
+    def build_srno_to_excel_row_map(file_path, header_row_num, sr_excel_col, max_scan_rows=20000):
+        """Map Sr.No values -> Excel row numbers for reliable image row lookup."""
+        mapping = {}
+        try:
+            wb = openpyxl.load_workbook(file_path, read_only=True, data_only=True)
+            sheet = wb.active
+            max_row = min(sheet.max_row or 0, max_scan_rows)
+            for r in range(header_row_num + 1, max_row + 1):
+                v = sheet.cell(row=r, column=sr_excel_col).value
+                key = _normalize_cell_value(v)
+                if not key:
+                    continue
+                if key not in mapping:
+                    mapping[key] = r
+        except Exception as e:
+            logger.warning(f"Failed building Sr.No row map for {file_path}: {e}")
+        return mapping
+
+    def parse_excel_dob(val):
+        import pandas as pd
+        if pd.isnull(val):
+            return pd.NaT
+
+        if isinstance(val, pd.Timestamp):
+            return val
+
+        if isinstance(val, (datetime.date, datetime.datetime)):
+            return pd.to_datetime(val, errors='coerce')
+
+        if isinstance(val, (float, int)):
+            # Excel serial date
+            try:
+                return pd.to_datetime('1899-12-30') + pd.to_timedelta(val, 'D')
+            except Exception:
+                return pd.NaT
+
+        val_str = str(val).strip()
+        if not val_str:
+            return pd.NaT
+
+        # Normalize common separators (01/02/2004, 01.02.2004 -> 01-02-2004)
+        val_str_norm = re.sub(r"[\./]", "-", val_str)
+
+        # Try common explicit formats first
+        for fmt in (
+            '%d-%m-%Y',
+            '%d-%m-%y',
+            '%Y-%m-%d',
+            '%Y-%m-%d %H:%M:%S',
+            '%d-%m-%Y %H:%M:%S',
+        ):
+            dt = pd.to_datetime(val_str_norm, format=fmt, errors='coerce')
+            if not pd.isnull(dt):
+                return dt
+
+        # Handle ddmmyyyy (e.g., 01022004)
+        if len(val_str_norm) == 8 and val_str_norm.isdigit():
+            dt = pd.to_datetime(val_str_norm, format='%d%m%Y', errors='coerce')
+            if not pd.isnull(dt):
+                return dt
+
+        # Last resort: let pandas infer (prefer day-first because UI expects dd-mm-yyyy)
+        return pd.to_datetime(val_str_norm, errors='coerce', dayfirst=True)
+
+    if request.method == 'POST':
+        form = SerialSearchForm(request.POST)
+        if form.is_valid():
+            if 'dob' in form.cleaned_data:
+                dob_input = form.cleaned_data['dob']
+            else:
+                logger.error("DOB field missing in form.cleaned_data despite form being valid.")
+                dob_input = None
+
+            gender = form.cleaned_data.get('gender', 'Male')
+            excel_files = ExcelFile.objects.all()
+            if gender == 'Female':
+                excel_files = excel_files.filter(file__icontains='Girls')
+            elif gender == 'Male':
+                excel_files = excel_files.filter(file__icontains='Boys')
+
+            # If filenames don't follow Boys/Girls convention, fall back to all files
+            if not excel_files.exists():
+                logger.warning("No Excel files matched gender filter; falling back to all Excel files")
+                excel_files = ExcelFile.objects.all()
+
+            for excel_file in excel_files:
+                file_path = excel_file.file.path
+                print("[DEBUG] Reading Excel file from:", file_path)  # ADDED DEBUG
+                try:
+                    # Try loading from persistent cache
+                    df, image_map = load_cache(file_path)
+                    if df is not None and image_map is not None:
+                        if image_cache_looks_broken(image_map):
+                            logger.warning(f"Cached image_map looks broken for {file_path}. Rebuilding cache on-the-fly.")
+                            df, image_map = build_df_and_images(file_path)
+                            save_cache(file_path, df, image_map)
+                        else:
+                            logger.info(f"Using cached data for {file_path}")
+                    else:
+                        logger.warning(f"Cached data not found for {file_path}. Rebuilding cache on-the-fly.")
+                        df, image_map = build_df_and_images(file_path)
+                        save_cache(file_path, df, image_map)
+
+                    # Make sure the column names look like Excel AND align with the correct header row
+                    # (This re-reads the Excel using the detected header row.)
+                    df, header_row_num = apply_excel_header_row(df, file_path)
+
+                    # Keep an unmodified copy for display (exactly like Excel values)
+                    df_display = df.copy()
+
+                    # Use a separate copy for matching (DOB parsing)
+                    df_match = df.copy()
+
+                    columns = list(df_match.columns)
+                    columns_info = columns
+                    logger.info(f"Columns in Excel file {file_path}: {columns}")
+
+                    # DEBUG: Print first few rows to check data
+                    logger.info(f"First 5 rows of data:\n{df.head()}")
+
+                    # --- FIND DOB COLUMN (case-insensitive) ---
+                    dob_column = None
+                    normalized_columns = []
+                    for col in columns:
+                        col_str = str(col)
+                        normalized_columns.append((col, col_str.strip().lower()))
+
+                    # 1) Exact match
+                    for original, norm in normalized_columns:
+                        if norm == 'dob':
+                            dob_column = original
+                            break
+
+                    # 2) Common variations
+                    if not dob_column:
+                        for original, norm in normalized_columns:
+                            norm_compact = re.sub(r"[^a-z0-9]", "", norm)
+                            if norm_compact in ('dob', 'dateofbirth') or ('birth' in norm and 'date' in norm):
+                                dob_column = original
+                                break
+
+                    # 3) Heuristic: pick the most date-like column in first 10 columns
+                    if not dob_column:
+                        best_col = None
+                        best_score = 0
+                        for col in columns[:10]:
+                            try:
+                                sample = df[col].head(25).apply(parse_excel_dob)
+                                score = int(sample.notna().sum())
+                                if score > best_score:
+                                    best_score = score
+                                    best_col = col
+                            except Exception:
+                                continue
+                        if best_col and best_score >= 5:
+                            dob_column = best_col
+                            logger.warning(f"DOB column not explicitly found; guessed column '{dob_column}' (score={best_score})")
+
+                    if dob_column:
+                        logger.info(f"Searching for DOB: {dob_input} in column: {dob_column}")
+
+                        # Log raw DOB column values before parsing
+                        logger.info(f"Raw DOB column sample values: {df_match[dob_column].head(10).tolist()}")
+
+                        # --- PARSE DATES ---
+                        # Strip whitespace from DOB strings before parsing
+                        def strip_whitespace(val):
+                            if isinstance(val, str):
+                                return val.strip()
+                            return val
+                        df_match[dob_column] = df_match[dob_column].apply(strip_whitespace)
+
+                        # Apply robust parsing to each cell in the DOB column
+                        df_match[dob_column] = df_match[dob_column].apply(parse_excel_dob)
+
+                        # Parse input DOB to datetime
+                        if isinstance(dob_input, str):
+                            dob_input_str = dob_input.strip()
+                            dob_dt = pd.to_datetime(dob_input_str, format='%d-%m-%Y', errors='coerce')
+                            if pd.isnull(dob_dt):
+                                dob_dt = pd.to_datetime(dob_input_str, errors='coerce', dayfirst=True)
+                        else:
+                            dob_dt = pd.to_datetime(dob_input, errors='coerce')
+
+                        if pd.isnull(dob_dt):
+                            logger.error(f"Input DOB '{dob_input}' (type: {type(dob_input).__name__}) could not be parsed as date.")
+                            continue
+
+                        dob_date = dob_dt.date()
+                        dob_str = dob_date.strftime('%d-%m-%Y')
+
+                        # Format Excel DOB column for logging / debugging
+                        df_match['dob_str'] = df_match[dob_column].dt.strftime('%d-%m-%Y')
+                    else:
+                        logger.error(f"DOB column not found in Excel file {os.path.basename(file_path)}. Available columns: {columns}")
+                        continue
+
+                    # --- MATCHING ---
+                    mask = df_match[dob_column].dt.date == dob_date
+                    matched_rows_display = df_display.loc[mask]
+                    logger.info(f"✓ Parsed DOB input: '{dob_str}' from type '{type(dob_input).__name__}'")
+                    logger.info(f"✓ DOB column '{dob_column}' sample values: {df_match['dob_str'].head(5).tolist()}")
+                    logger.info(f"✓ Unique DOB values in column: {df_match['dob_str'].nunique()}")
+                    logger.info(f"✓ Matching records found: {len(matched_rows_display)} out of {len(df_match)} total records")
+                    if len(matched_rows_display) == 0:
+                        logger.warning(f"⚠ No records matched DOB '{dob_str}' in file {os.path.basename(file_path)}")
+
+                    # --- BUILD RESULTS ---
+                    if not matched_rows_display.empty:
+                        # Replace Photo cell value with extracted image URL (Excel has embedded image)
+                        photo_cols = [
+                            col for col in matched_rows_display.columns
+                            if str(col).strip().lower() in ('photo', 'photograph')
+                        ]
+
+                        # Detect real Excel columns for Sr.No and Photo
+                        photo_excel_col = detect_excel_col_index(
+                            file_path,
+                            header_row_num,
+                            predicates=[lambda s: s == 'photo' or 'photo' in s or 'photograph' in s],
+                        )
+                        sr_excel_col = detect_excel_col_index(
+                            file_path,
+                            header_row_num,
+                            predicates=[lambda s: s in ('srno', 'sr no', 'srno ') or ('sr' in s and 'no' in s)],
+                        )
+
+                        # Detect Sr.No column name inside the DataFrame
+                        sr_df_col = None
+                        for c in matched_rows_display.columns:
+                            low = str(c).strip().lower()
+                            compact = re.sub(r"[^a-z0-9]", "", low)
+                            if compact in ('srno', 'srno.', 'srno1') or (('sr' in low) and ('no' in low)):
+                                sr_df_col = c
+                                break
+
+                        sr_map = {}
+                        if sr_excel_col:
+                            sr_map = build_srno_to_excel_row_map(file_path, header_row_num, sr_excel_col)
+
+                        for photo_col in photo_cols:
+                            # Fallback: if we can't detect Excel photo column, use df position
+                            fallback_photo_col_idx = matched_rows_display.columns.get_loc(photo_col) + 1
+                            effective_photo_col = photo_excel_col or fallback_photo_col_idx
+
+                            for row_idx in matched_rows_display.index:
+                                excel_row = None
+
+                                # Best: locate Excel row by Sr.No
+                                if sr_df_col and sr_map:
+                                    sr_val = _normalize_cell_value(matched_rows_display.at[row_idx, sr_df_col])
+                                    excel_row = sr_map.get(sr_val)
+
+                                # Fallback: compute by positional index
+                                if not excel_row:
+                                    try:
+                                        row_pos = int(df_display.index.get_loc(row_idx))
+                                    except Exception:
+                                        row_pos = int(row_idx) if str(row_idx).isdigit() else 0
+                                    excel_row = row_pos + header_row_num + 1
+
+                                lookup_key = (excel_row, effective_photo_col)
+                                img_url = image_map.get(lookup_key)
+                                if img_url:
+                                    matched_rows_display.at[row_idx, photo_col] = img_url
+                                else:
+                                    logger.warning(
+                                        f"No image found for key {lookup_key} in {os.path.basename(file_path)}; "
+                                        f"photo_col='{photo_col}', photo_excel_col={photo_excel_col}, sr_excel_col={sr_excel_col}, sr_df_col={sr_df_col}"
+                                    )
+
+                        # Convert matched rows to dicts for results
+                        for idx, row in matched_rows_display.iterrows():
+                            # Build row_data in the same order as the Excel columns.
+                            # Keep the Excel DOB column (so output matches Excel), but drop helper column 'dob_str'.
+                            row_items = []
+                            for col in matched_rows_display.columns:
+                                if not is_display_column(col):
+                                    continue
+                                val = row.get(col)
+                                # Don't show pandas NaN/NaT as 'nan'
+                                try:
+                                    if pd.isna(val):
+                                        val = ''
+                                except Exception:
+                                    pass
+
+                                # Keep display as close as possible to Excel
+                                if isinstance(val, pd.Timestamp):
+                                    try:
+                                        val = val.to_pydatetime().date().strftime('%d-%m-%Y')
+                                    except Exception:
+                                        val = str(val)
+                                elif isinstance(val, (datetime.date, datetime.datetime)):
+                                    try:
+                                        val = val.strftime('%d-%m-%Y')
+                                    except Exception:
+                                        val = str(val)
+
+                                # Mask phone numbers in text columns only (not photo URLs / not DOB columns)
+                                col_low = str(col).strip().lower()
+                                if (
+                                    isinstance(val, str)
+                                    and col_low not in ('photo', 'photograph')
+                                    and 'dob' not in col_low
+                                    and 'date of birth' not in col_low
+                                ):
+                                    val = mask_phone_numbers_in_text(val)
+                                row_items.append((col, val))
+                            results.append({
+                                'dob': dob_str,
+                                'file_name': os.path.basename(file_path),
+                                'row_items': row_items,
+                            })
+                    else:
+                        logger.info("No matched rows found after filtering.")
+                except Exception as e:
+                    logger.error(f"Error reading Excel file {file_path}: {e}")
+
+        else:
+            logger.error(f"Form invalid with errors: {form.errors}")
+            dob_input = None
+        if not results:
+            results.append({'message': 'No results found for the given DOB.'})
+    else:
+        form = SerialSearchForm()
+        # Clear results on page refresh (GET request) to avoid showing old search results
+        if request.method == 'GET':
+            results = []
+    return render(request, 'biodata/serial_search.html', {'form': form, 'results': results, 'columns_info': columns_info})
 
 from .forms import FlipBookAccessRegistrationForm, GetTogetherRegistrationForm, StudentBookResaleRegistrationForm
 from django.views.decorators.csrf import csrf_exempt

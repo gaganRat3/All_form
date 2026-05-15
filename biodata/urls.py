@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views_mumbai import mumbai_maharashtra_view, mumbai_maharashtra_success
 from . import views_referral_program
 from . import views_divorce_sammelan
 from . import views_40plus_sammelan
@@ -9,6 +10,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('mumbai-maharashtra/', mumbai_maharashtra_view, name='mumbai_maharashtra'),
+    path('mumbai-maharashtra/success/', mumbai_maharashtra_success, name='mumbai_maharashtra_success'),
     path('flipbook-access-registration/', views.flipbook_access_registration_view, name='flipbook_access_registration'),
         path('student-book-resale-registration/', views.student_book_resale_registration_view, name='student_book_resale_registration'),
     path('picnic-registration/', views.picnic_registration_view, name='picnic_registration_form'),
@@ -16,6 +19,9 @@ urlpatterns = [
     path('garba-pass-registration', views.garba_pass_registration_view, name='garba_pass_registration'),
     path('bncf-application/', views.bncf_application_view, name='bncf_application'),
     # Other URL patterns...
+
+    # Serial Search
+    path('serial-search/', views.serial_search, name='serial_search'),
 
     # Referral Program
     path('referral-program/', views_referral_program.join_referral_program, name='referral_program_form'),

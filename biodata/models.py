@@ -1,5 +1,75 @@
-
 from django.db import models
+import os
+import uuid
+import hashlib
+import pickle
+import pandas as pd
+import openpyxl
+from django.conf import settings
+
+class ExcelFile(models.Model):
+    file = models.FileField(upload_to='excel_files/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.file.name
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # Save the file first
+
+        # Preprocess and cache the Excel file data and images
+        try:
+            file_path = self.file.path
+            cache_dir = os.path.join(settings.MEDIA_ROOT, 'excel_cache')
+            if not os.path.exists(cache_dir):
+                os.makedirs(cache_dir)
+
+            # Generate cache file paths based on file hash (must match views.py calculation)
+            # Use file_path + mtime for consistency with serial_search cache lookup
+            try:
+                mtime = str(os.path.getmtime(file_path))
+            except Exception:
+                mtime = '0'
+            cache_key = file_path + '_' + mtime
+            file_hash = hashlib.md5(cache_key.encode('utf-8')).hexdigest()
+            df_cache_path = os.path.join(cache_dir, f"{file_hash}_df.pkl")
+            img_cache_path = os.path.join(cache_dir, f"{file_hash}_img.pkl")
+
+            # Load workbook and extract images
+            wb = openpyxl.load_workbook(file_path, data_only=True)
+            sheet = wb.active
+            image_map = {}
+            for image in getattr(sheet, '_images', []):
+                anchor = image.anchor._from
+                img_uuid = str(uuid.uuid4())
+                img_ext = os.path.splitext(getattr(image, 'path', '.png'))[1]
+                if not img_ext:
+                    img_ext = '.png'
+                img_name = f"excel_images/{img_uuid}{img_ext}"
+                img_path = os.path.join(settings.MEDIA_ROOT, img_name)
+                if not os.path.exists(os.path.dirname(img_path)):
+                    os.makedirs(os.path.dirname(img_path))
+                with open(img_path, 'wb') as f:
+                    f.write(image._data())
+                image_map[(anchor.row + 1, anchor.col + 1)] = settings.MEDIA_URL + img_name
+
+            # Read Excel data into DataFrame
+            try:
+                df = pd.read_excel(file_path)  # Allow date parsing
+            except Exception:
+                df = pd.read_excel(file_path, engine='openpyxl')
+
+            # Save DataFrame and image_map to cache files
+            with open(df_cache_path, 'wb') as f:
+                pickle.dump(df, f)
+            with open(img_cache_path, 'wb') as f:
+                pickle.dump(image_map, f)
+
+        except Exception as e:
+            # Log error but do not prevent saving
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error preprocessing Excel file {self.file.name}: {e}")
 
 class FlipBookAccessRegistration(models.Model):
     GENDER_CHOICES = [
@@ -41,6 +111,55 @@ class Sammelan39Biodata(models.Model):
     shani = models.CharField(max_length=30)
 
 # Student Book Resale Registration Model (top-level)
+class MumbaiMaharashtraBiodata(models.Model):
+    name = models.CharField(max_length=255)
+    gender = models.CharField(max_length=10)
+    dob = models.CharField(max_length=20)
+    marital = models.CharField(max_length=50)
+    disability = models.CharField(max_length=100)
+    tob = models.CharField(max_length=20)
+    birthPlace = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    visa = models.CharField(max_length=50)
+    height = models.CharField(max_length=20)
+    weight = models.CharField(max_length=20)
+    education = models.CharField(max_length=100)
+    educationDetail = models.CharField(max_length=200)
+    occupationCat = models.CharField(max_length=100)
+    occupationDetails = models.CharField(max_length=200)
+    salary = models.CharField(max_length=20)
+    shani = models.CharField(max_length=30)
+    hobbies = models.CharField(max_length=200)
+    father = models.CharField(max_length=100)
+    mother = models.CharField(max_length=100)
+    fatherWp = models.CharField(max_length=20)
+    motherWp = models.CharField(max_length=20)
+    caste = models.CharField(max_length=100)
+    gotra = models.CharField(max_length=100)
+    kuldevi = models.CharField(max_length=100)
+    siblings = models.TextField()
+    eating_habbits = models.CharField(max_length=100)
+    alcohol = models.CharField(max_length=10)
+    smoke = models.CharField(max_length=10)
+    other_habbit = models.CharField(max_length=100)
+    legal_case = models.CharField(max_length=100)
+    locChoice = models.CharField(max_length=100)
+    ageGap = models.CharField(max_length=50)
+    eduChoice = models.CharField(max_length=100)
+    otherChoice = models.TextField()
+    who = models.CharField(max_length=100)
+    regMobile = models.CharField(max_length=20)
+    resCat = models.CharField(max_length=100)
+    nadi = models.CharField(max_length=50)
+    email = models.EmailField()
+    whatsapp = models.CharField(max_length=20)
+    photo = models.ImageField(upload_to='mumbai_maharashtra_photos/')
+    declaration = models.CharField(max_length=10)
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.city} - {self.email}"
 class StudentBookResaleRegistration(models.Model):
     GENDER_CHOICES = [
         ("Male", "Male"),
