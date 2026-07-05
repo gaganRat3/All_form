@@ -48,6 +48,21 @@ class Sammelan38Biodata(models.Model):
         ('dont_believe', "We Don't Believe"),
     ]
 
+    EDUCATION_CHOICES = [
+        ('Doctor (Clinical - Surgical - Specialist)', 'Doctor (Clinical - Surgical - Specialist)'),
+        ('Doctor (Physiotherapy)', 'Doctor (Physiotherapy)'),
+        ('Doctor (Dental)', 'Doctor (Dental)'),
+        ('Doctor (Pathology)', 'Doctor (Pathology)'),
+        ('Doctor (Veterinary)', 'Doctor (Veterinary)'),
+        ('Doctor (Ayurvedic)', 'Doctor (Ayurvedic)'),
+        ('Doctor (Homeopathy)', 'Doctor (Homeopathy)'),
+        ('Doctor (Naturopathy)', 'Doctor (Naturopathy)'),
+        ('Pharmacy Education', 'Pharmacy Education'),
+        ('Nurse - Midwifery', 'Nurse - Midwifery'),
+        ('Paramedical Staff', 'Paramedical Staff'),
+        ('Other Education Field', 'Other Education Field'),
+    ]
+
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10)
     dob = models.CharField(max_length=20)
@@ -60,7 +75,7 @@ class Sammelan38Biodata(models.Model):
     visa = models.CharField(max_length=50, choices=VISA_CHOICES, default='indian_citizen')
     height = models.CharField(max_length=20)
     weight = models.CharField(max_length=20)
-    education = models.CharField(max_length=100)
+    education = models.CharField(max_length=100, choices=EDUCATION_CHOICES)
     educationDetail = models.CharField(max_length=100)
     occupationCat = models.CharField(max_length=50)
     occupationDetails = models.CharField(max_length=100)

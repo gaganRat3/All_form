@@ -106,6 +106,12 @@
 			overflow-wrap: anywhere;
 		}
 		.info-banner strong { color: #7a4a1e; }
+		.info-banner p {
+			margin: 0 0 12px;
+		}
+		.info-banner p:last-child {
+			margin-bottom: 0;
+		}
 		.info-banner a {
 			color: #8f5b28;
 			text-decoration: underline;
@@ -340,7 +346,7 @@
 	<p><strong>(રેજીસ્ટ્રેશન છેલ્લી તારીખ : 02/08/2026)</strong></p>
 
 	<p><strong>Sammelan Date</strong> : 09-08-2026 (રવિવાર)<br>
-	<strong>Time</strong> : સવારે 10 AM થી 4 PM<br>
+	<strong>Time</strong> : સવારે 10 AM થી 4 PM<br><br>
 	<strong>Join WhatsApp Group</strong> : <a href="https://chat.whatsapp.com/JyamENV4e8o4NX5bjFwXki" target="_blank">https://chat.whatsapp.com/KNgPHpe2ewN2MiFbOcZqmW</a>
 	</p>
 
@@ -468,13 +474,18 @@
 						<label><span class="field-num">13</span> Education</label>
 						<select name="education" required>
 							<option value="">Select an Option</option>
-							<option value="Undergraduate (10th 12th Pass/Fail, Diploma, ITI, Not Completed Graduation)" {% if form.education.value == 'Undergraduate (10th 12th Pass/Fail, Diploma, ITI, Not Completed Graduation)' %}selected{% endif %}>Undergraduate (10th 12th Pass/Fail, Diploma, ITI, Not Completed Graduation)</option>
-							<option value="Graduate (BA, B.Com., B.Sc., BE, BTech, LLB, B.Arch., BBA, BCA etc)" {% if form.education.value == 'Graduate (BA, B.Com., B.Sc., BE, BTech, LLB, B.Arch., BBA, BCA etc)' %}selected{% endif %}>Graduate (BA, B.Com., B.Sc., BE, BTech, LLB, B.Arch., BBA, BCA etc)</option>
-							<option value="Masters (MA, MCom, MSc., ME, MTech, M.Arch, M.Phil, LLM etc)" {% if form.education.value == 'Masters (MA, MCom, MSc., ME, MTech, M.Arch, M.Phil, LLM etc)' %}selected{% endif %}>Masters (MA, MCom, MSc., ME, MTech, M.Arch, M.Phil, LLM etc)</option>
-							<option value="CA, CS, ICWA, CPA, ACCA, CIMA etc" {% if form.education.value == 'CA, CS, ICWA, CPA, ACCA, CIMA etc' %}selected{% endif %}>CA, CS, ICWA, CPA, ACCA, CIMA etc</option>
-							<option value="Doctor - Medical - Pharmacy - Dentist - Physiotherapist - Paramedical" {% if form.education.value == 'Doctor - Medical - Pharmacy - Dentist - Physiotherapist - Paramedical' %}selected{% endif %}>Doctor - Medical - Pharmacy - Dentist - Physiotherapist - Paramedical</option>
-							<option value="PhD, UPSC, GPSC (IAS, IPS etc), Mayor, Civil Services etc" {% if form.education.value == 'PhD, UPSC, GPSC (IAS, IPS etc), Mayor, Civil Services etc' %}selected{% endif %}>PhD, UPSC, GPSC (IAS, IPS etc), Mayor, Civil Services etc</option>
-							<option value="Any Other Education Category" {% if form.education.value == 'Any Other Education Category' %}selected{% endif %}>Any Other Education Category</option>
+							<option value="Doctor (Clinical - Surgical - Specialist)" {% if form.education.value == 'Doctor (Clinical - Surgical - Specialist)' %}selected{% endif %}>Doctor (Clinical - Surgical - Specialist)</option>
+							<option value="Doctor (Physiotherapy)" {% if form.education.value == 'Doctor (Physiotherapy)' %}selected{% endif %}>Doctor (Physiotherapy)</option>
+							<option value="Doctor (Dental)" {% if form.education.value == 'Doctor (Dental)' %}selected{% endif %}>Doctor (Dental)</option>
+							<option value="Doctor (Pathology)" {% if form.education.value == 'Doctor (Pathology)' %}selected{% endif %}>Doctor (Pathology)</option>
+							<option value="Doctor (Veterinary)" {% if form.education.value == 'Doctor (Veterinary)' %}selected{% endif %}>Doctor (Veterinary)</option>
+							<option value="Doctor (Ayurvedic)" {% if form.education.value == 'Doctor (Ayurvedic)' %}selected{% endif %}>Doctor (Ayurvedic)</option>
+							<option value="Doctor (Homeopathy)" {% if form.education.value == 'Doctor (Homeopathy)' %}selected{% endif %}>Doctor (Homeopathy)</option>
+							<option value="Doctor (Naturopathy)" {% if form.education.value == 'Doctor (Naturopathy)' %}selected{% endif %}>Doctor (Naturopathy)</option>
+							<option value="Pharmacy Education" {% if form.education.value == 'Pharmacy Education' %}selected{% endif %}>Pharmacy Education</option>
+							<option value="Nurse - Midwifery" {% if form.education.value == 'Nurse - Midwifery' %}selected{% endif %}>Nurse - Midwifery</option>
+							<option value="Paramedical Staff" {% if form.education.value == 'Paramedical Staff' %}selected{% endif %}>Paramedical Staff</option>
+							<option value="Other Education Field" {% if form.education.value == 'Other Education Field' %}selected{% endif %}>Other Education Field</option>
 						</select>
 					</div>
 					<div class="field full">

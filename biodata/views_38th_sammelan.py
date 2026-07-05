@@ -37,6 +37,11 @@ def sammelan_38th_form_view(request):
         if not data.get('whatsapp') or not validate_mobile(data.get('whatsapp', '')):
             errors['whatsapp'] = 'Please enter a valid 10-digit WhatsApp number'
 
+        if not data.get('education'):
+            errors['education'] = 'Please select your education'
+        elif data.get('education') not in dict(Sammelan38Biodata.EDUCATION_CHOICES):
+            errors['education'] = 'Invalid education option selected'
+
         res_cat = data.get('resCat')
         if not res_cat:
             errors['resCat'] = 'Please select your residence area'
