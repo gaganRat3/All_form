@@ -1,0 +1,744 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="theme-color" content="#7a4a1e" />
+	<meta name="description" content="38th Bhudev Jivansathi Sammelan registration form" />
+	<title>38th Bhudev Jivansathi Sammelan</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<style>
+		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+		body {
+			font-family: 'Poppins', sans-serif;
+			min-height: 100vh;
+			color: #2d231b;
+			background:
+				radial-gradient(circle at top left, rgba(209, 143, 93, 0.16), transparent 34%),
+				radial-gradient(circle at top right, rgba(122, 74, 30, 0.12), transparent 28%),
+				linear-gradient(180deg, #fffaf4 0%, #f7eadb 48%, #fff8f0 100%);
+		}
+		body::before {
+			content: '';
+			position: fixed;
+			inset: 0 0 auto 0;
+			height: 9px;
+			background: linear-gradient(90deg, #7a4a1e 0%, #c97a3a 36%, #e9c46a 65%, #7a4a1e 100%);
+			z-index: 1000;
+		}
+
+		.site-header {
+			padding: 30px 16px 26px;
+			text-align: center;
+			background: linear-gradient(180deg, #8f5b28 0%, #6e3f19 100%);
+			box-shadow: 0 12px 30px rgba(78, 42, 12, 0.16);
+			margin-top: 9px;
+			position: relative;
+			overflow: hidden;
+		}
+		.site-header::after {
+			content: '';
+			position: absolute;
+			inset: auto -10% -40px -10%;
+			height: 120px;
+			background: radial-gradient(circle at center, rgba(255,255,255,0.12), transparent 62%);
+			pointer-events: none;
+		}
+		.logo-row {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 18px;
+			flex-wrap: wrap;
+			margin-bottom: 16px;
+			position: relative;
+			z-index: 1;
+		}
+		.logo-row img {
+			height: 54px;
+			width: auto;
+			max-width: 100px;
+			object-fit: contain;
+			background: rgba(255,255,255,0.96);
+			border-radius: 14px;
+			padding: 6px 10px;
+			box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+		}
+		.event-title-band {
+			position: relative;
+			z-index: 1;
+			max-width: 920px;
+			margin: 0 auto;
+		}
+		.event-title-band h1 {
+			color: #fff9f0;
+			font-size: clamp(1.35rem, 4vw, 2.25rem);
+			font-weight: 800;
+			line-height: 1.25;
+			letter-spacing: 0.4px;
+			text-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+		}
+		.event-title-band p {
+			color: #f9e8d5;
+			font-size: 0.95rem;
+			margin-top: 8px;
+			line-height: 1.65;
+			opacity: 0.96;
+		}
+
+		.info-banner {
+			max-width: 920px;
+			margin: 26px auto 0;
+			padding: 22px 24px;
+			background: rgba(255, 255, 255, 0.92);
+			border: 1px solid rgba(122, 74, 30, 0.16);
+			border-left: 6px solid #c97a3a;
+			border-radius: 20px;
+			font-size: 0.96rem;
+			color: #453228;
+			line-height: 1.85;
+			box-shadow: 0 10px 28px rgba(122, 74, 30, 0.08);
+			backdrop-filter: blur(4px);
+			word-break: break-word;
+			overflow-wrap: anywhere;
+		}
+		.info-banner strong { color: #7a4a1e; }
+		.info-banner a {
+			color: #8f5b28;
+			text-decoration: underline;
+			word-break: break-all;
+			overflow-wrap: anywhere;
+		}
+		.chk { color: #d97706; font-weight: 800; }
+
+		.form-wrapper { max-width: 920px; margin: 28px auto 42px; padding: 0 12px; }
+		.form-card {
+			background: rgba(255,255,255,0.9);
+			border-radius: 24px;
+			box-shadow: 0 18px 50px rgba(91, 52, 18, 0.12);
+			overflow: hidden;
+			border: 1px solid rgba(122, 74, 30, 0.10);
+		}
+
+		.form-errors {
+			background: #fff2ee;
+			border-left: 4px solid #dc4f2c;
+			color: #9e2d13;
+			padding: 15px 20px;
+			font-size: 0.92rem;
+		}
+		.form-errors ul { margin: 8px 0 0 18px; }
+
+		.f-section { border-bottom: 1px solid rgba(122, 74, 30, 0.08); }
+		.f-section:last-of-type { border-bottom: none; }
+		.f-section-header {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 18px 24px;
+			background: linear-gradient(90deg, rgba(122, 74, 30, 0.08), rgba(233, 196, 106, 0.14));
+		}
+		.f-section-header .sec-icon {
+			width: 42px;
+			height: 42px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 14px;
+			background: linear-gradient(135deg, #7a4a1e 0%, #c97a3a 100%);
+			color: #fff;
+			font-size: 1.05rem;
+			box-shadow: 0 8px 16px rgba(122, 74, 30, 0.18);
+			flex-shrink: 0;
+		}
+		.f-section-header h2 {
+			color: #6d431d;
+			font-size: 1rem;
+			font-weight: 800;
+			letter-spacing: 0.35px;
+		}
+		.f-section-body {
+			padding: 22px 24px 26px;
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 18px 20px;
+		}
+		.f-section-body .full { grid-column: 1 / -1; }
+
+		.field { display: flex; flex-direction: column; gap: 6px; }
+		.field > label {
+			font-size: 0.8rem;
+			font-weight: 700;
+			color: #7a4a1e;
+			display: flex;
+			align-items: center;
+			gap: 7px;
+		}
+		.field-num {
+			width: 22px;
+			height: 22px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			background: linear-gradient(135deg, #7a4a1e 0%, #c97a3a 100%);
+			color: #fff;
+			font-size: 0.7rem;
+			font-weight: 800;
+			flex-shrink: 0;
+		}
+		.field input, .field select, .field textarea {
+			width: 100%;
+			padding: 11px 14px;
+			border: 1.5px solid rgba(122, 74, 30, 0.18);
+			border-radius: 12px;
+			font-family: 'Poppins', sans-serif;
+			font-size: 0.9rem;
+			color: #2d231b;
+			background: #fffdf9;
+			outline: none;
+			transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+		}
+		.field input:focus, .field select:focus, .field textarea:focus {
+			border-color: #c97a3a;
+			box-shadow: 0 0 0 3px rgba(201, 122, 58, 0.14);
+			background: #fff;
+		}
+		.field textarea { resize: vertical; min-height: 76px; }
+		.field .hint { font-size: 0.74rem; color: #8a8176; }
+
+		.radio-group {
+			display: flex;
+			gap: 12px;
+			flex-wrap: wrap;
+			margin-top: 6px;
+		}
+		.radio-group label {
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			padding: 9px 16px;
+			border-radius: 999px;
+			border: 1.5px solid rgba(122, 74, 30, 0.16);
+			background: #fffdf9;
+			color: #402b1d;
+			font-size: 0.88rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+		}
+		.radio-group label:hover {
+			border-color: rgba(201, 122, 58, 0.45);
+			box-shadow: 0 8px 18px rgba(122, 74, 30, 0.08);
+			transform: translateY(-1px);
+		}
+		.radio-group input[type=radio] { accent-color: #7a4a1e; }
+
+		.photo-upload-box {
+			border: 2px dashed rgba(122, 74, 30, 0.24);
+			border-radius: 18px;
+			padding: 28px 18px;
+			text-align: center;
+			background: linear-gradient(180deg, #fffdf9 0%, #fff6ea 100%);
+			cursor: pointer;
+			transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+		}
+		.photo-upload-box:hover {
+			transform: translateY(-1px);
+			border-color: #c97a3a;
+			box-shadow: 0 10px 20px rgba(122, 74, 30, 0.08);
+		}
+		.photo-upload-box input[type=file] { display: none; }
+		.photo-upload-box .upload-icon { font-size: 2.15rem; margin-bottom: 8px; }
+		.photo-upload-box .upload-text { font-size: 0.84rem; color: #6f6458; line-height: 1.55; }
+		#photoPreview { max-width: 150px; max-height: 150px; border-radius: 14px; margin-top: 12px; display: none; }
+
+		.declaration-box {
+			background: linear-gradient(180deg, #fff9ef 0%, #fff3dd 100%);
+			border-left: 4px solid #d97706;
+			border-radius: 14px;
+			padding: 16px 18px;
+			font-size: 0.88rem;
+			color: #5b4328;
+			line-height: 1.8;
+			margin-bottom: 14px;
+		}
+
+		.submit-row { padding: 24px; background: linear-gradient(180deg, rgba(255,248,240,0.8) 0%, rgba(247,234,219,0.9) 100%); }
+		.submit-btn {
+			width: 100%;
+			border: none;
+			border-radius: 16px;
+			padding: 16px 22px;
+			font-family: 'Poppins', sans-serif;
+			font-size: 1.02rem;
+			font-weight: 800;
+			color: #fff;
+			background: linear-gradient(135deg, #7a4a1e 0%, #c97a3a 56%, #e9c46a 100%);
+			box-shadow: 0 14px 28px rgba(122, 74, 30, 0.22);
+			cursor: pointer;
+			transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+			letter-spacing: 0.4px;
+		}
+		.submit-btn:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 18px 34px rgba(122, 74, 30, 0.28);
+			filter: saturate(1.05);
+		}
+
+		.poster-section {
+			max-width: 920px;
+			margin: 22px auto 8px;
+			padding: 0 12px;
+			text-align: center;
+		}
+		.poster-section img {
+			max-width: 100%;
+			border-radius: 18px;
+			box-shadow: 0 14px 35px rgba(122, 74, 30, 0.12);
+			margin-bottom: 16px;
+		}
+
+		@media (max-width: 720px) {
+			.site-header { padding: 26px 14px 22px; }
+			.logo-row img { height: 42px; }
+			.f-section-body { grid-template-columns: 1fr; padding: 16px 14px 20px; gap: 13px; }
+			.f-section-body .full { grid-column: 1; }
+			.f-section-header { padding: 16px 14px; }
+			.info-banner { margin: 18px 10px 0; padding: 18px 16px; }
+			.form-wrapper { padding: 0 10px; }
+			.submit-row { padding: 18px 14px 22px; }
+		}
+	</style>
+</head>
+<body>
+
+<div class="site-header">
+	<div class="logo-row">
+		<img src="{% static 'images/img3.png' %}" alt="Logo">
+		<img src="{% static 'images/img4.png' %}" alt="Logo">
+		<img src="{% static 'images/logoD.png' %}" alt="Logo">
+		{% comment %} <img src="{% static 'images/logoMH.png' %}" alt="Logo"> {% endcomment %}
+	</div>
+	<div class="event-title-band">
+		<h1>✨ 38th Bhudev Jivansathi Sammelan ✨</h1>
+		<p>38th Samast Brahman : Bhudev Jivansathi Parichay - Meeting - Pasandgi Sammelan for Doctor Candidate (Medical &amp; Farmacy)</p>
+	</div>
+</div>
+
+<div class="info-banner">
+	<p>
+		<strong>38મુ સમસ્ત બ્રાહ્મણ - ભૂદેવ જીવનસાથી પરિચય - પસંદગી - મિટિંગ Online સંમેલન</strong>
+		(માત્ર Doctor , Medical and Farmacy ના ઉમેદવારો માટે)
+	</p>
+
+	<p><strong>👉🏻 Online Biodata Registration Form</strong> : (Only Doctor , Medical and Farmacy Candidates)</p>
+
+	<p><strong>(રેજીસ્ટ્રેશન છેલ્લી તારીખ : 02/08/2026)</strong></p>
+
+	<p><strong>Sammelan Date</strong> : 09-08-2026 (રવિવાર)<br>
+	<strong>Time</strong> : સવારે 10 AM થી 4 PM<br>
+	<strong>Join WhatsApp Group</strong> : <a href="https://chat.whatsapp.com/KNgPHpe2ewN2MiFbOcZqmW" target="_blank">https://chat.whatsapp.com/KNgPHpe2ewN2MiFbOcZqmW</a>
+	</p>
+
+	<p>
+	✔️ દીકરીઓ - યુવતીઓ માટે Biodata Registration શુલ્ક = Rs 500 (સાથે 1 E-Booklet/Flip-Book મળશે)<br>
+	✔️ યુવકો માટે Biodata Registration શુલ્ક = Rs 500 (સાથે 1 E-Booklet/Flip-Book મળશે)<br>
+	✔️ આપણી Premium Website Doctor.BhudevNetworkVivah.com મા રેજીસ્ટ્રેશન હોય તે ઉમેદવારો (Girls &amp; Boys) ને 100% Free Registration &amp; Free Flip-Book મળશે.
+	</p>
+
+	<p><strong>Sammelan Venue</strong> : Online Zoom Meeting</p>
+
+	<p><strong>Registration Fees :</strong><br>
+	<strong>For Girls : Rs 500</strong><br>
+	<strong>For Boys : Rs 500</strong>
+	</p>
+
+	<p><strong>This Fees Includes :</strong><br>
+	✔️ Registration Charges<br>
+	✔️ You will get one E-Booklet / Flipbook Free With this Registration Fees<br>
+	✔️ Online Zoom Meeting Entry (Link) - Only Registered Candidates will get Online Zoom Meeting Link.
+	</p>
+</div>
+
+<div class="form-wrapper">
+	<div class="form-card">
+		<form method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+
+			{% if errors %}
+			<div class="form-errors">
+				<strong>⚠️ Please fix the following errors:</strong>
+				<ul>
+					{% for field, error_list in errors.items %}
+						<li><strong>{{ field }}:</strong> {{ error_list }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+
+			<div class="f-section">
+				<div class="f-section-header">
+					<span class="sec-icon">👤</span>
+					<h2>Personal Details</h2>
+				</div>
+				<div class="f-section-body">
+					<div class="field full">
+						<label><span class="field-num">1</span> Candidate Full Name</label>
+						<input type="text" name="name" placeholder="Enter full name" value="{{ form.name.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">2</span> Gender</label>
+						<div class="radio-group">
+							<label><input type="radio" name="gender" value="Male" {% if form.gender.value == 'Male' %}checked{% endif %} required> Male</label>
+							<label><input type="radio" name="gender" value="Female" {% if form.gender.value == 'Female' %}checked{% endif %}> Female</label>
+						</div>
+					</div>
+					<div class="field">
+						<label><span class="field-num">3</span> Date of Birth</label>
+						<input type="text" id="dob" name="dob" placeholder="DD-MM-YYYY" value="{{ form.dob.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field full">
+						<label><span class="field-num">4</span> Marital Status</label>
+						<select name="marital" required>
+							<option value="">Choose one</option>
+							<option value="never_married" {% if form.marital.value == 'never_married' %}selected{% endif %}>Never Married (Unmarried)</option>
+							<option value="divorce_no_child" {% if form.marital.value == 'divorce_no_child' %}selected{% endif %}>Divorce (No Child)</option>
+							<option value="divorce_having_child" {% if form.marital.value == 'divorce_having_child' %}selected{% endif %}>Divorce (Having Child)</option>
+							<option value="widow_no_child" {% if form.marital.value == 'widow_no_child' %}selected{% endif %}>Widow (No Child)</option>
+							<option value="widow_having_child" {% if form.marital.value == 'widow_having_child' %}selected{% endif %}>Widow (Having Child)</option>
+							<option value="divorce_annulled" {% if form.marital.value == 'divorce_annulled' %}selected{% endif %}>Divorce (Annulled)</option>
+							<option value="divorce_in_process" {% if form.marital.value == 'divorce_in_process' %}selected{% endif %}>Divorce in Process</option>
+							<option value="separated" {% if form.marital.value == 'separated' %}selected{% endif %}>Separated</option>
+							<option value="gol_dhana_cancel" {% if form.marital.value == 'gol_dhana_cancel' %}selected{% endif %}>1 Time Gol-Dhana Done, but then Cancelled</option>
+							<option value="engagement_cancel" {% if form.marital.value == 'engagement_cancel' %}selected{% endif %}>1 Time Engagement Done, but then Cancelled</option>
+						</select>
+					</div>
+					<div class="field full">
+						<label><span class="field-num">5</span> Any Disability or Minor Problem?</label>
+						<input type="text" name="disability" placeholder="Describe if any, otherwise write None" value="{{ form.disability.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">6</span> Birth Time</label>
+						<input type="text" name="tob" placeholder="e.g. 07:30 AM" value="{{ form.tob.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">7</span> Birth Place</label>
+						<input type="text" name="birthPlace" placeholder="City where you were born" value="{{ form.birthPlace.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">8</span> Current City</label>
+						<input type="text" name="city" placeholder="Your current city" value="{{ form.city.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">9</span> Current Country</label>
+						<input type="text" name="country" placeholder="e.g. India" value="{{ form.country.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field full">
+						<label><span class="field-num">10</span> Visa Status</label>
+						<select name="visa" required>
+							<option value="">Select an Option</option>
+							<option value="indian_citizen" {% if form.visa.value == 'indian_citizen' %}selected{% endif %}>Indian Citizen</option>
+							<option value="nri_student_visa" {% if form.visa.value == 'nri_student_visa' %}selected{% endif %}>NRI - Student Visa</option>
+							<option value="nri_work_permit" {% if form.visa.value == 'nri_work_permit' %}selected{% endif %}>NRI - Work Permit</option>
+							<option value="nri_pr" {% if form.visa.value == 'nri_pr' %}selected{% endif %}>NRI - PR</option>
+							<option value="nri_pr_in_process" {% if form.visa.value == 'nri_pr_in_process' %}selected{% endif %}>NRI - PR In Process</option>
+							<option value="nri_green_card_usa" {% if form.visa.value == 'nri_green_card_usa' %}selected{% endif %}>NRI - Green Card (USA)</option>
+							<option value="nri_blue_card_eu" {% if form.visa.value == 'nri_blue_card_eu' %}selected{% endif %}>NRI - Blue Card (EU)</option>
+							<option value="nri_citizenship" {% if form.visa.value == 'nri_citizenship' %}selected{% endif %}>NRI - Citizenship</option>
+							<option value="nri_visitor_visa" {% if form.visa.value == 'nri_visitor_visa' %}selected{% endif %}>NRI - Visitor Visa</option>
+							<option value="nri_h1b_usa" {% if form.visa.value == 'nri_h1b_usa' %}selected{% endif %}>NRI - H1B (USA)</option>
+							<option value="nri_business_visa" {% if form.visa.value == 'nri_business_visa' %}selected{% endif %}>NRI - Business Visa</option>
+							<option value="nri_oci" {% if form.visa.value == 'nri_oci' %}selected{% endif %}>NRI - OCI</option>
+							<option value="nri_f1" {% if form.visa.value == 'nri_f1' %}selected{% endif %}>NRI - F1</option>
+						</select>
+					</div>
+					<div class="field">
+						<label><span class="field-num">11</span> Height</label>
+						<input type="text" name="height" placeholder="e.g. 5 ft 6 in or 168 cm" value="{{ form.height.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">12</span> Weight (kg)</label>
+						<input type="text" name="weight" placeholder="e.g. 65" value="{{ form.weight.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field full">
+						<label><span class="field-num">13</span> Education</label>
+						<select name="education" required>
+							<option value="">Select an Option</option>
+							<option value="Undergraduate (10th 12th Pass/Fail, Diploma, ITI, Not Completed Graduation)" {% if form.education.value == 'Undergraduate (10th 12th Pass/Fail, Diploma, ITI, Not Completed Graduation)' %}selected{% endif %}>Undergraduate (10th 12th Pass/Fail, Diploma, ITI, Not Completed Graduation)</option>
+							<option value="Graduate (BA, B.Com., B.Sc., BE, BTech, LLB, B.Arch., BBA, BCA etc)" {% if form.education.value == 'Graduate (BA, B.Com., B.Sc., BE, BTech, LLB, B.Arch., BBA, BCA etc)' %}selected{% endif %}>Graduate (BA, B.Com., B.Sc., BE, BTech, LLB, B.Arch., BBA, BCA etc)</option>
+							<option value="Masters (MA, MCom, MSc., ME, MTech, M.Arch, M.Phil, LLM etc)" {% if form.education.value == 'Masters (MA, MCom, MSc., ME, MTech, M.Arch, M.Phil, LLM etc)' %}selected{% endif %}>Masters (MA, MCom, MSc., ME, MTech, M.Arch, M.Phil, LLM etc)</option>
+							<option value="CA, CS, ICWA, CPA, ACCA, CIMA etc" {% if form.education.value == 'CA, CS, ICWA, CPA, ACCA, CIMA etc' %}selected{% endif %}>CA, CS, ICWA, CPA, ACCA, CIMA etc</option>
+							<option value="Doctor - Medical - Pharmacy - Dentist - Physiotherapist - Paramedical" {% if form.education.value == 'Doctor - Medical - Pharmacy - Dentist - Physiotherapist - Paramedical' %}selected{% endif %}>Doctor - Medical - Pharmacy - Dentist - Physiotherapist - Paramedical</option>
+							<option value="PhD, UPSC, GPSC (IAS, IPS etc), Mayor, Civil Services etc" {% if form.education.value == 'PhD, UPSC, GPSC (IAS, IPS etc), Mayor, Civil Services etc' %}selected{% endif %}>PhD, UPSC, GPSC (IAS, IPS etc), Mayor, Civil Services etc</option>
+							<option value="Any Other Education Category" {% if form.education.value == 'Any Other Education Category' %}selected{% endif %}>Any Other Education Category</option>
+						</select>
+					</div>
+					<div class="field full">
+						<label><span class="field-num">14</span> Education Detail</label>
+						<input type="text" name="educationDetail" placeholder="Specify your degree / qualification" value="{{ form.educationDetail.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">15</span> Occupation Type</label>
+						<select name="occupationCat" required>
+							<option value="">Select an Option</option>
+							<option value="Government Job" {% if form.occupationCat.value == 'Government Job' %}selected{% endif %}>Government Job</option>
+							<option value="Private MNC Job" {% if form.occupationCat.value == 'Private MNC Job' %}selected{% endif %}>Private MNC Job</option>
+							<option value="Self Employed (Own Practice)" {% if form.occupationCat.value == 'Self Employed (Own Practice)' %}selected{% endif %}>Self Employed (Own Practice)</option>
+							<option value="Own Business" {% if form.occupationCat.value == 'Own Business' %}selected{% endif %}>Own Business</option>
+							<option value="Job + Business" {% if form.occupationCat.value == 'Job + Business' %}selected{% endif %}>Job + Business</option>
+							<option value="Free Lancing" {% if form.occupationCat.value == 'Free Lancing' %}selected{% endif %}>Free Lancing</option>
+							<option value="Student (Studies Running)" {% if form.occupationCat.value == 'Student (Studies Running)' %}selected{% endif %}>Student (Studies Running)</option>
+							<option value="Searching Job" {% if form.occupationCat.value == 'Searching Job' %}selected{% endif %}>Searching Job</option>
+							<option value="Home Works (ghar-kaam)" {% if form.occupationCat.value == 'Home Works (ghar-kaam)' %}selected{% endif %}>Home Works (ghar-kaam)</option>
+						</select>
+					</div>
+					<div class="field full">
+						<label><span class="field-num">16</span> Company / Business Name</label>
+						<input type="text" name="occupationDetails" placeholder="Enter company name or business details" value="{{ form.occupationDetails.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">17</span> Monthly Income (Rs.)</label>
+						<input type="text" name="salary" placeholder="e.g. 35000" value="{{ form.salary.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">18</span> Shani / Mangal</label>
+						<select name="shani" required>
+							<option value="">Select an Option</option>
+							<option value="Yes (Shani)" {% if form.shani.value == 'Yes (Shani)' %}selected{% endif %}>Yes (Shani)</option>
+							<option value="Yes (Mangal)" {% if form.shani.value == 'Yes (Mangal)' %}selected{% endif %}>Yes (Mangal)</option>
+							<option value="No" {% if form.shani.value == 'No' %}selected{% endif %}>No</option>
+							<option value="Don't Know" {% if form.shani.value == "Don't Know" %}selected{% endif %}>Don't Know</option>
+							<option value="We Don't Believe" {% if form.shani.value == "We Don't Believe" %}selected{% endif %}>We Don't Believe</option>
+						</select>
+					</div>
+					<div class="field full">
+						<label><span class="field-num">19</span> Hobbies</label>
+						<input type="text" name="hobbies" placeholder="e.g. Reading, Music, Sports" value="{{ form.hobbies.value|default_if_none:'' }}" required>
+					</div>
+				</div>
+			</div>
+
+			<div class="f-section">
+				<div class="f-section-header">
+					<span class="sec-icon">👨‍👩‍👧</span>
+					<h2>Family Details</h2>
+				</div>
+				<div class="f-section-body">
+					<div class="field">
+						<label><span class="field-num">20</span> Father's Name</label>
+						<input type="text" name="father" placeholder="Father's full name" value="{{ form.father.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">21</span> Mother's Name</label>
+						<input type="text" name="mother" placeholder="Mother's full name" value="{{ form.mother.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">22</span> Father's Mobile No.</label>
+						<input type="tel" name="fatherWp" placeholder="10-digit mobile number" value="{{ form.fatherWp.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">23</span> Mother's Mobile No.</label>
+						<input type="tel" name="motherWp" placeholder="10-digit mobile number" value="{{ form.motherWp.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">24</span> Type of Brahmin</label>
+						<input type="text" name="caste" placeholder="e.g. Anavil, Audichya, etc." value="{{ form.caste.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">25</span> Gotra</label>
+						<input type="text" name="gotra" placeholder="Enter your gotra" value="{{ form.gotra.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">26</span> Kuldevi</label>
+						<input type="text" name="kuldevi" placeholder="Enter Kuldevi name" value="{{ form.kuldevi.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field full">
+						<label><span class="field-num">27</span> Siblings (Brother / Sister)</label>
+						<textarea name="siblings" placeholder="Name, Age, Married/Unmarried, Occupation">{{ form.siblings.value|default_if_none:'' }}</textarea>
+					</div>
+				</div>
+			</div>
+
+			<div class="f-section">
+				<div class="f-section-header">
+					<span class="sec-icon">🌿</span>
+					<h2>Lifestyle &amp; Habits</h2>
+				</div>
+				<div class="f-section-body">
+					<div class="field">
+						<label><span class="field-num">28</span> Eating Habits</label>
+						<input type="text" name="eating_habbits" placeholder="e.g. Pure Veg, Jain, etc." value="{{ form.eating_habbits.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">29</span> Alcoholic Drinks?</label>
+						<select name="alcohol" required>
+							<option value="">Select</option>
+							<option value="No" {% if form.alcohol.value == 'No' %}selected{% endif %}>No</option>
+							<option value="Yes" {% if form.alcohol.value == 'Yes' %}selected{% endif %}>Yes</option>
+						</select>
+					</div>
+					<div class="field">
+						<label><span class="field-num">30</span> Smoke?</label>
+						<select name="smoke" required>
+							<option value="">Select</option>
+							<option value="No" {% if form.smoke.value == 'No' %}selected{% endif %}>No</option>
+							<option value="Yes" {% if form.smoke.value == 'Yes' %}selected{% endif %}>Yes</option>
+						</select>
+					</div>
+					<div class="field">
+						<label><span class="field-num">31</span> Any Other Habit?</label>
+						<input type="text" name="other_habbit" placeholder="If any, otherwise None" value="{{ form.other_habbit.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field full">
+						<label><span class="field-num">32</span> Any Legal or Police Case?</label>
+						<input type="text" name="legal_case" placeholder="If any, otherwise None" value="{{ form.legal_case.value|default_if_none:'' }}" required>
+					</div>
+				</div>
+			</div>
+
+			<div class="f-section">
+				<div class="f-section-header">
+					<span class="sec-icon">💑</span>
+					<h2>Partner Preferences</h2>
+				</div>
+				<div class="f-section-body">
+					<div class="field">
+						<label><span class="field-num">33</span> Partner's Location</label>
+						<input type="text" name="locChoice" placeholder="Preferred location" value="{{ form.locChoice.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">34</span> Partner's Age Bracket</label>
+						<input type="text" name="ageGap" placeholder="e.g. 25-30 years" value="{{ form.ageGap.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">35</span> Partner's Education</label>
+						<input type="text" name="eduChoice" placeholder="Preferred education level" value="{{ form.eduChoice.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field full">
+						<label><span class="field-num">36</span> Any Other Specific Choice</label>
+						<textarea name="otherChoice" placeholder="Mention any other preferences">{{ form.otherChoice.value|default_if_none:'' }}</textarea>
+					</div>
+				</div>
+			</div>
+
+			<div class="f-section">
+				<div class="f-section-header">
+					<span class="sec-icon">📋</span>
+					<h2>Registration Details</h2>
+				</div>
+				<div class="f-section-body">
+					<div class="field full">
+						<label><span class="field-num">37</span> Who is doing this Registration?</label>
+						<input type="text" name="who" placeholder="e.g. SELF or Candidate's Father (Name)" value="{{ form.who.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">38</span> Mobile No. (person registering)</label>
+						<input type="tel" name="regMobile" placeholder="9876543210" value="{{ form.regMobile.value|default_if_none:'' }}" required>
+						<span class="hint">For reference &amp; verification</span>
+					</div>
+					<div class="field">
+						<label><span class="field-num">39</span> Current Residence Area</label>
+						<select name="resCat" required>
+							<option value="">Select an Option</option>
+							<option value="mumbai_maharashtra" {% if selected_rescat == 'mumbai_maharashtra' or form.resCat.value == 'mumbai_maharashtra' %}selected{% endif %}>Mumbai &amp; Maharashtra Region</option>
+							<option value="rest_of_india" {% if selected_rescat == 'rest_of_india' or form.resCat.value == 'rest_of_india' %}selected{% endif %}>Rest of Indian Region (except Gujarat &amp; Maharashtra)</option>
+							<option value="nri" {% if selected_rescat == 'nri' or form.resCat.value == 'nri' %}selected{% endif %}>NRI (Any Visa)</option>
+							{% for value, label in residence_choices %}
+								<option value="{{ value }}" {% if selected_rescat == value or form.resCat.value == value %}selected{% endif %}>{{ label }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="field">
+						<label><span class="field-num">40</span> Nadi</label>
+						<select name="nadi" required>
+							<option value="">Select an Option</option>
+							<option value="aadhya_nadi" {% if form.nadi.value == 'aadhya_nadi' %}selected{% endif %}>Aadhya Nadi</option>
+							<option value="madhya_nadi" {% if form.nadi.value == 'madhya_nadi' %}selected{% endif %}>Madhya Nadi</option>
+							<option value="antya_nadi" {% if form.nadi.value == 'antya_nadi' %}selected{% endif %}>Antya Nadi</option>
+							<option value="dont_know" {% if form.nadi.value == 'dont_know' %}selected{% endif %}>I Dont Know</option>
+							<option value="dont_believe" {% if form.nadi.value == 'dont_believe' %}selected{% endif %}>We Don't Believe</option>
+						</select>
+					</div>
+					<div class="field">
+						<label><span class="field-num">41</span> Email Address</label>
+						<input type="email" name="email" placeholder="example@email.com" value="{{ form.email.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field">
+						<label><span class="field-num">42</span> WhatsApp Number</label>
+						<input type="tel" name="whatsapp" placeholder="WhatsApp number" value="{{ form.whatsapp.value|default_if_none:'' }}" required>
+					</div>
+					<div class="field full">
+						<label><span class="field-num">43</span> Upload Candidate Photo</label>
+						<div class="photo-upload-box" onclick="document.getElementById('photoInput').click()">
+							<input type="file" id="photoInput" name="photo" accept="image/*" required>
+							<div class="upload-icon">📷</div>
+							<div class="upload-text">Click to upload photo<br><small>Clear front-face photo. No goggles or cap. Max 5MB.</small></div>
+							<img id="photoPreview" src="#" alt="Preview">
+						</div>
+					</div>
+					<div class="field full">
+						<label><span class="field-num">44</span> Declaration</label>
+						<div class="declaration-box">
+							બધી માહિતી સાચી છે અને હું 38th Bhudev Jivansathi Sammelan ના નિયમો મુજબ registration submit કરું છું.<br>
+							આપેલ biodata, family details, contact details અને photo સાચી અને updated છે.<br>
+							I confirm that all information entered above is correct and can be used for registration and publication purposes.<br><br>
+							જો કોઈ માહિતી ખોટી મળશે તો registration reject થઈ શકે છે.
+						</div>
+						<div class="radio-group">
+							<label><input type="radio" name="declaration" value="Agree" {% if form.declaration.value == 'Agree' %}checked{% endif %} required> I Agree</label>
+							<label><input type="radio" name="declaration" value="Disagree" {% if form.declaration.value == 'Disagree' %}checked{% endif %}> I Disagree</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="submit-row">
+				<button type="submit" class="submit-btn">Submit 38th Registration</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="poster-section">
+	<img src="{% static 'images/mmr.jpeg' %}" alt="Event Poster">
+	<img src="{% static 'images/team.jpg' %}" alt="Our Team">
+</div>
+
+{% include 'partials/footer.html' %}
+{% include 'biodata/employa_footer.html' %}
+
+<script>
+	var dobInput = document.getElementById('dob');
+	if (dobInput) {
+		dobInput.addEventListener('input', function () {
+			var val = this.value.replace(/\D/g, '').slice(0, 8);
+			if (val.length > 4) val = val.slice(0, 2) + '-' + val.slice(2, 4) + '-' + val.slice(4);
+			else if (val.length > 2) val = val.slice(0, 2) + '-' + val.slice(2);
+			this.value = val;
+		});
+	}
+
+	var photoInput = document.getElementById('photoInput');
+	if (photoInput) {
+		photoInput.addEventListener('change', function () {
+			var file = this.files[0];
+			var preview = document.getElementById('photoPreview');
+			if (file && file.type.startsWith('image/')) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					preview.src = e.target.result;
+					preview.style.display = 'block';
+				};
+				reader.readAsDataURL(file);
+			} else {
+				preview.style.display = 'none';
+			}
+		});
+	}
+</script>
+</body>
+</html>

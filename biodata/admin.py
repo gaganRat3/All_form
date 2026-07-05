@@ -363,6 +363,7 @@ class CandidateBiodataAdmin(admin.ModelAdmin):
     search_fields = ('candidate_name', 'registrant_mobile', 'candidate_current_city', 'birth_place')
     list_filter = ('gender', 'marital_status', 'residence_area_category')
 from .admin_37th_sammelan import *
+from .admin_38th_sammelan import *
 
 @admin.register(FortyPlusSammelan)
 class FortyPlusSammelanAdmin(admin.ModelAdmin):

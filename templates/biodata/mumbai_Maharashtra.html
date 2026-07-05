@@ -288,22 +288,37 @@
 <!-- FORM -->
 <div class="form-wrapper">
   <div class="form-card">
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
+    
+    <div style="
+      padding:50px 30px;
+      text-align:center;
+      background:#fff;
+    ">
+      <h2 style="
+        color:#dc2626;
+        font-size:32px;
+        margin-bottom:15px;
+      ">
+        🚫 Registration Closed
+      </h2>
 
-      {% if errors %}
-      <div class="form-errors">
-        <strong>⚠️ Please fix the following errors:</strong>
-        <ul>
-          {% for field, error_list in errors.items %}
-            <li><strong>{{ field }}:</strong> {{ error_list }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
+      <p style="
+        font-size:18px;
+        color:#555;
+        line-height:1.8;
+      ">
+        Registration for the <strong>37th Bhudev Jivansathi Sammelan</strong> is now closed.
+        <br><br>
+        Thank you for your interest.
+      </p>
+    </div>
+
+  </div>
+</div>
+    
 
       <!-- PERSONAL DETAILS -->
-      <div class="f-section">
+      <!-- <div class="f-section">
         <div class="f-section-header">
           <span class="sec-icon">👤</span>
           <h2>Personal Details</h2>
@@ -443,10 +458,10 @@
             <input type="text" name="hobbies" placeholder="e.g. Reading, Music, Sports" value="{{ form.hobbies.value|default_if_none:'' }}" required>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- FAMILY DETAILS -->
-      <div class="f-section">
+      <!-- <div class="f-section">
         <div class="f-section-header">
           <span class="sec-icon">👨‍👩‍👧</span>
           <h2>Family Details</h2>
@@ -485,10 +500,10 @@
             <textarea name="siblings" placeholder="Name, Age, Married/Unmarried, Occupation">{{ form.siblings.value|default_if_none:'' }}</textarea>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- LIFESTYLE & HABITS -->
-      <div class="f-section">
+      <!-- <div class="f-section">
         <div class="f-section-header">
           <span class="sec-icon">🌿</span>
           <h2>Lifestyle &amp; Habits</h2>
@@ -523,10 +538,10 @@
             <input type="text" name="legal_case" placeholder="If any, otherwise None" value="{{ form.legal_case.value|default_if_none:'' }}" required>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- PARTNER PREFERENCES -->
-      <div class="f-section">
+      <!-- <div class="f-section">
         <div class="f-section-header">
           <span class="sec-icon">💑</span>
           <h2>Partner Preferences</h2>
@@ -549,10 +564,10 @@
             <textarea name="otherChoice" placeholder="Mention any other preferences">{{ form.otherChoice.value|default_if_none:'' }}</textarea>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- REGISTRATION DETAILS -->
-      <div class="f-section">
+      <!-- <div class="f-section">
         <div class="f-section-header">
           <span class="sec-icon">📋</span>
           <h2>Registration Details</h2>
@@ -630,7 +645,7 @@
       <div class="submit-row">
         <button type="submit" class="submit-btn">🚀 Submit Registration</button>
       </div>
-    </form>
+    </form> -->
   </div>
 </div>
 
@@ -643,8 +658,8 @@
 {% include 'partials/footer.html' %}
 {% include 'biodata/employa_footer.html' %}
 
-<script>
-  // DOB auto-format
+<!-- <script>
+ 
   var dobInput = document.getElementById('dob');
   if (dobInput) {
     dobInput.addEventListener('input', function () {
@@ -654,7 +669,7 @@
       this.value = val;
     });
   }
-  // Photo preview
+
   document.getElementById('photoInput').addEventListener('change', function () {
     var file = this.files[0];
     var preview = document.getElementById('photoPreview');
@@ -669,6 +684,6 @@
       preview.style.display = 'none';
     }
   });
-</script>
+</script> -->
 </body>
 </html>
