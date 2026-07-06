@@ -364,6 +364,7 @@ class CandidateBiodataAdmin(admin.ModelAdmin):
     list_filter = ('gender', 'marital_status', 'residence_area_category')
 from .admin_37th_sammelan import *
 from .admin_38th_sammelan import *
+from .admin_marriage_done import *
 
 @admin.register(FortyPlusSammelan)
 class FortyPlusSammelanAdmin(admin.ModelAdmin):

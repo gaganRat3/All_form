@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Marriage Done & Photo-Frame Gift Form</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #7b2ff7, #f107a3);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 10px;
+  }
+  .card {
+    background: #fff;
+    max-width: 560px;
+    width: 100%;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  .header {
+    background: linear-gradient(135deg, #ff9a56, #ff6a88);
+    color: #fff;
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .header h1 {
+    margin: 0 0 6px;
+    font-size: 22px;
+  }
+  .header p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.9;
+  }
+  form { padding: 28px 26px 32px; }
+  .field { margin-bottom: 18px; }
+  label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 6px;
+  }
+  input[type="text"], input[type="tel"], input[type="date"], select {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+  }
+  input:focus, select:focus {
+    border-color: #ff6a88;
+    box-shadow: 0 0 0 3px rgba(255,106,136,0.15);
+  }
+  .radio-group {
+    display: flex;
+    gap: 20px;
+    margin-top: 4px;
+  }
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 400;
+    margin: 0;
+  }
+  .upload-box {
+    border: 2px dashed #ff6a88;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    background: #fff5f7;
+    cursor: pointer;
+  }
+  .upload-box input { display: none; }
+  .upload-box span { font-size: 13px; color: #888; display: block; margin-top: 6px; }
+  #preview {
+    margin-top: 12px;
+    max-width: 100%;
+    max-height: 220px;
+    border-radius: 10px;
+    display: none;
+  }
+  button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #7b2ff7, #f107a3);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  button:hover { opacity: 0.9; transform: translateY(-1px); }
+  .section-title {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #f107a3;
+    font-weight: 700;
+    margin: 22px 0 12px;
+    border-bottom: 2px solid #ffe0ec;
+    padding-bottom: 6px;
+  }
+  .poster-section {
+    padding: 0 26px 18px;
+  }
+  .poster-section img {
+    display: block;
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 14px 32px rgba(0,0,0,0.14);
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>💍 Marriage Done & Photo-Frame Gift Form</h1>
+      <p>Fill details below — we'll prepare a beautiful photo frame for the couple!</p>
+    </div>
+    {% if errors %}
+    <div style="padding: 18px 26px 0; color: #b42318; font-size: 14px; line-height: 1.6;">
+      {% for field, error in errors.items %}
+        <div><strong>{{ field }}:</strong> {{ error }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <form id="giftForm" method="post" action="{% url 'marriage_done_form' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="section-title">Your Details</div>
+
+      <div class="field">
+        <label>1. Name of Person Filling up this Form</label>
+        <input type="text" name="filler_name" value="{{ form.filler_name|default_if_none:'' }}" required>
+      </div>
+
+      <div class="field">
+        <label>2. Your Relation with the Candidate</label>
+        <input type="text" name="relation" value="{{ form.relation|default_if_none:'' }}" required>
+      </div>
+
+      <div class="field">
+        <label>3. Your Mobile Contact / WhatsApp Number</label>
+        <input type="tel" name="mobile" pattern="[0-9]{10}" placeholder="10 digit number" value="{{ form.mobile|default_if_none:'' }}" required>
+      </div>
+
+      <div class="section-title">Candidate Details</div>
+
+      <div class="field">
+        <label>4. Candidate Name</label>
+        <input type="text" name="candidate_name" value="{{ form.candidate_name|default_if_none:'' }}" required>
+      </div>
+
+      <div class="field">
+        <label>5. Candidate Gender</label>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="Male" {% if form.gender == 'Male' %}checked{% endif %} required> Male</label>
+          <label><input type="radio" name="gender" value="Female" {% if form.gender == 'Female' %}checked{% endif %}> Female</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>6. Candidate Date of Birth</label>
+        <input type="date" name="candidate_dob" value="{{ form.candidate_dob|default_if_none:'' }}" required>
+      </div>
+
+      <div class="section-title">Spouse Details</div>
+
+      <div class="field">
+        <label>7. Spouse Name of your Candidate</label>
+        <input type="text" name="spouse_name" value="{{ form.spouse_name|default_if_none:'' }}" required>
+      </div>
+
+      <div class="field">
+        <label>8. Spouse Date of Birth</label>
+        <input type="date" name="spouse_dob" value="{{ form.spouse_dob|default_if_none:'' }}" required>
+      </div>
+
+      <div class="section-title">Wedding Photo</div>
+
+      <div class="field">
+        <label>9. Upload Wedding Ceremony Photo of the Couple</label>
+        <label class="upload-box">
+          📷 Click to upload photo
+          <span>We will make a Photo-Frame of this photo</span>
+          <input type="file" name="wedding_photo" accept="image/*" id="photoInput" required>
+        </label>
+        <img id="preview">
+      </div>
+
+      <button type="submit">Submit Form 🎁</button>
+    </form>
+
+    <div class="poster-section">
+      <img src="{% static 'images/team.jpg' %}" alt="Our Team">
+    </div>
+    {% include 'partials/footer.html' %}
+{% include 'biodata/employa_footer.html' %}
+  </div>
+<script>
+  const photoInput = document.getElementById('photoInput');
+  const preview = document.getElementById('preview');
+  photoInput.addEventListener('change', () => {
+    const file = photoInput.files[0];
+    if (file) {
+      preview.src = URL.createObjectURL(file);
+      preview.style.display = 'block';
+    }
+  });
+</script>
+</body>
+</html>

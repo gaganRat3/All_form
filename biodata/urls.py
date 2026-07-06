@@ -5,6 +5,7 @@ from .views_38th_sammelan import sammelan_38th_form_view, sammelan_38th_success
 from . import views_referral_program
 from . import views_divorce_sammelan
 from . import views_40plus_sammelan
+from . import views_marriage_done
 from .views import astrology_form_view, technical_support, technical_support_confirmation, bk2026_registration_view, submit_bk2026_registration
 from django.views.generic import RedirectView
 from django.conf import settings
@@ -54,6 +55,8 @@ urlpatterns = [
     path('37th-uk-europe/admin/', RedirectView.as_view(url='/admin/', permanent=False)),
     path('', views.home_page, name='home_page'),
     path('divorce-sammelan-form/', views_divorce_sammelan.divorce_sammelan_form_view, name='divorce_sammelan_form'),
+    path('marriage-done-gift-form/', views_marriage_done.marriage_done_form_view, name='marriage_done_form'),
+    path('marriage-done-gift-form/success/', views_marriage_done.marriage_done_success, name='marriage_done_success'),
         path('37th-uk-europe/', __import__('biodata.views_37th_sammelan').views_37th_sammelan.sammelan_37_uk_europe_view, name='37th_sammelan_uk_europe'),
         path('37th-uk-europe/success/', __import__('biodata.views_37th_sammelan').views_37th_sammelan.sammelan_37_uk_europe_success, name='37th_sammelan_uk_europe_success'),
         path('38th-sammelan-form/', sammelan_38th_form_view, name='38th_sammelan_form'),
