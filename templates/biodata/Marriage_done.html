@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marriage Done & Photo-Frame Gift Form</title>
 <style>
   * { box-sizing: border-box; }
@@ -34,6 +34,122 @@
     margin: 0 0 6px;
     font-size: 22px;
   }
+
+/* ===========================
+   Responsive Design
+=========================== */
+
+html, body{
+    width:100%;
+    overflow-x:hidden;
+}
+
+@media (max-width:768px){
+
+    body{
+        padding:15px 10px;
+        display:block;
+    }
+
+    .card{
+        width:100%;
+        max-width:100%;
+        border-radius:14px;
+        margin:0 auto;
+    }
+
+    .header{
+        padding:22px 16px;
+    }
+
+    .header h1{
+        font-size:20px;
+    }
+
+    .header p{
+        font-size:13px;
+    }
+
+    form{
+        padding:20px 16px 24px;
+    }
+
+    .poster-section{
+        padding:0 16px 16px;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="date"],
+    select{
+        width:100%;
+        font-size:16px; /* prevents zoom on iPhone */
+    }
+
+    button{
+        width:100%;
+    }
+
+    .radio-group{
+        flex-wrap:wrap;
+        gap:12px;
+    }
+
+    .upload-box{
+        padding:16px;
+    }
+
+    #preview{
+        width:100%;
+        height:auto;
+    }
+}
+
+@media (max-width:480px){
+
+    body{
+        padding:8px;
+    }
+
+    .card{
+        border-radius:10px;
+    }
+
+    .header{
+        padding:18px 12px;
+    }
+
+    .header h1{
+        font-size:18px;
+    }
+
+    .header p{
+        font-size:12px;
+    }
+
+    form{
+        padding:16px 12px 20px;
+    }
+
+    .poster-section{
+        padding:0 12px 12px;
+    }
+
+    .section-title{
+        font-size:12px;
+    }
+
+    label{
+        font-size:13px;
+    }
+
+    input,
+    select,
+    button{
+        font-size:15px;
+    }
+}
+
   .header p {
     margin: 0;
     font-size: 14px;
