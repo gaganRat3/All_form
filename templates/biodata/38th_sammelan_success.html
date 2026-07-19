@@ -5,61 +5,224 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registration Successful - 38th Bhudev Jivansathi Sammelan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-1: #fff9f0;
+      --bg-2: #fde8c8;
+      --bg-3: #f5d7ae;
+      --text-primary: #3f2a1b;
+      --text-muted: #7a5b43;
+      --brand-1: #8a4b1f;
+      --brand-2: #cf7d34;
+      --surface: rgba(255, 255, 255, 0.9);
+      --surface-border: rgba(138, 75, 31, 0.15);
+      --shadow-strong: 0 22px 60px rgba(94, 51, 18, 0.2);
+      --shadow-soft: 0 12px 26px rgba(138, 75, 31, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100vh;
       margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 14px;
+      color: var(--text-primary);
+      background:
+        radial-gradient(55% 45% at 12% 10%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%),
+        radial-gradient(45% 35% at 90% 86%, rgba(207, 125, 52, 0.25) 0%, rgba(207, 125, 52, 0) 100%),
+        linear-gradient(140deg, var(--bg-1) 0%, var(--bg-2) 52%, var(--bg-3) 100%);
+    }
+
+    .shell {
+      position: relative;
+      width: min(860px, 100%);
+    }
+
+    .shell::before,
+    .shell::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(2px);
+      z-index: 0;
+    }
+
+    .shell::before {
+      width: 180px;
+      height: 180px;
+      top: -30px;
+      left: -20px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .shell::after {
+      width: 220px;
+      height: 220px;
+      right: -26px;
+      bottom: -34px;
+      background: rgba(207, 125, 52, 0.18);
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      background: var(--surface);
+      border-radius: 28px;
+      border: 1px solid var(--surface-border);
+      box-shadow: var(--shadow-strong);
+      overflow: hidden;
+      backdrop-filter: blur(4px);
+    }
+
+    .card-top {
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #fff;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      background: linear-gradient(115deg, var(--brand-1), var(--brand-2));
+    }
+
+    .card-main {
+      padding: 34px 32px 30px;
+    }
+
+    .icon {
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
       display: grid;
       place-items: center;
-      background: radial-gradient(circle at top, #fff4e8 0%, #f6e2c9 40%, #fffaf4 100%);
-      color: #3f2a1b;
+      font-size: 2rem;
+      background: linear-gradient(160deg, #fff 0%, #fde5c8 100%);
+      border: 1px solid rgba(138, 75, 31, 0.15);
+      box-shadow: var(--shadow-soft);
     }
-    .card {
-      width: min(520px, calc(100vw - 28px));
-      background: rgba(255,255,255,0.94);
-      border-radius: 24px;
-      padding: 38px 30px;
-      box-shadow: 0 18px 48px rgba(122, 74, 30, 0.14);
-      border: 1px solid rgba(122, 74, 30, 0.1);
-      text-align: center;
-    }
-    .icon {
-      font-size: 3rem;
-      margin-bottom: 14px;
-    }
+
     h1 {
-      margin: 0 0 12px;
-      font-size: 1.8rem;
-      color: #7a4a1e;
+      margin: 0;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.55rem, 2vw + 1rem, 2.15rem);
+      color: var(--brand-1);
+      letter-spacing: 0.01em;
     }
+
+    .subtitle {
+      margin: 10px 0 22px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      font-weight: 500;
+    }
+
+    .message-box {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(253, 240, 222, 0.85) 100%);
+      border: 1px solid rgba(138, 75, 31, 0.14);
+      border-radius: 20px;
+      padding: 22px 20px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
     p {
-      margin: 0 0 22px;
+      margin: 0;
       line-height: 1.7;
-      font-size: 1rem;
+      font-size: clamp(0.95rem, 0.3vw + 0.88rem, 1.04rem);
+      color: #4b3525;
     }
+
+    .actions {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
     a {
       display: inline-block;
-      padding: 12px 22px;
-      border-radius: 14px;
+      padding: 13px 24px;
+      border-radius: 999px;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 800;
+      letter-spacing: 0.02em;
       color: #fff;
-      background: linear-gradient(135deg, #7a4a1e 0%, #c97a3a 100%);
-      box-shadow: 0 10px 20px rgba(122, 74, 30, 0.18);
+      background: linear-gradient(135deg, var(--brand-1) 0%, var(--brand-2) 100%);
+      box-shadow: 0 12px 24px rgba(122, 74, 30, 0.26);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px rgba(122, 74, 30, 0.3);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 22px 12px;
+      }
+
+      .card-top {
+        font-size: 0.82rem;
+        padding: 12px 14px;
+      }
+
+      .card-main {
+        padding: 26px 18px 22px;
+      }
+
+      .icon {
+        width: 66px;
+        height: 66px;
+      }
+
+      p {
+        line-height: 1.65;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="icon">✅</div>
-    <h1>Registration Successful</h1>
-    <p>
-      Thank you for submitting the 38th Bhudev Jivansathi Sammelan registration form.<br>
-      Your biodata has been saved successfully.
-    </p>
-    <a href="/38th-sammelan-form/">Back to Form</a>
+  <div class="shell">
+    <div class="card">
+      <div class="card-top">Bhudev Jivansathi Online Sammelan</div>
+      <div class="card-main">
+        <div class="icon">✅</div>
+        <h1>Registration Successful</h1>
+        <div class="subtitle">Your form has been received successfully</div>
+
+        <div class="message-box">
+          <p>
+            🌷 38મુ સમસ્ત બ્રાહ્મણ - ભૂદેવ જીવનસાથી Online પસંદગી સંમેલન (Doctor - Medical) મા આપનું સ્વાગત છે. 🌷<br>
+            ~~~~~~~~~~~~~~~~<br>
+            આપનું Online Form અમને મળી ગયું છે. આભાર.<br><br>
+            We have received your Online Form. Thankyou <br><br>
+
+            Next Step : <br>
+            ~~~~~~~~<br><br>
+
+            હવે, ડેટા વેરિફિકેશન માટે ભૂદેવ નેટવર્ક ઓફિસ થી, તમને 3 દિવસ મા ફૉન આવશે.<br><br>
+
+            Data Verification થશે પછી તમારે Rs 500 (Biodata Registration + Booklet + Zoom meeting Link) પેમેન્ટ કરવાનું રહેશે. (Booklet Courier Charges Rs 100 Extra રહેશે).
+          </p>
+        </div>
+
+        <div class="actions">
+          <a href="/38th-sammelan-form/">Back to Form</a>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>

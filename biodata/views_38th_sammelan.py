@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
+from types import SimpleNamespace
 
 from .models_38th_sammelan import Sammelan38Biodata
 
@@ -11,6 +12,10 @@ def validate_mobile(mobile):
 
 def validate_email(email):
     return bool(email) and '@' in email and '.' in email
+
+
+def build_form_data(data):
+    return {key: SimpleNamespace(value=value) for key, value in data.items()}
 
 
 def sammelan_38th_form_view(request):
@@ -64,7 +69,7 @@ def sammelan_38th_form_view(request):
 
         if errors:
             context = {
-                'form': data,
+                'form': build_form_data(data),
                 'errors': errors,
                 'residence_choices': residence_choices,
                 'selected_rescat': data.get('resCat', ''),
@@ -93,7 +98,7 @@ def sammelan_38th_form_view(request):
                     model_errors[field_name] = str(message_list)
 
             context = {
-                'form': data,
+                'form': build_form_data(data),
                 'errors': model_errors,
                 'residence_choices': residence_choices,
                 'selected_rescat': data.get('resCat', ''),
@@ -101,7 +106,7 @@ def sammelan_38th_form_view(request):
             return render(request, 'biodata/38th_sammelan_form.html', context)
         except Exception as exc:
             context = {
-                'form': data,
+                'form': build_form_data(data),
                 'errors': {'general': f'Error saving registration: {str(exc)}'},
                 'residence_choices': residence_choices,
                 'selected_rescat': data.get('resCat', ''),
