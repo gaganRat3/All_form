@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from .views_mumbai import mumbai_maharashtra_view, mumbai_maharashtra_success
 from .views_38th_sammelan import sammelan_38th_form_view, sammelan_38th_success
+from .views_nri_sammelan import nri_sammelan_form_view, nri_sammelan_success
 from . import views_referral_program
 from . import views_divorce_sammelan
 from . import views_40plus_sammelan
@@ -61,6 +62,8 @@ urlpatterns = [
         path('37th-uk-europe/success/', __import__('biodata.views_37th_sammelan').views_37th_sammelan.sammelan_37_uk_europe_success, name='37th_sammelan_uk_europe_success'),
         path('38th-sammelan-form/', sammelan_38th_form_view, name='38th_sammelan_form'),
         path('38th-sammelan-form/success/', sammelan_38th_success, name='38th_sammelan_success'),
+    path('nri-sammelan-form/', nri_sammelan_form_view, name='nri_sammelan_form'),
+    path('nri-sammelan-form/success/', nri_sammelan_success, name='nri_sammelan_success'),
     path('39th-sammelan-form/', views.sammelan_39th_form_view, name='39th_sammelan_form'),
     path('39th-sammelan-form/success/', views.sammelan_39th_success, name='39th_sammelan_success'),
     path('40-plus-sammelan-form/', views_40plus_sammelan.forty_plus_sammelan_form_view, name='40_plus_sammelan_form'),

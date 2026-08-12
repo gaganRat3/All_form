@@ -1,0 +1,1303 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Primary theme color for supported browsers (removed due to compatibility warning) -->
+    <!-- Fallbacks/alternatives for other platforms -->
+    <meta name="msapplication-TileColor" content="#4C1D95" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta
+      name="description"
+      content="38th Bhudev Jivansathi Sammelan registration form"
+    />
+    <title>38th Bhudev Jivansathi Sammelan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          "Poppins", sans-serif; /* Darker text for better contrast */
+        min-height: 100vh;
+        color: #1f1633;
+        background: #f8f7fc; /* Page Background */
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0 0 auto 0;
+        height: 9px;
+        background: linear-gradient(
+          90deg,
+          #4c1d95 0%,
+          #6c2bd9 100%
+        ); /* Dark to Primary */
+        z-index: 1000;
+      }
+
+      .site-header {
+        padding: 30px 16px 26px;
+        text-align: center;
+        background: linear-gradient(
+          180deg,
+          #4c1d95 0%,
+          #6c2bd9 100%
+        ); /* Dark to Primary */
+        box-shadow: 0 12px 30px rgba(76, 29, 149, 0.18);
+        margin-top: 9px;
+        position: relative;
+        overflow: hidden;
+      }
+      .site-header::after {
+        content: "";
+        position: absolute;
+        inset: auto -10% -40px -10%;
+        height: 120px;
+        background: radial-gradient(
+          circle at center,
+          rgba(255, 255, 255, 0.12),
+          transparent 62%
+        );
+        pointer-events: none;
+      }
+      .logo-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+        position: relative;
+        z-index: 1;
+      }
+      .logo-row img {
+        height: 54px;
+        width: auto;
+        max-width: 100px;
+        object-fit: contain;
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 14px;
+        padding: 6px 10px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      }
+      .event-title-band {
+        position: relative;
+        z-index: 1;
+        max-width: 920px;
+        margin: 0 auto;
+      }
+      .event-title-band h1 {
+        color: #ffffff;
+        font-size: clamp(1.35rem, 4vw, 2.25rem);
+        font-weight: 800;
+        line-height: 1.25;
+        letter-spacing: 0.4px;
+        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+      }
+      .event-title-band p {
+        color: #ede9fe; /* Light */
+        font-size: 0.95rem;
+        margin-top: 8px;
+        line-height: 1.65;
+        opacity: 0.9;
+      }
+
+      .info-banner {
+        max-width: 920px;
+        margin: 26px auto 0;
+        padding: 22px 24px;
+        background: #ffffff; /* White */
+        border: 1px solid #d8bff5; /* Border */
+        border-left: 6px solid #6c2bd9; /* Primary */
+        border-radius: 20px;
+        font-size: 0.96rem;
+        color: #1f1633; /* Text */
+        line-height: 1.85;
+        box-shadow: 0 10px 28px rgba(76, 29, 149, 0.05);
+        -webkit-backdrop-filter: blur(4px); /* Safari iOS support */
+        backdrop-filter: blur(4px);
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      .info-banner strong {
+        color: #4c1d95; /* Dark */
+      }
+      .info-banner p {
+        margin: 0 0 12px;
+      }
+      .info-banner p:last-child {
+        margin-bottom: 0;
+      }
+      .info-banner a {
+        color: #6c2bd9; /* Primary */
+        text-decoration: underline;
+        word-break: break-all;
+        overflow-wrap: anywhere;
+      }
+      .chk {
+        color: #d97706;
+        font-weight: 800;
+      }
+
+      .form-wrapper {
+        max-width: 920px;
+        margin: 28px auto 42px;
+        padding: 0 12px;
+      }
+      .form-card {
+        background: #ffffff; /* White */
+        border-radius: 24px;
+        box-shadow: 0 18px 50px rgba(76, 29, 149, 0.08);
+        overflow: hidden;
+        border: 1px solid #d8bff5; /* Border */
+      }
+
+      .form-errors {
+        background: #fff2ee;
+        border-left: 4px solid #dc4f2c;
+        color: #9e2d13;
+        padding: 15px 20px;
+        font-size: 0.92rem;
+      }
+      .form-errors ul {
+        margin: 8px 0 0 18px;
+      }
+
+      .f-section {
+        border-bottom: 1px solid #d8bff5; /* Border */
+      }
+      .f-section:last-of-type {
+        border-bottom: none;
+      }
+      .f-section-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 24px;
+        background: #ede9fe; /* Light */
+      }
+      .f-section-header .sec-icon {
+        width: 42px;
+        height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        background: linear-gradient(
+          135deg,
+          #4c1d95 0%,
+          #6c2bd9 100%
+        ); /* Dark to Primary */
+        color: #fff;
+        font-size: 1.05rem;
+        box-shadow: 0 8px 16px rgba(76, 29, 149, 0.22);
+        flex-shrink: 0;
+      }
+      .f-section-header h2 {
+        color: #4c1d95; /* Dark */
+        font-size: 1rem;
+        font-weight: 800;
+        letter-spacing: 0.35px;
+      }
+      .f-section-body {
+        padding: 22px 24px 26px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 20px;
+      }
+      .f-section-body .full {
+        grid-column: 1 / -1;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .field > label {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #4c1d95; /* Dark */
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .field-num {
+        width: 22px;
+        height: 22px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          #4c1d95 0%,
+          #6c2bd9 100%
+        ); /* Dark to Primary */
+        color: #fff;
+        font-size: 0.7rem;
+        font-weight: 800;
+        flex-shrink: 0;
+      }
+      .field input,
+      .field select,
+      .field textarea {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1.5px solid #d8bff5; /* Border */
+        border-radius: 12px;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.9rem;
+        color: #1f1633; /* Text */
+        background: #f8f7fc; /* Input Background */
+        outline: none;
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease,
+          transform 0.2s ease;
+      }
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        border-color: #6c2bd9; /* Primary */
+        box-shadow: 0 0 0 3px rgba(108, 43, 217, 0.2);
+        background: #ffffff; /* White */
+      }
+      .field.is-error > label {
+        color: #b42318;
+      }
+      .field.is-error input,
+      .field.is-error select,
+      .field.is-error textarea {
+        border-color: #dc4f2c;
+        background: #fff2ee;
+        box-shadow: 0 0 0 3px rgba(220, 79, 44, 0.12);
+      }
+      .field textarea {
+        resize: vertical;
+        min-height: 76px;
+      }
+      .field input::placeholder,
+      .field textarea::placeholder {
+        color: #8b7e9f; /* Placeholder */
+        opacity: 1;
+      }
+      .field .hint {
+        font-size: 0.74rem;
+        color: #8a8176;
+      }
+
+      .radio-group {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 6px;
+      }
+      .radio-group label {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 16px;
+        border-radius: 999px;
+        border: 1.5px solid #d8bff5; /* Border */
+        background: #f8f7fc; /* Input Background */
+        color: #4c1d95; /* Dark */
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          border-color 0.2s ease,
+          background 0.2s ease;
+      }
+      .radio-group label:hover {
+        border-color: #6c2bd9; /* Primary */
+        box-shadow: 0 8px 18px rgba(76, 29, 149, 0.06);
+        transform: translateY(-1px);
+      }
+      .radio-group input[type="radio"] {
+        accent-color: #6c2bd9; /* Primary */
+      }
+
+      .photo-upload-box {
+        border: 2px dashed #d8bff5; /* Border */
+        border-radius: 18px;
+        padding: 28px 18px;
+        text-align: center;
+        background: linear-gradient(
+          180deg,
+          #f8f7fc 0%,
+          #ede9fe 100%
+        ); /* Input BG to Light */
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .photo-upload-box:hover {
+        transform: translateY(-1px);
+        border-color: #6c2bd9; /* Primary */
+        box-shadow: 0 10px 20px rgba(76, 29, 149, 0.05);
+      }
+      .photo-upload-box input[type="file"] {
+        display: none;
+      }
+      .photo-upload-box .upload-icon {
+        font-size: 2.15rem;
+        margin-bottom: 8px;
+      }
+      .photo-upload-box .upload-text {
+        font-size: 0.84rem;
+        color: #6f6458;
+        line-height: 1.55;
+      }
+      #photoPreview {
+        max-width: 150px;
+        max-height: 150px;
+        border-radius: 14px;
+        margin-top: 12px;
+        display: none;
+      }
+
+      .declaration-box {
+        background: #fffbeb; /* Light yellow for warning/info */
+        border-left: 4px solid #f59e0b; /* Amber color */
+        border-radius: 14px;
+        padding: 16px 18px;
+        font-size: 0.88rem;
+        color: #78350f;
+        line-height: 1.8;
+        margin-bottom: 14px;
+      }
+
+      .submit-row {
+        padding: 24px;
+        background: #ede9fe; /* Light */
+        border-top: 1px solid #d8bff5; /* Border */
+      }
+      .submit-btn {
+        width: 100%;
+        border: none;
+        border-radius: 16px;
+        padding: 16px 22px;
+        font-family: "Poppins", sans-serif;
+        font-size: 1.02rem;
+        font-weight: 800;
+        color: #fff;
+        background: linear-gradient(
+          135deg,
+          #4c1d95 0%,
+          #6c2bd9 100%
+        ); /* Dark to Primary */
+        box-shadow: 0 14px 28px rgba(108, 43, 217, 0.25);
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          filter 0.2s ease;
+        letter-spacing: 0.4px;
+      }
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 34px rgba(108, 43, 217, 0.3);
+        filter: saturate(1.05);
+      }
+
+      .poster-section {
+        max-width: 920px;
+        margin: 22px auto 8px;
+        padding: 0 12px;
+        text-align: center;
+      }
+      .poster-section img {
+        max-width: 100%;
+        border-radius: 18px;
+        box-shadow: 0 14px 35px rgba(122, 74, 30, 0.12);
+        margin-bottom: 16px;
+      }
+
+      @media (max-width: 720px) {
+        .site-header {
+          padding: 26px 14px 22px;
+        }
+        .logo-row img {
+          height: 42px;
+        }
+        .f-section-body {
+          grid-template-columns: 1fr;
+          padding: 16px 14px 20px;
+          gap: 13px;
+        }
+        .f-section-body .full {
+          grid-column: 1;
+        }
+        .f-section-header {
+          padding: 16px 14px;
+        }
+        .info-banner {
+          margin: 18px 10px 0;
+          padding: 18px 16px;
+        }
+        .form-wrapper {
+          padding: 0 10px;
+        }
+        .submit-row {
+          padding: 18px 14px 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site-header">
+      <div class="logo-row">
+        <img src="{% static 'images/img3.png' %}" alt="Logo" />
+        <img src="{% static 'images/img4.png' %}" alt="Logo" />
+        <img src="{% static 'images/logoD.png' %}" alt="Logo" />
+        <!-- <img src="{% static 'images/logoMH.png' %}" alt="Logo" /> -->
+      </div>
+      <div class="event-title-band">
+        <h1>✨ 39th Bhudev Jivansathi Sammelan ✨</h1>
+        <p>
+          39th Samast Brahman : Bhudev Jivansathi Parichay - Meeting - Pasandgi
+          Sammelan for NRI and Looking for NRI Candidates
+        </p>
+      </div>
+    </div>
+
+    <div class="info-banner">
+      <p>
+        <strong
+          >39મુ સમસ્ત બ્રાહ્મણ - ભૂદેવ જીવનસાથી પરિચય - પસંદગી - મિટિંગ Online
+          સંમેલન</strong
+        >
+        (માત્ર NRI and Looking for Nri ના ઉમેદવારો માટે)
+      </p>
+
+      <p>
+        <strong>👉🏻 Online Biodata Registration Form</strong> : (Only For NRI and
+        Looking for NRI)
+      </p>
+
+      <p><strong>(રેજીસ્ટ્રેશન છેલ્લી તારીખ : 20/09/2026)</strong></p>
+
+      <p>
+        <strong>Sammelan Date</strong> : 27-09-2026 (રવિવાર)<br />
+        <strong>Time</strong> : સવારે 10 AM થી 4 PM<br /><br />
+        <strong>Join WhatsApp Group</strong> :
+      </p>
+
+      <p>
+        ✔️ દીકરીઓ - યુવતીઓ માટે Biodata Registration શુલ્ક = Rs 1100 (સાથે 1
+        E-Booklet/Flip-Book મળશે)<br />
+        ✔️ યુવકો માટે Biodata Registration શુલ્ક = Rs.1100 (સાથે 1
+        E-Booklet/Flip-Book મળશે)<br />
+        ✔️ આપણી Premium Website NRI.BhudevNetworkVivah.com મા રેજીસ્ટ્રેશન હોય
+        તે ઉમેદવારો (Girls &amp; Boys) ને 100% Free Registration &amp; Free
+        Flip-Book મળશે.
+      </p>
+
+      <p><strong>Sammelan Venue</strong> : Online Zoom Meeting</p>
+
+      <p>
+        <strong>Registration Fees :</strong><br />
+        <strong>For Girls : Rs 1100</strong><br />
+        <strong>For Boys : Rs 1100</strong>
+      </p>
+
+      <p>
+        <strong>This Fees Includes :</strong><br />
+        ✔️ Registration Charges<br />
+        ✔️ You will get one E-Booklet / Flipbook Free With this Registration
+        Fees<br />
+        ✔️ Online Zoom Meeting Entry (Link) - Only Registered Candidates will
+        get Online Zoom Meeting Link.
+      </p>
+    </div>
+
+    <div class="form-wrapper">
+      <div class="form-card">
+        <form action="{% url 'nri_sammelan_form' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ prefill_data|json_script:"nri-prefill-data" }}
+          {{ error_fields|json_script:"nri-error-fields" }}
+          <div id="nri-form-meta" data-first-error="{{ first_error_field|default:'' }}" hidden></div>
+          {% if errors %}
+          <div class="form-errors">
+            <strong>⚠️ Please fix the following errors:</strong>
+            <ul>
+              {% for field_name, message in errors.items %}
+              <li><strong>{{ field_name }}:</strong> {{ message }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+
+          <div class="f-section">
+            <div class="f-section-header">
+              <span class="sec-icon">👤</span>
+              <h2>Personal Details</h2>
+            </div>
+            <div class="f-section-body">
+              <div class="field full">
+                <label
+                  ><span class="field-num">1</span> Candidate Full Name</label
+                >
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter full name"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label><span class="field-num">2</span> Gender</label>
+                <div class="radio-group">
+                  <label
+                    ><input type="radio" name="gender" value="Male" required />
+                    Male</label
+                  >
+                  <label
+                    ><input type="radio" name="gender" value="Female" />
+                    Female</label
+                  >
+                </div>
+              </div>
+              <div class="field">
+                <label><span class="field-num">3</span> Date of Birth</label>
+                <input
+                  type="text"
+                  id="dob"
+                  name="dob"
+                  placeholder="DD-MM-YYYY"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field full">
+                <label for="marital"
+                  ><span class="field-num">4</span> Marital Status</label
+                >
+                <select id="marital" name="marital" required>
+                  <option value="">Choose one</option>
+                  <option value="never_married">
+                    Never Married (Unmarried)
+                  </option>
+                  <option value="divorce_no_child">Divorce (No Child)</option>
+                  <option value="divorce_having_child">
+                    Divorce (Having Child)
+                  </option>
+                  <option value="widow_no_child">Widow (No Child)</option>
+                  <option value="widow_having_child">
+                    Widow (Having Child)
+                  </option>
+                  <option value="divorce_annulled">Divorce (Annulled)</option>
+                  <option value="divorce_in_process">Divorce in Process</option>
+                  <option value="separated">Separated</option>
+                  <option value="gol_dhana_cancel">
+                    1 Time Gol-Dhana Done, but then Cancelled
+                  </option>
+                  <option value="engagement_cancel">
+                    1 Time Engagement Done, but then Cancelled
+                  </option>
+                </select>
+              </div>
+              <div class="field full">
+                <label
+                  ><span class="field-num">5</span> Any Disability or Minor
+                  Problem?</label
+                >
+                <input
+                  type="text"
+                  name="disability"
+                  placeholder="Describe if any, otherwise write None"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label><span class="field-num">6</span> Birth Time</label>
+                <input
+                  type="text"
+                  name="tob"
+                  placeholder="e.g. 07:30 AM"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label><span class="field-num">7</span> Birth Place</label>
+                <input
+                  type="text"
+                  name="birthPlace"
+                  placeholder="City where you were born"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label><span class="field-num">8</span> Current City</label>
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="Your current city"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label><span class="field-num">9</span> Current Country</label>
+                <input
+                  type="text"
+                  name="country"
+                  placeholder="e.g. India"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field full">
+                <label for="visa"
+                  ><span class="field-num">10</span> Visa Status</label
+                >
+                <select id="visa" name="visa" required aria-required="true">
+                  <option value="">Select an Option</option>
+                  <option value="indian_citizen">Indian Citizen</option>
+                  <option value="nri_student_visa">NRI - Student Visa</option>
+                  <option value="nri_work_permit">NRI - Work Permit</option>
+                  <option value="nri_pr">NRI - PR</option>
+                  <option value="nri_pr_in_process">NRI - PR In Process</option>
+                  <option value="nri_green_card_usa">
+                    NRI - Green Card (USA)
+                  </option>
+                  <option value="nri_blue_card_eu">NRI - Blue Card (EU)</option>
+                  <option value="nri_citizenship">NRI - Citizenship</option>
+                  <option value="nri_visitor_visa">NRI - Visitor Visa</option>
+                  <option value="nri_h1b_usa">NRI - H1B (USA)</option>
+                  <option value="nri_business_visa">NRI - Business Visa</option>
+                  <option value="nri_oci">NRI - OCI</option>
+                  <option value="nri_f1">NRI - F1</option>
+                </select>
+              </div>
+              <div class="field">
+                <label><span class="field-num">11</span> Height</label>
+                <input
+                  type="text"
+                  name="height"
+                  placeholder="e.g. 5 ft 6 in or 168 cm"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label><span class="field-num">12</span> Weight (kg)</label>
+                <input
+                  type="text"
+                  name="weight"
+                  placeholder="e.g. 65"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field full">
+                <label for="education"
+                  ><span class="field-num">13</span> Education</label
+                >
+                <select id="education" name="education" required>
+                  <option value="">Select an Option</option>
+                  <option value="Doctor (Clinical - Surgical - Specialist)">
+                    Doctor (Clinical - Surgical - Specialist)
+                  </option>
+                  <option value="Doctor (Physiotherapy)">
+                    Doctor (Physiotherapy)
+                  </option>
+                  <option value="Doctor (Dental)">Doctor (Dental)</option>
+                  <option value="Doctor (Pathology)">Doctor (Pathology)</option>
+                  <option value="Doctor (Veterinary)">
+                    Doctor (Veterinary)
+                  </option>
+                  <option value="Doctor (Ayurvedic)">Doctor (Ayurvedic)</option>
+                  <option value="Doctor (Homeopathy)">
+                    Doctor (Homeopathy)
+                  </option>
+                  <option value="Doctor (Naturopathy)">
+                    Doctor (Naturopathy)
+                  </option>
+                  <option value="Pharmacy Education">Pharmacy Education</option>
+                  <option value="Nurse - Midwifery">Nurse - Midwifery</option>
+                  <option value="Paramedical Staff">Paramedical Staff</option>
+                  <option value="Other Education Field">
+                    Other Education Field
+                  </option>
+                </select>
+              </div>
+              <div class="field full">
+                <label
+                  ><span class="field-num">14</span> Education Detail</label
+                >
+                <input
+                  type="text"
+                  name="educationDetail"
+                  placeholder="Specify your degree / qualification"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="occupationCat"
+                  ><span class="field-num">15</span> Occupation Type</label
+                >
+                <select id="occupationCat" name="occupationCat" required>
+                  <option value="">Select an Option</option>
+                  <option value="Government Job">Government Job</option>
+                  <option value="Private MNC Job">Private MNC Job</option>
+                  <option value="Self Employed (Own Practice)">
+                    Self Employed (Own Practice)
+                  </option>
+                  <option value="Own Business">Own Business</option>
+                  <option value="Job + Business">Job + Business</option>
+                  <option value="Free Lancing">Free Lancing</option>
+                  <option value="Student (Studies Running)">
+                    Student (Studies Running)
+                  </option>
+                  <option value="Searching Job">Searching Job</option>
+                  <option value="Home Works (ghar-kaam)">
+                    Home Works (ghar-kaam)
+                  </option>
+                </select>
+              </div>
+              <div class="field full">
+                <label
+                  ><span class="field-num">16</span> Company / Business
+                  Name</label
+                >
+                <input
+                  type="text"
+                  name="occupationDetails"
+                  placeholder="Enter company name or business details"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="field-num">17</span> Monthly Income (Rs.)</label
+                >
+                <input
+                  type="text"
+                  name="salary"
+                  placeholder="e.g. 35000"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="shani"
+                  ><span class="field-num">18</span> Shani / Mangal</label
+                >
+                <select id="shani" name="shani" required>
+                  <option value="">Select an Option</option>
+                  <option value="Yes (Shani)">Yes (Shani)</option>
+                  <option value="Yes (Mangal)">Yes (Mangal)</option>
+                  <option value="No">No</option>
+                  <option value="Don't Know">Don't Know</option>
+                  <option value="We Don't Believe">We Don't Believe</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label><span class="field-num">19</span> Hobbies</label>
+                <input
+                  type="text"
+                  name="hobbies"
+                  placeholder="e.g. Reading, Music, Sports"
+                  value=""
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="f-section">
+            <div class="f-section-header">
+              <span class="sec-icon">👨‍👩‍👧</span>
+              <h2>Family Details</h2>
+            </div>
+            <div class="f-section-body">
+              <div class="field">
+                <label><span class="field-num">20</span> Father's Name</label>
+                <input
+                  type="text"
+                  name="father"
+                  placeholder="Father's full name"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label><span class="field-num">21</span> Mother's Name</label>
+                <input
+                  type="text"
+                  name="mother"
+                  placeholder="Mother's full name"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="field-num">22</span> Father's Mobile No.</label
+                >
+                <input
+                  type="tel"
+                  name="fatherWp"
+                  placeholder="10-digit mobile number"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="field-num">23</span> Mother's Mobile No.</label
+                >
+                <input
+                  type="tel"
+                  name="motherWp"
+                  placeholder="10-digit mobile number"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label><span class="field-num">24</span> Type of Brahmin</label>
+                <input
+                  type="text"
+                  name="caste"
+                  placeholder="e.g. Anavil, Audichya, etc."
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label><span class="field-num">25</span> Gotra</label>
+                <input
+                  type="text"
+                  name="gotra"
+                  placeholder="Enter your gotra"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label><span class="field-num">26</span> Kuldevi</label>
+                <input
+                  type="text"
+                  name="kuldevi"
+                  placeholder="Enter Kuldevi name"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field full">
+                <label
+                  ><span class="field-num">27</span> Siblings (Brother /
+                  Sister)</label
+                >
+                <textarea
+                  name="siblings"
+                  placeholder="Name, Age, Married/Unmarried, Occupation"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="f-section">
+            <div class="f-section-header">
+              <span class="sec-icon">🌿</span>
+              <h2>Lifestyle &amp; Habits</h2>
+            </div>
+            <div class="f-section-body">
+              <div class="field">
+                <label><span class="field-num">28</span> Eating Habits</label>
+                <input
+                  type="text"
+                  name="eating_habbits"
+                  placeholder="e.g. Pure Veg, Jain, etc."
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="alcohol_select"
+                  ><span class="field-num">29</span> Alcoholic Drinks?</label
+                >
+                <select
+                  id="alcohol_select"
+                  name="alcohol"
+                  required
+                  aria-required="true"
+                >
+                  <option value="">Select</option>
+                  <option value="No">No</option>
+                  <option value="Yes">Yes</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="smoke_select"
+                  ><span class="field-num">30</span> Smoke?</label
+                >
+                <select
+                  id="smoke_select"
+                  name="smoke"
+                  required
+                  aria-required="true"
+                  title="Smoke"
+                >
+                  <option value="">Select</option>
+                  <option value="No">No</option>
+                  <option value="Yes">Yes</option>
+                </select>
+              </div>
+              <div class="field">
+                <label
+                  ><span class="field-num">31</span> Any Other Habit?</label
+                >
+                <input
+                  type="text"
+                  name="other_habbit"
+                  placeholder="If any, otherwise None"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field full">
+                <label
+                  ><span class="field-num">32</span> Any Legal or Police
+                  Case?</label
+                >
+                <input
+                  type="text"
+                  name="legal_case"
+                  placeholder="If any, otherwise None"
+                  value=""
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="f-section">
+            <div class="f-section-header">
+              <span class="sec-icon">💑</span>
+              <h2>Partner Preferences</h2>
+            </div>
+            <div class="f-section-body">
+              <div class="field">
+                <label
+                  ><span class="field-num">33</span> Partner's Location</label
+                >
+                <input
+                  type="text"
+                  name="locChoice"
+                  placeholder="Preferred location"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="field-num">34</span> Partner's Age
+                  Bracket</label
+                >
+                <input
+                  type="text"
+                  name="ageGap"
+                  placeholder="e.g. 25-30 years"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="field-num">35</span> Partner's Education</label
+                >
+                <input
+                  type="text"
+                  name="eduChoice"
+                  placeholder="Preferred education level"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field full">
+                <label
+                  ><span class="field-num">36</span> Any Other Specific
+                  Choice</label
+                >
+                <textarea
+                  name="otherChoice"
+                  placeholder="Mention any other preferences"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="f-section">
+            <div class="f-section-header">
+              <span class="sec-icon">📋</span>
+              <h2>Registration Details</h2>
+            </div>
+            <div class="f-section-body">
+              <div class="field full">
+                <label
+                  ><span class="field-num">37</span> Who is doing this
+                  Registration?</label
+                >
+                <input
+                  type="text"
+                  name="who"
+                  placeholder="e.g. SELF or Candidate's Father (Name)"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="field-num">38</span> Mobile No. (person
+                  registering)</label
+                >
+                <input
+                  type="tel"
+                  name="regMobile"
+                  placeholder="9876543210"
+                  value=""
+                  required
+                />
+                <span class="hint">For reference &amp; verification</span>
+              </div>
+              <div class="field">
+                <label for="resCat"
+                  ><span class="field-num">39</span> Current Residence
+                  Area</label
+                >
+                <select id="resCat" name="resCat" required aria-required="true">
+                  <option value="">Select an Option</option>
+                  <option value="mumbai_maharashtra">
+                    Mumbai &amp; Maharashtra Region
+                  </option>
+                  <option value="rest_of_india">
+                    Rest of Indian Region (except Gujarat &amp; Maharashtra)
+                  </option>
+                  <option value="nri">NRI (Any Visa)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="nadi"><span class="field-num">40</span> Nadi</label>
+                <select id="nadi" name="nadi" required>
+                  <option value="">Select an Option</option>
+                  <option value="aadhya_nadi">Aadhya Nadi</option>
+                  <option value="madhya_nadi">Madhya Nadi</option>
+                  <option value="antya_nadi">Antya Nadi</option>
+                  <option value="dont_know">I Dont Know</option>
+                  <option value="dont_believe">We Don't Believe</option>
+                </select>
+              </div>
+              <div class="field">
+                <label><span class="field-num">41</span> Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="example@email.com"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field">
+                <label><span class="field-num">42</span> WhatsApp Number</label>
+                <input
+                  type="tel"
+                  name="whatsapp"
+                  placeholder="WhatsApp number"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="field full">
+                <label
+                  ><span class="field-num">43</span> Upload Candidate
+                  Photo</label
+                >
+                <div
+                  class="photo-upload-box"
+                  onclick="document.getElementById('photoInput').click()"
+                >
+                  <input
+                    type="file"
+                    id="photoInput"
+                    name="photo"
+                    accept="image/*"
+                    required
+                  />
+                  <div class="upload-icon">📷</div>
+                  <div class="upload-text">
+                    Click to upload photo<br /><small
+                      >Clear front-face photo. No goggles or cap. Max
+                      5MB.</small
+                    >
+                  </div>
+                  <img id="photoPreview" src="#" alt="Preview" />
+                </div>
+              </div>
+              <div class="field full">
+                <label><span class="field-num">44</span> Declaration</label>
+                <div class="declaration-box">
+                  બધી માહિતી સાચી છે અને હું 38th Bhudev Jivansathi Sammelan ના
+                  નિયમો મુજબ registration submit કરું છું.<br />
+                  આપેલ biodata, family details, contact details અને photo સાચી
+                  અને updated છે.<br />
+                  I confirm that all information entered above is correct and
+                  can be used for registration and publication purposes.<br /><br />
+                  જો કોઈ માહિતી ખોટી મળશે તો registration reject થઈ શકે છે.
+                </div>
+                <div class="radio-group">
+                  <label
+                    ><input
+                      type="radio"
+                      name="declaration"
+                      value="Agree"
+                      required
+                    />
+                    I Agree</label
+                  >
+                  <label
+                    ><input type="radio" name="declaration" value="Disagree" />
+                    I Disagree</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="submit-row">
+              <button type="submit" class="submit-btn">
+              Submit NRI Registration
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="poster-section">
+      <img src="{% static 'images/postd.jpeg' %}" alt="Event Poster" />
+      <img src="{% static 'images/team.jpg' %}" alt="Our Team" />
+    </div>
+
+    <!-- Footer content can be placed here -->
+    <!-- {% include 'partials/footer.html' %} -->
+    <!-- {% include 'biodata/employa_footer.html' %} -->
+
+    <script>
+      var dobInput = document.getElementById("dob");
+      if (dobInput) {
+        dobInput.addEventListener("input", function () {
+          var val = this.value.replace(/\D/g, "").slice(0, 8);
+          if (val.length > 4)
+            val = val.slice(0, 2) + "-" + val.slice(2, 4) + "-" + val.slice(4);
+          else if (val.length > 2) val = val.slice(0, 2) + "-" + val.slice(2);
+          this.value = val;
+        });
+      }
+
+      var photoInput = document.getElementById("photoInput");
+      if (photoInput) {
+        photoInput.addEventListener("change", function () {
+          var file = this.files[0];
+          var preview = document.getElementById("photoPreview");
+          if (file && file.type.startsWith("image/")) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              preview.src = e.target.result;
+              preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+          } else {
+            preview.style.display = "none";
+          }
+        });
+      }
+
+      (function () {
+        var prefillScript = document.getElementById('nri-prefill-data');
+        var errorFieldsScript = document.getElementById('nri-error-fields');
+        var meta = document.getElementById('nri-form-meta');
+        var firstErrorField = meta ? meta.getAttribute('data-first-error') : '';
+
+        if (prefillScript) {
+          try {
+            var prefillData = JSON.parse(prefillScript.textContent || '{}');
+            Object.keys(prefillData).forEach(function (name) {
+              var field = document.querySelector('[name="' + name + '"]');
+              if (!field || field.type === 'file') return;
+
+              var value = prefillData[name];
+              if (field.type === 'radio') {
+                var radios = document.querySelectorAll('[name="' + name + '"]');
+                radios.forEach(function (radio) {
+                  radio.checked = radio.value === value;
+                });
+              } else if (field.tagName === 'SELECT' || field.tagName === 'TEXTAREA' || field.tagName === 'INPUT') {
+                field.value = value;
+              }
+            });
+          } catch (error) {
+            console.warn('Could not restore NRI form values', error);
+          }
+        }
+
+        if (errorFieldsScript) {
+          try {
+            var errorFields = JSON.parse(errorFieldsScript.textContent || '[]');
+            errorFields.forEach(function (name) {
+              var target = document.querySelector('[name="' + name + '"]');
+              if (target) {
+                var container = target.closest('.field') || target;
+                container.classList.add('is-error');
+              }
+            });
+          } catch (error) {
+            console.warn('Could not mark NRI form errors', error);
+          }
+        }
+
+        if (firstErrorField) {
+          var target = document.querySelector('[name="' + firstErrorField + '"]');
+          if (target) {
+            var container = target.closest('.field') || target;
+            container.classList.add('is-error');
+            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(function () {
+              if (typeof target.focus === 'function') {
+                target.focus({ preventScroll: true });
+              }
+            }, 50);
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
