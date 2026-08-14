@@ -95,7 +95,7 @@ class Sammelan39BiodataForm(forms.ModelForm):
 # Ensure forms is imported for new form
 
 # 40 Plus Sammelan Form
-from .models import FortyPlusSammelan, SaurasthraKutchSammelan
+from .models import FortyPlusSammelan, SaurasthraKutchSammelan, SamstaGujaratRegistration
 from .models_37th_sammelan import Sammelan37MumbaiMaharashtra
 
 class FortyPlusSammelanForm(forms.ModelForm):
@@ -131,6 +131,13 @@ class SaurasthraKutchSammelanForm(forms.ModelForm):
     resCat = forms.ChoiceField(choices=RESCAT_CHOICES, required=True, label='Current Residence Area')
     class Meta:
         model = SaurasthraKutchSammelan
+        fields = '__all__'
+
+
+class SamstaGujaratRegistrationForm(forms.ModelForm):
+    """Dedicated backend form for the Samsta Gujarat registration."""
+    class Meta:
+        model = SamstaGujaratRegistration
         fields = '__all__'
 
 from django import forms

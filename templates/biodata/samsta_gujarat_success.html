@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Submitted</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8ff;
+            margin: 0;
+            padding: 40px 20px;
+            color: #1f2937;
+        }
+        .card {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            padding: 32px;
+            text-align: center;
+        }
+        .badge {
+            display: inline-block;
+            background: #d1fae5;
+            color: #065f46;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin-bottom: 12px;
+            color: #1d4ed8;
+        }
+        p {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 16px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="badge">✅ Submitted Successfully</div>
+        <h1>Thank you for registering</h1>
+        <p>Your Samsta Gujarat registration has been submitted successfully.</p>
+        {% if name %}
+            <p><strong>Name:</strong> {{ name }}</p>
+        {% endif %}
+        {% if email %}
+            <p><strong>Email:</strong> {{ email }}</p>
+        {% endif %}
+        {% if regMobile %}
+            <p><strong>Mobile:</strong> {{ regMobile }}</p>
+        {% endif %}
+        <a href="{% url 'home_page' %}" class="btn">Go to Home</a>
+    </div>
+</body>
+</html>

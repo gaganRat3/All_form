@@ -7,6 +7,7 @@ from . import views_referral_program
 from . import views_divorce_sammelan
 from . import views_40plus_sammelan
 from . import views_marriage_done
+from .views_samsta_gujarat import samsta_gujarat_form_view, samsta_gujarat_success
 from .views import astrology_form_view, technical_support, technical_support_confirmation, bk2026_registration_view, submit_bk2026_registration
 from django.views.generic import RedirectView
 from django.conf import settings
@@ -68,6 +69,8 @@ urlpatterns = [
     path('39th-sammelan-form/success/', views.sammelan_39th_success, name='39th_sammelan_success'),
     path('40-plus-sammelan-form/', views_40plus_sammelan.forty_plus_sammelan_form_view, name='40_plus_sammelan_form'),
     path('saurashtra-kutch-sammelan-form/', views_40plus_sammelan.saurashtra_kutch_sammelan_form_view, name='saurashtra_kutch_sammelan_form'),
+    path('samsta-gujarat-form/', samsta_gujarat_form_view, name='samsta_gujarat_form'),
+    path('samsta-gujarat-form/success/', samsta_gujarat_success, name='samsta_gujarat_success'),
     path('physical-form/', views.physical_form_view, name='physical_form'),
     path('physical-form-success/', views.physical_form_success_view, name='physical_form_success'),
     path('business-directory/', views.business_directory, name='business_directory'),

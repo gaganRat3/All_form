@@ -364,6 +364,62 @@ class SaurasthraKutchSammelan(models.Model):
         verbose_name_plural = "Saurashtra & Kutch Sammelan Registrations"
 
 
+class SamstaGujaratRegistration(models.Model):
+    """Dedicated backend model for the Samsta Gujarat matrimonial form."""
+    name = models.CharField(max_length=255)
+    gender = models.CharField(max_length=20)
+    dob = models.CharField(max_length=30)
+    marital = models.CharField(max_length=100)
+    disability = models.TextField()
+    tob = models.CharField(max_length=50)
+    birthPlace = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
+    visa = models.CharField(max_length=100)
+    height = models.CharField(max_length=50)
+    weight = models.CharField(max_length=50)
+    education = models.CharField(max_length=255)
+    educationDetail = models.CharField(max_length=255)
+    occupationCat = models.CharField(max_length=255)
+    occupationDetails = models.TextField()
+    salary = models.CharField(max_length=50)
+    shani = models.CharField(max_length=50)
+    hobbies = models.CharField(max_length=255)
+    father = models.CharField(max_length=255)
+    mother = models.CharField(max_length=255)
+    fatherWp = models.CharField(max_length=30)
+    motherWp = models.CharField(max_length=30)
+    caste = models.CharField(max_length=255)
+    gotra = models.CharField(max_length=255)
+    kuldevi = models.CharField(max_length=255)
+    siblings = models.TextField()
+    eating_habbits = models.CharField(max_length=255)
+    alcohol = models.CharField(max_length=20)
+    smoke = models.CharField(max_length=20)
+    other_habbit = models.CharField(max_length=255)
+    legal_case = models.CharField(max_length=255)
+    locChoice = models.CharField(max_length=255)
+    ageGap = models.CharField(max_length=50)
+    eduChoice = models.CharField(max_length=255)
+    otherChoice = models.TextField()
+    who = models.CharField(max_length=255)
+    regMobile = models.CharField(max_length=30)
+    resCat = models.CharField(max_length=100)
+    nadi = models.CharField(max_length=100)
+    email = models.EmailField()
+    whatsapp = models.CharField(max_length=30)
+    photo = models.ImageField(upload_to='samsta_gujarat_photos/')
+    declaration = models.CharField(max_length=20)
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Samsta Gujarat Registration"
+        verbose_name_plural = "Samsta Gujarat Registrations"
+
+    def __str__(self):
+        return f"{self.name} - {self.email}"
+
+
 from django.db import models
 from .models_booklet_camp_adv import BookletCampAdvBooking
 from django.utils import timezone
