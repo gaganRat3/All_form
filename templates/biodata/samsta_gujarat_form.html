@@ -153,6 +153,9 @@
         box-shadow: 0 4px 15px rgba(37,99,235,0.12), 0 1px 3px rgba(0,0,0,0.05);
         border: 1px solid rgba(37,99,235,0.15);
         transition: all 0.3s ease;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0 24px;
       }
       .form-section:hover {
         box-shadow: 0 6px 20px rgba(37,99,235,0.15), 0 2px 4px rgba(0,0,0,0.08);
@@ -197,6 +200,7 @@
         letter-spacing: 0.02em;
         padding-bottom: 12px;
         border-bottom: 2px solid rgba(37,99,235,0.1);
+        grid-column: 1 / -1;
       }
       .form-section.family .form-section-title {
         background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
@@ -364,6 +368,12 @@
         display: flex;
         flex-direction: column;
         gap: 28px;
+      }
+      @media (min-width: 768px) {
+        .form-section {
+          grid-template-columns: 1fr 1fr;
+          align-items: start;
+        }
       }
       @media (max-width: 900px) {
           .placeholder-poster {
@@ -1103,122 +1113,69 @@
       </div>
     </div>
     <div class="container">
-      <!-- Event Header -->
-      <div class="event-header">
-        <div class="event-title">
-          34મુ સમસ્ત બ્રાહ્મણ - ભુદેવ જીવનસાથી પસંદગી સંમેલન<br />
-        </div>
-
-        <div class="event-details">
-          <div class="event-item">
-            <strong>સંમેલન તારીખ:</strong>
-            25-01-2026 (રવિવાર)
-          </div>
-          <div class="event-item">
-            <strong>સમય:</strong>
-            9 AM to 4 PM
-          </div>
-          <div class="event-item">
-            <strong>સ્થળ:</strong>
-            Sardar Patel AC Banquet Hall & Party Plot Near Smart Bazar, Anand - Vidyanagar Road, Anand, Gujarat 388001
-          </div>
-          <div class="event-item">
-            <strong>આયોજક:</strong>
-            Bhudev Network Charitable Foundation<br/>
-            <small>(Gov. Reg. Amd/120129)</small>
-          </div>
-        </div>
-
-        <!-- <div class="event-join">-->
-        <!--  <div style="margin-bottom: 12px">-->
-        <!--    <strong>✅ All-in-1 Booklet  </strong><br />-->
-        <!--     <strong>✅ (Registration + Printing + 1 Booklet) Charges = Rs 700  </strong><br />-->
-        <!--      <strong>✅ Rs 700 Refundable after Marriage from this Booklet </strong><br />-->
-        <!--    <strong>👥 For All Male - Female Candidates</strong><br />-->
-        <!--    <strong>📅 Last Date: 15/01/2026</strong>-->
-        <!--  </div>-->
-
-        <!--</div> -->-->
-      </div>
-
       <div class="card">
-        <!-- <h1 style="text-align: center; margin-bottom: 20px;">🌟 નવું જીવન, નવી શરૂઆત - Registration Form</h1> -->
-
-         {% comment %} Registration Closed Notice {% endcomment %}
-        {% comment %} <div style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); border-left: 5px solid #c62828; padding: 20px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(198, 40, 40, 0.15);"> {% endcomment %}
-          {% comment %} <h2 style="color: #c62828; text-align: center; margin: 0 0 15px 0; font-size: 1.4rem;"> {% endcomment %}
-            {% comment %} 🔴 Sorry, Registration Form is Now Closed 🔴 {% endcomment %}
-          {% comment %} </h2> {% endcomment %}
-          {% comment %} <p style="text-align: center; font-size: 1.1rem; font-weight: 600; margin: 10px 0; color: #1f2937;"> {% endcomment %}
-            {% comment %} 34મુ ભુદેવ જીવનસાથી સંમેલન મા આપનું સ્વાગત છે. તા 25/01/2026, આણંદ. {% endcomment %}
-          {% comment %} </p> {% endcomment %}
-        {% comment %} </div> {% endcomment %}
-
-        <!-- Step 1 -->
-        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 5px solid #f57c00; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(245, 124, 0, 0.12);">
-          <h3 style="color: #f57c00; margin: 0 0 12px 0; font-size: 1.15rem;">
-            🟠 Step - 1 : ઓનલાઇન રેજીસ્ટ્રેશન બંધ
-          </h3>
-          <p style="line-height: 1.7; color: #1f2937; margin: 0; font-size: 0.95rem;">
-            34મા ભુદેવ જીવનસાથી પરિચય સંમેલન નું ઓનલાઇન રેજીસ્ટ્રેશન હવે Close થઇ ગયું છે. જો તમે રેજીસ્ટ્રેશન કરાવી દીધું હોય કે પછી રેજીસ્ટ્રેશન ચુકી ગયા હોવ તો હવે તમે સ્થળ ઉપર આવીને રૂબરૂ સંમેલન મા ભાગ લઇ શકો છો. જો તમે Rs 700 ભરીને રેજીસ્ટ્રેશન કરાવ્યું છે, તો સ્થળ ઉપર થી તમને, Booklet Counter ઉપર 1 Girls અથવા 1 Boys બુકલેટ મળશે. જો ના કરાવ્યું હોય તો તમે સ્વૈચ્છા થી સ્થળ ઉપર આવીને Rs 700 મા બુકલેટ પરચેઝ કરી શકો છો. (સ્થળ ઉપર Extra Booklet Available હોય તો આ શક્ય થશે)
+        <div class="event-info-box" style="background: linear-gradient(135deg, #fefce8 0%, #fffbeb 100%); border-left: 5px solid #f59e0b; padding: 20px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15);">
+          <h2 style="text-align: center; color: #b45309; font-size: 1.4rem; margin-bottom: 15px;">
+              🕉️ 39મુ સમસ્ત બ્રાહ્મણ - ભૂદેવ Unmarried જીવનસાથી પસંદગી સંમેલન વડોદરા અને સુરત ખાતે
+          </h2>
+      
+          <p style="margin: 0; font-weight: bold; color: #c2410c; text-align: center; background: #fff7ed; padding: 8px; border-radius: 6px; margin-bottom: 20px;">
+              (રેજીસ્ટ્રેશન કરવાની છેલ્લી તારીખ: 13/09/2026)
           </p>
-        </div>
-
-        <!-- Step 2 -->
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 5px solid #2e7d32; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(46, 125, 50, 0.12);">
-          <h3 style="color: #2e7d32; margin: 0 0 12px 0; font-size: 1.15rem;">
-            🟢 Step - 2 : બાયોડેટા વેરિફિકેશન અને પેમેન્ટ
-          </h3>
-          <p style="line-height: 1.7; color: #1f2937; margin: 0 0 15px 0; font-size: 0.95rem;">
-            રેજીસ્ટ્રેશન પછી, હજી તમારે બાયોડેટા વેરિફિકેશન તથા Rs 700 Registration Fees નું પેમેન્ટ હજી બાકી હોય તો તા. 18-01-2026 પહેલા, નીચે મુજબ કોઈ પણ 1 નંબર ઉપર ફૉન કરીને અચૂક આ પ્રોસેસ ફિનિશ કરી દેશો. તા. 18-01-2026 પછી કોઈની પણ રેજીસ્ટ્રેશન Fees સ્વીકારવામાં આવશે નહિ. આવી સ્થિતિ મા તમારું બાયોડેટા ફોર્મ કેન્સલ થઇ જશે.
-          </p>
-          <p style="text-align: center; background: #fff; padding: 8px 12px; border-radius: 6px; font-weight: 600; color: #d84315; margin: 0 0 15px 0; font-size: 0.9rem;">
-            ⏰ ફૉન નો સમય : 10 AM To 6 PM Only
-          </p>
-
-          <!-- Vadodara Office -->
-          <div style="background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-            <h4 style="color: #1e88e5; margin: 0 0 10px 0; font-size: 1.05rem;">
-              📍 વડોદરા ભુદેવ નેટવર્ક ઓફિસ
-            </h4>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Krishnaben: <a href="tel:9428642903" style="color: #1e88e5; text-decoration: none; font-weight: 600;">9428642903</a></li>
-              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Prabhuta: <a href="tel:7043922323" style="color: #1e88e5; text-decoration: none; font-weight: 600;">7043922323</a></li>
-              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Himanshi: <a href="tel:9662362626" style="color: #1e88e5; text-decoration: none; font-weight: 600;">9662362626</a></li>
-              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Krina: <a href="tel:9265307465" style="color: #1e88e5; text-decoration: none; font-weight: 600;">9265307465</a></li>
-              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Kajal: <a href="tel:9313183494" style="color: #1e88e5; text-decoration: none; font-weight: 600;">9313183494</a></li>
-            </ul>
+      
+          <!-- Vadodara Event -->
+          <div style="background: #e0f2fe; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #bae6fd;">
+              <h3 style="color: #075985; margin: 0 0 10px 0; font-size: 1.15rem; text-align: center;">📍 વડોદરા સંમેલન</h3>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                  <div style="text-align: center;">
+                      <strong style="display: block; color: #075985; font-size: 0.9rem;">Date</strong>
+                      <span style="font-size: 1.05rem; font-weight: 600; color: #0c4a6e;">20-09-2026 (રવિવાર)</span>
+                  </div>
+                  <div style="text-align: center;">
+                      <strong style="display: block; color: #075985; font-size: 0.9rem;">Time</strong>
+                      <span style="font-size: 1.05rem; font-weight: 600; color: #0c4a6e;">08:00 am to 05:00 pm</span>
+                  </div>
+              </div>
+              <div style="text-align: center; margin-top: 10px;">
+                  <strong style="display: block; color: #075985; font-size: 0.9rem;">Place</strong>
+                  <span style="font-size: 1.05rem; font-weight: 600; color: #0c4a6e;">Riddhi Siddhi Banquest hall and Party Plot, Vadodara</span>
+              </div>
           </div>
-
-          <!-- Ahmedabad Office -->
-          <div style="background: #fff; padding: 15px; border-radius: 8px;">
-            <h4 style="color: #1e88e5; margin: 0 0 10px 0; font-size: 1.05rem;">
-              📍 અમદાવાદ ભુદેવ નેટવર્ક ઓફિસ
-            </h4>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Sheetalben: <a href="tel:9265224170" style="color: #1e88e5; text-decoration: none; font-weight: 600;">9265224170</a></li>
-              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Pina: <a href="tel:6352348949" style="color: #1e88e5; text-decoration: none; font-weight: 600;">6352348949</a></li>
-              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Pranjal: <a href="tel:6355424206" style="color: #1e88e5; text-decoration: none; font-weight: 600;">6355424206</a></li>
-              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Gayatriben: <a href="tel:7990252977" style="color: #1e88e5; text-decoration: none; font-weight: 600;">7990252977</a></li>
-              <li style="padding: 6px 0; font-size: 0.9rem;">📞 Hiteshi: <a href="tel:6355414702" style="color: #1e88e5; text-decoration: none; font-weight: 600;">6355414702</a></li>
-            </ul>
+      
+          <!-- Surat Event -->
+          <div style="background: #e0f2fe; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #bae6fd;">
+              <h3 style="color: #075985; margin: 0 0 10px 0; font-size: 1.15rem; text-align: center;">📍 સુરત સંમેલન</h3>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                  <div style="text-align: center;">
+                      <strong style="display: block; color: #075985; font-size: 0.9rem;">Date</strong>
+                      <span style="font-size: 1.05rem; font-weight: 600; color: #0c4a6e;">27-09-2026 (રવિવાર)</span>
+                  </div>
+                  <div style="text-align: center;">
+                      <strong style="display: block; color: #075985; font-size: 0.9rem;">Time</strong>
+                      <span style="font-size: 1.05rem; font-weight: 600; color: #0c4a6e;">08:00 am to 05:00 pm</span>
+                  </div>
+              </div>
+              <div style="text-align: center; margin-top: 10px;">
+                  <strong style="display: block; color: #075985; font-size: 0.9rem;">Place</strong>
+                  <span style="font-size: 1.05rem; font-weight: 600; color: #0c4a6e;">Senior Citizen Hall, Adajan Surat</span>
+              </div>
           </div>
-        </div>
-
-        <!-- Step 3 -->
-        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 5px solid #1565c0; padding: 20px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 3px 10px rgba(21, 101, 192, 0.12);">
-          <h3 style="color: #1565c0; margin: 0 0 12px 0; font-size: 1.15rem;">
-            🔵 Step - 3 : ઓનલાઇન પેમેન્ટ
-          </h3>
-          <p style="line-height: 1.7; color: #1f2937; margin: 0 0 15px 0; font-size: 0.95rem;">
-            બાયોડેટા વેરિફિકેશન પછી તમારે નીચે આપેલ લીંક ઉપર ક્લિક કરીને રેજીસ્ટ્રેશન Fees (Rs 700) Online ભરવાના રહેશે. પછીજ તમારો બાયોડેટા લેટેસ્ટ બુકલેટ મા સમાવેશ થશે.
-          </p>
-          <div style="text-align: center;">
-            <a href="https://bhudevnetwork.pythonanywhere.com/34th-sammelan-payment/" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%); color: white; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3); transition: all 0.3s ease;">
-              💳 ક્લિક કરો - ઓનલાઇન પેમેન્ટ
-            </a>
+      
+          <div style="text-align: center; margin-bottom: 20px;">
+              <a href="https://chat.whatsapp.com/I7CbDVHdFHC7UNzYh4QANr" target="_blank" style="display: inline-block; background: #25D366; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);">
+                  💬 Join WhatsApp Group
+              </a>
           </div>
-        </div>
+      
+          <div style="background: #f0fdf4; border: 1px solid #a7f3d0; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+              <h3 style="color: #047857; margin: 0 0 10px 0; font-size: 1.15rem;">👉🏻 નોંધ / Registration Details:</h3>
+              <ul style="list-style: '✔️ '; padding-left: 20px; margin: 0; line-height: 1.7; font-size: 0.95rem;">
+                  <li>યુવક માટે: Biodata Registration શુલ્ક = <strong>Rs 700</strong> (સાથે 1 Booklet મળશે).</li>
+                  <li>જે યુવતીઓ નું રેજીસ્ટ્રેશન બુકલેટ માં હશે અને Stage પર આવી ને પોતાનો પરિચય આપશે તો તે યુવતી ને એક બોય્સ બાયોડેટા બુકલેટ તથા એક ચાંદી નો સિક્કો એન્ડ એક Lunch પાસ ફ્રી માં આપવામાં આવશે.</li>
+                  <li style="background: #fef9c3; padding: 8px; border-radius: 4px; margin-top: 8px; border-left: 3px solid #facc15;">આપણી Premium Website (BhudevNetworkVivah.com) મા રેજીસ્ટ્રેશન હોય તે ઉમેદવારો (Girls & Boys) ને <strong>100% Free Registration</strong>.</li>
+              </ul>
+          </div>
+      </div>
 
         <p class="lead">
          આપનું નવું ભવિષ્ય શરૂ કરવા માટે નીચે વિગતો ભરો.
@@ -1639,21 +1596,42 @@
         </form>
 
       </div>
-    </div>
-     <div class="image-container-card">
+      <div class="image-container-card">
         <div class="image-container-content">
           <div class="placeholder-poster">
             <img src="{% static 'images/sammelan.jpeg' %}" alt="Event Poster">
           </div>
         </div>
-                </div>
-                <div class="image-container-card" style="margin-top: 12px;">
+      </div>
+      <div class="image-container-card" style="margin-top: 12px;">
         <div class="image-container-content">
           <div class="placeholder-poster">
             <img src="{% static 'images/team.jpg' %}" alt="team Poster">
           </div>
         </div>
+      </div>
+      <div class="employa-footer">
+        <div class="employa-footer-content">
+          <strong>This Digital Online Form is Designed & Developed by Employa Technologies IT Services.</strong>
+          <a href="https://Employa.in" target="_blank" class="employa-btn">Employa.in</a>
+          <div class="employa-contact">
+            <span class="contact-label">Connect Us :</span>
+            <div class="contact-numbers">
+              <a href="tel:9081522111" class="contact-link">📞 9081522111</a>
+              <span class="contact-separator">|</span>
+              <a href="tel:9099798986" class="contact-link">📞 9099798986</a>
             </div>
+          </div>
+          <span class="employa-services-title">Our Other Services :</span>
+          <ul class="employa-services-list">
+            <li>✔️ Website Design & Development</li>
+            <li>✔️ Graphics & Advertising</li>
+            <li>✔️ Social Media Marketing (SMM)</li>
+            <li>✔️ Android & iOS App</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
     <script>
       // Basic client side validation, image preview, and modal preview
@@ -1868,29 +1846,6 @@
       })();
     </script>
 
-
-
-    <div class="employa-footer">
-  <div class="employa-footer-content">
-    <strong>This Digital Online Form is Designed & Developed by Employa Technologies IT Services.</strong>
-    <a href="https://Employa.in" target="_blank" class="employa-btn">Employa.in</a>
-    <div class="employa-contact">
-      <span class="contact-label">Connect Us :</span>
-      <div class="contact-numbers">
-        <a href="tel:9081522111" class="contact-link">📞 9081522111</a>
-        <span class="contact-separator">|</span>
-        <a href="tel:9099798986" class="contact-link">📞 9099798986</a>
-      </div>
-    </div>
-    <span class="employa-services-title">Our Other Services :</span>
-    <ul class="employa-services-list">
-      <li>✔️ Website Design & Development</li>
-      <li>✔️ Graphics & Advertising</li>
-      <li>✔️ Social Media Marketing (SMM)</li>
-      <li>✔️ Android & iOS App</li>
-    </ul>
-  </div>
-</div>
 <style>
 .employa-footer {
   background: linear-gradient(135deg, rgba(235, 244, 221, 0.95) 0%, rgba(240, 245, 250, 0.7) 100%);
