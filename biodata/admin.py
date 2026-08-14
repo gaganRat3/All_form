@@ -371,9 +371,9 @@ from .admin_marriage_done import *
 class FortyPlusSammelanAdmin(admin.ModelAdmin):
     list_display = [
         'serial_number', 'name', 'gender', 'dob', 'marital', 'disability', 'tob', 'birthPlace', 'city', 'country', 'visa', 'height', 'weight',
-        'education', 'educationDetail', 'occupationCat', 'occupationDetails', 'salary', 'shani', 'hobbies', 'father', 'mother',
+        'education', 'educationDetail', 'occupationCat', 'occupationDetails', 'salary', 'shani', 'nadi', 'father', 'mother',
         'fatherWp', 'motherWp', 'caste', 'gotra', 'kuldevi', 'siblings', 'eating_habbits', 'alcohol', 'smoke', 'other_habbit',
-        'legal_case', 'locChoice', 'ageGap', 'eduChoice', 'otherChoice', 'who', 'regMobile', 'resCat', 'nadi', 'email', 'whatsapp',
+        'legal_case', 'locChoice', 'ageGap', 'eduChoice', 'otherChoice', 'who', 'regMobile', 'resCat', 'hobbies', 'email', 'whatsapp',
         'photo', 'declaration', 'submitted_at'
     ]
     search_fields = ['name', 'email', 'regMobile', 'city']
@@ -412,9 +412,9 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
     list_display = (
         'serial_number', 'name', 'gender', 'dob', 'marital', 'disability', 'tob', 'birthPlace', 'city', 'country', 'visa',
         'height', 'weight', 'education', 'educationDetail', 'occupationCat', 'occupationDetails', 'salary', 'shani',
-        'hobbies', 'father', 'mother', 'fatherWp', 'motherWp', 'caste', 'gotra', 'kuldevi', 'siblings',
+        'nadi', 'father', 'mother', 'fatherWp', 'motherWp', 'caste', 'gotra', 'kuldevi', 'siblings',
         'eating_habbits', 'alcohol', 'smoke', 'other_habbit', 'legal_case', 'locChoice', 'ageGap', 'eduChoice',
-        'otherChoice', 'who', 'regMobile', 'resCat', 'nadi', 'email', 'whatsapp', 'photo', 'declaration', 'submitted_at'
+        'otherChoice', 'who', 'regMobile', 'resCat', 'hobbies', 'email', 'whatsapp', 'photo', 'declaration', 'submitted_at'
     )
     search_fields = (
         'name', 'city', 'email', 'whatsapp', 'father', 'mother', 'occupationDetails', 'caste', 'gotra', 'kuldevi',
@@ -614,9 +614,9 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
 class SaurasthraKutchSammelanAdmin(admin.ModelAdmin):
     list_display = [
         'serial_number', 'name', 'gender', 'dob', 'marital', 'disability', 'tob', 'birthPlace', 'city', 'country', 'visa', 'height', 'weight',
-        'education', 'educationDetail', 'occupationCat', 'occupationDetails', 'salary', 'shani', 'hobbies', 'father', 'mother',
+        'education', 'educationDetail', 'occupationCat', 'occupationDetails', 'salary', 'shani', 'nadi', 'father', 'mother',
         'fatherWp', 'motherWp', 'caste', 'gotra', 'kuldevi', 'siblings', 'eating_habbits', 'alcohol', 'smoke', 'other_habbit',
-        'legal_case', 'locChoice', 'ageGap', 'eduChoice', 'otherChoice', 'who', 'regMobile', 'resCat', 'nadi', 'email', 'whatsapp',
+        'legal_case', 'locChoice', 'ageGap', 'eduChoice', 'otherChoice', 'who', 'regMobile', 'resCat', 'hobbies', 'email', 'whatsapp',
         'photo', 'declaration', 'submitted_at'
     ]
     search_fields = ['name', 'email', 'regMobile', 'city']

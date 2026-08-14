@@ -47,6 +47,13 @@
             padding: 12px 24px;
             border-radius: 10px;
             font-weight: 700;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-close {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            margin-top: 12px;
         }
     </style>
 </head>
@@ -56,7 +63,7 @@
         <h1>Thank you for registering</h1>
         <p>રેજીસ્ટ્રેશન પછી, હજી તમારે બાયોડેટા વેરિફિકેશન તથા Rs 700 Registration Fees નું પેમેન્ટ હજી બાકી હોય તો તા. 16-09-2026 પહેલા, નીચે મુજબ કોઈ પણ 1 નંબર ઉપર ફૉન કરીને અચૂક આ પ્રોસેસ ફિનિશ કરી દેશો. તા. 16-09-2026 પછી કોઈની પણ રેજીસ્ટ્રેશન Fees સ્વીકારવામાં આવશે નહિ. આવી સ્થિતિ મા તમારું બાયોડેટા ફોર્મ કેન્સલ થઇ જશે.</p>
         <p><strong>⏰ ફૉન નો સમય :</strong> 10 AM To 6 PM Only</p>
-        <p><strong>📍 વડોદરા ભુદેવ નેટવર્ક ઓફિસ</strong></p>
+        <p><strong>📍 વડોદરા ભૂદેવ નેટવર્ક ઓફિસ</strong></p>
         <p>📞 Krishnaben: 9428642903<br>
         📞 Prabhuta: 7043922323<br>
         📞 Himanshi: 9662362626<br>
@@ -78,7 +85,8 @@
         {% if regMobile %}
             <p><strong>Mobile:</strong> {{ regMobile }}</p>
         {% endif %}
-        <a href="{% url 'home_page' %}" class="btn">Go to Home</a>
+        <a href="https://chat.whatsapp.com/I7CbDVHdFHC7UNzYh4QANr" target="_blank" rel="noopener" class="btn">Join WhatsApp Group</a><br>
+        <button type="button" class="btn btn-close" onclick="window.close(); return false;">Close</button>
     </div>
 </body>
 </html>
