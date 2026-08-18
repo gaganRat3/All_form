@@ -413,8 +413,8 @@ class SamstaGujaratRegistration(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "Samsta Gujarat Registration"
-        verbose_name_plural = "Samsta Gujarat Registrations"
+        verbose_name = "39th Samasta Guj Sammelan Registration"
+        verbose_name_plural = "39th Samasta Guj Sammelan Registrations"
 
     def __str__(self):
         return f"{self.name} - {self.email}"

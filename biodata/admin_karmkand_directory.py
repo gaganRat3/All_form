@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models_karmkand_directory import GlobalKarmkandDirectoryEntry
+from .models_karmkand_directory import GlobalKarmkandDirectoryEntry, KarmkandiMaharajDetails, LaghuRudraYajmanRegistration, ShivMandirShivalayInfo
 
 @admin.register(GlobalKarmkandDirectoryEntry)
 class GlobalKarmkandDirectoryEntryAdmin(admin.ModelAdmin):
@@ -71,3 +71,97 @@ class GlobalKarmkandDirectoryEntryAdmin(admin.ModelAdmin):
         response['Content-Disposition'] = 'attachment; filename=karmkand_images.zip'
         return response
     download_images_zip.short_description = "Download images as ZIP"
+
+
+@admin.register(KarmkandiMaharajDetails)
+class KarmkandiMaharajDetailsAdmin(admin.ModelAdmin):
+    list_display = ('serial_number', 'maharaj_name', 'mobile_number', 'date_of_birth', 'laghurudra_experience', 'residence_city', 'submitted_at')
+    search_fields = ('maharaj_name', 'mobile_number', 'residence_city')
+    list_filter = ('residence_city', 'submitted_at')
+    readonly_fields = ('submitted_at',)
+    ordering = ['-submitted_at']
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.order_by('submitted_at')
+
+    def serial_number(self, obj):
+        request = getattr(self, 'admin_view_request', None)
+        if request is None:
+            return '-'
+        queryset = self.get_queryset(request)
+        pk_list = list(queryset.values_list('pk', flat=True))
+        try:
+            return pk_list.index(obj.pk) + 1
+        except ValueError:
+            return '-'
+    serial_number.short_description = 'Serial No.'
+    serial_number.admin_order_field = None
+
+    def get_changelist_instance(self, request):
+        self.admin_view_request = request
+        return super().get_changelist_instance(request)
+
+
+@admin.register(LaghuRudraYajmanRegistration)
+class LaghuRudraYajmanRegistrationAdmin(admin.ModelAdmin):
+    list_display = ('serial_number', 'registered_by', 'registered_mobile', 'husband_name', 'wife_name', 'city', 'contact_number', 'full_address_preview', 'submitted_at')
+    search_fields = ('registered_by', 'registered_mobile', 'husband_name', 'wife_name', 'city', 'full_address')
+    list_filter = ('city', 'submitted_at')
+    readonly_fields = ('submitted_at',)
+    ordering = ['-submitted_at']
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.order_by('submitted_at')
+
+    def serial_number(self, obj):
+        request = getattr(self, 'admin_view_request', None)
+        if request is None:
+            return '-'
+        queryset = self.get_queryset(request)
+        pk_list = list(queryset.values_list('pk', flat=True))
+        try:
+            return pk_list.index(obj.pk) + 1
+        except ValueError:
+            return '-'
+    serial_number.short_description = 'Serial No.'
+    serial_number.admin_order_field = None
+
+    def get_changelist_instance(self, request):
+        self.admin_view_request = request
+        return super().get_changelist_instance(request)
+
+    def full_address_preview(self, obj):
+        return obj.full_address[:80] + ('...' if len(obj.full_address) > 80 else '')
+    full_address_preview.short_description = 'Full Address'
+
+
+@admin.register(ShivMandirShivalayInfo)
+class ShivMandirShivalayInfoAdmin(admin.ModelAdmin):
+    list_display = ('serial_number', 'temple_name', 'priest_president_name', 'priest_president_phone', 'city', 'form_filled_by', 'form_filler_phone', 'submitted_at')
+    search_fields = ('temple_name', 'priest_president_name', 'city', 'form_filled_by')
+    list_filter = ('city', 'submitted_at')
+    readonly_fields = ('submitted_at',)
+    ordering = ['-submitted_at']
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.order_by('submitted_at')
+
+    def serial_number(self, obj):
+        request = getattr(self, 'admin_view_request', None)
+        if request is None:
+            return '-'
+        queryset = self.get_queryset(request)
+        pk_list = list(queryset.values_list('pk', flat=True))
+        try:
+            return pk_list.index(obj.pk) + 1
+        except ValueError:
+            return '-'
+    serial_number.short_description = 'Serial No.'
+    serial_number.admin_order_field = None
+
+    def get_changelist_instance(self, request):
+        self.admin_view_request = request
+        return super().get_changelist_instance(request)

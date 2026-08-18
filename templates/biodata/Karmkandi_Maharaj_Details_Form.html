@@ -1,0 +1,557 @@
+{% load static %}
+
+<!doctype html>
+<html lang="gu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>કર્મકાંડી મહારાજ Details Form | Bhudev Matrimony</title>
+
+    <!-- Gujarati Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Noto Sans Gujarati", sans-serif;
+        background: #f3f5f8;
+        color: #252b35;
+        padding: 35px 15px;
+      }
+
+      /* =========================
+           MAIN CARD
+        ========================= */
+
+      .form-wrapper {
+        max-width: 850px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(20, 35, 55, 0.12);
+      }
+
+      /* =========================
+           HEADER
+        ========================= */
+
+      .form-header {
+        background: #172a46;
+        color: #ffffff;
+        padding: 35px 40px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .form-header::before {
+        content: "";
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border: 35px solid rgba(221, 151, 35, 0.12);
+        border-radius: 50%;
+        right: -70px;
+        top: -80px;
+      }
+
+      .form-header::after {
+        content: "";
+        position: absolute;
+        width: 110px;
+        height: 110px;
+        border: 20px solid rgba(221, 151, 35, 0.08);
+        border-radius: 50%;
+        left: -50px;
+        bottom: -60px;
+      }
+
+      .header-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .brand {
+        display: inline-block;
+        color: #e0a63c;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        margin-bottom: 12px;
+      }
+
+      .form-title {
+        font-size: 29px;
+        font-weight: 800;
+        line-height: 1.4;
+        margin-bottom: 5px;
+      }
+
+      .form-subtitle {
+        color: #cbd4e0;
+        font-size: 13px;
+        margin-top: 5px;
+      }
+
+      .header-line {
+        width: 55px;
+        height: 4px;
+        background: #e0a63c;
+        border-radius: 5px;
+        margin-top: 18px;
+      }
+
+      /* =========================
+           BODY
+        ========================= */
+
+      .form-body {
+        padding: 38px 40px;
+      }
+
+      .intro-box {
+        background: #f8f9fb;
+        border: 1px solid #e3e7ed;
+        border-radius: 10px;
+        padding: 15px 18px;
+        margin-bottom: 30px;
+        color: #606b79;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      /* =========================
+           FORM
+        ========================= */
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .full-width {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        font-size: 14px;
+        font-weight: 700;
+        color: #293548;
+        margin-bottom: 9px;
+        line-height: 1.6;
+      }
+
+      .english-label {
+        display: block;
+        font-size: 11px;
+        font-weight: 500;
+        color: #8b95a3;
+        margin-top: 1px;
+      }
+
+      .required {
+        color: #d33a3a;
+      }
+
+      input {
+        width: 100%;
+        height: 48px;
+        padding: 0 14px;
+        border: 1px solid #d7dce3;
+        border-radius: 8px;
+        background: #ffffff;
+        font-family: inherit;
+        font-size: 14px;
+        color: #273243;
+        outline: none;
+        transition: all 0.25s ease;
+      }
+
+      input:hover {
+        border-color: #b9c1cc;
+      }
+
+      input:focus {
+        border-color: #e0a63c;
+        box-shadow: 0 0 0 3px rgba(224, 166, 60, 0.12);
+      }
+
+      input::placeholder {
+        color: #a7afb9;
+      }
+
+      /* =========================
+           EXPERIENCE FIELD
+        ========================= */
+
+      .experience-wrapper {
+        position: relative;
+      }
+
+      .experience-wrapper input {
+        padding-right: 80px;
+      }
+
+      .experience-unit {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #7a8491;
+        font-size: 12px;
+        font-weight: 600;
+        pointer-events: none;
+      }
+
+      /* =========================
+           SUBMIT
+        ========================= */
+
+      .submit-area {
+        margin-top: 35px;
+        padding-top: 25px;
+        border-top: 1px solid #edf0f3;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .submit-btn {
+        border: none;
+        background: #172a46;
+        color: #ffffff;
+        min-width: 180px;
+        height: 48px;
+        padding: 0 25px;
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+
+      .submit-btn:hover {
+        background: #e0a63c;
+        color: #172a46;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(224, 166, 60, 0.25);
+      }
+
+      /* =========================
+           FOOTER
+        ========================= */
+
+      .form-footer {
+        background: #f8f9fb;
+        border-top: 1px solid #e8ebef;
+        padding: 18px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+      }
+
+      .footer-brand {
+        color: #172a46;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .footer-text {
+        color: #8993a0;
+        font-size: 11px;
+      }
+
+      /* =========================
+           MOBILE
+        ========================= */
+
+      @media (max-width: 650px) {
+        body {
+          padding: 15px 10px;
+        }
+
+        .form-header {
+          padding: 28px 22px;
+        }
+
+        .form-title {
+          font-size: 22px;
+        }
+
+        .form-body {
+          padding: 25px 20px;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
+
+        .full-width {
+          grid-column: auto;
+        }
+
+        .submit-area {
+          display: block;
+        }
+
+        .submit-btn {
+          width: 100%;
+        }
+
+        .form-footer {
+          padding: 16px 20px;
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+
+      /* =========================
+           PRINT
+        ========================= */
+
+      @media print {
+        body {
+          background: #ffffff;
+          padding: 0;
+        }
+
+        .form-wrapper {
+          max-width: 100%;
+          box-shadow: none;
+          border: 1px solid #ddd;
+        }
+
+        .submit-btn {
+          display: none;
+        }
+      }
+
+      .logo-row {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 18px;
+			flex-wrap: wrap;
+			margin-bottom: 16px;
+			position: relative;
+			z-index: 1;
+		}
+		.logo-row img {
+			height: 54px;
+			width: auto;
+			max-width: 100px;
+			object-fit: contain;
+			background: rgba(255,255,255,0.96);
+			border-radius: 14px;
+			padding: 6px 10px;
+			box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+		}
+    .poster-section {
+			max-width: 920px;
+			margin: 22px auto 8px;
+			padding: 0 12px;
+			text-align: center;
+		}
+		.poster-section img {
+			max-width: 100%;
+			border-radius: 18px;
+			box-shadow: 0 14px 35px rgba(122, 74, 30, 0.12);
+			margin-bottom: 16px;
+		}
+    </style>
+  </head>
+
+  <body>
+    <div class="form-wrapper">
+        <div class="logo-row">
+		<img src="{% static 'images/img3.png' %}" alt="Logo">
+		<img src="{% static 'images/img4.png' %}" alt="Logo">
+		{% comment %} <img src="{% static 'images/logoMH.png' %}" alt="Logo"> {% endcomment %}
+	</div>
+      <!-- =========================
+         HEADER
+    ========================== -->
+
+      <div class="form-header">
+        
+        <div class="header-content">
+          <div class="brand">BHUDEV MATRIMONY</div>
+
+          <div class="form-title">કર્મકાંડી મહારાજ Details ફોર્મ</div>
+
+          <div class="form-subtitle">
+            કર્મકાંડી મહારાજ / ગોર મહારાજ નોંધણી ફોર્મ
+          </div>
+
+          <div class="header-line"></div>
+        </div>
+      </div>
+
+      <!-- =========================
+         FORM BODY
+    ========================== -->
+
+      <div class="form-body">
+        <div class="intro-box">
+          લઘુરુદ્ર યજ્ઞમાં માર્ગદર્શન અને વિધિ કરાવવા માટે લઘુરુદ્ર યજ્ઞના
+          જાણકાર અને નિષ્ણાંત કર્મકાંડી મહારાજની માહિતી અહીં નોંધાવો.
+        </div>
+
+        {% if error %}
+        <div class="intro-box" style="border-color:#f4c7c7; background:#fff6f6; color:#8a2d2d; margin-bottom:20px;">
+          {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="{% url 'karmkandi_maharaj_details_form' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-grid">
+            <!-- NAME -->
+
+            <div class="form-group full-width">
+              <label for="maharaj_name">
+                ગોર - મહારાજનું નામ
+                <span class="required">*</span>
+
+                <span class="english-label">
+                  લઘુ-રુદ્ર યજ્ઞના જાણકાર / નિષ્ણાંત મહારાજ
+                </span>
+              </label>
+
+              <input
+                type="text"
+                id="maharaj_name"
+                name="maharaj_name"
+                placeholder="ગોર - મહારાજનું સંપૂર્ણ નામ લખો"
+                value="{{ form_data.maharaj_name|default:'' }}"
+                required
+              />
+            </div>
+
+            <!-- MOBILE -->
+
+            <div class="form-group">
+              <label for="mobile_number">
+                મોબાઇલ નંબર
+                <span class="required">*</span>
+
+                <span class="english-label"> Mobile Number </span>
+              </label>
+
+              <input
+                type="tel"
+                id="mobile_number"
+                name="mobile_number"
+                placeholder="મોબાઇલ નંબર લખો"
+                maxlength="10"
+                pattern="[0-9]{10}"
+                title="Please enter a valid 10-digit mobile number"
+                inputmode="numeric"
+                value="{{ form_data.mobile_number|default:'' }}"
+                required
+              />
+            </div>
+
+            <!-- DOB -->
+
+            <div class="form-group">
+              <label for="date_of_birth">
+                જન્મ તારીખ
+                <span class="required">*</span>
+
+                <span class="english-label"> Date of Birth </span>
+              </label>
+
+              <input
+                type="date"
+                id="date_of_birth"
+                name="date_of_birth"
+                value="{{ form_data.date_of_birth|default:'' }}"
+                required
+              />
+            </div>
+
+            <!-- EXPERIENCE -->
+
+            <div class="form-group">
+              <label for="laghurudra_experience">
+                લઘુરુદ્ર અનુભવ
+                <span class="required">*</span>
+
+                <span class="english-label"> લઘુરુદ્ર યજ્ઞનો અનુભવ </span>
+              </label>
+
+              <div class="experience-wrapper">
+                <input
+                  type="number"
+                  id="laghurudra_experience"
+                  name="laghurudra_experience"
+                  placeholder="ઉદા. 10"
+                  min="0"
+                  max="100"
+                  value="{{ form_data.laghurudra_experience|default:'' }}"
+                  required
+                />
+
+                <span class="experience-unit"> વર્ષ </span>
+              </div>
+            </div>
+
+            <!-- CITY -->
+
+            <div class="form-group">
+              <label for="residence_city">
+                રહેઠાણનું શહેર
+                <span class="required">*</span>
+
+                <span class="english-label"> Residence City </span>
+              </label>
+
+              <input
+                type="text"
+                id="residence_city"
+                name="residence_city"
+                placeholder="રહેઠાણનું શહેર લખો"
+                value="{{ form_data.residence_city|default:'' }}"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- SUBMIT -->
+
+          <div class="submit-area">
+            <button type="submit" class="submit-btn">માહિતી સબમિટ કરો</button>
+          </div>
+        </form>
+      </div>
+      <div class="poster-section">
+      {% comment %} <img src="{% static 'images/postd.jpeg' %}" alt="Event Poster"> {% endcomment %}
+      <img src="{% static 'images/team.jpg' %}" alt="Our Team">
+    </div>
+
+
+      {% include 'partials/footer.html' %}
+    {% include 'biodata/employa_footer.html' %}
+    </div>
+  </body>
+</html>

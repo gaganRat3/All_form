@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="gu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ફોર્મ success | Bhudev Matrimony</title>
+    <style>
+      body {
+        font-family: "Noto Sans Gujarati", sans-serif;
+        background: #eef3f8;
+        margin: 0;
+        padding: 40px 16px;
+      }
+      .box {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 20px 45px rgba(23,42,70,0.12);
+        padding: 40px 30px;
+        text-align: center;
+      }
+      .badge {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        background: #1f9d5a;
+        color: white;
+        display: grid;
+        place-items: center;
+        font-size: 40px;
+        font-weight: 700;
+      }
+      h1 {
+        color: #172a46;
+        font-size: 28px;
+        margin-bottom: 12px;
+      }
+      p {
+        color: #4b5563;
+        font-size: 16px;
+        line-height: 1.7;
+      }
+      .btn {
+        display: inline-block;
+        margin-top: 24px;
+        background: #172a46;
+        color: white;
+        text-decoration: none;
+        padding: 12px 22px;
+        border-radius: 8px;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="badge">✓</div>
+      <h1>ફોર્મ સફળ રીતે submit થઈ ગયો</h1>
+      <p>તમારી માહિતી સફળતાપૂર્વક Bhudev Matrimony સુધી પહોંચાડવામાં આવી છે.</p>
+      <a class="btn" href="{% url 'home_page' %}">હોમ પેજ પર જાઓ</a>
+    </div>
+  </body>
+</html>

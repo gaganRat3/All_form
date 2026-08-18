@@ -474,11 +474,11 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
         response['Content-Disposition'] = 'attachment; filename=samsta_gujarat_photos.zip'
         return response
 
-    @admin.action(description='Export selected Samsta Gujarat Forms to Excel (with images)')
+    @admin.action(description='Export selected 39th Samasta Guj Sammelan Forms to Excel (with images)')
     def export_selected_to_excel_with_images(self, request, queryset):
         wb = openpyxl.Workbook()
         ws = wb.active
-        ws.title = 'Samsta Gujarat Forms'
+        ws.title = '39th Samasta Guj Sammelan Forms'
         headers = [
             'Serial No.', 'Name', 'Gender', 'DOB', 'Marital Status', 'Disability', 'Time of Birth', 'Birth Place', 'City', 'Country',
             'Visa', 'Height', 'Weight', 'Education', 'Education Detail', 'Occupation Category', 'Occupation Details',
@@ -533,11 +533,11 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
         wb.save(response)
         return response
 
-    @admin.action(description='Export selected Samsta Gujarat Forms to Excel (without images)')
+    @admin.action(description='Export selected 39th Samasta Guj Sammelan Forms to Excel (without images)')
     def export_selected_to_excel_without_images(self, request, queryset):
         wb = openpyxl.Workbook()
         ws = wb.active
-        ws.title = 'Samsta Gujarat Forms'
+        ws.title = '39th Samasta Guj Sammelan Forms'
         headers = [
             'Serial No.', 'Name', 'Gender', 'DOB', 'Marital Status', 'Disability', 'Time of Birth', 'Birth Place', 'City', 'Country',
             'Visa', 'Height', 'Weight', 'Education', 'Education Detail', 'Occupation Category', 'Occupation Details',
@@ -571,11 +571,11 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
         wb.save(response)
         return response
 
-    @admin.action(description='Export selected Samsta Gujarat Forms to Excel')
+    @admin.action(description='Export selected 39th Samasta Guj Sammelan Forms to Excel')
     def export_selected_to_excel(self, request, queryset):
         wb = openpyxl.Workbook()
         ws = wb.active
-        ws.title = 'Samsta Gujarat Forms'
+        ws.title = '39th Samasta Guj Sammelan Forms'
         headers = [
             'Serial No.', 'Name', 'Gender', 'DOB', 'Marital Status', 'Disability', 'Time of Birth', 'Birth Place', 'City', 'Country',
             'Visa', 'Height', 'Weight', 'Education', 'Education Detail', 'Occupation Category', 'Occupation Details',

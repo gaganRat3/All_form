@@ -94,6 +94,12 @@ urlpatterns = [
     path('global-karmkand-directory/',
          __import__('biodata.views_karmkand_directory').views_karmkand_directory.global_karmkand_directory,
          name='global_karmkand_directory'),
+    path('karmkandi-maharaj-details/', __import__('biodata.views_karmkand_directory').views_karmkand_directory.karmkandi_maharaj_details_form_view, name='karmkandi_maharaj_details_form'),
+    path('karmkandi-maharaj-details/success/', __import__('biodata.views_karmkand_directory').views_karmkand_directory.karmkandi_maharaj_details_success, name='karmkandi_maharaj_details_success'),
+    path('laghu-rudra-yajman/', __import__('biodata.views_karmkand_directory').views_karmkand_directory.laghu_rudra_yajman_form_view, name='laghu_rudra_yajman_form'),
+    path('laghu-rudra-yajman/success/', __import__('biodata.views_karmkand_directory').views_karmkand_directory.laghu_rudra_yajman_success, name='laghu_rudra_yajman_success'),
+    path('shiva-manadir-shivalay-info/', __import__('biodata.views_karmkand_directory').views_karmkand_directory.shiv_manadir_shivalay_info_view, name='shiv_manadir_shivalay_info_form'),
+    path('shiva-manadir-shivalay-info/success/', __import__('biodata.views_karmkand_directory').views_karmkand_directory.shiv_manadir_shivalay_info_success, name='shiv_manadir_shivalay_info_success'),
     path('garba-form/', views.garba_pass_registration_view, name='garba_form'),
     path('garba-confirmation/', views.garba_confirmation, name='garba_confirmation'),
     # Audience registration URLs
