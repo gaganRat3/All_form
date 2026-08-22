@@ -1031,11 +1031,12 @@ class BhudevSammelanRegistration(models.Model):
     payment_status = models.CharField(
         max_length=20,
         choices=[
-            ("unpaid", "Unpaid"),
-            ("paid", "Paid"),
-            ("partial", "Partial")
+            ("pending", "Pending"),
+            ("paid", "Payment Success"),
+            ("partial", "Partial"),
+            ("unpaid", "Unpaid")
         ],
-        default="unpaid",
+        default="pending",
         blank=True,
         verbose_name="Payment Status (Admin)"
     )

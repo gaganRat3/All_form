@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import ExcelFile, MumbaiMaharashtraBiodata
+from django.utils.html import format_html
+from .models import ExcelFile, MumbaiMaharashtraBiodata, BhudevSammelanRegistration
 # Mumbai Maharashtra Biodata Admin
 
 
@@ -223,6 +224,44 @@ class MumbaiMaharashtraBiodataAdmin(admin.ModelAdmin):
 @admin.register(ExcelFile)
 class ExcelFileAdmin(admin.ModelAdmin):
     list_display = ('file', 'uploaded_at')
+
+@admin.register(BhudevSammelanRegistration)
+class BhudevSammelanRegistrationAdmin(admin.ModelAdmin):
+    list_display = (
+        'candidate_name', 'candidate_gender', 'registrant_mobile', 'candidate_current_city',
+        'payment_status_badge', 'submitted_at'
+    )
+    list_filter = ('candidate_gender', 'payment_status', 'confirmation_status', 'candidate_current_city')
+    search_fields = ('candidate_name', 'registrant_mobile', 'email', 'whatsapp_number', 'candidate_current_city')
+    readonly_fields = ('submitted_at',)
+    ordering = ('-submitted_at',)
+    actions = ['mark_payment_success', 'mark_payment_pending']
+
+    def payment_status_badge(self, obj):
+        status = obj.payment_status or 'pending'
+        colors = {
+            'pending': '#f59e0b',
+            'paid': '#16a34a',
+            'partial': '#3b82f6',
+            'unpaid': '#ef4444',
+        }
+        label = obj.get_payment_status_display() if hasattr(obj, 'get_payment_status_display') else status.title()
+        color = colors.get(status, '#64748b')
+        return format_html(
+            '<span style="display:inline-block;padding:6px 12px;border-radius:999px;background:{};color:#fff;font-weight:700;font-size:12px;min-width:120px;text-align:center;">{}</span>',
+            color,
+            label,
+        )
+    payment_status_badge.short_description = 'Payment Status'
+
+    @admin.action(description='Mark selected as Payment Success')
+    def mark_payment_success(self, request, queryset):
+        queryset.update(payment_status='paid')
+
+    @admin.action(description='Mark selected as Pending')
+    def mark_payment_pending(self, request, queryset):
+        queryset.update(payment_status='pending')
+
 from django.contrib import admin
 from .models import FlipBookAccessRegistration, GetTogetherRegistration, BncBnfApplication, StudentBookResaleRegistration
 from .models_referral_program import ReferralProgram

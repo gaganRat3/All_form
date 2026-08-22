@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 from .models_karmkand_directory import GlobalKarmkandDirectoryEntry, KarmkandiMaharajDetails, LaghuRudraYajmanRegistration, ShivMandirShivalayInfo
 
 @admin.register(GlobalKarmkandDirectoryEntry)
@@ -105,11 +106,12 @@ class KarmkandiMaharajDetailsAdmin(admin.ModelAdmin):
 
 @admin.register(LaghuRudraYajmanRegistration)
 class LaghuRudraYajmanRegistrationAdmin(admin.ModelAdmin):
-    list_display = ('serial_number', 'registered_by', 'registered_mobile', 'husband_name', 'wife_name', 'city', 'contact_number', 'full_address_preview', 'submitted_at')
+    list_display = ('payment_status_badge', 'serial_number', 'registered_by', 'registered_mobile', 'husband_name', 'wife_name', 'city', 'contact_number', 'full_address_preview', 'submitted_at')
     search_fields = ('registered_by', 'registered_mobile', 'husband_name', 'wife_name', 'city', 'full_address')
-    list_filter = ('city', 'submitted_at')
+    list_filter = ('city', 'payment_status', 'submitted_at')
     readonly_fields = ('submitted_at',)
     ordering = ['-submitted_at']
+    actions = ['mark_payment_success', 'mark_payment_pending']
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -131,6 +133,31 @@ class LaghuRudraYajmanRegistrationAdmin(admin.ModelAdmin):
     def get_changelist_instance(self, request):
         self.admin_view_request = request
         return super().get_changelist_instance(request)
+
+    def payment_status_badge(self, obj):
+        status = obj.payment_status or 'pending'
+        colors = {
+            'pending': '#f59e0b',
+            'paid': '#16a34a',
+            'partial': '#3b82f6',
+            'unpaid': '#ef4444',
+        }
+        label = obj.get_payment_status_display() if hasattr(obj, 'get_payment_status_display') else status.title()
+        color = colors.get(status, '#64748b')
+        return format_html(
+            '<span style="display:inline-block;padding:6px 12px;border-radius:999px;background:{};color:#fff;font-weight:700;font-size:12px;min-width:120px;text-align:center;">{}</span>',
+            color,
+            label,
+        )
+    payment_status_badge.short_description = 'Payment Status'
+
+    @admin.action(description='Mark selected as Payment Success')
+    def mark_payment_success(self, request, queryset):
+        queryset.update(payment_status='paid')
+
+    @admin.action(description='Mark selected as Pending')
+    def mark_payment_pending(self, request, queryset):
+        queryset.update(payment_status='pending')
 
     def full_address_preview(self, obj):
         return obj.full_address[:80] + ('...' if len(obj.full_address) > 80 else '')
