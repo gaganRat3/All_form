@@ -111,7 +111,7 @@ class LaghuRudraYajmanRegistrationAdmin(admin.ModelAdmin):
     list_filter = ('city', 'payment_status', 'submitted_at')
     readonly_fields = ('submitted_at',)
     ordering = ['-submitted_at']
-    actions = ['mark_payment_success', 'mark_payment_pending']
+    actions = ['mark_payment_success', 'mark_payment_pending', 'export_as_excel']
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -158,6 +158,64 @@ class LaghuRudraYajmanRegistrationAdmin(admin.ModelAdmin):
     @admin.action(description='Mark selected as Pending')
     def mark_payment_pending(self, request, queryset):
         queryset.update(payment_status='pending')
+
+    @admin.action(description='Export selected registrations to Excel')
+    def export_as_excel(self, request, queryset):
+        import openpyxl
+        from django.http import HttpResponse
+        from openpyxl.utils import get_column_letter
+
+        ordered_queryset = self.get_queryset(request).filter(pk__in=queryset.values_list('pk', flat=True))
+
+        headers = [
+            'Payment Status',
+            'Serial No.',
+            'Registered By',
+            'Registered Mobile',
+            'Husband Name',
+            'Wife Name',
+            'City',
+            'Contact Number',
+            'Full Address',
+            'Submitted At',
+        ]
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = 'Laghu Rudra Yajman'
+        ws.append(headers)
+
+        for obj in ordered_queryset:
+            ws.append([
+                obj.get_payment_status_display() if hasattr(obj, 'get_payment_status_display') else (obj.payment_status or 'Pending'),
+                self.serial_number(obj),
+                obj.registered_by,
+                obj.registered_mobile,
+                obj.husband_name,
+                obj.wife_name,
+                obj.city,
+                obj.contact_number,
+                obj.full_address,
+                obj.submitted_at.strftime('%Y-%m-%d %H:%M:%S') if obj.submitted_at else '',
+            ])
+
+        for column in ws.columns:
+            max_length = 0
+            column_letter = get_column_letter(column[0].column)
+            for cell in column:
+                try:
+                    value = str(cell.value) if cell.value is not None else ''
+                    max_length = max(max_length, len(value))
+                except Exception:
+                    pass
+            ws.column_dimensions[column_letter].width = min(max_length + 2, 40)
+
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response['Content-Disposition'] = 'attachment; filename=laghu_rudra_yajman_registrations.xlsx'
+        wb.save(response)
+        return response
 
     def full_address_preview(self, obj):
         return obj.full_address[:80] + ('...' if len(obj.full_address) > 80 else '')
