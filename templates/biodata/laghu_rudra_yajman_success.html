@@ -1,66 +1,203 @@
 <!doctype html>
 <html lang="gu">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>લઘુરુદ્ર યજમાન ફોર્મ Success</title>
-    <style>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>સમૂહ લઘુ-રુદ્ર યજ્ઞ, 2026</title>
+
+  <style>
+    body {
+      font-family: "Noto Sans Gujarati", sans-serif;
+      background: #f7f1e5;
+      margin: 0;
+      padding: 40px 16px;
+    }
+
+    .box {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      border: 1px solid #ead9b5;
+      box-shadow: 0 12px 30px rgba(100, 28, 36, 0.12);
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .badge {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: #1f9d5a;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 40px;
+      font-weight: 700;
+    }
+
+    h1 {
+      color: #641c24;
+      font-size: 28px;
+      line-height: 1.6;
+      margin: 0 0 20px;
+    }
+
+    .welcome-text {
+      color: #4b5563;
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .info-box {
+      background: #fff8e8;
+      border: 1px solid #ead9b5;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .info-item {
+      color: #374151;
+      font-size: 17px;
+      line-height: 1.8;
+      padding: 10px 0;
+      border-bottom: 1px solid #ead9b5;
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      color: #641c24;
+      font-weight: 700;
+    }
+
+    .whatsapp-section {
+      margin-top: 30px;
+      padding: 22px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+    }
+
+    .whatsapp-section p {
+      color: #374151;
+      font-size: 16px;
+      line-height: 1.8;
+      margin-top: 0;
+    }
+
+    .whatsapp-btn {
+      display: inline-block;
+      margin-top: 10px;
+      background: #25d366;
+      color: white;
+      text-decoration: none;
+      padding: 13px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .home-btn {
+      display: inline-block;
+      margin-top: 24px;
+      background: linear-gradient(135deg, #641c24, #8f2d35);
+      color: white;
+      text-decoration: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
       body {
-        font-family: "Noto Sans Gujarati", sans-serif;
-        background: #f7f1e5;
-        margin: 0;
-        padding: 40px 16px;
+        padding: 20px 12px;
       }
+
       .box {
-        max-width: 600px;
-        margin: 0 auto;
-        background: white;
-        border-radius: 16px;
-        border: 1px solid #ead9b5;
-        box-shadow: 0 12px 30px rgba(100, 28, 36, 0.12);
-        padding: 40px 30px;
-        text-align: center;
+        padding: 30px 20px;
       }
-      .badge {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 20px;
-        border-radius: 50%;
-        background: #1f9d5a;
-        color: white;
-        display: grid;
-        place-items: center;
-        font-size: 40px;
-        font-weight: 700;
-      }
+
       h1 {
-        color: #641c24;
-        font-size: 28px;
-        margin-bottom: 12px;
+        font-size: 23px;
       }
-      p {
-        color: #4b5563;
+
+      .welcome-text,
+      .info-item {
         font-size: 16px;
-        line-height: 1.7;
       }
-      .btn {
-        display: inline-block;
-        margin-top: 24px;
-        background: linear-gradient(135deg, #641c24, #8f2d35);
-        color: white;
-        text-decoration: none;
-        padding: 12px 22px;
-        border-radius: 8px;
-        font-weight: 700;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="box">
-      <div class="badge">✓</div>
-      <h1>ફોર્મ સફળતાપૂર્વક Submit થઈ ગયું છે.</h1>
-      <p>તમારી લઘુરુદ્ર યજમાન રજીસ્ટ્રેશનની માહિતી Bhudev Matrimonyમાં સફળતાપૂર્વક સંગ્રહવામાં આવી છે.</p>
-      <a class="btn" href="{% url 'home_page' %}">હોમ પેજ પર જાઓ</a>
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+
+    <div class="badge">✓</div>
+
+    <h1>આપનું હાર્દિક સ્વાગત છે</h1>
+
+    <p class="welcome-text">
+      ભૂદેવ નેટવર્ક આયોજિત સમૂહ લઘુ-રુદ્ર યજ્ઞ, 2026 માં
+      યજમાન તરીકે આપનું હાર્દિક સ્વાગત છે.
+    </p>
+
+    <div class="info-box">
+
+      <div class="info-item">
+        <span class="label">તારીખ :</span>
+        06-09-2026 (રવિવાર)
+      </div>
+
+      <div class="info-item">
+        <span class="label">સમય :</span>
+        સવારે 7 થી બપોરે 3 સુધી
+      </div>
+
+      <div class="info-item">
+        <span class="label">સ્થળ એડ્રેસ :</span><br>
+        શ્રી કાશીવિશ્વેશ્વર મહાદેવ મંદિર પરિસર,
+        પ્રોડકટીવીટી રોડ, વડોદરા.
+      </div>
+
+      <div class="info-item">
+        <span class="label">સંપર્ક :</span>
+        <a href="tel:9099798986" style="color:#641c24; text-decoration:none;">
+          9099798986
+        </a>
+      </div>
+
     </div>
-  </body>
+
+    <div class="whatsapp-section">
+
+      <p>
+        વધુ માહિતી માટે, નીચે આપેલ WhatsApp Group જોઈન કરશો.
+      </p>
+
+      <a
+        class="whatsapp-btn"
+        href="https://chat.whatsapp.com/J7Lu8Y9INUyFBv6WL4EPiE?s=cl&p=a&mlu=4"
+        target="_blank"
+      >
+        WhatsApp Group Join કરો
+      </a>
+
+    </div>
+
+    <a class="home-btn" href="{% url 'home_page' %}">
+      હોમ પેજ પર જાઓ
+    </a>
+
+  </div>
+
+</body>
 </html>
