@@ -504,6 +504,7 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
             'conf_pay_pending': '#f97316',
             'paid_member': '#7c3aed',
             'cnr': '#475569',
+            'cancelled_form': '#991b1b',
         }
         label = obj.get_payment_status_display() if hasattr(obj, 'get_payment_status_display') else status.title()
         color = colors.get(status, '#64748b')
