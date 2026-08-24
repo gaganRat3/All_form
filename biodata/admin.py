@@ -501,15 +501,18 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
             'paid': '#16a34a',
             'partial': '#3b82f6',
             'unpaid': '#ef4444',
+            'conf_pay_pending': '#f97316',
+            'paid_member': '#7c3aed',
         }
         label = obj.get_payment_status_display() if hasattr(obj, 'get_payment_status_display') else status.title()
         color = colors.get(status, '#64748b')
         return format_html(
-            '<span style="display:inline-block;padding:6px 12px;border-radius:999px;background:{};color:#fff;font-weight:700;font-size:12px;min-width:120px;text-align:center;">{}</span>',
+            '<span style="display:inline-block;padding:6px 12px;border-radius:999px;background:{};color:#fff;font-weight:700;font-size:12px;min-width:160px;text-align:center;">{}</span>',
             color,
             label,
         )
     payment_status_badge.short_description = 'Payment Status'
+
 
     @admin.action(description='Mark selected as Payment Success')
     def mark_payment_success(self, request, queryset):

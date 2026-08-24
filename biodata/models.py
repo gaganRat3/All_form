@@ -411,12 +411,14 @@ class SamstaGujaratRegistration(models.Model):
     photo = models.ImageField(upload_to='samsta_gujarat_photos/')
     declaration = models.CharField(max_length=20)
     payment_status = models.CharField(
-        max_length=20,
+        max_length=30,
         choices=[
             ('pending', 'Pending'),
             ('paid', 'Payment Success'),
             ('partial', 'Partial'),
             ('unpaid', 'Unpaid'),
+            ('conf_pay_pending', 'Confirmation Done & Payment Pending'),
+            ('paid_member', 'Paid Member'),
         ],
         default='pending',
         blank=True,
