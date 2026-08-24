@@ -449,7 +449,7 @@ class FortyPlusSammelanAdmin(admin.ModelAdmin):
 @admin.register(SamstaGujaratRegistration)
 class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
     list_display = (
-        'serial_number', 'name', 'gender', 'dob', 'marital', 'disability', 'tob', 'birthPlace', 'city', 'country', 'visa',
+        'payment_status_badge', 'serial_number', 'name', 'gender', 'dob', 'marital', 'disability', 'tob', 'birthPlace', 'city', 'country', 'visa',
         'height', 'weight', 'education', 'educationDetail', 'occupationCat', 'occupationDetails', 'salary', 'shani',
         'nadi', 'father', 'mother', 'fatherWp', 'motherWp', 'caste', 'gotra', 'kuldevi', 'siblings',
         'eating_habbits', 'alcohol', 'smoke', 'other_habbit', 'legal_case', 'locChoice', 'ageGap', 'eduChoice',
@@ -460,11 +460,13 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
         'siblings', 'educationDetail', 'regMobile', 'who'
     )
     list_filter = (
-        'gender', 'marital', 'city', 'education', 'occupationCat', 'submitted_at', 'country', 'visa', 'resCat', 'nadi'
+        'payment_status', 'gender', 'marital', 'city', 'education', 'occupationCat', 'submitted_at', 'country', 'visa', 'resCat', 'nadi'
     )
     readonly_fields = ('submitted_at',)
     ordering = ['-submitted_at']
     actions = [
+        'mark_payment_success',
+        'mark_payment_pending',
         'export_selected_to_excel',
         'export_selected_to_excel_with_images',
         'export_selected_to_excel_without_images',
@@ -491,6 +493,31 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
     def get_changelist_instance(self, request):
         self.admin_view_request = request
         return super().get_changelist_instance(request)
+
+    def payment_status_badge(self, obj):
+        status = obj.payment_status or 'pending'
+        colors = {
+            'pending': '#f59e0b',
+            'paid': '#16a34a',
+            'partial': '#3b82f6',
+            'unpaid': '#ef4444',
+        }
+        label = obj.get_payment_status_display() if hasattr(obj, 'get_payment_status_display') else status.title()
+        color = colors.get(status, '#64748b')
+        return format_html(
+            '<span style="display:inline-block;padding:6px 12px;border-radius:999px;background:{};color:#fff;font-weight:700;font-size:12px;min-width:120px;text-align:center;">{}</span>',
+            color,
+            label,
+        )
+    payment_status_badge.short_description = 'Payment Status'
+
+    @admin.action(description='Mark selected as Payment Success')
+    def mark_payment_success(self, request, queryset):
+        queryset.update(payment_status='paid')
+
+    @admin.action(description='Mark selected as Pending')
+    def mark_payment_pending(self, request, queryset):
+        queryset.update(payment_status='pending')
 
     @admin.action(description='Download candidate images as ZIP')
     def download_images_zip(self, request, queryset):
@@ -519,7 +546,7 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
         ws = wb.active
         ws.title = '39th Samasta Guj Sammelan Forms'
         headers = [
-            'Serial No.', 'Name', 'Gender', 'DOB', 'Marital Status', 'Disability', 'Time of Birth', 'Birth Place', 'City', 'Country',
+            'Payment Status', 'Serial No.', 'Name', 'Gender', 'DOB', 'Marital Status', 'Disability', 'Time of Birth', 'Birth Place', 'City', 'Country',
             'Visa', 'Height', 'Weight', 'Education', 'Education Detail', 'Occupation Category', 'Occupation Details',
             'Salary', 'Shani', 'Hobbies', 'Father', 'Mother', 'Father WhatsApp', 'Mother WhatsApp', 'Caste', 'Gotra',
             'Kuldevi', 'Siblings', 'Eating Habits', 'Alcohol', 'Smoke', 'Other Habit', 'Legal Case',
@@ -537,8 +564,9 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
                 serial_no = pk_list.index(obj.pk) + 1
             except ValueError:
                 serial_no = '-'
+            payment_label = obj.get_payment_status_display() if hasattr(obj, 'get_payment_status_display') else (obj.payment_status or 'Pending')
             row = [
-                serial_no, obj.name, obj.gender, obj.dob, obj.marital, obj.disability, obj.tob, obj.birthPlace, obj.city, obj.country,
+                payment_label, serial_no, obj.name, obj.gender, obj.dob, obj.marital, obj.disability, obj.tob, obj.birthPlace, obj.city, obj.country,
                 obj.visa, obj.height, obj.weight, obj.education, obj.educationDetail, obj.occupationCat, obj.occupationDetails,
                 obj.salary, obj.shani, obj.hobbies, obj.father, obj.mother, obj.fatherWp, obj.motherWp, obj.caste, obj.gotra,
                 obj.kuldevi, obj.siblings, obj.eating_habbits, obj.alcohol, obj.smoke, obj.other_habbit, obj.legal_case,
@@ -572,13 +600,14 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
         wb.save(response)
         return response
 
+
     @admin.action(description='Export selected 39th Samasta Guj Sammelan Forms to Excel (without images)')
     def export_selected_to_excel_without_images(self, request, queryset):
         wb = openpyxl.Workbook()
         ws = wb.active
         ws.title = '39th Samasta Guj Sammelan Forms'
         headers = [
-            'Serial No.', 'Name', 'Gender', 'DOB', 'Marital Status', 'Disability', 'Time of Birth', 'Birth Place', 'City', 'Country',
+            'Payment Status', 'Serial No.', 'Name', 'Gender', 'DOB', 'Marital Status', 'Disability', 'Time of Birth', 'Birth Place', 'City', 'Country',
             'Visa', 'Height', 'Weight', 'Education', 'Education Detail', 'Occupation Category', 'Occupation Details',
             'Salary', 'Shani', 'Hobbies', 'Father', 'Mother', 'Father WhatsApp', 'Mother WhatsApp', 'Caste', 'Gotra',
             'Kuldevi', 'Siblings', 'Eating Habits', 'Alcohol', 'Smoke', 'Other Habit', 'Legal Case',
@@ -595,8 +624,9 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
                 serial_no = pk_list.index(obj.pk) + 1
             except ValueError:
                 serial_no = '-'
+            payment_label = obj.get_payment_status_display() if hasattr(obj, 'get_payment_status_display') else (obj.payment_status or 'Pending')
             ws.append([
-                serial_no, obj.name, obj.gender, obj.dob, obj.marital, obj.disability, obj.tob, obj.birthPlace, obj.city, obj.country,
+                payment_label, serial_no, obj.name, obj.gender, obj.dob, obj.marital, obj.disability, obj.tob, obj.birthPlace, obj.city, obj.country,
                 obj.visa, obj.height, obj.weight, obj.education, obj.educationDetail, obj.occupationCat, obj.occupationDetails,
                 obj.salary, obj.shani, obj.hobbies, obj.father, obj.mother, obj.fatherWp, obj.motherWp, obj.caste, obj.gotra,
                 obj.kuldevi, obj.siblings, obj.eating_habbits, obj.alcohol, obj.smoke, obj.other_habbit, obj.legal_case,
@@ -610,13 +640,14 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
         wb.save(response)
         return response
 
+
     @admin.action(description='Export selected 39th Samasta Guj Sammelan Forms to Excel')
     def export_selected_to_excel(self, request, queryset):
         wb = openpyxl.Workbook()
         ws = wb.active
         ws.title = '39th Samasta Guj Sammelan Forms'
         headers = [
-            'Serial No.', 'Name', 'Gender', 'DOB', 'Marital Status', 'Disability', 'Time of Birth', 'Birth Place', 'City', 'Country',
+            'Payment Status', 'Serial No.', 'Name', 'Gender', 'DOB', 'Marital Status', 'Disability', 'Time of Birth', 'Birth Place', 'City', 'Country',
             'Visa', 'Height', 'Weight', 'Education', 'Education Detail', 'Occupation Category', 'Occupation Details',
             'Salary', 'Shani', 'Hobbies', 'Father', 'Mother', 'Father WhatsApp', 'Mother WhatsApp', 'Caste', 'Gotra',
             'Kuldevi', 'Siblings', 'Eating Habits', 'Alcohol', 'Smoke', 'Other Habit', 'Legal Case',
@@ -633,8 +664,9 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
                 serial_no = pk_list.index(obj.pk) + 1
             except ValueError:
                 serial_no = '-'
+            payment_label = obj.get_payment_status_display() if hasattr(obj, 'get_payment_status_display') else (obj.payment_status or 'Pending')
             ws.append([
-                serial_no, obj.name, obj.gender, obj.dob, obj.marital, obj.disability, obj.tob, obj.birthPlace, obj.city, obj.country,
+                payment_label, serial_no, obj.name, obj.gender, obj.dob, obj.marital, obj.disability, obj.tob, obj.birthPlace, obj.city, obj.country,
                 obj.visa, obj.height, obj.weight, obj.education, obj.educationDetail, obj.occupationCat, obj.occupationDetails,
                 obj.salary, obj.shani, obj.hobbies, obj.father, obj.mother, obj.fatherWp, obj.motherWp, obj.caste, obj.gotra,
                 obj.kuldevi, obj.siblings, obj.eating_habbits, obj.alcohol, obj.smoke, obj.other_habbit, obj.legal_case,
@@ -647,6 +679,7 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
         response['Content-Disposition'] = 'attachment; filename=samsta_gujarat_forms.xlsx'
         wb.save(response)
         return response
+
 
 
 @admin.register(SaurasthraKutchSammelan)

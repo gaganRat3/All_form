@@ -410,6 +410,18 @@ class SamstaGujaratRegistration(models.Model):
     whatsapp = models.CharField(max_length=30)
     photo = models.ImageField(upload_to='samsta_gujarat_photos/')
     declaration = models.CharField(max_length=20)
+    payment_status = models.CharField(
+        max_length=20,
+        choices=[
+            ('pending', 'Pending'),
+            ('paid', 'Payment Success'),
+            ('partial', 'Partial'),
+            ('unpaid', 'Unpaid'),
+        ],
+        default='pending',
+        blank=True,
+        verbose_name='Payment Status (Admin)',
+    )
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
