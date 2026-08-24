@@ -419,9 +419,9 @@ class SamstaGujaratRegistration(models.Model):
             ('unpaid', 'Unpaid'),
             ('conf_pay_pending', 'Confirmation Done & Payment Pending'),
             ('paid_member', 'Paid Member'),
+            ('cnr', 'CNR'),
         ],
         default='pending',
-        blank=True,
         verbose_name='Payment Status (Admin)',
     )
     submitted_at = models.DateTimeField(auto_now_add=True)

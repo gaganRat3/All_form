@@ -503,6 +503,7 @@ class SamstaGujaratRegistrationAdmin(admin.ModelAdmin):
             'unpaid': '#ef4444',
             'conf_pay_pending': '#f97316',
             'paid_member': '#7c3aed',
+            'cnr': '#475569',
         }
         label = obj.get_payment_status_display() if hasattr(obj, 'get_payment_status_display') else status.title()
         color = colors.get(status, '#64748b')
