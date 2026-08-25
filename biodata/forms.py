@@ -138,7 +138,7 @@ class SamstaGujaratRegistrationForm(forms.ModelForm):
     """Dedicated backend form for the Samsta Gujarat registration."""
     class Meta:
         model = SamstaGujaratRegistration
-        fields = '__all__'
+        exclude = ['payment_status', 'submitted_at']
 
 from django import forms
 # Form for Booklet Library submissions
