@@ -139,7 +139,6 @@ class SamstaGujaratRegistrationForm(forms.ModelForm):
     class Meta:
         model = SamstaGujaratRegistration
         exclude = ['payment_status', 'submitted_at']
-
 from django import forms
 # Form for Booklet Library submissions
 from .models import BookletLibrarySubmission
