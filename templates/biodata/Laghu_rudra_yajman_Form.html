@@ -357,16 +357,79 @@
 			box-shadow: 0 14px 35px rgba(122, 74, 30, 0.12);
 			margin-bottom: 16px;
 		}
+    .form-closed {
+    text-align: center;
+    padding: 55px 25px;
+    background: #fffaf1;
+    border: 1px solid #ead9b5;
+    border-radius: 12px;
+    margin: 10px 0 25px;
+}
+
+.closed-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.form-closed h2 {
+    color: #641c24;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.form-closed p {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 5px 0;
+}
+
+.form-closed .closed-subtitle {
+    color: #8f2d35;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.closed-message {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 25px;
+    background: #fff3d6;
+    border-left: 4px solid #d7ad58;
+    border-radius: 6px;
+    color: #6d552d;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+@media (max-width: 650px) {
+    .form-closed {
+        padding: 40px 18px;
+    }
+
+    .form-closed h2 {
+        font-size: 23px;
+    }
+
+    .form-closed p {
+        font-size: 14px;
+    }
+}
     </style>
   </head>
 
   <body>
     <div class="form-wrapper">
+
         <div class="logo-row">
 		<img src="{% static 'images/img3.png' %}" alt="Logo">
 		<img src="{% static 'images/img4.png' %}" alt="Logo">
 		{% comment %} <img src="{% static 'images/logoMH.png' %}" alt="Logo"> {% endcomment %}
 	</div>
+  {% comment %}
+{% comment %}
+
       <!-- HEADER -->
       <div class="form-header">
         <div class="om-symbol">ૐ</div>
@@ -555,6 +618,26 @@
             <button type="submit" class="submit-btn">ફોર્મ સબમિટ કરો</button>
           </div>
         </form>
+        {% endcomment %}
+        <div class="form-closed">
+    <div class="closed-icon">🙏</div>
+
+    <h2>ફોર્મ હાલમાં બંધ છે</h2>
+
+    <p>
+        લઘુરુદ્ર યજમાન રજીસ્ટ્રેશન માટેનું ફોર્મ હાલમાં બંધ કરવામાં આવ્યું છે.
+    </p>
+
+    <p class="closed-subtitle">
+        Form Registration is Closed
+    </p>
+
+    <div class="closed-message">
+        હાલ નવી નોંધણી સ્વીકારવામાં આવતી નથી.
+        <br />
+        વધુ માહિતી માટે કૃપા કરીને ભૂદેવ મેટ્રિમોનીનો સંપર્ક કરો.
+    </div>
+</div>
       </div>
       <div class="poster-section">
       {% comment %} <img src="{% static 'images/postd.jpeg' %}" alt="Event Poster"> {% endcomment %}
