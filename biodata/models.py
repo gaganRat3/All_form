@@ -420,6 +420,7 @@ class SamstaGujaratRegistration(models.Model):
             ('conf_pay_pending', 'Confirmation Done & Payment Pending'),
             ('paid_member', 'Paid Member'),
             ('cnr', 'CNR'),
+            ('cancelled_form', 'Cancelled Form'),
         ],
         default='pending',
         verbose_name='Payment Status (Admin)',
