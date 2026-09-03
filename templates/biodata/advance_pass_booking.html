@@ -92,7 +92,7 @@
 
     .header-section p {
         color: #4a5568;
-        font-size: 1.15rem;
+        font-size: 1.55rem;
         font-weight: 600;
         margin-top: 14px;
     }
@@ -108,47 +108,53 @@
         margin: 0 auto 26px;
     }
 
-    .event-details-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        margin-bottom: 24px;
-    }
+ /* =========================================================
+   EVENT INFORMATION
+   ========================================================= */
 
-    .event-detail-card {
-        background: var(--surface);
-        padding: 26px 24px;
-        border-radius: 10px;
-        box-shadow: var(--shadow-sm);
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        border: 1px solid var(--border);
-        border-left: 5px solid var(--secondary);
-        min-height: 80px;
-        text-align: left;
-    }
+.event-details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
 
-    .event-detail-card strong {
-        font-weight: 700;
-        color: var(--primary);
-        font-size: 1.15rem;
-        display: block;
-        margin-bottom: 4px;
-    }
+.event-detail-card {
+    background: var(--surface);
+    padding: 26px 20px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    min-height: 160px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--secondary);
+}
 
-    .event-detail-card span {
-        color: #3d4a5a;
-        font-size: 1.1rem;
-        line-height: 1.65;
-    }
+.event-detail-card strong {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.15rem;
+    display: block;
+    margin-bottom: 10px;
+}
 
-    .event-detail-card small {
-        color: var(--text-light);
-        font-size: 1rem;
-    }
+.event-detail-card span {
+    color: #3d4a5a;
+    font-size: 2.1rem;
+    line-height: 1.65;
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
 
-
+.event-detail-card span small {
+    color: var(--text-light);
+    font-size: 1rem;
+}
     /* =========================================================
        ENTRY / PASS INFORMATION
        ========================================================= */
@@ -171,9 +177,9 @@
     }
 
     .event-join strong {
-        font-weight: 700;
+        font-weight: 1000;
         color: var(--primary);
-        font-size: 1.05rem;
+        font-size: 1.55rem;
     }
 
 
@@ -685,9 +691,7 @@
     @media (max-width: 1024px) {
         html { font-size: 18px; }
 
-        .event-details-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
+       .event-details-grid {
 
         .form-container {
             padding: 30px;
@@ -710,10 +714,7 @@
             font-size: 1.6rem;
         }
 
-        .event-details-grid {
-            grid-template-columns: 1fr;
-            gap: 10px;
-        }
+       
 
         .event-detail-card {
             min-height: auto;
@@ -774,9 +775,28 @@
             font-size: 1rem;
         }
 
-        .event-detail-card {
-            padding: 14px 10px;
-        }
+      .event-detail-card {
+    min-height: 190px;
+    height: auto;
+    padding: 28px 15px;
+}
+
+.event-detail-card strong {
+    font-size: 28px;
+    line-height: 1.4;
+    margin-bottom: 15px;
+}
+
+.event-detail-card span {
+    font-size: 24px;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+}
+
+.event-detail-card span small {
+    font-size: 20px;
+    line-height: 1.5;
+}
 
         .form-container {
             padding: 18px 14px;
@@ -808,8 +828,8 @@
         }
 
         .pass-checkbox-label {
-            font-size: 1rem;
-        }
+    font-size: 1.4rem !important;
+}
 
         .payment-qr img {
             width: 150px;
@@ -827,9 +847,8 @@
         }
 
         .radio-option {
-            font-size: 1rem;
-            padding: 13px;
-        }
+    font-size: 1.5rem !important;
+}
 
         .radio-option input[type="radio"] {
             width: 22px;
@@ -849,6 +868,634 @@
         outline-offset: 2px;
     }
 
+
+    /* =========================================================
+   LARGE & CLEAR FORM TEXT
+   ========================================================= */
+
+/* Main form labels */
+.form-container label {
+    font-size: 1.6rem !important;
+    line-height: 1.5;
+}
+
+/* Text inputs, email, select and upload */
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container select,
+.form-container input[type="file"] {
+    font-size: 1.5rem !important;
+    padding: 18px 20px !important;
+    min-height: 70px;
+    line-height: 1.5;
+}
+
+/* City selection */
+.form-container .radio-option {
+    font-size: 1.5rem !important;
+    padding: 20px !important;
+    line-height: 1.5;
+}
+
+.form-container .radio-option input[type="radio"] {
+    width: 30px;
+    height: 30px;
+}
+
+/* Pass titles */
+.form-container .pass-checkbox-label {
+    font-size: 1.4rem !important;
+    line-height: 1.5;
+}
+
+.form-container .pass-title-row span:first-child {
+    font-size: 1.5rem !important;
+}
+
+.form-container .pass-title-row .pass-price {
+    font-size: 1.5rem !important;
+}
+
+.form-container .pass-label-content > span:last-child {
+    font-size: 1.25rem !important;
+    line-height: 1.5;
+}
+
+/* Quantity section */
+.form-container .quantity-total-row label {
+    font-size: 1.3rem !important;
+}
+
+.form-container .quantity-total-row select,
+.form-container .quantity-total-row input {
+    font-size: 1.3rem !important;
+    min-height: 60px;
+}
+
+/* Payment section */
+.form-container .payment-title {
+    font-size: 1.5rem !important;
+}
+
+.form-container .payment-details {
+    font-size: 1.3rem !important;
+    line-height: 1.7;
+}
+
+.form-container .payment-details strong {
+    font-size: 1.35rem !important;
+}
+
+.form-container .payment-number {
+    font-size: 1.4rem !important;
+}
+
+/* Grand total */
+.form-container .grand-total-label {
+    font-size: 1.3rem !important;
+}
+
+.form-container .grand-total-amount,
+.form-container #grandTotal {
+    font-size: 2.5rem !important;
+}
+
+/* Submit button */
+.form-container button[type="submit"] {
+    font-size: 1.5rem !important;
+    padding: 20px !important;
+    min-height: 70px;
+}
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 1024px) {
+
+    /* Keep tablet readable */
+    html {
+        font-size: 20px;
+    }
+
+    .form-container {
+        padding: 30px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   BIG & READABLE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    /*
+       IMPORTANT:
+       Do NOT reduce the root font size on mobile.
+       20px keeps all rem-based text readable.
+    */
+
+    html {
+        font-size: 20px;
+    }
+
+    .page-wrapper {
+        padding: 18px 10px 35px;
+    }
+
+
+    /* ================= HEADER ================= */
+
+    .header-section {
+        margin-bottom: 25px;
+    }
+
+    .header-section h1 {
+        font-size: 1.6rem;
+        line-height: 1.4;
+    }
+
+    .header-section p {
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+
+
+    /* ================= EVENT CARDS ================= */
+
+    .event-details-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .event-detail-card {
+        width: 100%;
+        min-height: 175px;
+        padding: 25px 18px;
+        text-align: center;
+    }
+
+    .event-detail-card strong {
+        font-size: 1.25rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .event-detail-card span {
+        font-size: 1.15rem;
+        line-height: 1.7;
+    }
+
+    .event-detail-card small {
+        font-size: 0.95rem;
+    }
+
+
+    /* ================= ENTRY INFORMATION ================= */
+
+    .event-join {
+        padding: 20px 15px;
+    }
+
+    .event-join > div {
+        gap: 8px;
+    }
+
+    .event-join strong {
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+
+
+    /* ================= MAIN FORM ================= */
+
+    .form-container {
+        padding: 28px 20px;
+        border-radius: 10px;
+    }
+
+    .form-container h2 {
+        font-size: 1.5rem;
+        margin-bottom: 28px;
+    }
+
+
+    /* ================= FORM LABELS ================= */
+
+    label {
+        font-size: 1.25rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+
+    /* ================= INPUTS ================= */
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    input[type="file"] {
+
+        width: 100%;
+        min-height: 64px;
+
+        padding: 16px 18px;
+
+        font-size: 1.15rem;
+
+        line-height: 1.5;
+    }
+
+
+    /* ================= CITY RADIO ================= */
+
+    .radio-group {
+        gap: 12px;
+    }
+
+    .radio-option {
+
+        width: 100%;
+
+        padding: 18px;
+
+        font-size: 1.15rem;
+
+        line-height: 1.5;
+
+        gap: 14px;
+    }
+
+    .radio-option input[type="radio"] {
+        width: 28px;
+        height: 28px;
+    }
+
+
+    /* ================= PASS SECTION ================= */
+
+    .pass-section {
+        padding: 15px;
+    }
+
+    .pass-option {
+        padding: 18px;
+    }
+
+    .pass-checkbox-label {
+        font-size: 1.1rem;
+        line-height: 1.5;
+    }
+
+    .pass-checkbox-label input[type="checkbox"] {
+        width: 28px;
+        height: 28px;
+    }
+
+    .pass-title-row {
+        gap: 10px;
+    }
+
+    .pass-title-row span:first-child {
+        font-size: 1.1rem;
+    }
+
+    .pass-title-row .pass-price {
+        font-size: 1.15rem;
+    }
+
+    .pass-label-content > span:last-child {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+
+    /* ================= QUANTITY ================= */
+
+    .quantity-total-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .quantity-total-row label {
+        font-size: 1rem;
+    }
+
+    .quantity-total-row select,
+    .quantity-total-row input {
+        width: 100%;
+        min-height: 58px;
+        font-size: 1.05rem;
+        padding: 12px;
+    }
+
+
+    /* ================= GRAND TOTAL ================= */
+
+    .grand-total-section {
+        padding: 25px 15px;
+    }
+
+    .grand-total-label {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .grand-total-amount,
+    #grandTotal {
+        font-size: 2.2rem;
+    }
+
+
+    /* ================= PAYMENT ================= */
+
+    .payment-section {
+        padding: 25px 15px;
+    }
+
+    .payment-title {
+        font-size: 1.2rem;
+        line-height: 1.5;
+    }
+
+    .payment-details {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    .payment-details strong {
+        font-size: 1.05rem;
+    }
+
+    .payment-number {
+        font-size: 1.1rem;
+    }
+
+    .payment-qr img {
+        width: 180px;
+        height: 180px;
+    }
+
+
+    /* ================= UPLOAD ================= */
+
+    input[type="file"] {
+        font-size: 1rem;
+        min-height: 65px;
+    }
+
+
+    /* ================= SUBMIT ================= */
+
+    button[type="submit"] {
+
+        width: 100%;
+
+        min-height: 65px;
+
+        padding: 18px;
+
+        font-size: 1.2rem;
+
+        line-height: 1.5;
+    }
+
+
+    /* ================= FOOTER ================= */
+
+    .office-header {
+        font-size: 1rem;
+    }
+
+    .office-details {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   480px AND BELOW
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    /*
+       IMPORTANT:
+       Keep 20px.
+       Previously this was 17px, which made the page too small.
+    */
+
+    html {
+        font-size: 20px;
+    }
+
+    .page-wrapper {
+        padding: 15px 8px 30px;
+    }
+
+
+    /* HEADER */
+
+    .header-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .header-section p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+
+    /* EVENT CARDS */
+
+    .event-detail-card {
+        padding: 25px 15px;
+        min-height: 165px;
+    }
+
+    .event-detail-card strong {
+        font-size: 1.2rem;
+    }
+
+    .event-detail-card span {
+        font-size: 1.1rem;
+        line-height: 1.7;
+    }
+
+    .event-detail-card small {
+        font-size: 0.9rem;
+    }
+
+
+    /* FORM */
+
+    .form-container {
+        padding: 25px 16px;
+    }
+
+    .form-container h2 {
+        font-size: 1.45rem;
+    }
+
+
+    /* LABELS */
+
+    label {
+        font-size: 1.2rem;
+    }
+
+
+    /* INPUTS */
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    input[type="file"] {
+
+        font-size: 1.1rem;
+
+        min-height: 62px;
+
+        padding: 15px 16px;
+    }
+
+
+    /* RADIO */
+
+    .radio-option {
+        font-size: 1.1rem;
+        padding: 17px;
+    }
+
+    .radio-option input[type="radio"] {
+        width: 28px;
+        height: 28px;
+    }
+
+
+    /* PASSES */
+
+    .pass-checkbox-label {
+        font-size: 1.05rem;
+    }
+
+    .pass-title-row span:first-child {
+        font-size: 1.05rem;
+    }
+
+    .pass-title-row .pass-price {
+        font-size: 1.1rem;
+    }
+
+    .pass-label-content > span:last-child {
+        font-size: 0.9rem;
+    }
+
+
+    /* TOTAL */
+
+    .grand-total-label {
+        font-size: 0.95rem;
+    }
+
+    .grand-total-amount,
+    #grandTotal {
+        font-size: 2.1rem;
+    }
+
+
+    /* PAYMENT */
+
+    .payment-title {
+        font-size: 1.15rem;
+    }
+
+    .payment-details {
+        font-size: 0.95rem;
+        line-height: 1.8;
+    }
+
+    .payment-details strong {
+        font-size: 1rem;
+    }
+
+
+    /* SUBMIT */
+
+    button[type="submit"] {
+        font-size: 1.15rem;
+        min-height: 64px;
+        padding: 17px;
+    }
+}
+
+/* =========================================================
+   EVENT INFORMATION - EXTRA LARGE ON MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .event-details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.event-detail-card {
+    min-height: 190px;
+    height: auto;
+    padding: 30px 18px;
+    text-align: center;
+}
+
+.event-detail-card strong {
+    font-size: 30px;
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
+
+.event-detail-card span {
+    font-size: 26px;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+}
+
+.event-detail-card span small {
+    font-size: 21px;
+    line-height: 1.5;
+}
+
+/* EXTRA SMALL PHONES */
+@media (max-width: 480px) {
+
+    .event-detail-card {
+        padding: 32px 16px !important;
+        min-height: 200px !important;
+    }
+
+    .event-detail-card strong {
+        font-size: 29px !important;
+        line-height: 1.4 !important;
+    }
+
+    .event-detail-card span {
+        font-size: 25px !important;
+        line-height: 1.6 !important;
+    }
+
+    .event-detail-card small {
+        font-size: 20px !important;
+    }
+}
 </style>
 
 <div class="page-wrapper">
