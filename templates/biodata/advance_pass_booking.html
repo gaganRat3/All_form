@@ -2,449 +2,238 @@
 
 {% block content %}
 <style>
+    /* =========================================================
+       PROFESSIONAL EVENT FORM THEME
+       Bigger fonts + simplified + mobile friendly
+       ========================================================= */
+
+    :root {
+        --primary: #17365d;
+        --primary-dark: #102944;
+        --secondary: #b58a3a;
+        --secondary-light: #f7f1e3;
+
+        --text: #263445;
+        --text-light: #64748b;
+
+        --background: #f3f5f8;
+        --surface: #ffffff;
+        --border: #d9e0e8;
+
+        --success: #287a52;
+        --danger: #b42318;
+
+        --shadow-sm: 0 2px 8px rgba(16, 41, 68, 0.07);
+        --shadow-md: 0 8px 25px rgba(16, 41, 68, 0.10);
+        --shadow-lg: 0 18px 45px rgba(16, 41, 68, 0.14);
+    }
+
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
 
-    html, body {
-        height: 100%;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: #2c3e50;
-        overflow-x: hidden;
-        scroll-behavior: smooth;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        position: relative;
+    /* Bump root font-size so every rem-based size scales up -
+       this alone makes the whole form easier to read for older users */
+    html {
+        font-size: 19px;
     }
 
-    /* Animated background particles */
-    body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at 8% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 85% 40%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 42% 90%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 17% 75%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 92% 12%, rgba(255,255,255,0.1) 0%, transparent 50%);
-        pointer-events: none;
-        z-index: 0;
+    html,
+    body {
+        min-height: 100%;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        background: var(--background);
+    }
+
+    body {
+        position: relative;
     }
 
     .page-wrapper {
         position: relative;
         z-index: 1;
         min-height: 100vh;
-        padding: 20px;
+        padding: 30px 16px 45px;
         display: flex;
         flex-direction: column;
     }
 
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+
     .header-section {
         text-align: center;
-        margin-bottom: 30px;
-        animation: slideDown 0.8s ease-out;
-    }
-
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        margin-bottom: 28px;
     }
 
     .header-section h1 {
-        color: white;
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 10px;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        color: var(--primary);
+        font-size: 2.1rem;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+    }
+
+    .header-section h1::after {
+        content: "";
+        display: block;
+        width: 55px;
+        height: 3px;
+        background: var(--secondary);
+        margin: 14px auto 0;
+        border-radius: 2px;
     }
 
     .header-section p {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 1.1rem;
-        font-weight: 500;
+        color: #4a5568;
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin-top: 14px;
     }
+
+
+    /* =========================================================
+       EVENT INFORMATION
+       ========================================================= */
 
     .event-info {
         max-width: 950px;
-        margin: 0 auto 30px;
-        padding: 0;
-        animation: slideUp 0.8s ease-out;
-    }
-
-    .event-brief-info {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 12px;
-        padding: 20px 25px;
-        margin-bottom: 20px;
-        text-align: left;
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 0.9rem;
-        font-weight: 500;
-        line-height: 1.8;
-    }
-
-    .brief-info-line {
-        margin-bottom: 8px;
-    }
-
-    .brief-info-line strong {
-        font-weight: 700;
-        display: block;
-        margin-bottom: 4px;
-        color: white;
-    }
-
-    .brief-info-line:last-child {
-        margin-bottom: 0;
-    }
-
-    .event-info-title {
-        text-align: center;
-        color: #2c3e50;
-        font-size: 1.8rem;
-        font-weight: 700;
-        margin-bottom: 25px;
-        letter-spacing: 0.5px;
-        padding: 20px;
-       
-        border-radius: 12px;
+        width: 100%;
+        margin: 0 auto 26px;
     }
 
     .event-details-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
+        gap: 14px;
         margin-bottom: 20px;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 20px;
-        border-radius: 12px;
     }
 
     .event-detail-card {
-        background: #ffffff;
-        padding: 18px;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        background: var(--surface);
+        padding: 18px 15px;
+        border-radius: 8px;
+        box-shadow: var(--shadow-sm);
         text-align: center;
-        transition: all 0.3s ease;
-        min-height: 140px;
+        min-height: 130px;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        border-left: 4px solid #667eea;
-    }
-
-    .event-detail-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        border: 1px solid var(--border);
+        border-top: 3px solid var(--secondary);
     }
 
     .event-detail-card strong {
         font-weight: 700;
-        color: #667eea;
-        font-size: 0.95rem;
+        color: var(--primary);
+        font-size: 1rem;
         display: block;
         margin-bottom: 10px;
     }
 
     .event-detail-card span {
-        color: #2c3e50;
-        font-size: 0.9rem;
-        line-height: 1.5;
+        color: #3d4a5a;
+        font-size: 0.95rem;
+        line-height: 1.55;
     }
 
+    .event-detail-card small {
+        color: var(--text-light);
+    }
+
+
+    /* =========================================================
+       ENTRY / PASS INFORMATION
+       ========================================================= */
+
     .event-join {
-        background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        border-left: 5px solid #f59e0b;
+        background: var(--secondary-light);
+        padding: 18px 22px;
+        border-radius: 8px;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid #e7dcc3;
+        border-left: 4px solid var(--secondary);
     }
 
     .event-join > div {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 10px;
         text-align: center;
-        color: #2c3e50;
+        color: var(--text);
     }
 
     .event-join strong {
         font-weight: 700;
-        color: #1f2937;
-        font-size: 0.95rem;
+        color: var(--primary);
+        font-size: 1.05rem;
     }
 
-    .event-info-divider {
-        display: none;
-    }
 
-    @media (max-width: 1024px) {
-        .event-details-grid {
-            grid-template-columns: 1fr;
-            gap: 12px;
-            padding: 18px;
-        }
-
-        .event-detail-card {
-            min-height: auto;
-            padding: 16px;
-        }
-
-        .event-info-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            padding: 0px;
-        }
-
-        .page-wrapper {
-            padding: 12px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .event-details-grid {
-            grid-template-columns: 1fr;
-            gap: 12px;
-            padding: 20px;
-        }
-
-        .event-detail-card {
-            min-height: auto;
-            padding: 18px;
-            text-align: center;
-            border-left: 4px solid #667eea;
-        }
-
-        .event-detail-card strong {
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .event-detail-card span {
-            font-size: 0.85rem;
-            line-height: 1.5;
-            color: #2c3e50;
-        }
-
-        .event-info-title {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            padding: 18px;
-        }
-
-        .event-brief-info {
-            padding: 14px 16px;
-            margin-bottom: 14px;
-            font-size: 0.8rem;
-            line-height: 1.6;
-        }
-
-        .event-join {
-            padding: 18px;
-            margin-bottom: 18px;
-            border-left-width: 4px;
-        }
-
-        .event-join > div {
-            gap: 8px;
-        }
-
-        .event-join strong {
-            font-size: 0.85rem;
-        }
-
-        .page-wrapper {
-            padding: 12px;
-        }
-
-        .header-section h1 {
-            font-size: 1.8rem;
-        }
-
-        .header-section p {
-            font-size: 0.95rem;
-        }
-    }
-
-    @media (max-width: 640px) {
-        .event-details-grid {
-            grid-template-columns: 1fr;
-            gap: 10px;
-            padding: 16px;
-        }
-
-        .event-detail-card {
-            min-height: auto;
-            padding: 14px;
-            text-align: center;
-            border-left: 4px solid #667eea;
-        }
-
-        .event-detail-card strong {
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-        }
-
-        .event-detail-card span {
-            font-size: 0.75rem;
-            line-height: 1.4;
-        }
-
-        .event-info-title {
-            font-size: 1.15rem;
-            margin-bottom: 16px;
-            padding: 16px;
-        }
-
-        .event-brief-info {
-            padding: 12px 14px;
-            margin-bottom: 12px;
-            font-size: 0.75rem;
-            line-height: 1.5;
-        }
-
-        .event-join {
-            padding: 14px;
-            margin-bottom: 14px;
-            border-left-width: 3px;
-        }
-
-        .event-join strong {
-            font-size: 0.8rem;
-        }
-
-        .page-wrapper {
-            padding: 10px;
-        }
-
-        .header-section h1 {
-            font-size: 1.5rem;
-            margin-bottom: 6px;
-        }
-
-        .header-section p {
-            font-size: 0.9rem;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .event-details-grid {
-            grid-template-columns: 1fr;
-            gap: 8px;
-            padding: 14px;
-        }
-
-        .event-detail-card {
-            padding: 12px;
-            min-height: auto;
-            border-left: 3px solid #667eea;
-        }
-
-        .event-detail-card strong {
-            font-size: 0.8rem;
-        }
-
-        .event-detail-card span {
-            font-size: 0.7rem;
-        }
-
-        .event-info-title {
-            font-size: 1rem;
-            margin-bottom: 14px;
-            padding: 14px;
-        }
-
-        .event-brief-info {
-            padding: 10px 12px;
-            margin-bottom: 12px;
-            font-size: 0.7rem;
-        }
-
-        .event-join {
-            padding: 12px;
-            margin-bottom: 12px;
-        }
-
-        .event-join strong {
-            font-size: 0.75rem;
-        }
-
-        .header-section h1 {
-            font-size: 1.3rem;
-        }
-    }
-
-    @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+    /* =========================================================
+       MAIN FORM
+       ========================================================= */
 
     .form-container {
         max-width: 950px;
-        margin: 0 auto 40px;
-        background: rgba(255, 255, 255, 0.98);
-        padding: 40px;
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        animation: fadeInUp 0.8s ease-out 0.2s both;
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        width: 100%;
+        margin: 0 auto 36px;
+        background: var(--surface);
+        padding: 36px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-lg);
     }
 
     .form-container h2 {
         text-align: center;
-        color: #667eea;
-        font-weight: 800;
-        margin-bottom: 30px;
-        font-size: 2rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 28px;
+        font-size: 1.7rem;
+        position: relative;
     }
+
+    .form-container h2::after {
+        content: "";
+        display: block;
+        width: 45px;
+        height: 3px;
+        background: var(--secondary);
+        margin: 12px auto 0;
+        border-radius: 2px;
+    }
+
+
+    /* =========================================================
+       CLOSED NOTICE
+       ========================================================= */
 
     .closed-notice {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        color: white;
-        padding: 15px 20px;
-        border-radius: 10px;
+        background: #fff4f2;
+        color: var(--danger);
+        padding: 14px 18px;
+        border-radius: 7px;
         text-align: center;
         font-weight: 700;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         margin-bottom: 25px;
-        box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        border: 1px solid #f1c7c2;
     }
 
+
+    /* =========================================================
+       FORM FIELDS
+       ========================================================= */
+
     .form-group {
-        margin-bottom: 25px;
+        margin-bottom: 26px;
         display: flex;
         flex-direction: column;
     }
@@ -452,86 +241,137 @@
     label {
         font-weight: 700;
         margin-bottom: 10px;
-        color: #2c3e50;
-        font-size: 1rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        color: var(--text);
+        font-size: 1.05rem;
     }
 
-    input[type="text"], 
-    input[type="email"], 
-    select, 
+    input[type="text"],
+    input[type="email"],
+    select,
     input[type="file"] {
-        padding: 12px 15px;
-        font-size: 1rem;
-        border: 2px solid #e0e0e0;
-        border-radius: 10px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        transition: all 0.3s ease;
-        background-color: #f8f9fa;
+        padding: 14px 16px;
+        font-size: 1.1rem;
+        border: 1px solid #cfd7e1;
+        border-radius: 6px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        background-color: #ffffff;
+        color: var(--text);
+        min-height: 52px;
     }
 
-    input[type="text"]:focus, 
-    input[type="email"]:focus, 
-    select:focus, 
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus,
     input[type="file"]:focus {
-        border-color: #667eea;
+        border-color: var(--primary);
         outline: none;
-        background-color: white;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        box-shadow: 0 0 0 3px rgba(23, 54, 93, 0.08);
     }
 
     input[readonly] {
-        background-color: #f0f0f0;
+        background-color: #f1f4f7;
         cursor: not-allowed;
-        color: #666;
+        color: #5c6878;
     }
 
+
+    /* =========================================================
+       CITY RADIO SELECTION (NEW)
+       ========================================================= */
+
+    .radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 18px;
+        background: #f7f9fb;
+        border: 2px solid var(--border);
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .radio-option:hover {
+        border-color: #b9a06a;
+    }
+
+    .radio-option input[type="radio"] {
+        width: 26px;
+        height: 26px;
+        flex-shrink: 0;
+        accent-color: var(--primary);
+        cursor: pointer;
+    }
+
+    .radio-option input[type="radio"]:checked + span {
+        color: var(--primary);
+    }
+
+    .radio-option:has(input[type="radio"]:checked) {
+        border-color: var(--primary);
+        background: #eef3f8;
+    }
+
+
+    /* =========================================================
+       PASS SECTION
+       ========================================================= */
+
     .pass-section {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        padding: 25px;
-        border-radius: 15px;
+        background: #f7f9fb;
+        padding: 18px;
+        border-radius: 8px;
         margin-bottom: 20px;
+        border: 1px solid var(--border);
     }
 
     .pass-option {
-        margin-bottom: 20px;
-        padding: 20px;
-        border-bottom: none;
-        background: white;
-        border-radius: 12px;
-        border: 2px solid #e0e0e0;
-        transition: all 0.3s ease;
+        margin-bottom: 14px;
+        padding: 18px;
+        background: #ffffff;
+        border-radius: 7px;
+        border: 1px solid var(--border);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .pass-option:hover {
-        border-color: #667eea;
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        border-color: #b9a06a;
+        box-shadow: var(--shadow-sm);
     }
 
     .pass-option:last-child {
         margin-bottom: 0;
-        padding-bottom: 20px;
     }
 
     .pass-checkbox-label {
         display: flex;
         align-items: flex-start;
-        gap: 15px;
+        gap: 14px;
         cursor: pointer;
         font-weight: 700;
-        font-size: 1.05rem;
+        font-size: 1.15rem;
     }
 
     .pass-checkbox-label input[type="checkbox"] {
         flex-shrink: 0;
         margin-top: 3px;
+        width: 24px;
+        height: 24px;
     }
 
     .pass-label-content {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 7px;
         width: 100%;
     }
 
@@ -540,51 +380,51 @@
         justify-content: space-between;
         align-items: center;
         gap: 15px;
+        flex-wrap: wrap;
     }
 
     .pass-title-row span:first-child {
         font-size: 1.1rem;
-        color: #2c3e50;
+        color: var(--primary);
         font-weight: 700;
     }
 
     .pass-title-row .pass-price {
-        font-size: 1.3rem;
-        color: #667eea;
-        font-weight: 800;
+        font-size: 1.25rem;
+        color: var(--secondary);
+        font-weight: 700;
         white-space: nowrap;
     }
 
     .pass-label-content > span:last-child {
-        font-size: 0.85em;
-        color: #666;
+        font-size: 0.9rem;
+        color: var(--text-light);
         font-weight: 500;
     }
 
     input[type="checkbox"] {
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
         cursor: pointer;
-        accent-color: #667eea;
+        accent-color: var(--primary);
     }
 
-    .pass-price {
-        color: #667eea;
-        font-weight: 800;
-    }
+
+    /* =========================================================
+       PASS DETAILS
+       ========================================================= */
 
     .pass-details {
         margin-top: 15px;
         padding: 15px;
-        background: white;
-        border-radius: 10px;
-        border-left: 4px solid #667eea;
+        background: #f7f9fb;
+        border-radius: 6px;
+        border-left: 3px solid var(--secondary);
         display: none;
     }
 
     .pass-details.active {
         display: block;
-        animation: slideDown 0.3s ease-out;
     }
 
     .quantity-total-row {
@@ -597,104 +437,117 @@
 
     .quantity-total-row label {
         margin-bottom: 0;
-        font-size: 0.95rem;
+        font-size: 1rem;
     }
 
     .quantity-total-row select,
     .quantity-total-row input {
         padding: 10px 12px;
-        border: 2px solid #e0e0e0;
-        border-radius: 8px;
-        font-size: 1rem;
-        transition: all 0.3s ease;
+        border: 1px solid #cfd7e1;
+        border-radius: 6px;
+        font-size: 1.05rem;
     }
 
     .quantity-total-row select:focus,
     .quantity-total-row input:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(23, 54, 93, 0.08);
     }
 
     .total-input {
-        background-color: #f0f0f0 !important;
-        color: #667eea;
+        background-color: #edf1f5 !important;
+        color: var(--primary);
         font-weight: 700;
         text-align: right;
-        min-width: 80px;
+        min-width: 90px;
     }
 
+
+    /* =========================================================
+       GRAND TOTAL
+       ========================================================= */
+
     .grand-total-section {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--primary);
         color: white;
-        padding: 25px;
-        border-radius: 15px;
-        margin-bottom: 30px;
+        padding: 24px;
+        border-radius: 8px;
+        margin-bottom: 28px;
         text-align: center;
+        border: 1px solid var(--primary-dark);
     }
 
     .grand-total-label {
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: 700;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.7px;
+        opacity: 0.9;
     }
 
     .grand-total-amount {
-        font-size: 2.5rem;
-        font-weight: 800;
+        font-size: 2.2rem;
+        font-weight: 700;
     }
 
     #grandTotal {
         background: transparent !important;
         border: none !important;
         color: white;
-        font-size: 2.5rem;
-        font-weight: 800;
+        font-size: 2.2rem;
+        font-weight: 700;
         text-align: center;
         width: 100%;
+        outline: none;
+        padding: 0;
     }
 
+
+    /* =========================================================
+       PAYMENT SECTION
+       ========================================================= */
+
     .payment-section {
-        background: rgba(240, 147, 251, 0.1);
-        padding: 25px;
-        border-radius: 15px;
-        border: 2px solid #f093fb;
-        margin-bottom: 30px;
+        background: #faf8f2;
+        padding: 24px;
+        border-radius: 8px;
+        border: 1px solid #e6dcc6;
+        margin-bottom: 28px;
         text-align: center;
     }
 
     .payment-title {
-        font-weight: 800;
-        font-size: 1.2rem;
-        color: #2c3e50;
-        margin-bottom: 15px;
-        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: var(--primary);
+        margin-bottom: 18px;
     }
 
     .payment-details {
-        font-size: 1rem;
-        color: #1d1b1b;
-        margin-bottom: 15px;
-        font-weight: 800;
+        font-size: 1.05rem;
+        color: #3d4a5a;
+        margin-bottom: 10px;
+        font-weight: 600;
+        line-height: 1.7;
     }
 
     .payment-details strong {
-        font-size: 1.0rem;
-        color: #1a1818;
-        font-weight: 800;
+        font-size: 1.05rem;
+        color: var(--primary);
+        font-weight: 700;
         display: block;
-        margin: 10px 0;
+        margin: 8px 0;
     }
 
     .payment-number {
-        color: #667eea;
-        font-weight: 800;
-        font-size: 1.3rem;
+        color: var(--secondary);
+        font-weight: 700;
+        font-size: 1.2rem;
     }
 
     .payment-qr {
-        margin-top: 20px;
+        margin-top: 18px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -703,145 +556,258 @@
     .payment-qr img {
         width: 180px;
         height: 180px;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        transition: transform 0.3s ease;
+        padding: 8px;
+        background: #ffffff;
+        border: 1px solid #d7dce3;
+        border-radius: 7px;
+        box-shadow: var(--shadow-sm);
         object-fit: contain;
         aspect-ratio: 1 / 1;
     }
-    
 
-    .payment-qr img:hover {
-        transform: scale(1.05);
-    }
+
+    /* =========================================================
+       SUBMIT BUTTON
+       ========================================================= */
 
     button[type="submit"] {
         width: 100%;
-        padding: 16px;
-        font-size: 1.1rem;
-        font-weight: 800;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border: none;
-        border-radius: 12px;
+        padding: 16px 16px;
+        font-size: 1.15rem;
+        font-weight: 700;
+        background: var(--primary);
+        border: 1px solid var(--primary-dark);
+        border-radius: 6px;
         color: white;
         cursor: pointer;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        transition: background-color 0.2s ease, transform 0.2s ease;
     }
 
     button[type="submit"]:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+        background: var(--primary-dark);
     }
 
-    button[type="submit"]:active {
-        transform: translateY(0);
-    }
+
+    /* =========================================================
+       IMAGE GALLERY
+       ========================================================= */
 
     .image-gallery {
         max-width: 700px;
-        margin: 0 auto 40px;
+        width: 100%;
+        margin: 0 auto 36px;
         display: grid;
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 18px;
     }
 
     .gallery-item {
         background: white;
-        padding: 15px;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-md);
         overflow: hidden;
-        animation: fadeInUp 0.8s ease-out;
     }
 
     .gallery-item img {
         width: 100%;
         height: auto;
-        border-radius: 10px;
+        border-radius: 5px;
         display: block;
-        transition: transform 0.3s ease;
     }
 
-    .gallery-item:hover img {
-        transform: scale(1.05);
+
+    /* =========================================================
+       FOOTER / OFFICES
+       ========================================================= */
+
+    .footer-section {
+        padding: 20px 0;
+        margin-top: -40px;
+        color: var(--text);
+        border-top: 1px solid var(--border);
     }
 
-    @media (max-width: 768px) {
-        .form-container {
-            padding: 25px;
+    .offices-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 16px;
+    }
+
+    .office-box {
+        background: #ffffff;
+        border-radius: 7px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-top: 3px solid var(--primary);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .vadodara-office { border-top-color: var(--primary); }
+    .vadodara-office .office-header { color: var(--primary); }
+    .amdavad-office { border-top-color: var(--secondary); }
+    .amdavad-office .office-header { color: var(--secondary); }
+    .maninagar-office { border-top-color: var(--success); }
+    .maninagar-office .office-header { color: var(--success); }
+
+    .office-header {
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 12px;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+    }
+
+    .office-header hr {
+        border: none;
+        height: 1px;
+        background: currentColor;
+        margin: 8px 0 0 0;
+        opacity: 0.3;
+    }
+
+    .office-details {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: #4a5568;
+    }
+
+
+    /* =========================================================
+       RESPONSIVE - TABLET
+       ========================================================= */
+
+    @media (max-width: 1024px) {
+        html { font-size: 18px; }
+
+        .event-details-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
 
-        .form-container h2 {
-            font-size: 1.5rem;
+        .form-container {
+            padding: 30px;
+        }
+    }
+
+
+    /* =========================================================
+       RESPONSIVE - MOBILE
+       ========================================================= */
+
+    @media (max-width: 768px) {
+        html { font-size: 18px; }
+
+        .page-wrapper {
+            padding: 18px 10px 30px;
         }
 
         .header-section h1 {
-            font-size: 2rem;
+            font-size: 1.6rem;
+        }
+
+        .event-details-grid {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .event-detail-card {
+            min-height: auto;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .form-container {
+            padding: 22px 18px;
+            border-radius: 8px;
+        }
+
+        .form-container h2 {
+            font-size: 1.4rem;
         }
 
         .quantity-total-row {
             grid-template-columns: 1fr;
+            gap: 8px;
         }
 
-        .grand-total-amount {
-            font-size: 2rem;
+        .quantity-total-row select,
+        .quantity-total-row input {
+            width: 100%;
         }
 
+        .grand-total-amount,
         #grandTotal {
-            font-size: 2rem;
+            font-size: 1.9rem;
+        }
+
+        .payment-section {
+            padding: 20px 15px;
+        }
+
+        .radio-option {
+            padding: 14px;
         }
     }
 
+
+    /* =========================================================
+       RESPONSIVE - SMALL MOBILE
+       ========================================================= */
+
     @media (max-width: 480px) {
+        html { font-size: 17px; }
+
         .page-wrapper {
-            padding: 15px;
-        }
-
-        .form-container {
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-
-        .form-container h2 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
+            padding: 14px 8px 28px;
         }
 
         .header-section h1 {
-            font-size: 1.5rem;
+            font-size: 1.35rem;
         }
 
         .header-section p {
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
 
-        label {
-            font-size: 0.95rem;
+        .event-detail-card {
+            padding: 14px 10px;
         }
 
-        input[type="text"], 
-        input[type="email"], 
-        select, 
+        .form-container {
+            padding: 18px 14px;
+        }
+
+        .form-container h2 {
+            font-size: 1.25rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
         input[type="file"] {
-            font-size: 0.95rem;
-            padding: 10px 12px;
+            font-size: 1rem;
+            padding: 12px 12px;
+            min-height: 48px;
         }
 
         .pass-section {
-            padding: 15px;
+            padding: 12px;
         }
 
         .pass-option {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
+            padding: 14px;
         }
 
-        .quantity-total-row {
-            grid-template-columns: 1fr;
-            gap: 10px;
+        .pass-checkbox-label {
+            font-size: 1rem;
         }
 
         .payment-qr img {
@@ -851,163 +817,71 @@
 
         button[type="submit"] {
             padding: 14px;
-            font-size: 1rem;
+            font-size: 1.05rem;
         }
 
-        .grand-total-amount {
-            font-size: 1.8rem;
-        }
-
+        .grand-total-amount,
         #grandTotal {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
+        }
+
+        .radio-option {
+            font-size: 1rem;
+            padding: 13px;
+        }
+
+        .radio-option input[type="radio"] {
+            width: 22px;
+            height: 22px;
         }
     }
-     /* Footer Styles */
-      .footer-section {
-       
-        padding: 20px 0;
-        margin-top: -40px;
-        color: #1f2937;
-        border-top: 1px solid var(--border-color);
-      }
-      .offices-container {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 0 16px;
-      }
-      .office-box {
-        background: #ffffff;
-        border-radius: 8px;
-        padding: 20px;
-        border: none;
-        border-top: 5px solid;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        position: relative;
-        overflow: visible;
-      }
-      
-      .office-box::before {
-        display: none;
-      }
-      
-      .office-box:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-      }
-      
-      .vadodara-office {
-        background: #ffffff;
-        border-top-color: #2563eb;
-      }
-      
-      .vadodara-office .office-header {
-        color: #2563eb;
-      }
-      
-      .amdavad-office {
-        background: #ffffff;
-        border-top-color: #f59e0b;
-      }
-      
-      .amdavad-office .office-header {
-        color: #f59e0b;
-      }
-      
-      .maninagar-office {
-        background: #ffffff;
-        border-top-color: #10b981;
-      }
-      
-      .maninagar-office .office-header {
-        color: #10b981;
-      }
-      .office-header {
-        font-weight: 700;
-        font-size: 1rem;
-        margin-bottom: 12px;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-      }
-      .office-header hr {
-        border: none;
-        height: 2px;
-        background: currentColor;
-        margin: 8px 0 0 0;
-        opacity: 0.4;
-      }
-      .office-details {
-        font-size: 0.85rem;
-        line-height: 1.6;
-        color: #475569;
-      }
-      @media (max-width: 768px) {
-        .offices-container {
-          max-width: 100%;
-          gap: 16px;
-        }
-        .footer-section {
-          padding: 25px 0;
-        }
-        .office-box {
-          padding: 16px;
-          border-top-width: 4px;
-        }
-        .office-header {
-          font-size: 0.95rem;
-        }
-        .office-details {
-          font-size: 0.8rem;
-        }
-      }
+
+
+    /* =========================================================
+       ACCESSIBILITY
+       ========================================================= */
+
+    button[type="submit"]:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+        outline: 2px solid var(--secondary);
+        outline-offset: 2px;
+    }
 
 </style>
 
 <div class="page-wrapper">
     <div class="header-section">
         <h1>✨ Advance Pass Booking ✨</h1>
-        <p> 34મુ સમસ્ત બ્રાહ્મણ - ભુદેવ જીવનસાથી પસંદગી સંમેલન</p>
+        <p>39મુ સમસ્ત બ્રાહ્મણ - ભુદેવ જીવનસાથી પસંદગી સંમેલન</p>
     </div>
 
     <div class="event-info">
-        <!-- Title for Cards Section -->
-        <div class="event-info-title">
-           
-        </div>
-
-        <!-- Cards Grid -->
         <div class="event-details-grid">
             <div class="event-detail-card">
                 <strong>📅 સંમેલન તારીખ</strong>
-                <span>25-01-2026 (રવિવાર)</span>
+                <span>20-09-2026 (રવિવાર)</span>
             </div>
             <div class="event-detail-card">
                 <strong>⏰ સમય</strong>
-                <span>9 AM to 4 PM</span>
+                <span>08:00 am to 05:00 pm</span>
             </div>
             <div class="event-detail-card">
                 <strong>📍 સ્થળ</strong>
-                <span>Sardar Patel AC Banquet Hall & Party Plot Near Smart Bazar, Anand - Vidyanagar Road, Anand, Gujarat 388001</span>
+                <span>Riddhi Siddhi AC Banquet Hall and Party Plot, Behind Keya Motors, Chhani Jakat Naka, Fortune Gateway Lane, Vadodara</span>
             </div>
             <div class="event-detail-card">
                 <strong>🏢 આયોજક</strong>
                 <span>Bhudev Network Foundation<br><small>(Gov. Reg. Amd/120129)</small></span>
             </div>
         </div>
-         <!-- Yellow Booking Box -->
+
         <div class="event-join">
             <div>
-                <strong>✅ Entry + Tea Coffee Pass
-₹50</strong>
-                <strong>
-✅ Unlimited Buffet Lunch
-₹200</strong>
+                <strong>✅ Entry + Tea Coffee Pass — ₹50</strong>
+                <strong>✅ Unlimited Buffet Lunch — ₹200</strong>
             </div>
         </div>
-
     </div>
 
     <div class="form-container">
@@ -1041,7 +915,21 @@
             </div>
 
             <div class="form-group">
-                <label style="text-transform: uppercase; font-size: 1.1rem;">5) Select Your Passes</label>
+                <label>5) Which City Will You Attend?</label>
+                <div class="radio-group">
+                    <label class="radio-option" for="id_attend_city_vadodara">
+                        <input type="radio" id="id_attend_city_vadodara" name="attend_city" value="Vadodara" required>
+                        <span>Vadodara (20-09-2026)</span>
+                    </label>
+                    <label class="radio-option" for="id_attend_city_surat">
+                        <input type="radio" id="id_attend_city_surat" name="attend_city" value="Surat">
+                        <span>Surat (27-09-2026)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>6) Select Your Passes</label>
                 <div class="pass-section">
                     <div class="pass-option">
                         <label class="pass-checkbox-label" for="id_entry_token_selected">
@@ -1093,7 +981,7 @@
             <div class="grand-total-section">
                 <div class="grand-total-label">Grand Total Payable Amount</div>
                 <div class="grand-total-amount">
-                    <span style="font-size: 1.5rem;">₹</span> <input type="text" id="grandTotal" readonly value="0" name="total_amount" />
+                    <span style="font-size: 1.3rem;">₹</span> <input type="text" id="grandTotal" readonly value="0" name="total_amount" />
                 </div>
             </div>
 
@@ -1104,10 +992,10 @@
                 </div>
                 <br>
                 <div class="payment-details">
-                  <strong></strong>Scan above QR code for Payment</strong>
-                  <br>or
-                  <br>
-                  <strong>Pay by Mobile Number : 7990208986 (Bhudev Network)</strong>
+                    <strong>Scan above QR code for Payment</strong>
+                    <br>or
+                    <br>
+                    <strong>Pay by Mobile Number : 7990208986 (Bhudev Network)</strong>
                 </div>
             </div>
 
@@ -1122,20 +1010,16 @@
 
     <div class="image-gallery">
         <div class="gallery-item">
-            <img src="{% static 'images/Sammelan_new.jpeg' %}" alt="Event Image 1" />
+            <img src="{% static 'images/postS.jpeg' %}" alt="Event Image 1" />
         </div>
         <div class="gallery-item">
             <img src="{% static 'images/team.jpg' %}" alt="Event Image 2" />
         </div>
-        <!-- <div class="gallery-item">
-            <img src="{% static 'images/program_schedule3.jpeg' %}" alt="Program Schedule" />
-        </div> -->
-    </div> 
+    </div>
 </div>
- <!-- Footer Section -->
-      {% include 'biodata/employa_footer.html' %}
-    </footer>
-   
+<!-- Footer Section -->
+{% include 'biodata/employa_footer.html' %}
+</footer>
 
 <script>
     const entryTokenPrice = 50;
@@ -1176,7 +1060,6 @@
 
     document.getElementById('id_entry_token_selected').addEventListener('change', togglePassDetails);
     document.getElementById('id_unlimited_buffet_selected').addEventListener('change', togglePassDetails);
-
 
     document.getElementById('id_entry_token_quantity').addEventListener('change', updateTotals);
     document.getElementById('id_entry_token_quantity').addEventListener('input', updateTotals);

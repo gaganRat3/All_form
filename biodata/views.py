@@ -1569,7 +1569,7 @@ def advance_pass_booking(request):
                 city=cleaned_data['city'],
                 whatsapp_number=cleaned_data['whatsapp_number'],
                 email=cleaned_data['email'],
-                attend_city=cleaned_data.get('attend_city', 'Vadodara'),
+                attend_city=cleaned_data['attend_city'],
                 entry_token_quantity=entry_token_qty,
                 unlimited_buffet_quantity=unlimited_buffet_qty,
                 payment_screenshot=cleaned_data['payment_screenshot'],

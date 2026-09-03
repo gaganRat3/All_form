@@ -723,7 +723,6 @@ class AdvancePassBooking(models.Model):
     attend_city = models.CharField(
         max_length=50,
         choices=ATTEND_CITY_CHOICES,
-        default='Vadodara',
         verbose_name='Which City Will You Attend?',
     )
     entry_token_quantity = models.PositiveIntegerField(default=0)
