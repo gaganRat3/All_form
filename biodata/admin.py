@@ -932,11 +932,11 @@ class CourierBooklet35thBookingAdmin(admin.ModelAdmin):
 @admin.register(AdvancePassBooking)
 class AdvancePassBookingAdmin(admin.ModelAdmin):
     list_display = [
-        'name', 'city', 'whatsapp_number', 'email',
+        'name', 'city', 'attend_city', 'whatsapp_number', 'email',
         'entry_token_quantity', 'unlimited_buffet_quantity',
         'total_amount', 'payment_screenshot_preview', 'created_at'
     ]
-    list_filter = ['created_at']
+    list_filter = ['attend_city', 'created_at']
     search_fields = ['name', 'city', 'whatsapp_number', 'email']
     readonly_fields = ['payment_screenshot', 'payment_screenshot_preview']
 
@@ -963,7 +963,7 @@ class AdvancePassBookingAdmin(admin.ModelAdmin):
         ws.title = "Advance Pass Bookings"
 
         # Define headers
-        headers = ['Name', 'City', 'WhatsApp Number', 'Email', 'Entry Token Qty', 'Buffet Qty', 'Total Amount', 'Payment Screenshot', 'Created At']
+        headers = ['Name', 'City', 'Attend City', 'WhatsApp Number', 'Email', 'Entry Token Qty', 'Buffet Qty', 'Total Amount', 'Payment Screenshot', 'Created At']
         ws.append(headers)
 
         # Set column widths
@@ -976,6 +976,7 @@ class AdvancePassBookingAdmin(admin.ModelAdmin):
             row = [
                 obj.name,
                 obj.city,
+                obj.attend_city,
                 obj.whatsapp_number,
                 obj.email,
                 obj.entry_token_quantity,

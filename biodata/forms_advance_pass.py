@@ -16,6 +16,7 @@ class AdvancePassBookingForm(forms.ModelForm):
             'city',
             'whatsapp_number',
             'email',
+            'attend_city',
             'entry_token_quantity',
             'unlimited_buffet_quantity',
             'payment_screenshot',

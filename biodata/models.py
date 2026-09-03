@@ -420,6 +420,7 @@ class SamstaGujaratRegistration(models.Model):
             ('conf_pay_pending', 'Confirmation Done & Payment Pending'),
             ('paid_member', 'Paid Member'),
             ('cnr', 'CNR'),
+            ('cancelled-form', 'Cancelled-Form')
         ],
         default='pending',
         verbose_name='Payment Status (Admin)',
@@ -711,10 +712,20 @@ class GalleryImage(models.Model):
         return self.title if self.title else f"Image {self.id}"
 
 class AdvancePassBooking(models.Model):
+    ATTEND_CITY_CHOICES = [
+        ('Vadodara', 'Vadodara (20-09-2026)'),
+        ('Surat', 'Surat (27-09-2026)'),
+    ]
     name = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     whatsapp_number = models.CharField(max_length=20)
     email = models.EmailField()
+    attend_city = models.CharField(
+        max_length=50,
+        choices=ATTEND_CITY_CHOICES,
+        default='Vadodara',
+        verbose_name='Which City Will You Attend?',
+    )
     entry_token_quantity = models.PositiveIntegerField(default=0)
     unlimited_buffet_quantity = models.PositiveIntegerField(default=0)
     payment_screenshot = models.ImageField(upload_to='payment_screenshots/')
