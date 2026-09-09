@@ -295,13 +295,18 @@ class CourierBooklet35thForm(forms.ModelForm):
             }),
             'courier_address': forms.Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter delivery address',
+                'placeholder': 'Enter delivery address (Phone number, area pincode)',
                 'rows': 3
             }),
+        }
+        labels = {
+            'courier_address': 'Delivery Address (Phone number, area pincode)',
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        if 'courier_address' in self.fields:
+            self.fields['courier_address'].label = 'Delivery Address (Phone number, area pincode)'
         required_fields = ['name', 'city', 'whatsapp_number', 'email', 'payment_screenshot', 'courier_address']
         for field_name in self.fields:
             self.fields[field_name].required = field_name in required_fields
@@ -320,9 +325,9 @@ class CourierBooklet35thForm(forms.ModelForm):
         if not courier_address:
             self.add_error('courier_address', 'Delivery address is required for courier service.')
 
-        # Calculate total: ₹500 per booklet + ₹100 courier charge (if at least one selected)
+        # Calculate total: ₹700 per booklet + ₹100 courier charge (if at least one selected)
         total = 0
-        price_per_booklet = 500
+        price_per_booklet = 700
         courier_charge = 100
         selected = 0
         if girls_booklet_with:
