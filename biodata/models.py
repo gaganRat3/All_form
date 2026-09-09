@@ -511,8 +511,8 @@ class CourierBooklet35thBooking(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "35th Courier Booklet Booking"
-        verbose_name_plural = "35th Courier Booklet Bookings"
+        verbose_name = "39th Courier Booklet Booking"
+        verbose_name_plural = "39th Courier Booklet Bookings"
         ordering = ['-created_at']
 
     def __str__(self):

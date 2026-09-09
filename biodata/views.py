@@ -1234,14 +1234,14 @@ def happy_stories_thanks_view(request):
     return render(request, 'biodata/happy_stories_thanks.html')
 
 def courier_booklet_35th_view(request):
-    """Handle the 35th Courier Booklet booking page (separate model/form)."""
+    """Handle the 39th Courier Booklet booking page."""
     from .forms import CourierBooklet35thForm
     from django.contrib import messages
     from .models import CourierBooklet35thBooking
     from django.db import transaction
     
     if request.method == 'POST':
-        print("POST request received for 35th Courier Booklet form.")
+        print("POST request received for 39th Courier Booklet form.")
         form = CourierBooklet35thForm(request.POST, request.FILES)
         print(f"Form data: {request.POST}, Files: {request.FILES}")
         if form.is_valid():
@@ -1261,7 +1261,7 @@ def courier_booklet_35th_view(request):
                 else:
                     print("ERROR: Object not found after transaction!")
                     
-                return redirect('35th_curier_booklet_success')
+                return redirect('39th_courier_booklet_success')
                 
             except Exception as e:
                 print(f"Exception during save: {e}")
@@ -1276,9 +1276,13 @@ def courier_booklet_35th_view(request):
     
     return render(request, 'biodata/35th_Courier_Booklet.html', {'form': form})
 
-# ...existing code...
+# Alias for 39th
+courier_booklet_39th_view = courier_booklet_35th_view
+
 def courier_booklet_35th_success(request):
     return render(request, 'biodata/35th_Curier_booklet_success.html')
+
+courier_booklet_39th_success = courier_booklet_35th_success
 
 def booklet_camp_adv_booking_view(request):
     """Handle the Booklet Camp Advanced Booking form."""
