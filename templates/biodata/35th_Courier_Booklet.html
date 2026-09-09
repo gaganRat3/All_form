@@ -1,44 +1,44 @@
 {% load static %}
 {% block content %}
 <style>
-    /* ===== CSS CUSTOM PROPERTIES - WARM CORAL THEME ===== */
+    /* ===== CSS CUSTOM PROPERTIES - BLUE/TEAL THEME ===== */
     :root {
-        /* Primary Color Palette - Warm Coral/Orange Theme */
-        --primary-light: #FFF5F2;
-        --primary-medium: #FFBFA6;
-        --primary-dark: #E8744A;
-        --primary-darkest: #D63384;
-        --accent-primary: #FF6B35;
-        --accent-secondary: #F59E0B;
+        /* Primary Color Palette - Blue/Teal Theme */
+        --primary-light: #F0F9FF;
+        --primary-medium: #7DD3FC;
+        --primary-dark: #0284C7;
+        --primary-darkest: #075985;
+        --accent-primary: #0EA5E9;
+        --accent-secondary: #14B8A6;
         
-        /* Coral Theme Variations */
-        --coral-light: #FEF2F2;
-        --coral-medium: #FCA5A5;
-        --coral-dark: #DC2626;
-        --coral-accent: #EF4444;
+        /* Teal Theme Variations */
+        --coral-light: #F0FDFA;
+        --coral-medium: #5EEAD4;
+        --coral-dark: #0D9488;
+        --coral-accent: #14B8A6;
         
-        /* Warm Orange Shades */
-        --orange-light: #FEF3C7;
-        --orange-medium: #F59E0B;
-        --orange-dark: #D97706;
-        --orange-accent: #FBBF24;
+        /* Sky Blue Shades */
+        --orange-light: #E0F2FE;
+        --orange-medium: #0EA5E9;
+        --orange-dark: #0369A1;
+        --orange-accent: #38BDF8;
         
         /* Text Colors */
         --text-dark: #374151;
         --text-light: #FFFFFF;
         --text-muted: #6B7280;
-        --text-accent: #DC2626;
+        --text-accent: #0284C7;
         
         /* UI Elements */
-        --border-color: #FFD4CC;
-        --border-focus: #FF6B35;
+        --border-color: #BAE6FD;
+        --border-focus: #0EA5E9;
         --background-glass: rgba(255, 255, 255, 0.96);
         
-        /* Shadows with warm tints */
-        --shadow-sm: 0 2px 8px rgba(220, 38, 38, 0.08);
-        --shadow: 0 4px 15px rgba(239, 68, 68, 0.12);
-        --shadow-lg: 0 8px 25px rgba(220, 38, 38, 0.15);
-        --shadow-xl: 0 12px 30px rgba(239, 68, 68, 0.2);
+        /* Shadows with cool blue tints */
+        --shadow-sm: 0 2px 8px rgba(2, 132, 199, 0.08);
+        --shadow: 0 4px 15px rgba(14, 165, 233, 0.12);
+        --shadow-lg: 0 8px 25px rgba(2, 132, 199, 0.15);
+        --shadow-xl: 0 12px 30px rgba(14, 165, 233, 0.2);
         
         /* Section Header Colors - Modern Blue/Teal Theme */
         --section-bg: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
@@ -94,7 +94,7 @@
 
 <div class="event-header-gujarati">
     <span>
-        35th સમસ્ત બ્રાહ્મણ - ભુદેવ જીવનસાથી પસંદગી સંમેલન
+        39th સમસ્ત બ્રાહ્મણ - ભુદેવ જીવનસાથી પસંદગી સંમેલન
     </span>
 </div>
 <style>
@@ -134,9 +134,9 @@
         pointer-events: none;
         opacity: 0.08;
         background: 
-            radial-gradient(circle at 25% 25%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 75% 75%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, rgba(239, 68, 68, 0.05) 0%, transparent 50%);
+            radial-gradient(circle at 25% 25%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 75% 75%, rgba(20, 184, 166, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(2, 132, 199, 0.05) 0%, transparent 50%);
     }
 
     /* ===== TYPOGRAPHY ===== */
@@ -177,7 +177,7 @@
         background: var(--background-glass);
         padding: 45px 40px 40px 40px;
         border-radius: var(--radius-xl);
-        box-shadow: var(--shadow-lg), 0 0 50px rgba(255, 107, 53, 0.1);
+        box-shadow: var(--shadow-lg), 0 0 50px rgba(14, 165, 233, 0.1);
         backdrop-filter: blur(12px);
         border: 2px solid var(--border-color);
         position: relative;
@@ -203,7 +203,7 @@
         right: -50px;
         width: 150px;
         height: 150px;
-        background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
         border-radius: 50%;
         z-index: -1;
     }
@@ -261,7 +261,7 @@
     .form-group textarea:focus {
         border-color: var(--border-focus);
         background: #FFFFFF;
-        box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15), var(--shadow);
+        box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15), var(--shadow);
         transform: translateY(-2px);
     }
     
@@ -319,7 +319,7 @@
     
     button[type="submit"]:hover {
         background: var(--gradient-secondary);
-        box-shadow: var(--shadow-xl), 0 0 30px rgba(255, 107, 53, 0.3);
+        box-shadow: var(--shadow-xl), 0 0 30px rgba(14, 165, 233, 0.3);
         transform: translateY(-3px) scale(1.02);
     }
     
@@ -551,7 +551,7 @@
         border-radius: 14px;
         background: rgba(255,255,255,0.95);
         transition: border-color 0.3s, box-shadow 0.3s;
-        box-shadow: 0 1.5px 8px 0 rgba(253,160,133,0.08);
+        box-shadow: 0 1.5px 8px 0 rgba(14,165,233,0.08);
         outline: none;
         margin-bottom: 2px;
     }
@@ -560,8 +560,8 @@
     .form-group select:focus,
     .form-group input[type="file"]:focus,
     .form-group textarea:focus {
-        border-color: #f76b1c;
-        box-shadow: 0 0 0 2px #fda08544;
+        border-color: #0EA5E9;
+        box-shadow: 0 0 0 2px #0EA5E944;
     }
     .form-group input[readonly] {
         background-color: #f7f7f7;
@@ -587,7 +587,7 @@
         color: #a1c4fd;
         font-size: 0.92rem;
         transform: translateY(-22px) scale(0.98);
-        background: #fffbe7;
+        background: #F0F9FF;
         padding: 0 6px;
         border-radius: 6px;
         position: absolute;
@@ -607,18 +607,18 @@
         padding: 16px;
         font-size: 1.18rem;
         font-weight: 800;
-        background: linear-gradient(90deg, #4a90e2 0%, #6fb1ff 100%);
+        background: linear-gradient(90deg, #0EA5E9 0%, #38BDF8 100%);
         border: none;
         border-radius: 16px;
         color: #fff;
         cursor: pointer;
-        box-shadow: 0 2px 12px 0 rgba(253,160,133,0.13);
+        box-shadow: 0 2px 12px 0 rgba(14,165,233,0.13);
         transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
         letter-spacing: 0.5px;
         margin-top: 10px;
     }
     button[type="submit"]:hover {
-        background: linear-gradient(90deg, #fad961 0%, #f76b1c 100%);
+        background: linear-gradient(90deg, #38BDF8 0%, #0EA5E9 100%);
         box-shadow: 0 4px 18px 0 rgba(0,0,0,0.12);
         transform: translateY(-2px) scale(1.03);
     }
@@ -640,9 +640,9 @@
         height: 120px;
         margin-top: 10px;
         border-radius: 12px;
-        box-shadow: 0 2px 12px rgba(253,160,133,0.13);
+        box-shadow: 0 2px 12px rgba(14,165,233,0.13);
         border: 1.5px solid #b6d4ff;
-        background: #fffbe7;
+        background: #F0F9FF;
     }
         @media (max-width: 600px) {
             .form-container {
@@ -766,13 +766,13 @@
     
     @keyframes pulse {
         0% {
-            box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.4);
+            box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
         }
         70% {
-            box-shadow: 0 0 0 10px rgba(255, 107, 53, 0);
+            box-shadow: 0 0 0 10px rgba(14, 165, 233, 0);
         }
         100% {
-            box-shadow: 0 0 0 0 rgba(255, 107, 53, 0);
+            box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
         }
     }
     
@@ -809,7 +809,7 @@
     
     /* Hover effects for interactive elements */
     .section-header:hover {
-        background: linear-gradient(135deg, var(--orange-light) 0%, #FFEDD5 100%);
+        background: linear-gradient(135deg, var(--orange-light) 0%, #BAE6FD 100%);
         transform: translateX(5px);
         border-left-color: var(--orange-dark);
     }
@@ -912,7 +912,7 @@
     .grand-total,
     .total-display {
         color: #000000 !important;
-        background-color: #fff3e0 !important;
+        background-color: #E0F2FE !important;
         font-weight: 800 !important;
         font-size: 20px !important;
         border: 3px solid var(--primary-color) !important;
@@ -931,10 +931,10 @@
     
     input[type="file"]:hover {
         border-color: var(--accent-primary);
-        background: #FEF2F2;
+        background: #F0F9FF;
     }
     
-    /* Alert messages with coral theme */
+    /* Alert messages with blue/teal theme */
     .alert {
         border-radius: var(--radius-md);
         padding: var(--spacing-md);
@@ -966,7 +966,7 @@
       padding: 1.5rem 0;
       background: rgba(255,255,255,0.7);
       border-radius: 0 0 1rem 1rem;
-      box-shadow: 0 20px 40px -12px rgba(79,70,229,.08);
+      box-shadow: 0 20px 40px -12px rgba(14,165,233,.08);
     }
     .logo-responsive {
       height: 60px;
@@ -1135,7 +1135,7 @@
 </div>
         <div class="image-gallery">
                 <div class="gallery-item">
-                    <img src="{% static 'images/Sammelan_new.jpeg' %}" alt="Event Image 1" />
+                    <img src="{% static 'images/postS.jpeg' %}" alt="Event Image 1" />
                 </div>
                 <div class="gallery-item">
                     <img src="{% static 'images/team.jpg' %}" alt="Event Image 2" />

@@ -31,28 +31,13 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '46b5-103-228-147-142.ngrok-free.app',
-    'Shivani19.pythonanywhere.com',
-    'bhudevnetwork.pythonanywhere.com',
-    'fea1-103-241-224-11.ngrok-free.app',
-    '5f8e-103-241-224-105.ngrok-free.app',
-    'af8c-2405-201-2012-408a-bc7f-ef33-5b1b-cbeb.ngrok-free.app',
-    '3093-103-241-224-69.ngrok-free.app',
-    'a2d3-103-228-147-158.ngrok-free.app',
     'form.bhudevstore.com',
-    '2ed5-103-240-207-137.ngrok-free.app',
-    '7859-103-241-224-118.ngrok-free.app',
+    '5fa7-103-39-128-152.ngrok-free.app',
 ]
 
 # Remove CSRF_TRUSTED_ORIGINS if not using ngrok or multiple domains
 CSRF_TRUSTED_ORIGINS = [
-    "https://fea1-103-241-224-11.ngrok-free.app",
-    "https://5f8e-103-241-224-105.ngrok-free.app",
-    "https://3093-103-241-224-69.ngrok-free.app",
-    "https://a2d3-103-228-147-158.ngrok-free.app",
-    "https://46b5-103-228-147-142.ngrok-free.app",
-    "https://2ed5-103-240-207-137.ngrok-free.app",
-    "https://7859-103-241-224-118.ngrok-free.app", 
+    'https://5fa7-103-39-128-152.ngrok-free.app',
 ]
 
 # Application definition

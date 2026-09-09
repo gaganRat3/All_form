@@ -7,6 +7,7 @@ from . import views_referral_program
 from . import views_divorce_sammelan
 from . import views_40plus_sammelan
 from . import views_marriage_done
+from . import views_mangalfera_sammelan
 from .views_samsta_gujarat import samsta_gujarat_form_view, samsta_gujarat_success
 from .views import astrology_form_view, technical_support, technical_support_confirmation, bk2026_registration_view, submit_bk2026_registration
 from django.views.generic import RedirectView
@@ -67,6 +68,8 @@ urlpatterns = [
     path('nri-sammelan-form/success/', nri_sammelan_success, name='nri_sammelan_success'),
     path('39th-sammelan-form/', views.sammelan_39th_form_view, name='39th_sammelan_form'),
     path('39th-sammelan-form/success/', views.sammelan_39th_success, name='39th_sammelan_success'),
+    path('mangalfera-sammelan-form/', views_mangalfera_sammelan.mangalfera_sammelan_form_view, name='mangalfera_sammelan_form'),
+    path('mangalfera-sammelan-form/success/', views_mangalfera_sammelan.mangalfera_sammelan_success, name='mangalfera_sammelan_success'),
     path('40-plus-sammelan-form/', views_40plus_sammelan.forty_plus_sammelan_form_view, name='40_plus_sammelan_form'),
     path('saurashtra-kutch-sammelan-form/', views_40plus_sammelan.saurashtra_kutch_sammelan_form_view, name='saurashtra_kutch_sammelan_form'),
     path('samsta-gujarat-form/', samsta_gujarat_form_view, name='samsta_gujarat_form'),
