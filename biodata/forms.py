@@ -224,7 +224,7 @@ class MegaBookletCorrectionForm(forms.ModelForm):
 class SammelanPaymentFormForm(forms.ModelForm):
     class Meta:
         model = SammelanPaymentForm
-        fields = ['name', 'date_of_birth', 'mobile_number', 'marital_status', 'payment_screenshot']
+        fields = ['name', 'date_of_birth', 'mobile_number', 'marital_status', 'booklet_delivery_option', 'delivery_address', 'area_pincode', 'payment_screenshot']
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -247,11 +247,23 @@ class SammelanPaymentFormForm(forms.ModelForm):
                 'placeholder': 'Enter your marital status',
                 'required': True
             }),
-            'payment_screenshot': forms.FileInput(attrs={
-                'class': 'form-control',
-                'accept': 'image/*',
+            'booklet_delivery_option': forms.RadioSelect(attrs={
+                'class': 'form-check-input',
                 'required': True
             }),
+            'delivery_address': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter complete delivery address',
+                'rows': 3
+            }),
+            'area_pincode': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter area pincode'
+            }),
+            'payment_screenshot': forms.FileInput(attrs={
+                'class': 'form-control',
+                'required': True
+            })
         }
 
 

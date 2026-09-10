@@ -683,15 +683,46 @@
                     <div class="error-message" id="maritalError">Please enter your marital status</div>
                 </div>
 
+                <!-- Booklet Delivery Option -->
+                <div class="form-group">
+                    <label class="form-label">Booklet Delivery Option<span class="required">*</span></label>
+                    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="radio" name="booklet_delivery_option" value="courier" id="courier_option" class="form-check-input" required>
+                            If you want booklet by courier
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="radio" name="booklet_delivery_option" value="without_courier" id="without_courier_option" class="form-check-input" checked required>
+                            If you want without courier
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Courier Address Fields (Hidden by default) -->
+                <div id="courier_fields" style="display: none; background: #f8fafb; padding: 15px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 28px;">
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label class="form-label">Delivery Address<span class="required">*</span></label>
+                        <textarea class="form-control" name="delivery_address" id="delivery_address" rows="3" placeholder="Enter complete delivery address"></textarea>
+                        <div class="error-message" id="addressError">Please enter delivery address</div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label class="form-label">Area Pincode<span class="required">*</span></label>
+                        <input type="text" class="form-control" name="area_pincode" id="area_pincode" placeholder="Enter area pincode">
+                        <div class="error-message" id="pincodeError">Please enter area pincode</div>
+                    </div>
+                </div>
+
                 <!-- QR Code Section -->
                 <div class="qr-section">
                     <div class="qr-title">Scan QR Code to Pay</div>
-                    
+                    <div id="dynamic_amount_display" style="background: #e8f4f8; padding: 10px 15px; border-radius: 8px; font-weight: 700; font-size: 22px; color: #17365d; margin-bottom: 15px; border: 2px solid #a8d8ff;">
+                        Amount to Pay: ₹700
+                    </div>
                     <img src="{% static 'images/payment_qr.jpeg' %}" 
                          alt="Payment QR Code" 
                          class="qr-image">
-                    <p style="margin-top: 12px; font-size: 20px; color: #070707;">Scan above QR code for Payment
-                    Pay by Mobile Number : 7990208986 (Bhudev Network)</p>
+                    <p style="margin-top: 12px; font-size: 18px; color: #070707; font-weight: 500;">Pay by Mobile Number : 7990208986</p>
+                    <p style="margin-top: 4px; font-size: 15px; color: #555;">(Bhudev Network)</p>
                 </div>
 
                 <!-- Payment Screenshot Upload -->
@@ -769,7 +800,7 @@
               <br />9099798986, 9081522111
             </div>
           </div>
-          <div class="office-box maninagar-office">
+          {% comment %} <div class="office-box maninagar-office">
             <div class="office-header">
               AMDAVAD (MANINAGAR) (bhudevnetworkvivah / Employa Technologies )
               <hr />
@@ -779,7 +810,7 @@
               Opp. Nagar Farsan, Near Pruthvi Hotels, Maninagar, Amdavad 380008
               <br />9099798986, 9081522111
             </div>
-          </div>
+          </div> {% endcomment %}
         </div>
       </div>
     </footer>
@@ -905,6 +936,21 @@
                 isValid = false;
             }
             
+            // Validate courier address if option is selected
+            const courierOption = document.querySelector('input[name="booklet_delivery_option"]:checked');
+            if (courierOption && courierOption.value === 'courier') {
+                const address = document.getElementById('delivery_address').value.trim();
+                const pincode = document.getElementById('area_pincode').value.trim();
+                if (address === '') {
+                    document.getElementById('addressError').classList.add('show');
+                    isValid = false;
+                }
+                if (pincode === '') {
+                    document.getElementById('pincodeError').classList.add('show');
+                    isValid = false;
+                }
+            }
+            
             // Validate file
             if (fileInput.files.length === 0) {
                 document.getElementById('fileError').classList.add('show');
@@ -949,6 +995,32 @@
                 document.getElementById('dobError').classList.remove('show');
             }
         });
+
+        // Courier option toggle
+        const courierRadios = document.querySelectorAll('input[name="booklet_delivery_option"]');
+        const courierFields = document.getElementById('courier_fields');
+        const deliveryAddress = document.getElementById('delivery_address');
+        const areaPincode = document.getElementById('area_pincode');
+        const dynamicAmountDisplay = document.getElementById('dynamic_amount_display');
+
+        courierRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'courier') {
+                    courierFields.style.display = 'block';
+                    deliveryAddress.setAttribute('required', 'required');
+                    areaPincode.setAttribute('required', 'required');
+                    dynamicAmountDisplay.innerHTML = 'Amount to Pay: ₹800 <br><span style="font-size:14px; font-weight:500; color:#444;">(₹700 Base + ₹100 Courier)</span>';
+                } else {
+                    courierFields.style.display = 'none';
+                    deliveryAddress.removeAttribute('required');
+                    areaPincode.removeAttribute('required');
+                    document.getElementById('addressError').classList.remove('show');
+                    document.getElementById('pincodeError').classList.remove('show');
+                    dynamicAmountDisplay.innerHTML = 'Amount to Pay: ₹700';
+                }
+            });
+        });
+
     </script>
 </body>
 </html>

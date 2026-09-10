@@ -2398,13 +2398,16 @@ class ParticipantRegistrationAdmin(admin.ModelAdmin):
 # 34th Sammelan Payment Form Admin
 @admin.register(SammelanPaymentForm)
 class SammelanPaymentFormAdmin(admin.ModelAdmin):
-    list_display = ['name', 'date_of_birth', 'mobile_number', 'marital_status', 'payment_screenshot_preview', 'created_at']
-    search_fields = ['name', 'mobile_number', 'marital_status']
-    list_filter = ['created_at']
+    list_display = ['name', 'date_of_birth', 'mobile_number', 'marital_status', 'booklet_delivery_option', 'payment_screenshot_preview', 'created_at']
+    search_fields = ['name', 'mobile_number', 'marital_status', 'area_pincode']
+    list_filter = ['created_at', 'booklet_delivery_option']
     readonly_fields = ['created_at', 'payment_screenshot_preview', 'qr_code_preview']
     fieldsets = (
         ('Personal Information', {
             'fields': ('name', 'date_of_birth', 'mobile_number', 'marital_status')
+        }),
+        ('Delivery Options', {
+            'fields': ('booklet_delivery_option', 'delivery_address', 'area_pincode')
         }),
         ('Payment Details', {
             'fields': ('qr_code_image', 'qr_code_preview', 'payment_screenshot', 'payment_screenshot_preview')

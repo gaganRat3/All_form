@@ -1139,6 +1139,17 @@ class SammelanPaymentForm(models.Model):
     mobile_number = models.CharField(max_length=15, verbose_name='Mobile Number')
     # candidate_email field removed as per request
     marital_status = models.CharField(max_length=100, verbose_name='Marital Status')
+    
+    # Courier Options
+    booklet_delivery_option = models.CharField(
+        max_length=20,
+        choices=[('courier', 'By Courier'), ('without_courier', 'Without Courier')],
+        default='without_courier',
+        verbose_name='Booklet Delivery Option'
+    )
+    delivery_address = models.TextField(blank=True, null=True, verbose_name='Delivery Address')
+    area_pincode = models.CharField(max_length=20, blank=True, null=True, verbose_name='Area Pincode')
+    
     qr_code_image = models.ImageField(upload_to='payment_qr_codes/', blank=True, null=True, verbose_name='QR Code')
     payment_screenshot = models.ImageField(upload_to='payment_screenshots/', verbose_name='Payment Screenshot')
     created_at = models.DateTimeField(auto_now_add=True)
