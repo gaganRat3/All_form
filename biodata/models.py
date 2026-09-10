@@ -742,6 +742,70 @@ class AdvancePassBooking(models.Model):
         return f"{self.name} - Entry Token: {self.entry_token_quantity}, Buffet: {self.unlimited_buffet_quantity}"
 
 
+class AdvanceEntryPassBooking(models.Model):
+    ATTEND_CITY_CHOICES = [
+        ('Vadodara', 'Vadodara (20-09-2026)'),
+        ('Surat', 'Surat (27-09-2026)'),
+    ]
+    name = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    whatsapp_number = models.CharField(max_length=20)
+    email = models.EmailField()
+    attend_city = models.CharField(
+        max_length=50,
+        choices=ATTEND_CITY_CHOICES,
+        verbose_name='Which City Will You Attend?',
+    )
+    quantity = models.PositiveIntegerField(default=1, verbose_name='Pass Quantity')
+    payment_screenshot = models.ImageField(upload_to='payment_screenshots/entry_pass/')
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Advance Entry + Tea Coffee Pass Booking"
+        verbose_name_plural = "Advance Entry + Tea Coffee Pass Bookings"
+        ordering = ['-created_at']
+
+    def save(self, *args, **kwargs):
+        self.total_amount = (self.quantity or 1) * 50
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.name} - Entry Pass x {self.quantity} (₹{self.total_amount})"
+
+
+class AdvanceBuffetLunchBooking(models.Model):
+    ATTEND_CITY_CHOICES = [
+        ('Vadodara', 'Vadodara (20-09-2026)'),
+        ('Surat', 'Surat (27-09-2026)'),
+    ]
+    name = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    whatsapp_number = models.CharField(max_length=20)
+    email = models.EmailField()
+    attend_city = models.CharField(
+        max_length=50,
+        choices=ATTEND_CITY_CHOICES,
+        verbose_name='Which City Will You Attend?',
+    )
+    quantity = models.PositiveIntegerField(default=1, verbose_name='Buffet Lunch Quantity')
+    payment_screenshot = models.ImageField(upload_to='payment_screenshots/buffet_lunch/')
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Advance Unlimited Buffet Lunch Booking"
+        verbose_name_plural = "Advance Unlimited Buffet Lunch Bookings"
+        ordering = ['-created_at']
+
+    def save(self, *args, **kwargs):
+        self.total_amount = (self.quantity or 1) * 200
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.name} - Buffet Lunch x {self.quantity} (₹{self.total_amount})"
+
+
 
 class StageRegistration(models.Model):
     GENDER_CHOICES = [

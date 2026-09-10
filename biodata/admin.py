@@ -394,7 +394,7 @@ class GetTogetherRegistrationAdmin(admin.ModelAdmin):
         wb.save(response)
         return response
     
-from .models import AdvancePassBooking, BookletLibrarySubmission, FortyPlusSammelan, BhudevKalakaar2026Registration, SaurasthraKutchSammelan, CandidateBiodata, SamstaGujaratRegistration
+from .models import AdvancePassBooking, AdvanceEntryPassBooking, AdvanceBuffetLunchBooking, BookletLibrarySubmission, FortyPlusSammelan, BhudevKalakaar2026Registration, SaurasthraKutchSammelan, CandidateBiodata, SamstaGujaratRegistration
 # Register CandidateBiodata in admin
 @admin.register(CandidateBiodata)
 class CandidateBiodataAdmin(admin.ModelAdmin):
@@ -1013,6 +1013,162 @@ class AdvancePassBookingAdmin(admin.ModelAdmin):
         response['Content-Disposition'] = 'attachment; filename=advance_pass_bookings.xlsx'
         wb.save(response)
         return response
+
+# Register AdvanceEntryPassBooking in admin
+@admin.register(AdvanceEntryPassBooking)
+class AdvanceEntryPassBookingAdmin(admin.ModelAdmin):
+    list_display = [
+        'name', 'city', 'attend_city', 'whatsapp_number', 'email',
+        'quantity', 'total_amount', 'payment_screenshot_preview', 'created_at'
+    ]
+    list_filter = ['attend_city', 'created_at']
+    search_fields = ['name', 'city', 'whatsapp_number', 'email']
+    readonly_fields = ['payment_screenshot', 'payment_screenshot_preview', 'created_at']
+    actions = ['export_selected_to_excel']
+
+    def payment_screenshot_preview(self, obj):
+        if obj.payment_screenshot:
+            return format_html('<img src="{}" style="max-height: 100px; max-width: 100px;" />', obj.payment_screenshot.url)
+        return "-"
+    payment_screenshot_preview.short_description = 'Payment Screenshot'
+
+    @admin.action(description='Export selected entry pass bookings to Excel')
+    def export_selected_to_excel(self, request, queryset):
+        import openpyxl
+        from openpyxl.utils import get_column_letter
+        from openpyxl.drawing.image import Image as OpenpyxlImage
+        from io import BytesIO
+        from django.http import HttpResponse
+        from PIL import Image as PILImage
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Entry Pass Bookings"
+
+        headers = ['Name', 'City', 'Attend City', 'WhatsApp Number', 'Email', 'Quantity (Rs 50)', 'Total Amount', 'Payment Screenshot', 'Created At']
+        ws.append(headers)
+
+        column_widths = [20, 20, 20, 30, 15, 15, 15, 20, 20]
+        for i, width in enumerate(column_widths, 1):
+            ws.column_dimensions[get_column_letter(i)].width = width
+
+        row_num = 2
+        for obj in queryset:
+            row = [
+                obj.name,
+                obj.city,
+                obj.attend_city,
+                obj.whatsapp_number,
+                obj.email,
+                obj.quantity,
+                obj.total_amount,
+                '',
+                obj.created_at.strftime('%Y-%m-%d %H:%M:%S') if obj.created_at else '',
+            ]
+            ws.append(row)
+
+            if obj.payment_screenshot:
+                try:
+                    img_path = obj.payment_screenshot.path
+                    pil_img = PILImage.open(img_path)
+                    img_byte_arr = BytesIO()
+                    pil_img.save(img_byte_arr, format='PNG')
+                    img_byte_arr.seek(0)
+                    img = OpenpyxlImage(img_byte_arr)
+                    img.width = 80
+                    img.height = 80
+                    img.anchor = f"{get_column_letter(8)}{row_num}"
+                    ws.add_image(img)
+                    ws.row_dimensions[row_num].height = 60
+                except Exception as e:
+                    pass
+            row_num += 1
+
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        )
+        response['Content-Disposition'] = 'attachment; filename=advance_entry_pass_bookings.xlsx'
+        wb.save(response)
+        return response
+
+
+# Register AdvanceBuffetLunchBooking in admin
+@admin.register(AdvanceBuffetLunchBooking)
+class AdvanceBuffetLunchBookingAdmin(admin.ModelAdmin):
+    list_display = [
+        'name', 'city', 'attend_city', 'whatsapp_number', 'email',
+        'quantity', 'total_amount', 'payment_screenshot_preview', 'created_at'
+    ]
+    list_filter = ['attend_city', 'created_at']
+    search_fields = ['name', 'city', 'whatsapp_number', 'email']
+    readonly_fields = ['payment_screenshot', 'payment_screenshot_preview', 'created_at']
+    actions = ['export_selected_to_excel']
+
+    def payment_screenshot_preview(self, obj):
+        if obj.payment_screenshot:
+            return format_html('<img src="{}" style="max-height: 100px; max-width: 100px;" />', obj.payment_screenshot.url)
+        return "-"
+    payment_screenshot_preview.short_description = 'Payment Screenshot'
+
+    @admin.action(description='Export selected buffet lunch bookings to Excel')
+    def export_selected_to_excel(self, request, queryset):
+        import openpyxl
+        from openpyxl.utils import get_column_letter
+        from openpyxl.drawing.image import Image as OpenpyxlImage
+        from io import BytesIO
+        from django.http import HttpResponse
+        from PIL import Image as PILImage
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Buffet Lunch Bookings"
+
+        headers = ['Name', 'City', 'Attend City', 'WhatsApp Number', 'Email', 'Quantity (Rs 200)', 'Total Amount', 'Payment Screenshot', 'Created At']
+        ws.append(headers)
+
+        column_widths = [20, 20, 20, 30, 15, 15, 15, 20, 20]
+        for i, width in enumerate(column_widths, 1):
+            ws.column_dimensions[get_column_letter(i)].width = width
+
+        row_num = 2
+        for obj in queryset:
+            row = [
+                obj.name,
+                obj.city,
+                obj.attend_city,
+                obj.whatsapp_number,
+                obj.email,
+                obj.quantity,
+                obj.total_amount,
+                '',
+                obj.created_at.strftime('%Y-%m-%d %H:%M:%S') if obj.created_at else '',
+            ]
+            ws.append(row)
+
+            if obj.payment_screenshot:
+                try:
+                    img_path = obj.payment_screenshot.path
+                    pil_img = PILImage.open(img_path)
+                    img_byte_arr = BytesIO()
+                    pil_img.save(img_byte_arr, format='PNG')
+                    img_byte_arr.seek(0)
+                    img = OpenpyxlImage(img_byte_arr)
+                    img.width = 80
+                    img.height = 80
+                    img.anchor = f"{get_column_letter(8)}{row_num}"
+                    ws.add_image(img)
+                    ws.row_dimensions[row_num].height = 60
+                except Exception as e:
+                    pass
+            row_num += 1
+
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        )
+        response['Content-Disposition'] = 'attachment; filename=advance_buffet_lunch_bookings.xlsx'
+        wb.save(response)
+        return response
+
 from django.utils.html import format_html
 # Import mark_safe at the top so it is available for all uses
 from django.utils.safestring import mark_safe

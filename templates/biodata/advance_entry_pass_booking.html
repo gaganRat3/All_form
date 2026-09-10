@@ -1,0 +1,1676 @@
+{% load static %}
+
+{% block content %}
+<style>
+    /* =========================================================
+       PROFESSIONAL EVENT FORM THEME
+       Bigger fonts + simplified + mobile friendly
+       ========================================================= */
+
+    :root {
+        --primary: #17365d;
+        --primary-dark: #102944;
+        --secondary: #b58a3a;
+        --secondary-light: #f7f1e3;
+
+        --text: #263445;
+        --text-light: #64748b;
+
+        --background: #f3f5f8;
+        --surface: #ffffff;
+        --border: #d9e0e8;
+
+        --success: #287a52;
+        --danger: #b42318;
+
+        --shadow-sm: 0 2px 8px rgba(16, 41, 68, 0.07);
+        --shadow-md: 0 8px 25px rgba(16, 41, 68, 0.10);
+        --shadow-lg: 0 18px 45px rgba(16, 41, 68, 0.14);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Bump root font-size so every rem-based size scales up -
+       this alone makes the whole form easier to read for older users */
+    html {
+        font-size: 22px;
+    }
+
+    html,
+    body {
+        min-height: 100%;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        background: var(--background);
+    }
+
+    body {
+        position: relative;
+    }
+
+    .page-wrapper {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        padding: 30px 16px 45px;
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+
+    .header-section {
+        text-align: center;
+        margin-bottom: 28px;
+    }
+
+    .header-section h1 {
+        color: var(--primary);
+        font-size: 2.1rem;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+    }
+
+    .header-section h1::after {
+        content: "";
+        display: block;
+        width: 55px;
+        height: 3px;
+        background: var(--secondary);
+        margin: 14px auto 0;
+        border-radius: 2px;
+    }
+
+    .header-section p {
+        color: #4a5568;
+        font-size: 1.55rem;
+        font-weight: 600;
+        margin-top: 14px;
+    }
+
+
+    /* =========================================================
+       EVENT INFORMATION
+       ========================================================= */
+
+    .event-info {
+        max-width: 950px;
+        width: 100%;
+        margin: 0 auto 26px;
+    }
+
+ /* =========================================================
+   EVENT INFORMATION
+   ========================================================= */
+
+.event-details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.event-detail-card {
+    background: var(--surface);
+    padding: 26px 20px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    min-height: 160px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--secondary);
+}
+
+.event-detail-card strong {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.15rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.event-detail-card span {
+    color: #3d4a5a;
+    font-size: 2.1rem;
+    line-height: 1.65;
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
+
+.event-detail-card span small {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+    /* =========================================================
+       ENTRY / PASS INFORMATION
+       ========================================================= */
+
+    .event-join {
+        background: var(--secondary-light);
+        padding: 18px 22px;
+        border-radius: 8px;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid #e7dcc3;
+        border-left: 4px solid var(--secondary);
+    }
+
+    .event-join > div {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        color: var(--text);
+    }
+
+    .event-join strong {
+        font-weight: 1000;
+        color: var(--primary);
+        font-size: 1.55rem;
+    }
+
+
+    /* =========================================================
+       MAIN FORM
+       ========================================================= */
+
+    .form-container {
+        max-width: 950px;
+        width: 100%;
+        margin: 0 auto 36px;
+        background: var(--surface);
+        padding: 36px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .form-container h2 {
+        text-align: center;
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 28px;
+        font-size: 1.7rem;
+        position: relative;
+    }
+
+    .form-container h2::after {
+        content: "";
+        display: block;
+        width: 45px;
+        height: 3px;
+        background: var(--secondary);
+        margin: 12px auto 0;
+        border-radius: 2px;
+    }
+
+
+    /* =========================================================
+       CLOSED NOTICE
+       ========================================================= */
+
+    .closed-notice {
+        background: #fff4f2;
+        color: var(--danger);
+        padding: 14px 18px;
+        border-radius: 7px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 1.05rem;
+        margin-bottom: 25px;
+        border: 1px solid #f1c7c2;
+    }
+
+
+    /* =========================================================
+       FORM FIELDS
+       ========================================================= */
+
+    .form-group {
+        margin-bottom: 26px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--text);
+        font-size: 1.35rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    input[type="file"] {
+        padding: 16px 18px;
+        font-size: 1.4rem;
+        border: 1px solid #cfd7e1;
+        border-radius: 6px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        background-color: #ffffff;
+        color: var(--text);
+        min-height: 64px;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus,
+    input[type="file"]:focus {
+        border-color: var(--primary);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(23, 54, 93, 0.08);
+    }
+
+    input[readonly] {
+        background-color: #f1f4f7;
+        cursor: not-allowed;
+        color: #5c6878;
+    }
+
+
+    /* =========================================================
+       CITY RADIO SELECTION (NEW)
+       ========================================================= */
+
+    .radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 18px 20px;
+        background: #f7f9fb;
+        border: 2px solid var(--border);
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1.4rem;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .radio-option:hover {
+        border-color: #b9a06a;
+    }
+
+    .radio-option input[type="radio"] {
+        width: 26px;
+        height: 26px;
+        flex-shrink: 0;
+        accent-color: var(--primary);
+        cursor: pointer;
+    }
+
+    .radio-option input[type="radio"]:checked + span {
+        color: var(--primary);
+    }
+
+    .radio-option:has(input[type="radio"]:checked) {
+        border-color: var(--primary);
+        background: #eef3f8;
+    }
+
+
+    /* =========================================================
+       PASS SECTION
+       ========================================================= */
+
+    .pass-section {
+        background: #f7f9fb;
+        padding: 18px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border: 1px solid var(--border);
+    }
+
+    .pass-option {
+        margin-bottom: 14px;
+        padding: 18px;
+        background: #ffffff;
+        border-radius: 7px;
+        border: 1px solid var(--border);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .pass-option:hover {
+        border-color: #b9a06a;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .pass-option:last-child {
+        margin-bottom: 0;
+    }
+
+    .pass-checkbox-label {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 1.15rem;
+    }
+
+    .pass-checkbox-label input[type="checkbox"] {
+        flex-shrink: 0;
+        margin-top: 3px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .pass-label-content {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        width: 100%;
+    }
+
+    .pass-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .pass-title-row span:first-child {
+        font-size: 1.1rem;
+        color: var(--primary);
+        font-weight: 700;
+    }
+
+    .pass-title-row .pass-price {
+        font-size: 1.25rem;
+        color: var(--secondary);
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .pass-label-content > span:last-child {
+        font-size: 0.9rem;
+        color: var(--text-light);
+        font-weight: 500;
+    }
+
+    input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+        cursor: pointer;
+        accent-color: var(--primary);
+    }
+
+
+    /* =========================================================
+       PASS DETAILS
+       ========================================================= */
+
+    .pass-details {
+        margin-top: 15px;
+        padding: 15px;
+        background: #f7f9fb;
+        border-radius: 6px;
+        border-left: 3px solid var(--secondary);
+        display: none;
+    }
+
+    .pass-details.active {
+        display: block;
+    }
+
+    .quantity-total-row {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .quantity-total-row label {
+        margin-bottom: 0;
+        font-size: 1rem;
+    }
+
+    .quantity-total-row select,
+    .quantity-total-row input {
+        padding: 10px 12px;
+        border: 1px solid #cfd7e1;
+        border-radius: 6px;
+        font-size: 1.05rem;
+    }
+
+    .quantity-total-row select:focus,
+    .quantity-total-row input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(23, 54, 93, 0.08);
+    }
+
+    .total-input {
+        background-color: #edf1f5 !important;
+        color: var(--primary);
+        font-weight: 700;
+        text-align: right;
+        min-width: 90px;
+    }
+
+
+    /* =========================================================
+       GRAND TOTAL
+       ========================================================= */
+
+    .grand-total-section {
+        background: var(--primary);
+        color: white;
+        padding: 24px;
+        border-radius: 8px;
+        margin-bottom: 28px;
+        text-align: center;
+        border: 1px solid var(--primary-dark);
+    }
+
+    .grand-total-label {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        opacity: 0.9;
+    }
+
+    .grand-total-amount {
+        font-size: 2.2rem;
+        font-weight: 700;
+    }
+
+    #grandTotal {
+        background: transparent !important;
+        border: none !important;
+        color: white;
+        font-size: 2.2rem;
+        font-weight: 700;
+        text-align: center;
+        width: 100%;
+        outline: none;
+        padding: 0;
+    }
+
+
+    /* =========================================================
+       PAYMENT SECTION
+       ========================================================= */
+
+    .payment-section {
+        background: #faf8f2;
+        padding: 24px;
+        border-radius: 8px;
+        border: 1px solid #e6dcc6;
+        margin-bottom: 28px;
+        text-align: center;
+    }
+
+    .payment-title {
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: var(--primary);
+        margin-bottom: 18px;
+    }
+
+    .payment-details {
+        font-size: 1.05rem;
+        color: #3d4a5a;
+        margin-bottom: 10px;
+        font-weight: 600;
+        line-height: 1.7;
+    }
+
+    .payment-details strong {
+        font-size: 1.05rem;
+        color: var(--primary);
+        font-weight: 700;
+        display: block;
+        margin: 8px 0;
+    }
+
+    .payment-number {
+        color: var(--secondary);
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    .payment-qr {
+        margin-top: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .payment-qr img {
+        width: 180px;
+        height: 180px;
+        padding: 8px;
+        background: #ffffff;
+        border: 1px solid #d7dce3;
+        border-radius: 7px;
+        box-shadow: var(--shadow-sm);
+        object-fit: contain;
+        aspect-ratio: 1 / 1;
+    }
+
+
+    /* =========================================================
+       SUBMIT BUTTON
+       ========================================================= */
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 16px 16px;
+        font-size: 1.15rem;
+        font-weight: 700;
+        background: var(--primary);
+        border: 1px solid var(--primary-dark);
+        border-radius: 6px;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    button[type="submit"]:hover {
+        background: var(--primary-dark);
+    }
+
+
+    /* =========================================================
+       IMAGE GALLERY
+       ========================================================= */
+
+    .image-gallery {
+        max-width: 700px;
+        width: 100%;
+        margin: 0 auto 36px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .gallery-item {
+        background: white;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+        display: block;
+    }
+
+
+    /* =========================================================
+       FOOTER / OFFICES
+       ========================================================= */
+
+    .footer-section {
+        padding: 20px 0;
+        margin-top: -40px;
+        color: var(--text);
+        border-top: 1px solid var(--border);
+    }
+
+    .offices-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 16px;
+    }
+
+    .office-box {
+        background: #ffffff;
+        border-radius: 7px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-top: 3px solid var(--primary);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .vadodara-office { border-top-color: var(--primary); }
+    .vadodara-office .office-header { color: var(--primary); }
+    .amdavad-office { border-top-color: var(--secondary); }
+    .amdavad-office .office-header { color: var(--secondary); }
+    .maninagar-office { border-top-color: var(--success); }
+    .maninagar-office .office-header { color: var(--success); }
+
+    .office-header {
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 12px;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+    }
+
+    .office-header hr {
+        border: none;
+        height: 1px;
+        background: currentColor;
+        margin: 8px 0 0 0;
+        opacity: 0.3;
+    }
+
+    .office-details {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: #4a5568;
+    }
+
+
+    /* =========================================================
+       RESPONSIVE - TABLET
+       ========================================================= */
+
+    @media (max-width: 1024px) {
+        html { font-size: 18px; }
+
+       .event-details-grid {
+
+        .form-container {
+            padding: 30px;
+        }
+    }
+
+
+    /* =========================================================
+       RESPONSIVE - MOBILE
+       ========================================================= */
+
+    @media (max-width: 768px) {
+        html { font-size: 18px; }
+
+        .page-wrapper {
+            padding: 18px 10px 30px;
+        }
+
+        .header-section h1 {
+            font-size: 1.6rem;
+        }
+
+       
+
+        .event-detail-card {
+            min-height: auto;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .form-container {
+            padding: 22px 18px;
+            border-radius: 8px;
+        }
+
+        .form-container h2 {
+            font-size: 1.4rem;
+        }
+
+        .quantity-total-row {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        .quantity-total-row select,
+        .quantity-total-row input {
+            width: 100%;
+        }
+
+        .grand-total-amount,
+        #grandTotal {
+            font-size: 1.9rem;
+        }
+
+        .payment-section {
+            padding: 20px 15px;
+        }
+
+        .radio-option {
+            padding: 14px;
+        }
+    }
+
+
+    /* =========================================================
+       RESPONSIVE - SMALL MOBILE
+       ========================================================= */
+
+    @media (max-width: 480px) {
+        html { font-size: 17px; }
+
+        .page-wrapper {
+            padding: 14px 8px 28px;
+        }
+
+        .header-section h1 {
+            font-size: 1.35rem;
+        }
+
+        .header-section p {
+            font-size: 1rem;
+        }
+
+      .event-detail-card {
+    min-height: 190px;
+    height: auto;
+    padding: 28px 15px;
+}
+
+.event-detail-card strong {
+    font-size: 28px;
+    line-height: 1.4;
+    margin-bottom: 15px;
+}
+
+.event-detail-card span {
+    font-size: 24px;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+}
+
+.event-detail-card span small {
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+        .form-container {
+            padding: 18px 14px;
+        }
+
+        .form-container h2 {
+            font-size: 1.25rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        input[type="file"] {
+            font-size: 1rem;
+            padding: 12px 12px;
+            min-height: 48px;
+        }
+
+        .pass-section {
+            padding: 12px;
+        }
+
+        .pass-option {
+            padding: 14px;
+        }
+
+        .pass-checkbox-label {
+    font-size: 1.4rem !important;
+}
+
+        .payment-qr img {
+            width: 150px;
+            height: 150px;
+        }
+
+        button[type="submit"] {
+            padding: 14px;
+            font-size: 1.05rem;
+        }
+
+        .grand-total-amount,
+        #grandTotal {
+            font-size: 1.7rem;
+        }
+
+        .radio-option {
+    font-size: 1.5rem !important;
+}
+
+        .radio-option input[type="radio"] {
+            width: 22px;
+            height: 22px;
+        }
+    }
+
+
+    /* =========================================================
+       ACCESSIBILITY
+       ========================================================= */
+
+    button[type="submit"]:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+        outline: 2px solid var(--secondary);
+        outline-offset: 2px;
+    }
+
+
+    /* =========================================================
+   LARGE & CLEAR FORM TEXT
+   ========================================================= */
+
+/* Main form labels */
+.form-container label {
+    font-size: 1.6rem !important;
+    line-height: 1.5;
+}
+
+/* Text inputs, email, select and upload */
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container select,
+.form-container input[type="file"] {
+    font-size: 1.5rem !important;
+    padding: 18px 20px !important;
+    min-height: 70px;
+    line-height: 1.5;
+}
+
+/* City selection */
+.form-container .radio-option {
+    font-size: 1.5rem !important;
+    padding: 20px !important;
+    line-height: 1.5;
+}
+
+.form-container .radio-option input[type="radio"] {
+    width: 30px;
+    height: 30px;
+}
+
+/* Pass titles */
+.form-container .pass-checkbox-label {
+    font-size: 1.4rem !important;
+    line-height: 1.5;
+}
+
+.form-container .pass-title-row span:first-child {
+    font-size: 1.5rem !important;
+}
+
+.form-container .pass-title-row .pass-price {
+    font-size: 1.5rem !important;
+}
+
+.form-container .pass-label-content > span:last-child {
+    font-size: 1.25rem !important;
+    line-height: 1.5;
+}
+
+/* Quantity section */
+.form-container .quantity-total-row label {
+    font-size: 1.3rem !important;
+}
+
+.form-container .quantity-total-row select,
+.form-container .quantity-total-row input {
+    font-size: 1.3rem !important;
+    min-height: 60px;
+}
+
+/* Payment section */
+.form-container .payment-title {
+    font-size: 1.5rem !important;
+}
+
+.form-container .payment-details {
+    font-size: 1.3rem !important;
+    line-height: 1.7;
+}
+
+.form-container .payment-details strong {
+    font-size: 1.35rem !important;
+}
+
+.form-container .payment-number {
+    font-size: 1.4rem !important;
+}
+
+/* Grand total */
+.form-container .grand-total-label {
+    font-size: 1.3rem !important;
+}
+
+.form-container .grand-total-amount,
+.form-container #grandTotal {
+    font-size: 2.5rem !important;
+}
+
+/* Submit button */
+.form-container button[type="submit"] {
+    font-size: 1.5rem !important;
+    padding: 20px !important;
+    min-height: 70px;
+}
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 1024px) {
+
+    /* Keep tablet readable */
+    html {
+        font-size: 20px;
+    }
+
+    .form-container {
+        padding: 30px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   BIG & READABLE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    /*
+       IMPORTANT:
+       Do NOT reduce the root font size on mobile.
+       20px keeps all rem-based text readable.
+    */
+
+    html {
+        font-size: 20px;
+    }
+
+    .page-wrapper {
+        padding: 18px 10px 35px;
+    }
+
+
+    /* ================= HEADER ================= */
+
+    .header-section {
+        margin-bottom: 25px;
+    }
+
+    .header-section h1 {
+        font-size: 1.6rem;
+        line-height: 1.4;
+    }
+
+    .header-section p {
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+
+
+    /* ================= EVENT CARDS ================= */
+
+    .event-details-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .event-detail-card {
+        width: 100%;
+        min-height: 175px;
+        padding: 25px 18px;
+        text-align: center;
+    }
+
+    .event-detail-card strong {
+        font-size: 1.25rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .event-detail-card span {
+        font-size: 1.15rem;
+        line-height: 1.7;
+    }
+
+    .event-detail-card small {
+        font-size: 0.95rem;
+    }
+
+
+    /* ================= ENTRY INFORMATION ================= */
+
+    .event-join {
+        padding: 20px 15px;
+    }
+
+    .event-join > div {
+        gap: 8px;
+    }
+
+    .event-join strong {
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+
+
+    /* ================= MAIN FORM ================= */
+
+    .form-container {
+        padding: 28px 20px;
+        border-radius: 10px;
+    }
+
+    .form-container h2 {
+        font-size: 1.5rem;
+        margin-bottom: 28px;
+    }
+
+
+    /* ================= FORM LABELS ================= */
+
+    label {
+        font-size: 1.25rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+
+    /* ================= INPUTS ================= */
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    input[type="file"] {
+
+        width: 100%;
+        min-height: 64px;
+
+        padding: 16px 18px;
+
+        font-size: 1.15rem;
+
+        line-height: 1.5;
+    }
+
+
+    /* ================= CITY RADIO ================= */
+
+    .radio-group {
+        gap: 12px;
+    }
+
+    .radio-option {
+
+        width: 100%;
+
+        padding: 18px;
+
+        font-size: 1.15rem;
+
+        line-height: 1.5;
+
+        gap: 14px;
+    }
+
+    .radio-option input[type="radio"] {
+        width: 28px;
+        height: 28px;
+    }
+
+
+    /* ================= PASS SECTION ================= */
+
+    .pass-section {
+        padding: 15px;
+    }
+
+    .pass-option {
+        padding: 18px;
+    }
+
+    .pass-checkbox-label {
+        font-size: 1.1rem;
+        line-height: 1.5;
+    }
+
+    .pass-checkbox-label input[type="checkbox"] {
+        width: 28px;
+        height: 28px;
+    }
+
+    .pass-title-row {
+        gap: 10px;
+    }
+
+    .pass-title-row span:first-child {
+        font-size: 1.1rem;
+    }
+
+    .pass-title-row .pass-price {
+        font-size: 1.15rem;
+    }
+
+    .pass-label-content > span:last-child {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+
+    /* ================= QUANTITY ================= */
+
+    .quantity-total-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .quantity-total-row label {
+        font-size: 1rem;
+    }
+
+    .quantity-total-row select,
+    .quantity-total-row input {
+        width: 100%;
+        min-height: 58px;
+        font-size: 1.05rem;
+        padding: 12px;
+    }
+
+
+    /* ================= GRAND TOTAL ================= */
+
+    .grand-total-section {
+        padding: 25px 15px;
+    }
+
+    .grand-total-label {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .grand-total-amount,
+    #grandTotal {
+        font-size: 2.2rem;
+    }
+
+
+    /* ================= PAYMENT ================= */
+
+    .payment-section {
+        padding: 25px 15px;
+    }
+
+    .payment-title {
+        font-size: 1.2rem;
+        line-height: 1.5;
+    }
+
+    .payment-details {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    .payment-details strong {
+        font-size: 1.05rem;
+    }
+
+    .payment-number {
+        font-size: 1.1rem;
+    }
+
+    .payment-qr img {
+        width: 180px;
+        height: 180px;
+    }
+
+
+    /* ================= UPLOAD ================= */
+
+    input[type="file"] {
+        font-size: 1rem;
+        min-height: 65px;
+    }
+
+
+    /* ================= SUBMIT ================= */
+
+    button[type="submit"] {
+
+        width: 100%;
+
+        min-height: 65px;
+
+        padding: 18px;
+
+        font-size: 1.2rem;
+
+        line-height: 1.5;
+    }
+
+
+    /* ================= FOOTER ================= */
+
+    .office-header {
+        font-size: 1rem;
+    }
+
+    .office-details {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   480px AND BELOW
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    /*
+       IMPORTANT:
+       Keep 20px.
+       Previously this was 17px, which made the page too small.
+    */
+
+    html {
+        font-size: 20px;
+    }
+
+    .page-wrapper {
+        padding: 15px 8px 30px;
+    }
+
+
+    /* HEADER */
+
+    .header-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .header-section p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+
+    /* EVENT CARDS */
+
+    .event-detail-card {
+        padding: 25px 15px;
+        min-height: 165px;
+    }
+
+    .event-detail-card strong {
+        font-size: 1.2rem;
+    }
+
+    .event-detail-card span {
+        font-size: 1.1rem;
+        line-height: 1.7;
+    }
+
+    .event-detail-card small {
+        font-size: 0.9rem;
+    }
+
+
+    /* FORM */
+
+    .form-container {
+        padding: 25px 16px;
+    }
+
+    .form-container h2 {
+        font-size: 1.45rem;
+    }
+
+
+    /* LABELS */
+
+    label {
+        font-size: 1.2rem;
+    }
+
+
+    /* INPUTS */
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    input[type="file"] {
+
+        font-size: 1.1rem;
+
+        min-height: 62px;
+
+        padding: 15px 16px;
+    }
+
+
+    /* RADIO */
+
+    .radio-option {
+        font-size: 1.1rem;
+        padding: 17px;
+    }
+
+    .radio-option input[type="radio"] {
+        width: 28px;
+        height: 28px;
+    }
+
+
+    /* PASSES */
+
+    .pass-checkbox-label {
+        font-size: 1.05rem;
+    }
+
+    .pass-title-row span:first-child {
+        font-size: 1.05rem;
+    }
+
+    .pass-title-row .pass-price {
+        font-size: 1.1rem;
+    }
+
+    .pass-label-content > span:last-child {
+        font-size: 0.9rem;
+    }
+
+
+    /* TOTAL */
+
+    .grand-total-label {
+        font-size: 0.95rem;
+    }
+
+    .grand-total-amount,
+    #grandTotal {
+        font-size: 2.1rem;
+    }
+
+
+    /* PAYMENT */
+
+    .payment-title {
+        font-size: 1.15rem;
+    }
+
+    .payment-details {
+        font-size: 0.95rem;
+        line-height: 1.8;
+    }
+
+    .payment-details strong {
+        font-size: 1rem;
+    }
+
+
+    /* SUBMIT */
+
+    button[type="submit"] {
+        font-size: 1.15rem;
+        min-height: 64px;
+        padding: 17px;
+    }
+}
+
+/* =========================================================
+   EVENT INFORMATION - EXTRA LARGE ON MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .event-details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.event-detail-card {
+    min-height: 190px;
+    height: auto;
+    padding: 30px 18px;
+    text-align: center;
+}
+
+.event-detail-card strong {
+    font-size: 30px;
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
+
+.event-detail-card span {
+    font-size: 26px;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+}
+
+.event-detail-card span small {
+    font-size: 21px;
+    line-height: 1.5;
+}
+
+/* EXTRA SMALL PHONES */
+@media (max-width: 480px) {
+
+    .event-detail-card {
+        padding: 32px 16px !important;
+        min-height: 200px !important;
+    }
+
+    .event-detail-card strong {
+        font-size: 29px !important;
+        line-height: 1.4 !important;
+    }
+
+    .event-detail-card span {
+        font-size: 25px !important;
+        line-height: 1.6 !important;
+    }
+
+    .event-detail-card small {
+        font-size: 20px !important;
+    }
+}
+</style>
+
+<div class="page-wrapper">
+    <div class="header-section">
+        <h1>✨ Entry + Tea Coffee Pass Booking ✨</h1>
+        <p>39મુ સમસ્ત બ્રાહ્મણ - ભુદેવ જીવનસાથી પસંદગી સંમેલન</p>
+    </div>
+
+    <div class="event-info">
+        <div class="event-details-grid">
+            <div class="event-detail-card">
+                <strong>📅 સંમેલન તારીખ</strong>
+                <span>
+                    <strong>વડોદરા:</strong> 20-09-2026 (રવિવાર)<br><br>
+                    <strong>સુરત:</strong> 27-09-2026 (રવિવાર)
+                </span>
+            </div>
+            <div class="event-detail-card">
+                <strong>⏰ સમય</strong>
+                <span>08:00 am to 05:00 pm</span>
+            </div>
+            <div class="event-detail-card">
+                <strong>📍 સ્થળ</strong>
+                <span style="font-size: 1.15rem; line-height: 1.8;">
+                    <strong>વડોદરા:</strong> Riddhi Siddhi AC Banquet Hall and Party Plot, Behind Keya Motors, Chhani Jakat Naka, Fortune Gateway Lane, Vadodara<br><br>
+                    <strong>સુરત:</strong> Senior Citizen SMC Hall & Party Plot, Besides Ishita Park Society, Adajan Patiya, Surat
+                </span>
+            </div>
+            <div class="event-detail-card">
+                <strong>🏢 આયોજક</strong>
+                <span>Bhudev Network Foundation<br><small>(Gov. Reg. Amd/120129)</small></span>
+            </div>
+        </div>
+
+        <div class="event-join">
+            <div>
+                <strong>✅ Entry + Tea Coffee Pass — ₹50</strong>
+                <span style="font-size: 1.15rem; color: #4a5568; font-weight: 600;">☕ Morning + Evening Tea & Coffee Included</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2>Book Entry + Tea Coffee Pass (₹50)</h2>
+
+        {% comment %} <div class="closed-notice">
+            🔴 Registration Form is now Closed 🔴
+        </div> {% endcomment %}
+
+        <form method="post" enctype="multipart/form-data" id="passBookingForm">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_name">1) Your Name</label>
+                {{ form.name }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_city">2) Your City</label>
+                {{ form.city }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_whatsapp_number">3) Your WhatsApp Number</label>
+                {{ form.whatsapp_number }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_email">4) Your Email ID</label>
+                {{ form.email }}
+            </div>
+
+            <div class="form-group">
+                <label>5) Which City Will You Attend?</label>
+                <div class="radio-group">
+                    <label class="radio-option" for="id_attend_city_vadodara">
+                        <input type="radio" id="id_attend_city_vadodara" name="attend_city" value="Vadodara" required>
+                        <span>Vadodara (20-09-2026)</span>
+                    </label>
+                    <label class="radio-option" for="id_attend_city_surat">
+                        <input type="radio" id="id_attend_city_surat" name="attend_city" value="Surat">
+                        <span>Surat (27-09-2026)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="id_quantity">6) Pass Quantity (₹50 per pass)</label>
+                <div class="pass-section">
+                    <div class="pass-option" style="border-left: 4px solid var(--secondary);">
+                        <div class="pass-label-content">
+                            <div class="pass-title-row">
+                                <span style="color: var(--primary); font-size: 1.25rem; font-weight: 700;">Entry + Tea Coffee Pass</span>
+                                <span class="pass-price" style="font-size: 1.35rem; color: var(--secondary); font-weight: 700;">₹ 50</span>
+                            </div>
+                            <span style="color: var(--text-light); font-size: 1.05rem;">☕ Morning + Evening (Both Included)</span>
+                        </div>
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border);">
+                            <div class="quantity-total-row">
+                                <label for="id_quantity" style="font-size: 1.15rem; font-weight: 700;">Select Quantity:</label>
+                                {{ form.quantity }}
+                            </div>
+                            <div class="quantity-total-row">
+                                <label style="margin-bottom: 0; font-size: 1.15rem; font-weight: 700;">Total (₹):</label>
+                                <input type="text" id="entryTokenTotal" readonly value="50" class="total-input" style="font-weight: 700; font-size: 1.2rem; text-align: center;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grand-total-section">
+                <div class="grand-total-label">Grand Total Payable Amount</div>
+                <div class="grand-total-amount">
+                    <span style="font-size: 1.3rem;">₹</span> <input type="text" id="grandTotal" readonly value="50" name="total_amount" />
+                </div>
+            </div>
+
+            <div class="payment-section">
+                <div class="payment-title">💳 Payment Instructions</div>
+                <div class="payment-qr">
+                    <img src="{% static 'images/payment_qr.jpeg' %}" alt="GPay QR Code" />
+                </div>
+                <br>
+                <div class="payment-details">
+                    <strong>Scan above QR code for Payment</strong>
+                    <br>or
+                    <br>
+                    <strong>Pay by Mobile Number : 7990208986 (Bhudev Network)</strong>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="id_payment_screenshot">7) Upload Payment Screenshot</label>
+                {{ form.payment_screenshot }}
+            </div>
+
+            <button type="submit">Submit Booking</button>
+        </form>
+    </div>
+
+    <div class="image-gallery">
+        <div class="gallery-item">
+            <img src="{% static 'images/postS.jpeg' %}" alt="Event Image 1" />
+        </div>
+        <div class="gallery-item">
+            <img src="{% static 'images/team.jpg' %}" alt="Event Image 2" />
+        </div>
+    </div>
+</div>
+<!-- Footer Section -->
+{% include 'biodata/employa_footer.html' %}
+</footer>
+
+<script>
+    const passPrice = 50;
+    const qtyInput = document.getElementById('id_quantity');
+    const entryTotalInput = document.getElementById('entryTokenTotal');
+    const grandTotalInput = document.getElementById('grandTotal');
+
+    function updateTotals() {
+        let qty = parseInt(qtyInput.value) || 1;
+        if (qty < 1) qty = 1;
+        const total = qty * passPrice;
+        if (entryTotalInput) entryTotalInput.value = total;
+        if (grandTotalInput) grandTotalInput.value = total;
+    }
+
+    if (qtyInput) {
+        qtyInput.addEventListener('change', updateTotals);
+        qtyInput.addEventListener('input', updateTotals);
+    }
+    window.addEventListener('DOMContentLoaded', updateTotals);
+</script>
+
+<!-- Footer Include -->
+{% include 'partials/footer.html' with year=2026 %}
+{% endblock %}

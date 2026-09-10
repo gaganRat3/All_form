@@ -1389,12 +1389,20 @@ from .forms_booklet_camp_adv import BookletCampAdvBookingForm
 from django.http import FileResponse, HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from biodata.forms_mega_correction import MegaBookletCorrectionForm
-from .models import CandidateBiodata, AdvancePassBooking, AdvanceBookletBooking, StageRegistration, MegaBookletCorrectionRequest
+from .models import (
+    CandidateBiodata,
+    AdvancePassBooking,
+    AdvanceEntryPassBooking,
+    AdvanceBuffetLunchBooking,
+    AdvanceBookletBooking,
+    StageRegistration,
+    MegaBookletCorrectionRequest,
+)
 from biodata.views_weasyprint import generate_pdf
 from .forms_stage_registration import StageRegistrationForm
 
 # Removed import of CandidateBiodataForm as it does not exist in biodata/forms.py
-from .forms_advance_pass import AdvancePassBookingForm
+from .forms_advance_pass import AdvancePassBookingForm, AdvanceEntryPassBookingForm, AdvanceBuffetLunchBookingForm
 from .forms_advance_booklet import AdvanceBookletBookingForm
 from django.core.mail import EmailMessage
 from django.conf import settings
@@ -1607,6 +1615,122 @@ def advance_pass_booking(request):
     else:
         form = AdvancePassBookingForm()
     return render(request, 'biodata/advance_pass_booking.html', {'form': form})
+
+def advance_entry_pass_booking(request):
+    """Handle Rs 50 (Entry + Tea Coffee) Pass Booking form."""
+    if request.method == 'POST':
+        form = AdvanceEntryPassBookingForm(request.POST, request.FILES)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            qty = int(cleaned_data.get('quantity', 1))
+            total_amount = cleaned_data.get('total_amount', qty * 50)
+
+            existing_booking = AdvanceEntryPassBooking.objects.filter(
+                email=cleaned_data['email'],
+                quantity=qty,
+            ).first()
+
+            if existing_booking:
+                error_message = "A booking with the same details already exists. Duplicate submission is not allowed."
+                return render(request, 'biodata/advance_entry_pass_booking.html', {'form': form, 'error_message': error_message})
+
+            booking = form.save()
+
+            # Send confirmation email asynchronously
+            email_subject = 'Advance Entry + Tea Coffee Pass Booking Confirmation'
+            email_body = (
+                f"Dear {cleaned_data['name']},\n\n"
+                f"Thank you for booking your Entry + Tea Coffee Pass.\n\n"
+                f"Details:\n"
+                f"Pass Type: Entry + Tea Coffee Pass (☕ Morning + Evening Both Included)\n"
+                f"City: {cleaned_data['attend_city']}\n"
+                f"Quantity: {qty}\n"
+                f"Total Amount: ₹{total_amount}\n\n"
+                f"This booking Confirmation is valid only if your Payment is valid and if we have duly received your Payment as per your information given to us.\n\n"
+                f"Regards,\nEvent Team"
+            )
+            if getattr(settings, 'EMAIL_SEND_AUTOMATIC', True):
+                try:
+                    email = EmailMessage(
+                        email_subject,
+                        email_body,
+                        settings.DEFAULT_FROM_EMAIL,
+                        [cleaned_data['email']],
+                    )
+                    threading.Thread(target=send_email_async, args=(email,)).start()
+                except Exception as e:
+                    logger.error(f"Error sending email: {e}")
+
+            return render(request, 'biodata/advance_entry_pass_booking_success.html', {
+                'form': form,
+                'booking': booking,
+                'quantity': qty,
+                'total_amount': total_amount,
+                'pass_name': 'Entry + Tea Coffee Pass'
+            })
+        else:
+            return render(request, 'biodata/advance_entry_pass_booking.html', {'form': form})
+    else:
+        form = AdvanceEntryPassBookingForm()
+    return render(request, 'biodata/advance_entry_pass_booking.html', {'form': form})
+
+def advance_buffet_lunch_booking(request):
+    """Handle Rs 200 Unlimited Buffet Lunch Pass Booking form."""
+    if request.method == 'POST':
+        form = AdvanceBuffetLunchBookingForm(request.POST, request.FILES)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            qty = int(cleaned_data.get('quantity', 1))
+            total_amount = cleaned_data.get('total_amount', qty * 200)
+
+            existing_booking = AdvanceBuffetLunchBooking.objects.filter(
+                email=cleaned_data['email'],
+                quantity=qty,
+            ).first()
+
+            if existing_booking:
+                error_message = "A booking with the same details already exists. Duplicate submission is not allowed."
+                return render(request, 'biodata/advance_buffet_lunch_booking.html', {'form': form, 'error_message': error_message})
+
+            booking = form.save()
+
+            # Send confirmation email asynchronously
+            email_subject = 'Advance Unlimited Buffet Lunch Booking Confirmation'
+            email_body = (
+                f"Dear {cleaned_data['name']},\n\n"
+                f"Thank you for booking your Unlimited Buffet Lunch Pass.\n\n"
+                f"Details:\n"
+                f"Pass Type: Unlimited Buffet Lunch Pass (🍽️ Unlimited Buffet Lunch)\n"
+                f"City: {cleaned_data['attend_city']}\n"
+                f"Quantity: {qty}\n"
+                f"Total Amount: ₹{total_amount}\n\n"
+                f"This booking Confirmation is valid only if your Payment is valid and if we have duly received your Payment as per your information given to us.\n\n"
+                f"Regards,\nEvent Team"
+            )
+            if getattr(settings, 'EMAIL_SEND_AUTOMATIC', True):
+                try:
+                    email = EmailMessage(
+                        email_subject,
+                        email_body,
+                        settings.DEFAULT_FROM_EMAIL,
+                        [cleaned_data['email']],
+                    )
+                    threading.Thread(target=send_email_async, args=(email,)).start()
+                except Exception as e:
+                    logger.error(f"Error sending email: {e}")
+
+            return render(request, 'biodata/advance_buffet_lunch_booking_success.html', {
+                'form': form,
+                'booking': booking,
+                'quantity': qty,
+                'total_amount': total_amount,
+                'pass_name': 'Unlimited Buffet Lunch Pass'
+            })
+        else:
+            return render(request, 'biodata/advance_buffet_lunch_booking.html', {'form': form})
+    else:
+        form = AdvanceBuffetLunchBookingForm()
+    return render(request, 'biodata/advance_buffet_lunch_booking.html', {'form': form})
 
 from django.views.decorators.csrf import csrf_exempt
 
