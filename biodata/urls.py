@@ -123,9 +123,11 @@ urlpatterns = [
     path('participant-confirmation/<int:participant_id>/', views.participant_confirmation, name='participant_confirmation'),
     path('submit_form/', views.participant_form_view, name='submit_form'),  # For form action compatibility
     
-    # 34th Sammelan Payment Form URLs
-    path('34th-sammelan-payment/', views.sammelan_payment_form_view, name='sammelan_payment_form'),
-    path('34th-sammelan-payment/confirmation/<int:payment_id>/', views.sammelan_payment_confirmation, name='sammelan_payment_confirmation'),
+    # 39th Sammelan Payment Form URLs
+    path('39th-sammelan-payment/', views.sammelan_payment_form_view, name='sammelan_payment_form'),
+    path('39th-sammelan-payment/confirmation/<int:payment_id>/', views.sammelan_payment_confirmation, name='sammelan_payment_confirmation'),
+    path('34th-sammelan-payment/', RedirectView.as_view(url='/39th-sammelan-payment/', permanent=False)),
+    path('34th-sammelan-payment/confirmation/<int:payment_id>/', views.sammelan_payment_confirmation),
     path('booklet-library/', views.booklet_library_view, name='booklet_library'),
     path('booklet-library/confirmation/<int:pk>/', views.booklet_library_confirmation, name='booklet_library_confirmation'),
 ]
