@@ -2398,7 +2398,7 @@ class ParticipantRegistrationAdmin(admin.ModelAdmin):
 # 34th Sammelan Payment Form Admin
 @admin.register(SammelanPaymentForm)
 class SammelanPaymentFormAdmin(admin.ModelAdmin):
-    list_display = ['name', 'date_of_birth', 'mobile_number', 'marital_status', 'booklet_delivery_option', 'payment_screenshot_preview', 'created_at']
+    list_display = ['name', 'date_of_birth', 'mobile_number', 'marital_status', 'booklet_delivery_option', 'delivery_address', 'area_pincode', 'payment_screenshot_preview', 'created_at']
     search_fields = ['name', 'mobile_number', 'marital_status', 'area_pincode']
     list_filter = ['created_at', 'booklet_delivery_option']
     readonly_fields = ['created_at', 'payment_screenshot_preview', 'qr_code_preview']
@@ -2447,11 +2447,11 @@ class SammelanPaymentFormAdmin(admin.ModelAdmin):
         ws.title = "34th Sammelan Payment"
 
         # Define headers
-        headers = ['Name', 'Date of Birth', 'Mobile Number', 'Marital Status', 'Payment Screenshot', 'Submitted Date']
+        headers = ['Name', 'Date of Birth', 'Mobile Number', 'Marital Status', 'Delivery Option', 'Delivery Address', 'Area Pincode', 'Payment Screenshot', 'Submitted Date']
         ws.append(headers)
 
         # Set column widths
-        column_widths = [25, 15, 15, 20, 20, 20]
+        column_widths = [25, 15, 15, 20, 20, 30, 15, 20, 20]
         for i, width in enumerate(column_widths, 1):
             ws.column_dimensions[get_column_letter(i)].width = width
 
@@ -2462,6 +2462,9 @@ class SammelanPaymentFormAdmin(admin.ModelAdmin):
                 obj.date_of_birth,
                 obj.mobile_number,
                 obj.marital_status,
+                obj.get_booklet_delivery_option_display(),
+                obj.delivery_address,
+                obj.area_pincode,
                 obj.payment_screenshot.url if obj.payment_screenshot else '',
                 obj.created_at.strftime('%Y-%m-%d %H:%M:%S') if obj.created_at else '',
             ]
