@@ -413,30 +413,197 @@
         .success-message {
             display: none;
             text-align: center;
-            padding: 35px 20px;
+            padding: 30px 20px 10px;
+            animation: fadeIn 0.5s ease;
         }
 
-        .success-icon {
-            width: 65px;
-            height: 65px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animated Check Circle */
+        .success-check-wrap {
+            margin: 0 auto 20px;
+        }
+
+        .success-check-circle {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            background: #e8f7ed;
-            color: #218838;
+            background: linear-gradient(135deg, #28a745, #20c997);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            margin: 0 auto 15px;
+            margin: 0 auto;
+            box-shadow: 0 8px 24px rgba(40, 167, 69, 0.35);
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
         }
 
-        .success-message h2 {
+        @keyframes popIn {
+            0%   { transform: scale(0); }
+            80%  { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        .success-check-icon {
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .success-heading {
+            font-size: 22px;
+            font-weight: 700;
             color: #218838;
+            margin-bottom: 4px;
+        }
+
+        .success-subheading {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Candidate Details Box */
+        .success-details-box {
+            background: #fff;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 14px;
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .success-details-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #8b0000;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed #e0e0e0;
+            padding-bottom: 8px;
+        }
+
+        .success-detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 6px 0;
+            border-bottom: 1px solid #f5f5f5;
+            gap: 10px;
+        }
+
+        .success-detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .success-detail-label {
+            font-size: 12.5px;
+            color: #888;
+            flex-shrink: 0;
+            width: 130px;
+        }
+
+        .success-detail-value {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #222;
+            text-align: right;
+        }
+
+        /* Info Banner */
+        .success-info-banner {
+            background: linear-gradient(135deg, #fff8e1, #fff3cd);
+            border-left: 4px solid #f0a500;
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+            text-align: left;
+            font-size: 14px;
+            color: #5a4000;
+            line-height: 1.7;
+        }
+
+        /* Notice Box */
+        .success-notice-box {
+            background: #f0f9ff;
+            border: 1px solid #bee3f8;
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .success-notice-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .success-notice-text {
+            font-size: 13.5px;
+            color: #2c5f8a;
+            line-height: 1.7;
+        }
+
+        /* Contact Box */
+        .success-contact-box {
+            background: #f6f8fa;
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+            text-align: left;
+            font-size: 13.5px;
+            color: #333;
+        }
+
+        .success-contact-numbers {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .success-contact-numbers a {
+            color: #8b0000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .success-contact-numbers a:hover {
+            text-decoration: underline;
+        }
+
+        /* Event Cards */
+        .success-event-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
             margin-bottom: 10px;
         }
 
-        .success-message p {
-            color: #666;
-            line-height: 1.7;
+        .success-event-card {
+            background: linear-gradient(135deg, #8b0000, #c0392b);
+            border-radius: 12px;
+            padding: 16px 12px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .success-event-city {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .success-event-date {
+            font-size: 13px;
+            opacity: 0.9;
         }
 
         /* Responsive */
@@ -621,7 +788,8 @@
             </div>
 
 
-            <form id="stageForm" novalidate>
+            <form id="stageForm" method="POST" action="{% url 'stage_introduction' %}" novalidate>
+                {% csrf_token %}
 
                 <!-- Candidate Name -->
                 <div class="form-group">
@@ -635,7 +803,7 @@
 
                     <input
                         type="text"
-                        id="candidateName"
+                        id="candidateName" name="candidate_name"
                         class="form-input"
                         placeholder="Enter Candidate Name"
                     >
@@ -706,7 +874,7 @@
 
                     <input
                         type="date"
-                        id="dob"
+                        id="dob" name="dob"
                         class="form-input"
                     >
 
@@ -729,7 +897,7 @@
 
                     <input
                         type="text"
-                        id="currentCity"
+                        id="currentCity" name="current_city"
                         class="form-input"
                         placeholder="Enter Current City"
                     >
@@ -760,7 +928,7 @@
 
                             <input
                                 type="checkbox"
-                                name="eventCity"
+                                name="event_city"
                                 id="vadodara"
                                 value="Vadodara"
                             >
@@ -789,7 +957,7 @@
 
                             <input
                                 type="checkbox"
-                                name="eventCity"
+                                name="event_city"
                                 id="surat"
                                 value="Surat"
                             >
@@ -832,7 +1000,7 @@
 
                         <input
                             type="checkbox"
-                            id="confirmation"
+                            id="confirmation" name="confirmation"
                         >
 
                         <span>
@@ -887,17 +1055,53 @@
             <!-- SUCCESS -->
             <div class="success-message" id="successMessage">
 
-                <div class="success-icon">
-                    ✓
+                <!-- Animated Check -->
+                <div class="success-check-wrap">
+                    <div class="success-check-circle">
+                        <span class="success-check-icon">✓</span>
+                    </div>
                 </div>
 
-                <h2>Form Submitted Successfully!</h2>
+                <h2 class="success-heading">🎉 ફૉર્મ સફળ રીતે ભરાઈ ગ્યો!</h2>
+                <p class="success-subheading">Form Submitted Successfully!</p>
 
-                <p>
-                    તમારું સ્ટેજ પરિચય રજીસ્ટ્રેશન સફળતાપૂર્વક પ્રાપ્ત થયું છે.
-                    <br>
-                    Thank you for registering for the 39th Bhudev Sammelan.
-                </p>
+                <!-- Info Banner -->
+                <div class="success-info-banner">
+                    <p>⭐ ભૂદેવ નેટવર્ક - 39મા ભૂદેવ જીવનસાથી પરિચય સંમેલન માં આપનું હાર્દિક સ્વાગત છે.</p>
+                    <p>Welcome to 39th Bhudev Jivansathi Parichay Sammelan</p>
+                </div>
+
+                <!-- Verification Notice -->
+                <div class="success-notice-box">
+                    <div class="success-notice-icon">📞</div>
+                    <div class="success-notice-text">
+                        <strong>⭐ તમને 2-3 દીવસ માં ભૂદેવ નેટવર્ક ઓફિસ થી સ્ટેજ ઇન્ટ્રોડક્શન વેરિફિકેશન ફૉન કૉલ આવશે.</strong>
+                        <br>
+                        You will get a Verification Phone Call in 2-3 days from Bhudev Network Office.
+                    </div>
+                </div>
+
+                <!-- Contact Numbers -->
+                <div class="success-contact-box">
+                    <p><strong>⭐ વધુ માહિતી માટે સંપર્ક (Time: 10 am to 6 pm Only)</strong></p>
+                    <div class="success-contact-numbers">
+                        <a href="tel:9662362626">✔️ 9662362626</a>
+                        <a href="tel:9428642903">✔️ 9428642903</a>
+                        <a href="tel:9099798986">✔️ Admin: 9099798986</a>
+                    </div>
+                </div>
+
+                <!-- Event Details -->
+                <div class="success-event-cards">
+                    <div class="success-event-card">
+                        <div class="success-event-city">🏛️ વડોદરા</div>
+                        <div class="success-event-date">📅 20-09-2026</div>
+                    </div>
+                    <div class="success-event-card">
+                        <div class="success-event-city">🏛️ સુરત</div>
+                        <div class="success-event-date">📅 27-09-2026</div>
+                    </div>
+                </div>
 
             </div>
              
@@ -1011,7 +1215,7 @@
 
         // Event Cities
         const selectedCities = document.querySelectorAll(
-            'input[name="eventCity"]:checked'
+            'input[name="event_city"]:checked'
         );
 
         const eventCityError =
@@ -1059,16 +1263,60 @@
             submitButton.innerHTML = "Submitting...";
             submitButton.disabled = true;
 
+            // Submit form via fetch
+            const formData = new FormData(form);
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Populate candidate details
+                    const nameVal = document.getElementById('candidateName').value;
+                    const genderVal = document.querySelector('input[name="gender"]:checked');
+                    const dobVal = document.getElementById('dob').value;
+                    const cityVal = document.getElementById('currentCity').value;
+                    const eventCities = Array.from(
+                        document.querySelectorAll('input[name="event_city"]:checked')
+                    ).map(cb => cb.value);
 
-            // Demo submission delay
-            setTimeout(function() {
+                    document.getElementById('conf_name').textContent = nameVal || '—';
+                    document.getElementById('conf_gender').textContent = genderVal ? genderVal.value : '—';
+                    document.getElementById('conf_dob').textContent = dobVal || '—';
+                    document.getElementById('conf_city').textContent = cityVal || '—';
+                    document.getElementById('conf_event_city').textContent = eventCities.length ? eventCities.join(', ') : '—';
 
-                form.style.display = "none";
+                    form.style.display = "none";
 
-                document.getElementById("successMessage")
-                    .style.display = "block";
+                    // Hide header/title
+                    const headerEl = document.querySelector('.header');
+                    if (headerEl) headerEl.style.display = "none";
 
-            }, 800);
+                    // Hide all poster images
+                    document.querySelectorAll('.image-container-card').forEach(function(el) {
+                        el.style.display = "none";
+                    });
+
+                    document.getElementById("successMessage")
+                        .style.display = "block";
+                } else {
+                    submitButton.innerHTML = "SUBMIT FORM";
+                    submitButton.disabled = false;
+                    response.text().then(text => {
+                        console.error("Error response:", text);
+                        alert("Error " + response.status + ". See console for details. Response: " + text.substring(0, 100));
+                    });
+                }
+            })
+            .catch(error => {
+                submitButton.innerHTML = "SUBMIT FORM";
+                submitButton.disabled = false;
+                alert("Network error: " + error.message);
+            });
 
         }
 
@@ -1111,14 +1359,14 @@
 
     // Hide city error when any city is selected
     document.querySelectorAll(
-        'input[name="eventCity"]'
+        'input[name="event_city"]'
     ).forEach(function(checkbox) {
 
         checkbox.addEventListener("change", function() {
 
             const selected =
                 document.querySelectorAll(
-                    'input[name="eventCity"]:checked'
+                    'input[name="event_city"]:checked'
                 );
 
             if (selected.length > 0) {

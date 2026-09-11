@@ -2260,6 +2260,8 @@ def sammelan_39th_success(request):
 from .models import StageIntroduction39th
 from .forms import StageIntroduction39thForm
 
+from django.http import JsonResponse
+
 def stage_introduction_view(request):
     if request.method == 'POST':
         # Retrieve event_city list properly
@@ -2271,7 +2273,12 @@ def stage_introduction_view(request):
         form = StageIntroduction39thForm(post_data)
         if form.is_valid():
             form.save()
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'status': 'success'})
             return redirect('stage_introduction_success')
+        else:
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
     else:
         form = StageIntroduction39thForm()
     return render(request, 'biodata/stage_introduction_39th_sammelan.html', {'form': form})
