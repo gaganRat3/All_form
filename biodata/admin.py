@@ -2813,3 +2813,10 @@ class BhudevKalakaar2026RegistrationAdmin(admin.ModelAdmin):
         return "No photo uploaded"
     
     photo_link.short_description = "Photo Link"
+from .models import StageIntroduction39th
+
+@admin.register(StageIntroduction39th)
+class StageIntroduction39thAdmin(admin.ModelAdmin):
+    list_display = ['candidate_name', 'gender', 'dob', 'current_city', 'event_city', 'created_at']
+    search_fields = ['candidate_name', 'current_city', 'event_city']
+    list_filter = ['gender', 'event_city', 'created_at']

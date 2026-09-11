@@ -2256,3 +2256,25 @@ def sammelan_39th_form_view(request):
 def sammelan_39th_success(request):
     """Display 39th Sammelan success page"""
     return render(request, 'biodata/39th_1012_sammelean_success.html')
+
+from .models import StageIntroduction39th
+from .forms import StageIntroduction39thForm
+
+def stage_introduction_view(request):
+    if request.method == 'POST':
+        # Retrieve event_city list properly
+        post_data = request.POST.copy()
+        event_cities = request.POST.getlist('event_city')
+        if event_cities:
+            post_data['event_city'] = ', '.join(event_cities)
+        
+        form = StageIntroduction39thForm(post_data)
+        if form.is_valid():
+            form.save()
+            return redirect('stage_introduction_success')
+    else:
+        form = StageIntroduction39thForm()
+    return render(request, 'biodata/stage_introduction_39th_sammelan.html', {'form': form})
+
+def stage_introduction_success(request):
+    return render(request, 'biodata/confirmation.html')

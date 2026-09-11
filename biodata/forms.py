@@ -494,3 +494,10 @@ class GetTogetherRegistrationForm(forms.ModelForm):
             'whatsapp': 'WhatsApp No.',
             'members': 'How many Members can attend this Program',
         }
+
+from .models import StageIntroduction39th
+
+class StageIntroduction39thForm(forms.ModelForm):
+    class Meta:
+        model = StageIntroduction39th
+        fields = ['candidate_name', 'gender', 'dob', 'current_city', 'event_city', 'confirmation']

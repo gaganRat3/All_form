@@ -1355,3 +1355,19 @@ class GetTogetherRegistration(models.Model):
 
 
 from .models_marriage_done import MarriageDoneGiftSubmission
+
+class StageIntroduction39th(models.Model):
+    GENDER_CHOICES = [
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+    ]
+    candidate_name = models.CharField(max_length=255)
+    gender = models.CharField(max_length=50, choices=GENDER_CHOICES)
+    dob = models.CharField(max_length=50)
+    current_city = models.CharField(max_length=100)
+    event_city = models.CharField(max_length=255)
+    confirmation = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.candidate_name} ({self.event_city})"

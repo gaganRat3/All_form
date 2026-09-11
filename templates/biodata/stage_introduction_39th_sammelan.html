@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>39મું ભૂદેવ જીવનસાથી સંમેલન | Stage Introduction</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Noto Sans Gujarati", sans-serif;
+            background: linear-gradient(135deg, #fff8ee, #fffdf9);
+            min-height: 100vh;
+            padding: 40px 15px;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            margin: auto;
+        }
+
+        /* Main Card */
+        .form-card {
+            background: #ffffff;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.10);
+            border: 1px solid #eee;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #7a1f1f, #a52d2d);
+            color: white;
+            text-align: center;
+            padding: 35px 25px;
+            position: relative;
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 1px;
+            background: rgba(255,255,255,0.4);
+        }
+
+        .logo-circle {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #9c2828;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            font-size: 29px;
+            font-weight: 800;
+            margin-bottom: 7px;
+        }
+
+        .header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Content */
+        .content {
+            padding: 35px;
+        }
+
+        /* Important Notice */
+        .notice {
+            background: #fff8e8;
+            border: 1px solid #f1d48a;
+            border-left: 5px solid #c58b22;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 28px;
+        }
+
+        .notice-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #8b5d12;
+            margin-bottom: 12px;
+        }
+
+        .notice p {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 7px;
+        }
+
+        /* Gift Section */
+        .gift-section {
+            margin: 25px 0;
+        }
+
+        .gift-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 800;
+            color: #8b2424;
+            margin-bottom: 18px;
+        }
+
+        .gift-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .gift-item {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            background: #fff;
+            transition: 0.3s;
+        }
+
+        .gift-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+        }
+
+        .gift-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .gift-item span {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Section Heading */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0 20px;
+            color: #7a1f1f;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eadada;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .required {
+            color: #d62828;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 52px;
+            border: 1px solid #d8d8d8;
+            border-radius: 10px;
+            padding: 0 15px;
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+            background: #fff;
+        }
+
+        .form-input:focus {
+            border-color: #9c2828;
+            box-shadow: 0 0 0 3px rgba(156,40,40,0.08);
+        }
+
+        .form-input.error {
+            border-color: #dc3545;
+        }
+
+        /* Gender */
+        .gender-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .radio-card {
+            position: relative;
+        }
+
+        .radio-card input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 52px;
+            border: 1px solid #d8d8d8;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            background: white;
+        }
+
+        .radio-card input:checked + .radio-label {
+            background: #fff3f3;
+            border-color: #9c2828;
+            color: #8b2424;
+            box-shadow: 0 0 0 2px rgba(156,40,40,0.08);
+        }
+
+        /* City Cards */
+        .city-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .city-card {
+            position: relative;
+        }
+
+        .city-card input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .city-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px;
+            border: 1px solid #d8d8d8;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            background: white;
+        }
+
+        .city-label:hover {
+            border-color: #9c2828;
+        }
+
+        .checkbox-box {
+            width: 21px;
+            height: 21px;
+            border: 2px solid #aaa;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .checkbox-box::after {
+            content: "✓";
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .city-card input:checked + .city-label {
+            border-color: #9c2828;
+            background: #fff5f5;
+            color: #8b2424;
+        }
+
+        .city-card input:checked + .city-label .checkbox-box {
+            background: #9c2828;
+            border-color: #9c2828;
+        }
+
+        .city-card input:checked + .city-label .checkbox-box::after {
+            display: block;
+        }
+
+        .city-name {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .city-sub {
+            display: block;
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        .multiple-note {
+            font-size: 12px;
+            color: #777;
+            margin-top: 8px;
+        }
+
+        /* Confirmation */
+        .confirmation {
+            margin-top: 28px;
+            padding: 18px;
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+        }
+
+        .confirmation label {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .confirmation input {
+            width: 19px;
+            height: 19px;
+            margin-top: 3px;
+            accent-color: #9c2828;
+            flex-shrink: 0;
+        }
+
+        /* Error */
+        .error-message {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        /* Submit */
+        .submit-btn {
+            width: 100%;
+            height: 55px;
+            border: none;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #8b2424, #b63232);
+            color: white;
+            font-family: inherit;
+            font-size: 17px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: 0.3s;
+            box-shadow: 0 7px 18px rgba(139,36,36,0.22);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(139,36,36,0.28);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding-top: 25px;
+            color: #777;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        .success-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #e8f7ed;
+            color: #218838;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 15px;
+        }
+
+        .success-message h2 {
+            color: #218838;
+            margin-bottom: 10px;
+        }
+
+        .success-message p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 650px) {
+
+            body {
+                padding: 15px 10px;
+            }
+
+            .form-card {
+                border-radius: 18px;
+            }
+
+            .header {
+                padding: 28px 18px;
+            }
+
+            .header h1 {
+                font-size: 23px;
+            }
+
+            .header h2 {
+                font-size: 17px;
+            }
+
+            .content {
+                padding: 22px 18px;
+            }
+
+            .gift-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gender-options,
+            .city-options {
+                grid-template-columns: 1fr;
+            }
+
+            .notice {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="form-card">
+
+        <!-- HEADER -->
+        <div class="header">
+
+            <div class="logo-circle">
+                ॐ
+            </div>
+
+            <h1>39મું ભૂદેવ જીવનસાથી સંમેલન</h1>
+
+            <h2>🎤 સ્ટેજ પરિચય માટે રજીસ્ટ્રેશન</h2>
+
+            <p>Stage Introduction Registration Form</p>
+
+        </div>
+
+
+        <div class="content">
+
+            <!-- IMPORTANT NOTICE -->
+            <div class="notice">
+
+                <div class="notice-title">
+                    📢 મહત્વપૂર્ણ સૂચના
+                </div>
+
+                <p>
+                    ✔️ 39મા ભૂદેવ જીવનસાથી સંમેલનમાં જે રજીસ્ટર્ડ ઉમેદવારો
+                    સ્ટેજ ઉપર આવીને પોતાનો પરિચય આપવા ઈચ્છતા હોય,
+                    તેઓએ આ ફોર્મ ભરવું જરૂરી છે.
+                </p>
+
+                <p>
+                    ✔️ જે ઉમેદવાર આ ફોર્મ પહેલેથી ભરી દેશે,
+                    તેમને સ્ટેજ પર પોતાનો પરિચય આપવા માટે
+                    <strong>પ્રથમ ચાન્સ</strong> આપવામાં આવશે.
+                </p>
+
+                <p>
+                    ✔️ ભેટોની સંખ્યા અને વ્યવસ્થામાં સરળતા રહે તે માટે
+                    સ્ટેજ પરિચય આપવા ઈચ્છતા તમામ યુવક-યુવતીઓએ
+                    આ ફોર્મ ભરવું જરૂરી છે.
+                </p>
+
+            </div>
+
+
+            <!-- GIFTS -->
+            <div class="gift-section">
+
+                <div class="gift-title">
+                    🎁 સ્ટેજ પરિચય આપનાર માટે વિશેષ ભેટ
+                </div>
+
+                <div class="gift-grid">
+
+                    <div class="gift-item">
+                        <div class="gift-icon">📖</div>
+                        <span>Latest Biodata Booklet</span>
+                    </div>
+
+                    <div class="gift-item">
+                        <div class="gift-icon">🪙</div>
+                        <span>Silver Coin</span>
+                    </div>
+
+                    <div class="gift-item">
+                        <div class="gift-icon">🍫</div>
+                        <span>Chocolate Gift Hamper</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FORM TITLE -->
+            <div class="section-title">
+                📝 ઉમેદવારની વિગતો
+            </div>
+
+
+            <form id="stageForm" novalidate>
+
+                <!-- Candidate Name -->
+                <div class="form-group">
+
+                    <label class="form-label">
+                        1. Candidate Name
+                        <span class="required">*</span>
+                        <br>
+                        <small>ઉમેદવારનું નામ</small>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="candidateName"
+                        class="form-input"
+                        placeholder="Enter Candidate Name"
+                    >
+
+                    <div class="error-message" id="nameError">
+                        કૃપા કરીને ઉમેદવારનું નામ દાખલ કરો.
+                    </div>
+
+                </div>
+
+
+                <!-- Gender -->
+                <div class="form-group">
+
+                    <label class="form-label">
+                        2. Gender
+                        <span class="required">*</span>
+                        <br>
+                        <small>લિંગ પસંદ કરો</small>
+                    </label>
+
+                    <div class="gender-options">
+
+                        <div class="radio-card">
+                            <input
+                                type="radio"
+                                name="gender"
+                                id="male"
+                                value="Male"
+                            >
+
+                            <label for="male" class="radio-label">
+                                👨 Male / યુવક
+                            </label>
+                        </div>
+
+                        <div class="radio-card">
+                            <input
+                                type="radio"
+                                name="gender"
+                                id="female"
+                                value="Female"
+                            >
+
+                            <label for="female" class="radio-label">
+                                👩 Female / યુવતી
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="error-message" id="genderError">
+                        કૃપા કરીને લિંગ પસંદ કરો.
+                    </div>
+
+                </div>
+
+
+                <!-- DOB -->
+                <div class="form-group">
+
+                    <label class="form-label">
+                        3. Date of Birth
+                        <span class="required">*</span>
+                        <br>
+                        <small>જન્મ તારીખ</small>
+                    </label>
+
+                    <input
+                        type="date"
+                        id="dob"
+                        class="form-input"
+                    >
+
+                    <div class="error-message" id="dobError">
+                        કૃપા કરીને જન્મ તારીખ પસંદ કરો.
+                    </div>
+
+                </div>
+
+
+                <!-- Current City -->
+                <div class="form-group">
+
+                    <label class="form-label">
+                        4. Current City
+                        <span class="required">*</span>
+                        <br>
+                        <small>હાલનું શહેર</small>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="currentCity"
+                        class="form-input"
+                        placeholder="Enter Current City"
+                    >
+
+                    <div class="error-message" id="cityError">
+                        કૃપા કરીને હાલનું શહેર દાખલ કરો.
+                    </div>
+
+                </div>
+
+
+                <!-- EVENT CITY -->
+                <div class="form-group">
+
+                    <label class="form-label">
+                        5. You will attend the 39th Bhudev Sammelan in which city?
+                        <span class="required">*</span>
+                        <br>
+                        <small>
+                            તમે 39મા ભૂદેવ જીવનસાથી સંમેલનમાં કયા શહેરમાં હાજરી આપશો?
+                        </small>
+                    </label>
+
+                    <div class="city-options">
+
+                        <!-- Vadodara -->
+                        <div class="city-card">
+
+                            <input
+                                type="checkbox"
+                                name="eventCity"
+                                id="vadodara"
+                                value="Vadodara"
+                            >
+
+                            <label for="vadodara" class="city-label">
+
+                                <span class="checkbox-box"></span>
+
+                                <span>
+                                    <span class="city-name">
+                                        Vadodara
+                                    </span>
+
+                                    <span class="city-sub">
+                                        વડોદરા
+                                    </span>
+                                </span>
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- Surat -->
+                        <div class="city-card">
+
+                            <input
+                                type="checkbox"
+                                name="eventCity"
+                                id="surat"
+                                value="Surat"
+                            >
+
+                            <label for="surat" class="city-label">
+
+                                <span class="checkbox-box"></span>
+
+                                <span>
+                                    <span class="city-name">
+                                        Surat
+                                    </span>
+
+                                    <span class="city-sub">
+                                        સુરત
+                                    </span>
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="multiple-note">
+                        ℹ️ Multiple selection allowed
+                    </div>
+
+                    <div class="error-message" id="eventCityError">
+                        કૃપા કરીને ઓછામાં ઓછું એક શહેર પસંદ કરો.
+                    </div>
+
+                </div>
+
+
+                <!-- CONFIRMATION -->
+                <div class="confirmation">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="confirmation"
+                        >
+
+                        <span>
+                            હું 39મા ભૂદેવ જીવનસાથી સંમેલનમાં
+                            સ્ટેજ ઉપર આવીને મારો પરિચય આપવા ઈચ્છું છું.
+                            ઉપર આપેલી તમામ માહિતી સાચી છે તેની હું ખાતરી આપું છું.
+                        </span>
+
+                    </label>
+
+                    <div class="error-message" id="confirmationError">
+                        કૃપા કરીને આ વિકલ્પ પસંદ કરો.
+                    </div>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    SUBMIT FORM
+                </button>
+
+            </form>
+
+
+            <!-- SUCCESS -->
+            <div class="success-message" id="successMessage">
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+                <h2>Form Submitted Successfully!</h2>
+
+                <p>
+                    તમારું સ્ટેજ પરિચય રજીસ્ટ્રેશન સફળતાપૂર્વક પ્રાપ્ત થયું છે.
+                    <br>
+                    Thank you for registering for the 39th Bhudev Sammelan.
+                </p>
+
+            </div>
+
+
+            <!-- FOOTER -->
+            <div class="footer">
+
+                <strong>ભૂદેવ જીવનસાથી પરિચય સંમેલન</strong>
+                <br>
+
+                સારા સંબંધોની શરૂઆત — એક સુંદર મુલાકાતથી 🌸
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const form = document.getElementById("stageForm");
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        let isValid = true;
+
+
+        // Candidate Name
+        const name = document.getElementById("candidateName");
+        const nameError = document.getElementById("nameError");
+
+        if (name.value.trim() === "") {
+
+            name.classList.add("error");
+            nameError.style.display = "block";
+
+            isValid = false;
+
+        } else {
+
+            name.classList.remove("error");
+            nameError.style.display = "none";
+
+        }
+
+
+        // Gender
+        const gender = document.querySelector(
+            'input[name="gender"]:checked'
+        );
+
+        const genderError = document.getElementById("genderError");
+
+        if (!gender) {
+
+            genderError.style.display = "block";
+
+            isValid = false;
+
+        } else {
+
+            genderError.style.display = "none";
+
+        }
+
+
+        // DOB
+        const dob = document.getElementById("dob");
+        const dobError = document.getElementById("dobError");
+
+        if (dob.value === "") {
+
+            dob.classList.add("error");
+            dobError.style.display = "block";
+
+            isValid = false;
+
+        } else {
+
+            dob.classList.remove("error");
+            dobError.style.display = "none";
+
+        }
+
+
+        // Current City
+        const currentCity = document.getElementById("currentCity");
+        const cityError = document.getElementById("cityError");
+
+        if (currentCity.value.trim() === "") {
+
+            currentCity.classList.add("error");
+            cityError.style.display = "block";
+
+            isValid = false;
+
+        } else {
+
+            currentCity.classList.remove("error");
+            cityError.style.display = "none";
+
+        }
+
+
+        // Event Cities
+        const selectedCities = document.querySelectorAll(
+            'input[name="eventCity"]:checked'
+        );
+
+        const eventCityError =
+            document.getElementById("eventCityError");
+
+        if (selectedCities.length === 0) {
+
+            eventCityError.style.display = "block";
+
+            isValid = false;
+
+        } else {
+
+            eventCityError.style.display = "none";
+
+        }
+
+
+        // Confirmation
+        const confirmation =
+            document.getElementById("confirmation");
+
+        const confirmationError =
+            document.getElementById("confirmationError");
+
+        if (!confirmation.checked) {
+
+            confirmationError.style.display = "block";
+
+            isValid = false;
+
+        } else {
+
+            confirmationError.style.display = "none";
+
+        }
+
+
+        // If everything is valid
+        if (isValid) {
+
+            const submitButton =
+                document.querySelector(".submit-btn");
+
+            submitButton.innerHTML = "Submitting...";
+            submitButton.disabled = true;
+
+
+            // Demo submission delay
+            setTimeout(function() {
+
+                form.style.display = "none";
+
+                document.getElementById("successMessage")
+                    .style.display = "block";
+
+            }, 800);
+
+        }
+
+    });
+
+
+    // Remove error while typing
+    document.getElementById("candidateName")
+        .addEventListener("input", function() {
+
+            this.classList.remove("error");
+
+            document.getElementById("nameError")
+                .style.display = "none";
+
+        });
+
+
+    document.getElementById("currentCity")
+        .addEventListener("input", function() {
+
+            this.classList.remove("error");
+
+            document.getElementById("cityError")
+                .style.display = "none";
+
+        });
+
+
+    document.getElementById("dob")
+        .addEventListener("change", function() {
+
+            this.classList.remove("error");
+
+            document.getElementById("dobError")
+                .style.display = "none";
+
+        });
+
+
+    // Hide city error when any city is selected
+    document.querySelectorAll(
+        'input[name="eventCity"]'
+    ).forEach(function(checkbox) {
+
+        checkbox.addEventListener("change", function() {
+
+            const selected =
+                document.querySelectorAll(
+                    'input[name="eventCity"]:checked'
+                );
+
+            if (selected.length > 0) {
+
+                document.getElementById("eventCityError")
+                    .style.display = "none";
+
+            }
+
+        });
+
+    });
+
+
+    // Hide confirmation error
+    document.getElementById("confirmation")
+        .addEventListener("change", function() {
+
+            if (this.checked) {
+
+                document.getElementById("confirmationError")
+                    .style.display = "none";
+
+            }
+
+        });
+
+</script>
+
+</body>
+</html>
