@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="gu">
 <head>
@@ -478,6 +479,58 @@
                 padding: 15px;
             }
         }
+
+        /* Image Container Styles */
+        .image-container-card {
+            width: 100%;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .image-container-card:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .image-container-content {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .placeholder-poster {
+            width: 100%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f0f8ff 0%, #f5f0ff 100%);
+        }
+
+        .placeholder-poster img {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: none;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 640px) {
+            .image-container-card {
+                padding: 12px;
+            }
+
+            .placeholder-poster img {
+                width: 100%;
+                height: auto;
+            }
+        }
     </style>
 </head>
 
@@ -806,7 +859,30 @@
                 </button>
 
             </form>
-
+            
+            <div class="image-container-card">
+                <div class="image-container-content">
+                    <div class="placeholder-poster">
+                        <img src="{% static 'images/postS.jpeg' %}" alt="Event Poster">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="image-container-card">
+                <div class="image-container-content">
+                    <div class="placeholder-poster">
+                        <img src="{% static 'images/team.jpg' %}" alt="team Poster">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="image-container-card">
+                <div class="image-container-content">
+                    <div class="placeholder-poster">
+                        <img src="{% static 'images/new_ss.jpeg' %}" alt="team Poster">
+                    </div>
+                </div>
+            </div>
 
             <!-- SUCCESS -->
             <div class="success-message" id="successMessage">
@@ -824,7 +900,9 @@
                 </p>
 
             </div>
-
+             
+    {% include 'partials/footer.html' %}
+    {% include 'biodata/employa_footer.html' %}
 
             <!-- FOOTER -->
             <div class="footer">
