@@ -144,6 +144,43 @@
   .success-list li {
     margin-bottom: 10px;
   }
+
+  /* Quick Links */
+  .quick-links-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #444;
+    text-align: left;
+    margin: 22px 0 10px;
+  }
+  .quick-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .quick-link-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    transition: transform 0.15s, box-shadow 0.15s;
+    text-align: left;
+  }
+  .quick-link-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  }
+  .link-red    { background: linear-gradient(135deg, #8b0000, #c0392b); }
+  .link-green  { background: linear-gradient(135deg, #1a6e35, #27ae60); }
+  .link-icon { font-size: 22px; flex-shrink: 0; }
+  .link-text { flex: 1; font-size: 14px; line-height: 1.4; }
+  .link-text small { font-size: 12px; font-weight: 400; opacity: 0.85; }
+  .link-arrow { font-size: 22px; font-weight: 300; opacity: 0.8; }
   @media (max-width: 600px) {
     .glass-container, .advance-info-container {
       max-width: 95vw;
@@ -199,6 +236,21 @@
         ~~~~~~<br>
         ✔️ Admin : 9099798986
     </p>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="quick-links-title">🔗 સંમેલન ના અન્ય ફૉર્મ</div>
+  <div class="quick-links">
+    <a href="{% url 'sammelan_payment_form' %}" class="quick-link-btn link-red">
+      <span class="link-icon">💳</span>
+      <span class="link-text">39th Sammelan Payment Form<br><small>Registration + Booklet Payment</small></span>
+      <span class="link-arrow">›</span>
+    </a>
+    <a href="{% url 'advance_buffet_lunch_booking' %}" class="quick-link-btn link-green">
+      <span class="link-icon">🍽️</span>
+      <span class="link-text">Unlimited Buffet Lunch<br><small>Advance Booking (₹1200)</small></span>
+      <span class="link-arrow">›</span>
+    </a>
   </div>
   <ol class="success-list">
     <li>This booking confirmation is valid only if your Payment is verified and received as per information submitted.</li>

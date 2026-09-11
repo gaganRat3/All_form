@@ -606,6 +606,66 @@
             opacity: 0.9;
         }
 
+        /* Quick Links */
+        .success-quick-links-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #444;
+            text-align: left;
+            margin: 16px 0 8px;
+        }
+
+        .success-quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .success-link-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .success-link-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        .success-link-red    { background: linear-gradient(135deg, #8b0000, #c0392b); }
+        .success-link-orange { background: linear-gradient(135deg, #c0620a, #e67e22); }
+        .success-link-green  { background: linear-gradient(135deg, #1a6e35, #27ae60); }
+
+        .success-link-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .success-link-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .success-link-text small {
+            font-size: 12px;
+            font-weight: 400;
+            opacity: 0.85;
+        }
+
+        .success-link-arrow {
+            font-size: 22px;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+
         /* Responsive */
         @media (max-width: 650px) {
 
@@ -1101,6 +1161,26 @@
                         <div class="success-event-city">🏛️ સુરત</div>
                         <div class="success-event-date">📅 27-09-2026</div>
                     </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="success-quick-links-title">🔗 સંમેલન ના અન્ય ફૉર્મ</div>
+                <div class="success-quick-links">
+                    <a href="{% url 'sammelan_payment_form' %}" class="success-link-btn success-link-red">
+                        <span class="success-link-icon">💳</span>
+                        <span class="success-link-text">39th Sammelan<br><small>Payment Form</small></span>
+                        <span class="success-link-arrow">›</span>
+                    </a>
+                    <a href="{% url 'advance_entry_pass_booking' %}" class="success-link-btn success-link-orange">
+                        <span class="success-link-icon">☕</span>
+                        <span class="success-link-text">Entry + Tea/Coffee<br><small>Pass Booking (₹150)</small></span>
+                        <span class="success-link-arrow">›</span>
+                    </a>
+                    <a href="{% url 'advance_buffet_lunch_booking' %}" class="success-link-btn success-link-green">
+                        <span class="success-link-icon">🍽️</span>
+                        <span class="success-link-text">Unlimited Buffet<br><small>Lunch Booking (₹1200)</small></span>
+                        <span class="success-link-arrow">›</span>
+                    </a>
                 </div>
 
             </div>
