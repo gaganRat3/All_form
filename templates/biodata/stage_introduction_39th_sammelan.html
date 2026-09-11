@@ -1275,21 +1275,6 @@
             })
             .then(response => {
                 if (response.ok) {
-                    // Populate candidate details
-                    const nameVal = document.getElementById('candidateName').value;
-                    const genderVal = document.querySelector('input[name="gender"]:checked');
-                    const dobVal = document.getElementById('dob').value;
-                    const cityVal = document.getElementById('currentCity').value;
-                    const eventCities = Array.from(
-                        document.querySelectorAll('input[name="event_city"]:checked')
-                    ).map(cb => cb.value);
-
-                    document.getElementById('conf_name').textContent = nameVal || '—';
-                    document.getElementById('conf_gender').textContent = genderVal ? genderVal.value : '—';
-                    document.getElementById('conf_dob').textContent = dobVal || '—';
-                    document.getElementById('conf_city').textContent = cityVal || '—';
-                    document.getElementById('conf_event_city').textContent = eventCities.length ? eventCities.join(', ') : '—';
-
                     form.style.display = "none";
 
                     // Hide header/title
