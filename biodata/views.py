@@ -2297,11 +2297,7 @@ from .models import FarsanStallBooking
 from .forms import FarsanStallBookingForm
 
 def farsan_stall_booking_view(request):
-    """Handle Business / Farsan Stall Booking (First 5 Sisters Free, then ₹500)."""
-    registered_count = FarsanStallBooking.objects.count()
-    is_free = registered_count < 5
-    remaining_free = max(0, 5 - registered_count)
-
+    """Handle Business / Farsan Stall Booking (₹500 per Stall)."""
     error_message = None
 
     if request.method == 'POST':
@@ -2315,12 +2311,8 @@ def farsan_stall_booking_view(request):
                 return JsonResponse({'status': 'error', 'message': error_message}, status=400)
         elif form.is_valid():
             instance = form.save(commit=False)
-            if is_free:
-                instance.is_free_stall = True
-                instance.stall_fee = 0
-            else:
-                instance.is_free_stall = False
-                instance.stall_fee = 500
+            instance.is_free_stall = False
+            instance.stall_fee = 500
             instance.save()
             
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
@@ -2337,9 +2329,6 @@ def farsan_stall_booking_view(request):
 
     return render(request, 'biodata/farsan_stall_booking.html', {
         'form': form,
-        'registered_count': registered_count,
-        'is_free': is_free,
-        'remaining_free': remaining_free,
         'error_message': error_message,
     })
 

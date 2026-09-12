@@ -1402,8 +1402,7 @@ class FarsanStallBooking(models.Model):
     whatsapp_number = models.CharField(max_length=20, verbose_name="વોટ્સએપ નંબર (WhatsApp No.)")
     email = models.EmailField(verbose_name="ઈમેલ (Email ID)")
     event_city = models.CharField(max_length=50, choices=EVENT_CITY_CHOICES, verbose_name="ઇવેન્ટ સીટી (Event City)")
-    is_free_stall = models.BooleanField(default=False, verbose_name="100% Free Stall Quota")
-    stall_fee = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name="Stall Fee (₹)")
+    stall_fee = models.DecimalField(max_digits=10, decimal_places=2, default=500, verbose_name="Stall Fee (₹)")
     payment_screenshot = models.ImageField(upload_to='payment_screenshots/farsan_stall/', blank=True, null=True, verbose_name="Payment Screenshot")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="રજીસ્ટ્રેશન તારીખ")
 
@@ -1413,6 +1412,5 @@ class FarsanStallBooking(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        status = "FREE" if self.is_free_stall else f"₹{self.stall_fee}"
-        return f"{self.applicant_name} - {self.business_name} ({status})"
+        return f"{self.applicant_name} - {self.business_name} (₹{self.stall_fee})"
 

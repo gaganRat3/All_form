@@ -1018,7 +1018,7 @@ class AdvancePassBookingAdmin(admin.ModelAdmin):
 @admin.register(AdvanceEntryPassBooking)
 class AdvanceEntryPassBookingAdmin(admin.ModelAdmin):
     list_display = [
-        'name', 'is_verified', 'city', 'attend_city', 'whatsapp_number', 'email',
+        'serial_number', 'is_verified', 'name', 'city', 'attend_city', 'whatsapp_number', 'email',
         'quantity', 'total_amount', 'payment_screenshot_preview', 'created_at'
     ]
     list_editable = ['is_verified']
@@ -1026,6 +1026,22 @@ class AdvanceEntryPassBookingAdmin(admin.ModelAdmin):
     search_fields = ['name', 'city', 'whatsapp_number', 'email']
     readonly_fields = ['payment_screenshot', 'payment_screenshot_preview', 'created_at']
     actions = ['mark_as_verified', 'mark_as_unverified', 'export_selected_to_excel']
+
+    def get_changelist_instance(self, request):
+        self.admin_view_request = request
+        return super().get_changelist_instance(request)
+
+    def serial_number(self, obj):
+        request = getattr(self, 'admin_view_request', None)
+        if request is None:
+            return '-'
+        queryset = self.get_queryset(request)
+        pk_list = list(queryset.values_list('pk', flat=True))
+        try:
+            return pk_list.index(obj.pk) + 1
+        except ValueError:
+            return '-'
+    serial_number.short_description = 'Sr. No.'
 
     @admin.action(description='Mark selected as Verified / Paid ✔')
     def mark_as_verified(self, request, queryset):
@@ -1056,17 +1072,25 @@ class AdvanceEntryPassBookingAdmin(admin.ModelAdmin):
         ws = wb.active
         ws.title = "Entry Pass Bookings"
 
-        headers = ['Verified Status', 'Name', 'City', 'Attend City', 'WhatsApp Number', 'Email', 'Quantity (Rs 50)', 'Total Amount', 'Payment Screenshot', 'Created At']
+        headers = ['Sr. No.', 'Verified Status', 'Name', 'City', 'Attend City', 'WhatsApp Number', 'Email', 'Quantity (Rs 50)', 'Total Amount', 'Payment Screenshot', 'Created At']
         ws.append(headers)
 
-        column_widths = [18, 20, 20, 20, 30, 15, 15, 15, 20, 20]
+        column_widths = [10, 18, 20, 20, 20, 30, 15, 15, 15, 20, 20]
         for i, width in enumerate(column_widths, 1):
             ws.column_dimensions[get_column_letter(i)].width = width
+
+        all_qs = self.get_queryset(request)
+        pk_list = list(all_qs.values_list('pk', flat=True))
 
         row_num = 2
         for obj in queryset:
             verified_label = "VERIFIED ✔" if obj.is_verified else "PENDING ✘"
+            try:
+                sr_no = pk_list.index(obj.pk) + 1
+            except ValueError:
+                sr_no = '-'
             row = [
+                sr_no,
                 verified_label,
                 obj.name,
                 obj.city,
@@ -1090,7 +1114,7 @@ class AdvanceEntryPassBookingAdmin(admin.ModelAdmin):
                     img = OpenpyxlImage(img_byte_arr)
                     img.width = 80
                     img.height = 80
-                    img.anchor = f"{get_column_letter(9)}{row_num}"
+                    img.anchor = f"{get_column_letter(10)}{row_num}"
                     ws.add_image(img)
                     ws.row_dimensions[row_num].height = 60
                 except Exception as e:
@@ -1109,7 +1133,7 @@ class AdvanceEntryPassBookingAdmin(admin.ModelAdmin):
 @admin.register(AdvanceBuffetLunchBooking)
 class AdvanceBuffetLunchBookingAdmin(admin.ModelAdmin):
     list_display = [
-        'name', 'is_verified', 'city', 'attend_city', 'whatsapp_number', 'email',
+        'serial_number', 'is_verified', 'name', 'city', 'attend_city', 'whatsapp_number', 'email',
         'quantity', 'total_amount', 'payment_screenshot_preview', 'created_at'
     ]
     list_editable = ['is_verified']
@@ -1117,6 +1141,22 @@ class AdvanceBuffetLunchBookingAdmin(admin.ModelAdmin):
     search_fields = ['name', 'city', 'whatsapp_number', 'email']
     readonly_fields = ['payment_screenshot', 'payment_screenshot_preview', 'created_at']
     actions = ['mark_as_verified', 'mark_as_unverified', 'export_selected_to_excel']
+
+    def get_changelist_instance(self, request):
+        self.admin_view_request = request
+        return super().get_changelist_instance(request)
+
+    def serial_number(self, obj):
+        request = getattr(self, 'admin_view_request', None)
+        if request is None:
+            return '-'
+        queryset = self.get_queryset(request)
+        pk_list = list(queryset.values_list('pk', flat=True))
+        try:
+            return pk_list.index(obj.pk) + 1
+        except ValueError:
+            return '-'
+    serial_number.short_description = 'Sr. No.'
 
     @admin.action(description='Mark selected as Verified / Paid ✔')
     def mark_as_verified(self, request, queryset):
@@ -1147,17 +1187,25 @@ class AdvanceBuffetLunchBookingAdmin(admin.ModelAdmin):
         ws = wb.active
         ws.title = "Buffet Lunch Bookings"
 
-        headers = ['Verified Status', 'Name', 'City', 'Attend City', 'WhatsApp Number', 'Email', 'Quantity (Rs 200)', 'Total Amount', 'Payment Screenshot', 'Created At']
+        headers = ['Sr. No.', 'Verified Status', 'Name', 'City', 'Attend City', 'WhatsApp Number', 'Email', 'Quantity (Rs 200)', 'Total Amount', 'Payment Screenshot', 'Created At']
         ws.append(headers)
 
-        column_widths = [18, 20, 20, 20, 30, 15, 15, 15, 20, 20]
+        column_widths = [10, 18, 20, 20, 20, 30, 15, 15, 15, 20, 20]
         for i, width in enumerate(column_widths, 1):
             ws.column_dimensions[get_column_letter(i)].width = width
+
+        all_qs = self.get_queryset(request)
+        pk_list = list(all_qs.values_list('pk', flat=True))
 
         row_num = 2
         for obj in queryset:
             verified_label = "VERIFIED ✔" if obj.is_verified else "PENDING ✘"
+            try:
+                sr_no = pk_list.index(obj.pk) + 1
+            except ValueError:
+                sr_no = '-'
             row = [
+                sr_no,
                 verified_label,
                 obj.name,
                 obj.city,
@@ -1181,7 +1229,7 @@ class AdvanceBuffetLunchBookingAdmin(admin.ModelAdmin):
                     img = OpenpyxlImage(img_byte_arr)
                     img.width = 80
                     img.height = 80
-                    img.anchor = f"{get_column_letter(9)}{row_num}"
+                    img.anchor = f"{get_column_letter(10)}{row_num}"
                     ws.add_image(img)
                     ws.row_dimensions[row_num].height = 60
                 except Exception as e:
@@ -2843,21 +2891,54 @@ from .models import StageIntroduction39th, FarsanStallBooking
 
 @admin.register(StageIntroduction39th)
 class StageIntroduction39thAdmin(admin.ModelAdmin):
-    list_display = ['candidate_name', 'gender', 'dob', 'current_city', 'event_city', 'created_at']
+    list_display = ['serial_number', 'candidate_name', 'gender', 'dob', 'current_city', 'event_city', 'created_at']
     search_fields = ['candidate_name', 'current_city', 'event_city']
     list_filter = ['gender', 'event_city', 'created_at']
+
+    def get_changelist_instance(self, request):
+        self.admin_view_request = request
+        return super().get_changelist_instance(request)
+
+    def serial_number(self, obj):
+        request = getattr(self, 'admin_view_request', None)
+        if request is None:
+            return '-'
+        queryset = self.get_queryset(request)
+        pk_list = list(queryset.values_list('pk', flat=True))
+        try:
+            return pk_list.index(obj.pk) + 1
+        except ValueError:
+            return '-'
+    serial_number.short_description = 'Sr. No.'
 
 
 @admin.register(FarsanStallBooking)
 class FarsanStallBookingAdmin(admin.ModelAdmin):
     list_display = [
-        'id', 'applicant_name', 'business_name', 'business_type', 'city',
-        'whatsapp_number', 'email', 'event_city', 'is_free_stall', 'stall_fee',
+        'serial_number', 'applicant_name', 'business_name', 'business_type', 'city',
+        'whatsapp_number', 'email', 'event_city', 'stall_fee',
         'payment_screenshot_preview', 'created_at'
     ]
-    list_filter = ['is_free_stall', 'business_type', 'event_city', 'created_at']
+    list_filter = ['business_type', 'event_city', 'created_at']
     search_fields = ['applicant_name', 'business_name', 'city', 'whatsapp_number', 'email']
     readonly_fields = ['created_at', 'payment_screenshot_preview']
+    actions = ['export_selected_to_excel']
+
+    def get_changelist_instance(self, request):
+        self.admin_view_request = request
+        return super().get_changelist_instance(request)
+
+    def serial_number(self, obj):
+        request = getattr(self, 'admin_view_request', None)
+        if request is None:
+            return '-'
+        queryset = self.get_queryset(request)
+        pk_list = list(queryset.values_list('pk', flat=True))
+        try:
+            return pk_list.index(obj.pk) + 1
+        except ValueError:
+            return '-'
+    serial_number.short_description = 'Sr. No.'
 
     def payment_screenshot_preview(self, obj):
         if obj.payment_screenshot:
@@ -2865,6 +2946,74 @@ class FarsanStallBookingAdmin(admin.ModelAdmin):
                 '<a href="{}" target="_blank"><img src="{}" style="max-height: 80px; max-width: 80px; border-radius: 6px;" /></a>',
                 obj.payment_screenshot.url, obj.payment_screenshot.url
             )
-        return "Free / No Screenshot"
+        return "No Screenshot"
     payment_screenshot_preview.short_description = "Payment Screenshot"
+
+    @admin.action(description='Export selected farsan stall bookings to Excel')
+    def export_selected_to_excel(self, request, queryset):
+        import openpyxl
+        from openpyxl.utils import get_column_letter
+        from openpyxl.drawing.image import Image as OpenpyxlImage
+        from io import BytesIO
+        from django.http import HttpResponse
+        from PIL import Image as PILImage
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Farsan Stall Bookings"
+
+        headers = ['Sr. No.', 'Applicant Name', 'Business Name', 'Business Type', 'City', 'WhatsApp Number', 'Email', 'Event City', 'Stall Fee', 'Payment Screenshot', 'Created At']
+        ws.append(headers)
+
+        column_widths = [10, 20, 20, 20, 20, 30, 25, 15, 15, 20, 20]
+        for i, width in enumerate(column_widths, 1):
+            ws.column_dimensions[get_column_letter(i)].width = width
+
+        all_qs = self.get_queryset(request)
+        pk_list = list(all_qs.values_list('pk', flat=True))
+
+        row_num = 2
+        for obj in queryset:
+            try:
+                sr_no = pk_list.index(obj.pk) + 1
+            except ValueError:
+                sr_no = '-'
+            row = [
+                sr_no,
+                obj.applicant_name,
+                obj.business_name,
+                obj.get_business_type_display() if hasattr(obj, 'get_business_type_display') else obj.business_type,
+                obj.city,
+                obj.whatsapp_number,
+                obj.email,
+                obj.event_city,
+                obj.stall_fee,
+                '',
+                obj.created_at.strftime('%Y-%m-%d %H:%M:%S') if obj.created_at else '',
+            ]
+            ws.append(row)
+
+            if obj.payment_screenshot:
+                try:
+                    img_path = obj.payment_screenshot.path
+                    pil_img = PILImage.open(img_path)
+                    img_byte_arr = BytesIO()
+                    pil_img.save(img_byte_arr, format='PNG')
+                    img_byte_arr.seek(0)
+                    img = OpenpyxlImage(img_byte_arr)
+                    img.width = 80
+                    img.height = 80
+                    img.anchor = f"{get_column_letter(10)}{row_num}"
+                    ws.add_image(img)
+                    ws.row_dimensions[row_num].height = 60
+                except Exception as e:
+                    pass
+            row_num += 1
+
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        )
+        response['Content-Disposition'] = 'attachment; filename=farsan_stall_bookings.xlsx'
+        wb.save(response)
+        return response
 

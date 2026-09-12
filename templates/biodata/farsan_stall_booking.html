@@ -44,20 +44,6 @@
             border-bottom: 2px dashed #eee;
         }
 
-        .header .logo-badge {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #8b0000, #c0392b);
-            color: white;
-            font-size: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            box-shadow: 0 6px 18px rgba(139, 0, 0, 0.25);
-        }
-
         .header h1 {
             color: #8b0000;
             font-size: 24px;
@@ -79,22 +65,13 @@
             font-weight: 500;
         }
 
-        /* OFFER BANNER */
+        /* BANNER */
         .offer-banner {
             border-radius: 12px;
             padding: 16px 20px;
             margin-bottom: 25px;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        .offer-banner.free-active {
-            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-            border: 2px solid #28a745;
-            color: #155724;
-        }
-
-        .offer-banner.paid-active {
             background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
             border: 2px solid #ffc107;
             color: #856404;
@@ -158,7 +135,7 @@
             box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.1);
         }
 
-        /* RADIO & CHECKBOX OPTIONS */
+        /* RADIO OPTIONS */
         .radio-options-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -256,12 +233,6 @@
             background: linear-gradient(135deg, #7a0000, #ab2b1d);
         }
 
-        .btn-submit:disabled {
-            background: #999;
-            cursor: not-allowed;
-            transform: none;
-        }
-
         /* IMAGE CARDS AT BOTTOM */
         .image-container-card {
             width: 100%;
@@ -312,25 +283,17 @@
 
         <!-- HEADER -->
         <div class="header">
-            <img src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Bhudev Network Logo" style="width: 85px; height: 85px; border-radius: 16px; margin: 0 auto 14px; display: block; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12); object-fit: contain; background: #fff; padding: 4px;">
-            <h1>Free Business or Farsan Stall Registration</h1>
+            <img src="{% static 'images/foundation_logo.png' %}" alt="Bhudev Network Logo" style="width: 85px; height: 85px; border-radius: 16px; margin: 0 auto 14px; display: block; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12); object-fit: contain; background: #fff; padding: 4px;">
+            <h1>Business &amp; Farsan Stall Registration</h1>
             <h2>(માત્ર ભૂદેવ બહેનો માટે - Business Woman / Entrepreneur)</h2>
-            <p>39મુ ભૂદેવ જીવનસાથી પરિચય સંમેલન — વડોદરા & સુરત</p>
+            <p>39મુ ભૂદેવ જીવનસાથી પરિચય સંમેલન — વડોદરા &amp; સુરત</p>
         </div>
 
-        <!-- OFFER BANNER -->
-        {% if is_free %}
-            <div class="offer-banner free-active">
-                <h3>🎉 100% FREE Stall Offer Active!</h3>
-                <p><strong>પ્રથમ 5 બહેનો માટે 100% ફ્રી સ્ટોલ મળશે.</strong></p>
-                <p>બાકી રહેલા ફ્રી સ્ટોલ: <strong>{{ remaining_free }} / 5</strong></p>
-            </div>
-        {% else %}
-            <div class="offer-banner paid-active">
-                <h3>ℹ️ ફ્રી સ્ટોલ ઓファー પૂર્ણ થયેલ છે</h3>
-                <p>પ્રથમ 5 ફ્રી સ્ટોલ બુક થઈ ગયા છે. <strong>હાલ સ્ટોલ ફી: ₹500 per Stall.</strong></p>
-            </div>
-        {% endif %}
+        <!-- BANNER -->
+        <div class="offer-banner">
+            <h3>🛍️ Rs 500 per Stall</h3>
+            <p>માત્ર ભૂદેવ બહેનો માટે - Business Woman / Entrepreneur</p>
+        </div>
 
         <!-- ERROR ALERTS -->
         {% if error_message %}
@@ -406,37 +369,31 @@
                     </label>
                     <label class="radio-card">
                         <input type="radio" name="event_city" value="Both" {% if form.event_city.value == 'Both' %}checked{% endif %}>
-                        <span>✨ Both Vadodara & Surat</span>
+                        <span>✨ Both Vadodara &amp; Surat</span>
                     </label>
                 </div>
             </div>
 
-            <!-- 8. Payment Section (Only if NOT Free) -->
-            {% if not is_free %}
-                <div class="payment-box">
-                    <h4>💳 સ્ટોલ પેમેન્ટ સબમિશન (Stall Fee: ₹500)</h4>
-                    <div class="payment-qr">
-                        <img src="{% static 'images/payment_qr.jpeg' %}" alt="GPay QR Code">
-                    </div>
-                    <div class="payment-details">
-                        Scan QR Code or Pay via Mobile Number:<br>
-                        <strong>7990208986 (Bhudev Network)</strong>
-                    </div>
+            <!-- 8. Payment Section -->
+            <div class="payment-box">
+                <h4>💳 સ્ટોલ પેમેન્ટ સબમિશન (Stall Fee: ₹500)</h4>
+                <div class="payment-qr">
+                    <img src="{% static 'images/payment_qr.jpeg' %}" alt="GPay QR Code">
                 </div>
+                <div class="payment-details">
+                    Scan QR Code or Pay via Mobile Number:<br>
+                    <strong>7990208986 (Bhudev Network)</strong>
+                </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="id_payment_screenshot">8. પેમેન્ટ સ્ક્રિનશોટ અપલોડ કરો (Upload Payment Screenshot) <span class="required">*</span></label>
-                    <input type="file" name="payment_screenshot" id="id_payment_screenshot" class="form-control" accept="image/*" required>
-                </div>
-            {% endif %}
+            <div class="form-group">
+                <label for="id_payment_screenshot">8. પેમેન્ટ સ્ક્રિનશોટ અપલોડ કરો (Upload Payment Screenshot) <span class="required">*</span></label>
+                <input type="file" name="payment_screenshot" id="id_payment_screenshot" class="form-control" accept="image/*" required>
+            </div>
 
             <!-- SUBMIT BUTTON -->
             <button type="submit" class="btn-submit" id="submitBtn">
-                {% if is_free %}
-                    🎉 Submit Free Stall Booking
-                {% else %}
-                    💳 Submit Stall Booking (₹500)
-                {% endif %}
+                💳 Submit Stall Booking (₹500)
             </button>
         </form>
 
@@ -473,4 +430,3 @@
 
 </body>
 </html>
-
