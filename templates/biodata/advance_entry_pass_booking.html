@@ -1560,7 +1560,7 @@
             </div>
         {% endif %}
 
-        <form method="post" enctype="multipart/form-data" id="passBookingForm">
+        <form method="post" action="{% url 'advance_entry_pass_booking' %}" enctype="multipart/form-data" id="passBookingForm">
             {% csrf_token %}
 
             <div class="form-group">

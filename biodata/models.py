@@ -759,6 +759,7 @@ class AdvanceEntryPassBooking(models.Model):
     quantity = models.PositiveIntegerField(default=1, verbose_name='Pass Quantity')
     payment_screenshot = models.ImageField(upload_to='payment_screenshots/entry_pass/')
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    is_verified = models.BooleanField(default=False, verbose_name="Verified / Paid (Tick Mark)")
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -771,7 +772,8 @@ class AdvanceEntryPassBooking(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.name} - Entry Pass x {self.quantity} (₹{self.total_amount})"
+        status = "✔ Verified" if self.is_verified else "Pending"
+        return f"{self.name} - Entry Pass x {self.quantity} (₹{self.total_amount}) [{status}]"
 
 
 class AdvanceBuffetLunchBooking(models.Model):
@@ -791,6 +793,7 @@ class AdvanceBuffetLunchBooking(models.Model):
     quantity = models.PositiveIntegerField(default=1, verbose_name='Buffet Lunch Quantity')
     payment_screenshot = models.ImageField(upload_to='payment_screenshots/buffet_lunch/')
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    is_verified = models.BooleanField(default=False, verbose_name="Verified / Paid (Tick Mark)")
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -803,7 +806,8 @@ class AdvanceBuffetLunchBooking(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.name} - Buffet Lunch x {self.quantity} (₹{self.total_amount})"
+        status = "✔ Verified" if self.is_verified else "Pending"
+        return f"{self.name} - Buffet Lunch x {self.quantity} (₹{self.total_amount}) [{status}]"
 
 
 

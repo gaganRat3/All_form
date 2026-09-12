@@ -1018,13 +1018,24 @@ class AdvancePassBookingAdmin(admin.ModelAdmin):
 @admin.register(AdvanceEntryPassBooking)
 class AdvanceEntryPassBookingAdmin(admin.ModelAdmin):
     list_display = [
-        'name', 'city', 'attend_city', 'whatsapp_number', 'email',
+        'name', 'is_verified', 'city', 'attend_city', 'whatsapp_number', 'email',
         'quantity', 'total_amount', 'payment_screenshot_preview', 'created_at'
     ]
-    list_filter = ['attend_city', 'created_at']
+    list_editable = ['is_verified']
+    list_filter = ['is_verified', 'attend_city', 'created_at']
     search_fields = ['name', 'city', 'whatsapp_number', 'email']
     readonly_fields = ['payment_screenshot', 'payment_screenshot_preview', 'created_at']
-    actions = ['export_selected_to_excel']
+    actions = ['mark_as_verified', 'mark_as_unverified', 'export_selected_to_excel']
+
+    @admin.action(description='Mark selected as Verified / Paid ✔')
+    def mark_as_verified(self, request, queryset):
+        rows_updated = queryset.update(is_verified=True)
+        self.message_user(request, f"{rows_updated} entry pass booking(s) marked as Verified ✔")
+
+    @admin.action(description='Mark selected as Pending / Unverified ✘')
+    def mark_as_unverified(self, request, queryset):
+        rows_updated = queryset.update(is_verified=False)
+        self.message_user(request, f"{rows_updated} entry pass booking(s) marked as Unverified ✘")
 
     def payment_screenshot_preview(self, obj):
         if obj.payment_screenshot:
@@ -1045,16 +1056,18 @@ class AdvanceEntryPassBookingAdmin(admin.ModelAdmin):
         ws = wb.active
         ws.title = "Entry Pass Bookings"
 
-        headers = ['Name', 'City', 'Attend City', 'WhatsApp Number', 'Email', 'Quantity (Rs 50)', 'Total Amount', 'Payment Screenshot', 'Created At']
+        headers = ['Verified Status', 'Name', 'City', 'Attend City', 'WhatsApp Number', 'Email', 'Quantity (Rs 50)', 'Total Amount', 'Payment Screenshot', 'Created At']
         ws.append(headers)
 
-        column_widths = [20, 20, 20, 30, 15, 15, 15, 20, 20]
+        column_widths = [18, 20, 20, 20, 30, 15, 15, 15, 20, 20]
         for i, width in enumerate(column_widths, 1):
             ws.column_dimensions[get_column_letter(i)].width = width
 
         row_num = 2
         for obj in queryset:
+            verified_label = "VERIFIED ✔" if obj.is_verified else "PENDING ✘"
             row = [
+                verified_label,
                 obj.name,
                 obj.city,
                 obj.attend_city,
@@ -1077,7 +1090,7 @@ class AdvanceEntryPassBookingAdmin(admin.ModelAdmin):
                     img = OpenpyxlImage(img_byte_arr)
                     img.width = 80
                     img.height = 80
-                    img.anchor = f"{get_column_letter(8)}{row_num}"
+                    img.anchor = f"{get_column_letter(9)}{row_num}"
                     ws.add_image(img)
                     ws.row_dimensions[row_num].height = 60
                 except Exception as e:
@@ -1096,13 +1109,24 @@ class AdvanceEntryPassBookingAdmin(admin.ModelAdmin):
 @admin.register(AdvanceBuffetLunchBooking)
 class AdvanceBuffetLunchBookingAdmin(admin.ModelAdmin):
     list_display = [
-        'name', 'city', 'attend_city', 'whatsapp_number', 'email',
+        'name', 'is_verified', 'city', 'attend_city', 'whatsapp_number', 'email',
         'quantity', 'total_amount', 'payment_screenshot_preview', 'created_at'
     ]
-    list_filter = ['attend_city', 'created_at']
+    list_editable = ['is_verified']
+    list_filter = ['is_verified', 'attend_city', 'created_at']
     search_fields = ['name', 'city', 'whatsapp_number', 'email']
     readonly_fields = ['payment_screenshot', 'payment_screenshot_preview', 'created_at']
-    actions = ['export_selected_to_excel']
+    actions = ['mark_as_verified', 'mark_as_unverified', 'export_selected_to_excel']
+
+    @admin.action(description='Mark selected as Verified / Paid ✔')
+    def mark_as_verified(self, request, queryset):
+        rows_updated = queryset.update(is_verified=True)
+        self.message_user(request, f"{rows_updated} buffet lunch booking(s) marked as Verified ✔")
+
+    @admin.action(description='Mark selected as Pending / Unverified ✘')
+    def mark_as_unverified(self, request, queryset):
+        rows_updated = queryset.update(is_verified=False)
+        self.message_user(request, f"{rows_updated} buffet lunch booking(s) marked as Unverified ✘")
 
     def payment_screenshot_preview(self, obj):
         if obj.payment_screenshot:
@@ -1123,16 +1147,18 @@ class AdvanceBuffetLunchBookingAdmin(admin.ModelAdmin):
         ws = wb.active
         ws.title = "Buffet Lunch Bookings"
 
-        headers = ['Name', 'City', 'Attend City', 'WhatsApp Number', 'Email', 'Quantity (Rs 200)', 'Total Amount', 'Payment Screenshot', 'Created At']
+        headers = ['Verified Status', 'Name', 'City', 'Attend City', 'WhatsApp Number', 'Email', 'Quantity (Rs 200)', 'Total Amount', 'Payment Screenshot', 'Created At']
         ws.append(headers)
 
-        column_widths = [20, 20, 20, 30, 15, 15, 15, 20, 20]
+        column_widths = [18, 20, 20, 20, 30, 15, 15, 15, 20, 20]
         for i, width in enumerate(column_widths, 1):
             ws.column_dimensions[get_column_letter(i)].width = width
 
         row_num = 2
         for obj in queryset:
+            verified_label = "VERIFIED ✔" if obj.is_verified else "PENDING ✘"
             row = [
+                verified_label,
                 obj.name,
                 obj.city,
                 obj.attend_city,
@@ -1155,7 +1181,7 @@ class AdvanceBuffetLunchBookingAdmin(admin.ModelAdmin):
                     img = OpenpyxlImage(img_byte_arr)
                     img.width = 80
                     img.height = 80
-                    img.anchor = f"{get_column_letter(8)}{row_num}"
+                    img.anchor = f"{get_column_letter(9)}{row_num}"
                     ws.add_image(img)
                     ws.row_dimensions[row_num].height = 60
                 except Exception as e:
