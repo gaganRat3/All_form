@@ -2813,10 +2813,32 @@ class BhudevKalakaar2026RegistrationAdmin(admin.ModelAdmin):
         return "No photo uploaded"
     
     photo_link.short_description = "Photo Link"
-from .models import StageIntroduction39th
+from .models import StageIntroduction39th, FarsanStallBooking
 
 @admin.register(StageIntroduction39th)
 class StageIntroduction39thAdmin(admin.ModelAdmin):
     list_display = ['candidate_name', 'gender', 'dob', 'current_city', 'event_city', 'created_at']
     search_fields = ['candidate_name', 'current_city', 'event_city']
     list_filter = ['gender', 'event_city', 'created_at']
+
+
+@admin.register(FarsanStallBooking)
+class FarsanStallBookingAdmin(admin.ModelAdmin):
+    list_display = [
+        'id', 'applicant_name', 'business_name', 'business_type', 'city',
+        'whatsapp_number', 'email', 'event_city', 'is_free_stall', 'stall_fee',
+        'payment_screenshot_preview', 'created_at'
+    ]
+    list_filter = ['is_free_stall', 'business_type', 'event_city', 'created_at']
+    search_fields = ['applicant_name', 'business_name', 'city', 'whatsapp_number', 'email']
+    readonly_fields = ['created_at', 'payment_screenshot_preview']
+
+    def payment_screenshot_preview(self, obj):
+        if obj.payment_screenshot:
+            return format_html(
+                '<a href="{}" target="_blank"><img src="{}" style="max-height: 80px; max-width: 80px; border-radius: 6px;" /></a>',
+                obj.payment_screenshot.url, obj.payment_screenshot.url
+            )
+        return "Free / No Screenshot"
+    payment_screenshot_preview.short_description = "Payment Screenshot"
+

@@ -1371,3 +1371,44 @@ class StageIntroduction39th(models.Model):
 
     def __str__(self):
         return f"{self.candidate_name} ({self.event_city})"
+
+
+# 39th Sammelan - Free Business / Farsan Stall Registration (For Bhudev Sisters / Business Women)
+class FarsanStallBooking(models.Model):
+    EVENT_CITY_CHOICES = [
+        ('Vadodara', 'Vadodara (20-09-2026)'),
+        ('Surat', 'Surat (27-09-2026)'),
+        ('Both', 'Both Vadodara & Surat'),
+    ]
+
+    BUSINESS_TYPE_CHOICES = [
+        ('Farsan & Sweets', 'ફરસાણ અને મીઠાઈ (Farsan & Sweets)'),
+        ('Food Stall & Snacks', 'ફૂડ સ્ટોલ / નાસ્તો (Food Stall & Snacks)'),
+        ('Clothing & Dress Material', 'કપડાં / ડ્રેસ મટિરિયલ (Clothing & Dress)'),
+        ('Jewellery & Imitation', 'જ્વેલરી / ઈમિટેશન (Jewellery)'),
+        ('Handicraft & Home Decor', 'હેન્ડીક્રાફ્ટ / હોમ ડેકોર (Handicraft)'),
+        ('Cosmetics & Beauty', 'કોસ્મેટિક્સ / બ્યૂટી (Cosmetics)'),
+        ('Other Business / Service', 'અન્ય બિઝનેસ / સર્વિસ (Other Business)'),
+    ]
+
+    applicant_name = models.CharField(max_length=255, verbose_name="બહેનનું પૂરું નામ (Full Name)")
+    business_name = models.CharField(max_length=255, verbose_name="બિઝનેસ / સ્ટોલનું નામ (Business / Stall Name)")
+    business_type = models.CharField(max_length=100, choices=BUSINESS_TYPE_CHOICES, verbose_name="સ્ટોલનો પ્રકાર (Stall Type)")
+    city = models.CharField(max_length=100, verbose_name="હાલનું શહેર (Current City)")
+    whatsapp_number = models.CharField(max_length=20, verbose_name="વોટ્સએપ નંબર (WhatsApp No.)")
+    email = models.EmailField(verbose_name="ઈમેલ (Email ID)")
+    event_city = models.CharField(max_length=50, choices=EVENT_CITY_CHOICES, verbose_name="ઇવેન્ટ સીટી (Event City)")
+    is_free_stall = models.BooleanField(default=False, verbose_name="100% Free Stall Quota")
+    stall_fee = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name="Stall Fee (₹)")
+    payment_screenshot = models.ImageField(upload_to='payment_screenshots/farsan_stall/', blank=True, null=True, verbose_name="Payment Screenshot")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="રજીસ્ટ્રેશન તારીખ")
+
+    class Meta:
+        verbose_name = "Business / Farsan Stall Registration"
+        verbose_name_plural = "Business / Farsan Stall Registrations"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        status = "FREE" if self.is_free_stall else f"₹{self.stall_fee}"
+        return f"{self.applicant_name} - {self.business_name} ({status})"
+

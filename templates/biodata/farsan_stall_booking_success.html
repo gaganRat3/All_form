@@ -1,0 +1,305 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stall Booking Submitted Successfully | Bhudev Network</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            padding: 25px 15px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 35px 25px;
+            text-align: center;
+            border: 1px solid #eaeaea;
+        }
+
+        .check-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 24px rgba(40, 167, 69, 0.35);
+        }
+
+        h2 {
+            color: #218838;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .sub-heading {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* SUMMARY BOX */
+        .summary-box {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .summary-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #8b0000;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 14px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .summary-val {
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .badge-free {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .badge-paid {
+            background: #fff3cd;
+            color: #856404;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* NOTICE BOX */
+        .notice-box {
+            background: #f0f9ff;
+            border: 1px solid #bee3f8;
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+            text-align: left;
+            font-size: 13.5px;
+            color: #2c5f8a;
+            line-height: 1.7;
+        }
+
+        /* CONTACT BOX */
+        .contact-box {
+            background: #f6f8fa;
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+            text-align: left;
+            font-size: 13.5px;
+        }
+
+        .contact-numbers {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .contact-numbers a {
+            color: #8b0000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        /* QUICK LINKS */
+        .quick-links-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #444;
+            text-align: left;
+            margin: 18px 0 8px;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quick-link-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            text-align: left;
+            transition: transform 0.15s;
+        }
+
+        .quick-link-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .link-red    { background: linear-gradient(135deg, #8b0000, #c0392b); }
+        .link-orange { background: linear-gradient(135deg, #c0620a, #e67e22); }
+        .link-green  { background: linear-gradient(135deg, #1a6e35, #27ae60); }
+
+        .link-icon { font-size: 22px; flex-shrink: 0; }
+        .link-text { flex: 1; font-size: 14px; line-height: 1.4; }
+        .link-text small { font-size: 12px; font-weight: 400; opacity: 0.85; }
+        .link-arrow { font-size: 22px; font-weight: 300; opacity: 0.8; }
+
+        .btn-home {
+            display: inline-block;
+            background: linear-gradient(135deg, #374151, #1f2937);
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <img src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Bhudev Network Logo" style="width: 75px; height: 75px; border-radius: 14px; margin: 0 auto 15px; display: block; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1); object-fit: contain; background: #fff; padding: 4px;">
+        <div class="check-circle">✓</div>
+        <h2>🎉 સ્ટોલ બુકિંગ સફળ રીતે સબમિટ થયું!</h2>
+        <p class="sub-heading">Stall Registration Submitted Successfully!</p>
+
+        <!-- BOOKING SUMMARY -->
+        <div class="summary-box">
+            <div class="summary-title">🛍️ સ્ટોલ બુકિંગ વિગતો (Booking Details)</div>
+            <div class="summary-row">
+                <span class="summary-label">બહેનનું નામ:</span>
+                <span class="summary-val">{{ booking.applicant_name }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">બિઝનેસ / સ્ટોલ:</span>
+                <span class="summary-val">{{ booking.business_name }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">સ્ટોલ પ્રકાર:</span>
+                <span class="summary-val">{{ booking.get_business_type_display }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">શહેર / City:</span>
+                <span class="summary-val">{{ booking.city }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">ઇવેન્ટ શહેર:</span>
+                <span class="summary-val">{{ booking.event_city }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">સ્ટોલ ફી સ્ટેટસ:</span>
+                <span class="summary-val">
+                    {% if booking.is_free_stall %}
+                        <span class="badge-free">🎉 100% FREE STALL</span>
+                    {% else %}
+                        <span class="badge-paid">₹{{ booking.stall_fee }} PAID</span>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+
+        <!-- VERIFICATION NOTICE -->
+        <div class="notice-box">
+            <strong>⭐ તમને 2-3 દીવસ માં ભૂદેવ નેટવર્ક ઓફિસ થી સ્ટોલ વેરિફિકેશન ફૉન કૉલ આવશે.</strong><br>
+            You will get a Verification Phone Call in 2-3 days from Bhudev Network Office.
+        </div>
+
+        <!-- CONTACT NUMBERS -->
+        <div class="contact-box">
+            <p><strong>⭐ વધુ માહિતી માટે સંપર્ક (Time: 10 am to 6 pm Only)</strong></p>
+            <div class="contact-numbers">
+                <a href="tel:9662362626">✔️ 9662362626</a>
+                <a href="tel:9428642903">✔️ 9428642903</a>
+                <a href="tel:9099798986">✔️ Admin: 9099798986</a>
+            </div>
+        </div>
+
+        <!-- QUICK LINKS -->
+        <div class="quick-links-title">🔗 સંમેલન ના અન્ય ફૉર્મ</div>
+        <div class="quick-links">
+            <a href="{% url 'sammelan_payment_form' %}" class="quick-link-btn link-red">
+                <span class="link-icon">💳</span>
+                <span class="link-text">39th Sammelan Payment Form<br><small>Registration + Booklet Payment</small></span>
+                <span class="link-arrow">›</span>
+            </a>
+            <a href="{% url 'advance_entry_pass_booking' %}" class="quick-link-btn link-orange">
+                <span class="link-icon">☕</span>
+                <span class="link-text">Entry + Tea/Coffee Pass<br><small>Advance Booking (₹150)</small></span>
+                <span class="link-arrow">›</span>
+            </a>
+            <a href="{% url 'advance_buffet_lunch_booking' %}" class="quick-link-btn link-green">
+                <span class="link-icon">🍽️</span>
+                <span class="link-text">Unlimited Buffet Lunch<br><small>Advance Booking (₹1200)</small></span>
+                <span class="link-arrow">›</span>
+            </a>
+        </div>
+
+        <a href="{% url 'home_page' %}" class="btn-home">Back to Home</a>
+    </div>
+</div>
+
+</body>
+</html>
+

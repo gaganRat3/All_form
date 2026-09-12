@@ -1,0 +1,476 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business & Farsan Stall Registration | 39th Bhudev Sammelan</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            padding: 25px 15px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .form-card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 35px 30px;
+            border: 1px solid #eaeaea;
+        }
+
+        /* HEADER STYLES */
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #eee;
+        }
+
+        .header .logo-badge {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #8b0000, #c0392b);
+            color: white;
+            font-size: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            box-shadow: 0 6px 18px rgba(139, 0, 0, 0.25);
+        }
+
+        .header h1 {
+            color: #8b0000;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .header h2 {
+            color: #d9534f;
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* OFFER BANNER */
+        .offer-banner {
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .offer-banner.free-active {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+
+        .offer-banner.paid-active {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
+            border: 2px solid #ffc107;
+            color: #856404;
+        }
+
+        .offer-banner h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .offer-banner p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* ALERT MESSAGES */
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 22px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* FORM FIELD STYLES */
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 15px;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .form-group label span.required {
+            color: #dc3545;
+        }
+
+        .form-control, select.form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.25s ease;
+            background: #f8fafc;
+            color: #333;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #8b0000;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.1);
+        }
+
+        /* RADIO & CHECKBOX OPTIONS */
+        .radio-options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .radio-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .radio-card:hover {
+            border-color: #8b0000;
+            background: #fff5f5;
+        }
+
+        .radio-card input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #8b0000;
+            cursor: pointer;
+        }
+
+        .radio-card span {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* PAYMENT BOX */
+        .payment-box {
+            background: #faf8f2;
+            border: 2px solid #e6dcc6;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 22px;
+            text-align: center;
+        }
+
+        .payment-box h4 {
+            color: #8b0000;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .payment-qr img {
+            width: 170px;
+            height: 170px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 6px;
+            background: #fff;
+            margin-bottom: 12px;
+        }
+
+        .payment-details {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .payment-details strong {
+            color: #8b0000;
+            font-size: 16px;
+        }
+
+        /* SUBMIT BUTTON */
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #8b0000, #c0392b);
+            color: #ffffff;
+            border: none;
+            padding: 16px 20px;
+            font-size: 17px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 18px rgba(139, 0, 0, 0.25);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(139, 0, 0, 0.35);
+            background: linear-gradient(135deg, #7a0000, #ab2b1d);
+        }
+
+        .btn-submit:disabled {
+            background: #999;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* IMAGE CARDS AT BOTTOM */
+        .image-container-card {
+            width: 100%;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .image-container-card:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .image-container-content {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .placeholder-poster img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 640px) {
+            .form-card {
+                padding: 25px 18px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+            .radio-options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-card">
+
+        <!-- HEADER -->
+        <div class="header">
+            <img src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Bhudev Network Logo" style="width: 85px; height: 85px; border-radius: 16px; margin: 0 auto 14px; display: block; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12); object-fit: contain; background: #fff; padding: 4px;">
+            <h1>Free Business or Farsan Stall Registration</h1>
+            <h2>(માત્ર ભૂદેવ બહેનો માટે - Business Woman / Entrepreneur)</h2>
+            <p>39મુ ભૂદેવ જીવનસાથી પરિચય સંમેલન — વડોદરા & સુરત</p>
+        </div>
+
+        <!-- OFFER BANNER -->
+        {% if is_free %}
+            <div class="offer-banner free-active">
+                <h3>🎉 100% FREE Stall Offer Active!</h3>
+                <p><strong>પ્રથમ 5 બહેનો માટે 100% ફ્રી સ્ટોલ મળશે.</strong></p>
+                <p>બાકી રહેલા ફ્રી સ્ટોલ: <strong>{{ remaining_free }} / 5</strong></p>
+            </div>
+        {% else %}
+            <div class="offer-banner paid-active">
+                <h3>ℹ️ ફ્રી સ્ટોલ ઓファー પૂર્ણ થયેલ છે</h3>
+                <p>પ્રથમ 5 ફ્રી સ્ટોલ બુક થઈ ગયા છે. <strong>હાલ સ્ટોલ ફી: ₹500 per Stall.</strong></p>
+            </div>
+        {% endif %}
+
+        <!-- ERROR ALERTS -->
+        {% if error_message %}
+            <div class="alert-danger">
+                <strong>⚠️ {{ error_message }}</strong>
+            </div>
+        {% endif %}
+
+        {% if form.errors %}
+            <div class="alert-danger">
+                <strong>⚠️ કૃપા કરીને નીચેની વિગતો ચકાસો:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li><strong>{{ field|title }}:</strong> {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <!-- FORM -->
+        <form id="stallForm" method="POST" action="{% url 'farsan_stall_booking' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- 1. Applicant Name -->
+            <div class="form-group">
+                <label for="id_applicant_name">1. બહેનનું પૂરું નામ (Full Name) <span class="required">*</span></label>
+                {{ form.applicant_name }}
+            </div>
+
+            <!-- 2. Business Name -->
+            <div class="form-group">
+                <label for="id_business_name">2. બિઝનેસ / સ્ટોલનું નામ (Business / Stall Name) <span class="required">*</span></label>
+                {{ form.business_name }}
+            </div>
+
+            <!-- 3. Business Type -->
+            <div class="form-group">
+                <label for="id_business_type">3. સ્ટોલનો પ્રકાર / પ્રોડક્ટ (Stall Type Category) <span class="required">*</span></label>
+                {{ form.business_type }}
+            </div>
+
+            <!-- 4. City -->
+            <div class="form-group">
+                <label for="id_city">4. હાલનું શહેર (Current City) <span class="required">*</span></label>
+                {{ form.city }}
+            </div>
+
+            <!-- 5. WhatsApp Number -->
+            <div class="form-group">
+                <label for="id_whatsapp_number">5. વોટ્સએપ નંબર (WhatsApp No.) <span class="required">*</span></label>
+                {{ form.whatsapp_number }}
+            </div>
+
+            <!-- 6. Email -->
+            <div class="form-group">
+                <label for="id_email">6. ઈમેલ એડ્રેસ (Email ID) <span class="required">*</span></label>
+                {{ form.email }}
+            </div>
+
+            <!-- 7. Event City -->
+            <div class="form-group">
+                <label>7. કયા શહેરમાં સ્ટોલ રાખવા ઈચ્છો છો? (Event City Selection) <span class="required">*</span></label>
+                <div class="radio-options-grid">
+                    <label class="radio-card">
+                        <input type="radio" name="event_city" value="Vadodara" required {% if form.event_city.value == 'Vadodara' %}checked{% endif %}>
+                        <span>🏛️ Vadodara (20-09-2026)</span>
+                    </label>
+                    <label class="radio-card">
+                        <input type="radio" name="event_city" value="Surat" {% if form.event_city.value == 'Surat' %}checked{% endif %}>
+                        <span>🏛️ Surat (27-09-2026)</span>
+                    </label>
+                    <label class="radio-card">
+                        <input type="radio" name="event_city" value="Both" {% if form.event_city.value == 'Both' %}checked{% endif %}>
+                        <span>✨ Both Vadodara & Surat</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 8. Payment Section (Only if NOT Free) -->
+            {% if not is_free %}
+                <div class="payment-box">
+                    <h4>💳 સ્ટોલ પેમેન્ટ સબમિશન (Stall Fee: ₹500)</h4>
+                    <div class="payment-qr">
+                        <img src="{% static 'images/payment_qr.jpeg' %}" alt="GPay QR Code">
+                    </div>
+                    <div class="payment-details">
+                        Scan QR Code or Pay via Mobile Number:<br>
+                        <strong>7990208986 (Bhudev Network)</strong>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_payment_screenshot">8. પેમેન્ટ સ્ક્રિનશોટ અપલોડ કરો (Upload Payment Screenshot) <span class="required">*</span></label>
+                    <input type="file" name="payment_screenshot" id="id_payment_screenshot" class="form-control" accept="image/*" required>
+                </div>
+            {% endif %}
+
+            <!-- SUBMIT BUTTON -->
+            <button type="submit" class="btn-submit" id="submitBtn">
+                {% if is_free %}
+                    🎉 Submit Free Stall Booking
+                {% else %}
+                    💳 Submit Stall Booking (₹500)
+                {% endif %}
+            </button>
+        </form>
+
+        <!-- POSTERS -->
+        <div class="image-container-card">
+            <div class="image-container-content">
+                <div class="placeholder-poster">
+                    <img src="{% static 'images/postS.jpeg' %}" alt="Event Poster 1">
+                </div>
+            </div>
+        </div>
+
+        <div class="image-container-card">
+            <div class="image-container-content">
+                <div class="placeholder-poster">
+                    <img src="{% static 'images/team.jpg' %}" alt="Event Poster 2">
+                </div>
+            </div>
+        </div>
+
+        <div class="image-container-card">
+            <div class="image-container-content">
+                <div class="placeholder-poster">
+                    <img src="{% static 'images/new_ss.jpeg' %}" alt="Event Poster 3">
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTERS -->
+        {% include 'partials/footer.html' %}
+        {% include 'biodata/employa_footer.html' %}
+    </div>
+</div>
+
+</body>
+</html>
+

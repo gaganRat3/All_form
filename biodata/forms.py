@@ -495,9 +495,34 @@ class GetTogetherRegistrationForm(forms.ModelForm):
             'members': 'How many Members can attend this Program',
         }
 
-from .models import StageIntroduction39th
+from .models import StageIntroduction39th, FarsanStallBooking
 
 class StageIntroduction39thForm(forms.ModelForm):
     class Meta:
         model = StageIntroduction39th
         fields = ['candidate_name', 'gender', 'dob', 'current_city', 'event_city', 'confirmation']
+
+
+class FarsanStallBookingForm(forms.ModelForm):
+    class Meta:
+        model = FarsanStallBooking
+        fields = [
+            'applicant_name',
+            'business_name',
+            'business_type',
+            'city',
+            'whatsapp_number',
+            'email',
+            'event_city',
+            'payment_screenshot',
+        ]
+        widgets = {
+            'applicant_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'બહેનનું પૂરું નામ લખો'}),
+            'business_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'બિઝનેસ અથવા સ્ટોલનું નામ લખો'}),
+            'business_type': forms.Select(attrs={'class': 'form-control'}),
+            'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'હાલનું શહેર લખો'}),
+            'whatsapp_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'વોટ્સએપ નંબર લખો'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'ઈમેલ એડ્રેસ લખો'}),
+            'event_city': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+        }
+

@@ -2291,3 +2291,59 @@ def stage_introduction_view(request):
 
 def stage_introduction_success(request):
     return render(request, 'biodata/confirmation.html')
+
+
+from .models import FarsanStallBooking
+from .forms import FarsanStallBookingForm
+
+def farsan_stall_booking_view(request):
+    """Handle Business / Farsan Stall Booking (First 5 Sisters Free, then ₹500)."""
+    registered_count = FarsanStallBooking.objects.count()
+    is_free = registered_count < 5
+    remaining_free = max(0, 5 - registered_count)
+
+    error_message = None
+
+    if request.method == 'POST':
+        form = FarsanStallBookingForm(request.POST, request.FILES)
+        
+        # Check duplicate applicant name
+        name = request.POST.get('applicant_name', '').strip()
+        if name and FarsanStallBooking.objects.filter(applicant_name__iexact=name).exists():
+            error_message = f"બહેનનું નામ '{name}' ધરાવતું સ્ટોલ રજીસ્ટ્રેશન પહેલેથી જ થયેલું છે. એક નામ પર ફરીથી સ્ટોલ બુક કરી શકાશે નહીં."
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'status': 'error', 'message': error_message}, status=400)
+        elif form.is_valid():
+            instance = form.save(commit=False)
+            if is_free:
+                instance.is_free_stall = True
+                instance.stall_fee = 0
+            else:
+                instance.is_free_stall = False
+                instance.stall_fee = 500
+            instance.save()
+            
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'status': 'success',
+                    'redirect_url': f'/farsan-stall-booking/success/{instance.id}/'
+                })
+            return redirect('farsan_stall_booking_success', booking_id=instance.id)
+        else:
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+    else:
+        form = FarsanStallBookingForm()
+
+    return render(request, 'biodata/farsan_stall_booking.html', {
+        'form': form,
+        'registered_count': registered_count,
+        'is_free': is_free,
+        'remaining_free': remaining_free,
+        'error_message': error_message,
+    })
+
+def farsan_stall_booking_success(request, booking_id):
+    booking = get_object_or_404(FarsanStallBooking, id=booking_id)
+    return render(request, 'biodata/farsan_stall_booking_success.html', {'booking': booking})
+
