@@ -1567,10 +1567,14 @@ def advance_pass_booking(request):
             total_amount = cleaned_data.get('total_amount', 0)
 
             existing_booking = AdvancePassBooking.objects.filter(
+                email=cleaned_data['email'],
+                entry_token_quantity=entry_token_qty,
+                unlimited_buffet_quantity=unlimited_buffet_qty,
                 name__iexact=cleaned_data['name'].strip(),
             ).first()
 
             if existing_booking:
+                error_message = "A booking with the same details already exists. Duplicate submission is not allowed."
                 error_message = f"A booking with the name '{cleaned_data['name']}' already exists. Duplicate name submission is not allowed."
                 return render(request, 'biodata/advance_pass_booking.html', {'form': form, 'error_message': error_message})
 
@@ -1624,10 +1628,13 @@ def advance_entry_pass_booking(request):
             total_amount = cleaned_data.get('total_amount', qty * 50)
 
             existing_booking = AdvanceEntryPassBooking.objects.filter(
+                email=cleaned_data['email'],
+                quantity=qty,
                 name__iexact=cleaned_data['name'].strip(),
             ).first()
 
             if existing_booking:
+                error_message = "A booking with the same details already exists. Duplicate submission is not allowed."
                 error_message = f"A booking with the name '{cleaned_data['name']}' already exists. Duplicate name submission is not allowed."
                 return render(request, 'biodata/advance_entry_pass_booking.html', {'form': form, 'error_message': error_message})
 
@@ -1681,10 +1688,13 @@ def advance_buffet_lunch_booking(request):
             total_amount = cleaned_data.get('total_amount', qty * 200)
 
             existing_booking = AdvanceBuffetLunchBooking.objects.filter(
+                email=cleaned_data['email'],
+                quantity=qty,
                 name__iexact=cleaned_data['name'].strip(),
             ).first()
 
             if existing_booking:
+                error_message = "A booking with the same details already exists. Duplicate submission is not allowed."
                 error_message = f"A booking with the name '{cleaned_data['name']}' already exists. Duplicate name submission is not allowed."
                 return render(request, 'biodata/advance_buffet_lunch_booking.html', {'form': form, 'error_message': error_message})
 
