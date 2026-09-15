@@ -252,18 +252,16 @@
         font-size: 15px;
       }
 
+      .input-box input[type="text"] {
+        text-transform: capitalize;
+      }
+
+
       .input-box input::placeholder {
         color: rgba(255, 255, 255, 0.6);
       }
 
-      /* Chrome date icon */
-
-      input[type="date"]::-webkit-calendar-picker-indicator {
-        filter: invert(1);
-
-        cursor: pointer;
-      }
-
+      /* Removed Chrome date icon as field is now text */
       /* =========================================
    UPLOAD AREA
 ========================================= */
@@ -811,7 +809,7 @@
             <div class="input-box">
               <span class="input-icon">📅</span>
 
-              <input type="date" id="dob" name="dob" required />
+              <input type="text" id="dob" name="dob" placeholder="Enter Date of Birth or Age" required />
             </div>
           </div>
 

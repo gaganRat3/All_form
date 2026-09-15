@@ -539,8 +539,8 @@ class CandidateGroupPostingForm(forms.ModelForm):
                 'placeholder': 'Enter candidate name',
                 'required': True,
             }),
-            'dob': forms.DateInput(attrs={
-                'type': 'date',
+            'dob': forms.TextInput(attrs={
+                'placeholder': 'Enter Date of Birth or Age',
                 'required': True,
             }),
             'city': forms.TextInput(attrs={

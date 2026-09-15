@@ -3088,7 +3088,7 @@ class CandidateGroupPostingAdmin(admin.ModelAdmin):
             row = [
                 sr_no,
                 obj.candidate_name,
-                obj.dob.strftime('%d-%m-%Y') if obj.dob else '',
+                obj.dob if obj.dob else '',
                 obj.city,
                 obj.education,
                 '',

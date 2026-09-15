@@ -1418,7 +1418,7 @@ class FarsanStallBooking(models.Model):
 # 39th Bhudev Sammelan - Candidate Posting in WhatsApp Group
 class CandidateGroupPosting(models.Model):
     candidate_name = models.CharField(max_length=255, verbose_name="Candidate Name")
-    dob = models.DateField(verbose_name="Date of Birth")
+    dob = models.CharField(max_length=100, verbose_name="Date of Birth / Age")
     city = models.CharField(max_length=150, verbose_name="Current City")
     education = models.CharField(max_length=255, verbose_name="Education")
     photo = models.ImageField(upload_to='candidate_group_photos/', verbose_name="Candidate Photo")
