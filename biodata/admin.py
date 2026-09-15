@@ -3017,3 +3017,105 @@ class FarsanStallBookingAdmin(admin.ModelAdmin):
         wb.save(response)
         return response
 
+
+from .models import CandidateGroupPosting
+
+@admin.register(CandidateGroupPosting)
+class CandidateGroupPostingAdmin(admin.ModelAdmin):
+    list_display = [
+        'serial_number', 'candidate_name', 'dob', 'city', 'education',
+        'photo_preview', 'submitted_at',
+    ]
+    list_filter = ['city', 'submitted_at']
+    search_fields = ['candidate_name', 'city', 'education']
+    readonly_fields = ['submitted_at', 'photo_preview']
+    actions = ['export_selected_to_excel']
+
+    def get_changelist_instance(self, request):
+        self.admin_view_request = request
+        return super().get_changelist_instance(request)
+
+    def serial_number(self, obj):
+        request = getattr(self, 'admin_view_request', None)
+        if request is None:
+            return '-'
+        queryset = self.get_queryset(request)
+        pk_list = list(queryset.values_list('pk', flat=True))
+        try:
+            return pk_list.index(obj.pk) + 1
+        except ValueError:
+            return '-'
+    serial_number.short_description = 'Sr. No.'
+
+    def photo_preview(self, obj):
+        if obj.photo:
+            return format_html(
+                '<a href="{}" target="_blank"><img src="{}" style="max-height: 80px; max-width: 80px; border-radius: 6px;" /></a>',
+                obj.photo.url, obj.photo.url
+            )
+        return "No Photo"
+    photo_preview.short_description = "Photo"
+
+    @admin.action(description='Export selected candidate postings to Excel')
+    def export_selected_to_excel(self, request, queryset):
+        import openpyxl
+        from openpyxl.utils import get_column_letter
+        from openpyxl.drawing.image import Image as OpenpyxlImage
+        from io import BytesIO
+        from django.http import HttpResponse
+        from PIL import Image as PILImage
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Candidate Group Postings"
+
+        headers = ['Sr. No.', 'Candidate Name', 'Date of Birth', 'City', 'Education', 'Photo', 'Submitted At']
+        ws.append(headers)
+
+        column_widths = [10, 25, 15, 20, 30, 20, 22]
+        for i, width in enumerate(column_widths, 1):
+            ws.column_dimensions[get_column_letter(i)].width = width
+
+        all_qs = self.get_queryset(request)
+        pk_list = list(all_qs.values_list('pk', flat=True))
+
+        row_num = 2
+        for obj in queryset:
+            try:
+                sr_no = pk_list.index(obj.pk) + 1
+            except ValueError:
+                sr_no = '-'
+            row = [
+                sr_no,
+                obj.candidate_name,
+                obj.dob.strftime('%d-%m-%Y') if obj.dob else '',
+                obj.city,
+                obj.education,
+                '',
+                obj.submitted_at.strftime('%Y-%m-%d %H:%M:%S') if obj.submitted_at else '',
+            ]
+            ws.append(row)
+
+            if obj.photo:
+                try:
+                    img_path = obj.photo.path
+                    pil_img = PILImage.open(img_path)
+                    img_byte_arr = BytesIO()
+                    pil_img.save(img_byte_arr, format='PNG')
+                    img_byte_arr.seek(0)
+                    img = OpenpyxlImage(img_byte_arr)
+                    img.width = 80
+                    img.height = 80
+                    img.anchor = f"{get_column_letter(6)}{row_num}"
+                    ws.add_image(img)
+                    ws.row_dimensions[row_num].height = 60
+                except Exception:
+                    pass
+            row_num += 1
+
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        )
+        response['Content-Disposition'] = 'attachment; filename=candidate_group_postings.xlsx'
+        wb.save(response)
+        return response

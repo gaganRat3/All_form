@@ -1,0 +1,1078 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>39th Bhudev Parichay Sammelan - Candidate Form</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      /* =========================================
+   RESET
+========================================= */
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        font-family: "Segoe UI", Arial, sans-serif;
+
+        background:
+          radial-gradient(
+            circle at 10% 20%,
+            rgba(255, 185, 100, 0.35),
+            transparent 35%
+          ),
+          radial-gradient(
+            circle at 90% 80%,
+            rgba(255, 120, 80, 0.25),
+            transparent 35%
+          ),
+          linear-gradient(135deg, #1e647b, #1e647b, #1e647b);
+
+        color: #fff;
+
+        overflow-x: hidden;
+      }
+
+      /* =========================================
+   BACKGROUND SHAPES
+========================================= */
+
+      .background-shape {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(5px);
+        z-index: -1;
+      }
+
+      .shape-one {
+        width: 250px;
+        height: 250px;
+
+        top: -70px;
+        left: -70px;
+
+        background: rgba(255, 214, 153, 0.35);
+      }
+
+      .shape-two {
+        width: 300px;
+        height: 300px;
+
+        right: -100px;
+        bottom: -100px;
+
+        background: rgba(255, 207, 137, 0.25);
+      }
+
+      /* =========================================
+   WRAPPER
+========================================= */
+
+      .form-wrapper {
+        width: 100%;
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 40px 20px;
+      }
+
+      /* =========================================
+   GLASS CARD
+========================================= */
+
+      .glass-card {
+        width: 100%;
+        max-width: 600px;
+
+        padding: 35px;
+
+        background: rgba(255, 255, 255, 0.14);
+
+        border: 1px solid rgba(255, 255, 255, 0.3);
+
+        border-radius: 28px;
+
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+
+        box-shadow:
+          0 25px 70px rgba(50, 10, 0, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      }
+
+      /* =========================================
+   HEADER
+========================================= */
+
+      .form-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .logo-circle {
+        width: 65px;
+        height: 65px;
+
+        margin: 0 auto 15px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 30px;
+
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.2);
+
+        border: 1px solid rgba(255, 255, 255, 0.35);
+
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .form-header h1 {
+        font-size: 27px;
+
+        line-height: 1.3;
+
+        font-weight: 700;
+
+        color: #fff;
+
+        margin-bottom: 8px;
+      }
+
+      .gujarati-title {
+        font-size: 18px;
+
+        font-weight: 600;
+
+        color: #ffe7c2;
+
+        margin-bottom: 15px;
+      }
+
+      .instruction {
+        font-size: 14px;
+
+        line-height: 1.7;
+
+        color: rgba(255, 255, 255, 0.86);
+      }
+
+      /* =========================================
+   FORM GROUP
+========================================= */
+
+      .form-group {
+        margin-bottom: 21px;
+      }
+
+      .form-group label {
+        display: block;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        margin-bottom: 8px;
+
+        color: #fff;
+      }
+
+      .form-group label span {
+        color: #ffd08a;
+      }
+
+      /* =========================================
+   INPUT
+========================================= */
+
+      .input-box {
+        display: flex;
+        align-items: center;
+
+        width: 100%;
+
+        height: 54px;
+
+        padding: 0 15px;
+
+        border-radius: 14px;
+
+        background: rgba(255, 255, 255, 0.12);
+
+        border: 1px solid rgba(255, 255, 255, 0.25);
+
+        transition: 0.3s ease;
+      }
+
+      .input-box:focus-within {
+        border-color: rgba(255, 220, 170, 0.9);
+
+        background: rgba(255, 255, 255, 0.18);
+
+        box-shadow: 0 0 0 3px rgba(255, 210, 150, 0.12);
+      }
+
+      .input-icon {
+        font-size: 18px;
+
+        margin-right: 12px;
+
+        opacity: 0.9;
+      }
+
+      .input-box input {
+        width: 100%;
+
+        border: none;
+        outline: none;
+
+        background: transparent;
+
+        color: #fff;
+
+        font-size: 15px;
+      }
+
+      .input-box input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* Chrome date icon */
+
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+
+        cursor: pointer;
+      }
+
+      /* =========================================
+   UPLOAD AREA
+========================================= */
+
+      .upload-area {
+        position: relative;
+
+        width: 100%;
+
+        min-height: 190px;
+
+        border-radius: 18px;
+
+        border: 2px dashed rgba(255, 255, 255, 0.38);
+
+        background: rgba(255, 255, 255, 0.08);
+
+        transition: 0.3s ease;
+
+        cursor: pointer;
+
+        overflow: hidden;
+      }
+
+      .upload-area:hover {
+        background: rgba(255, 255, 255, 0.14);
+
+        border-color: rgba(255, 220, 170, 0.8);
+      }
+
+      .upload-area input {
+        position: absolute;
+
+        width: 100%;
+        height: 100%;
+
+        opacity: 0;
+
+        cursor: pointer;
+
+        z-index: 2;
+      }
+
+      .upload-content {
+        position: relative;
+
+        z-index: 1;
+
+        min-height: 190px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        align-items: center;
+
+        text-align: center;
+
+        pointer-events: none;
+      }
+
+      .upload-icon {
+        font-size: 34px;
+
+        margin-bottom: 8px;
+      }
+
+      .upload-content h3 {
+        font-size: 16px;
+
+        margin-bottom: 5px;
+      }
+
+      .upload-content p {
+        font-size: 13px;
+
+        color: rgba(255, 255, 255, 0.75);
+
+        margin-bottom: 3px;
+      }
+
+      .upload-content small {
+        font-size: 11px;
+
+        color: rgba(255, 255, 255, 0.55);
+
+        margin-bottom: 12px;
+      }
+
+      .choose-btn {
+        pointer-events: none;
+
+        border: none;
+
+        padding: 9px 18px;
+
+        border-radius: 20px;
+
+        background: rgba(255, 255, 255, 0.2);
+
+        color: #fff;
+
+        font-size: 12px;
+
+        font-weight: 600;
+      }
+
+      /* =========================================
+   PHOTO PREVIEW
+========================================= */
+
+      .preview-container {
+        margin-top: 12px;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        padding: 12px;
+
+        border-radius: 15px;
+
+        background: rgba(255, 255, 255, 0.12);
+
+        border: 1px solid rgba(255, 255, 255, 0.22);
+      }
+
+      .preview-container img {
+        width: 65px;
+        height: 65px;
+
+        object-fit: cover;
+
+        border-radius: 10px;
+
+        border: 2px solid rgba(255, 255, 255, 0.5);
+      }
+
+      .preview-info {
+        flex: 1;
+
+        min-width: 0;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 5px;
+      }
+
+      .preview-info strong {
+        font-size: 13px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+      }
+
+      .preview-info span {
+        font-size: 11px;
+
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      .remove-btn {
+        border: none;
+
+        padding: 8px 11px;
+
+        border-radius: 8px;
+
+        background: rgba(255, 80, 80, 0.2);
+
+        color: #fff;
+
+        cursor: pointer;
+
+        font-size: 11px;
+      }
+
+      /* =========================================
+   SUBMIT BUTTON
+========================================= */
+
+      .submit-btn {
+        width: 100%;
+
+        height: 58px;
+
+        border: none;
+
+        border-radius: 15px;
+
+        margin-top: 8px;
+
+        background: linear-gradient(135deg, #ffd18a, #ffb15c);
+
+        color: #70210e;
+
+        font-size: 16px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        gap: 15px;
+
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+
+        transition: 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+      }
+
+      .submit-btn:active {
+        transform: translateY(0);
+      }
+
+      .arrow {
+        font-size: 22px;
+      }
+
+      /* =========================================
+   SUCCESS MESSAGE
+========================================= */
+
+      .success-message {
+        text-align: center;
+
+        padding: 25px 0 10px;
+      }
+
+      .success-icon {
+        width: 70px;
+        height: 70px;
+
+        margin: 0 auto 15px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background: rgba(80, 220, 130, 0.25);
+
+        border: 1px solid rgba(150, 255, 180, 0.5);
+
+        font-size: 35px;
+      }
+
+      .success-message h2 {
+        font-size: 21px;
+
+        margin-bottom: 8px;
+      }
+
+      .success-message p {
+        font-size: 14px;
+
+        color: rgba(255, 255, 255, 0.75);
+
+        margin-bottom: 20px;
+      }
+
+      .new-form-btn {
+        border: none;
+
+        padding: 12px 20px;
+
+        border-radius: 12px;
+
+        background: rgba(255, 255, 255, 0.18);
+
+        color: #fff;
+
+        cursor: pointer;
+
+        font-weight: 600;
+      }
+
+      /* =========================================
+   FOOTER
+========================================= */
+
+      .form-footer {
+        margin-top: 28px;
+
+        padding-top: 20px;
+
+        border-top: 1px solid rgba(255, 255, 255, 0.16);
+
+        text-align: center;
+      }
+
+      .form-footer p {
+        font-size: 12px;
+
+        color: rgba(255, 255, 255, 0.65);
+
+        margin-bottom: 4px;
+      }
+
+      .form-footer span {
+        font-size: 11px;
+
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      /* =========================================
+   MOBILE
+========================================= */
+
+      @media (max-width: 600px) {
+        .form-wrapper {
+          padding: 20px 12px;
+        }
+
+        .glass-card {
+          padding: 25px 18px;
+
+          border-radius: 22px;
+        }
+
+        .form-header h1 {
+          font-size: 22px;
+        }
+
+        .gujarati-title {
+          font-size: 16px;
+        }
+
+        .instruction {
+          font-size: 13px;
+        }
+
+        .form-group {
+          margin-bottom: 18px;
+        }
+
+        .input-box {
+          height: 52px;
+        }
+
+        .upload-area {
+          min-height: 175px;
+        }
+
+        .upload-content {
+          min-height: 175px;
+        }
+
+        .submit-btn {
+          height: 55px;
+        }
+
+        .preview-container {
+          align-items: flex-start;
+        }
+
+        .preview-container img {
+          width: 58px;
+          height: 58px;
+        }
+
+        .remove-btn {
+          font-size: 10px;
+
+          padding: 7px 8px;
+        }
+      }
+
+      /* =========================================
+   SMALL MOBILE
+========================================= */
+
+      @media (max-width: 380px) {
+        .glass-card {
+          padding: 22px 14px;
+        }
+
+        .form-header h1 {
+          font-size: 20px;
+        }
+
+        .logo-circle {
+          width: 58px;
+          height: 58px;
+        }
+
+        .preview-container {
+          gap: 8px;
+        }
+      }
+
+      /* =========================================
+   POSTER GALLERY
+========================================= */
+
+      .image-gallery {
+          max-width: 600px;
+          width: 100%;
+          margin: 0 auto 36px;
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 18px;
+          position: relative;
+          z-index: 2;
+          padding: 0 20px;
+      }
+
+      .gallery-item {
+          background: rgba(255, 255, 255, 0.14);
+          padding: 10px;
+          border-radius: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          overflow: hidden;
+          backdrop-filter: blur(10px);
+      }
+
+      .gallery-item img {
+          width: 100%;
+          height: auto;
+          border-radius: 12px;
+          display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="background-shape shape-one"></div>
+    <div class="background-shape shape-two"></div>
+
+    <main class="form-wrapper">
+      <div class="glass-card">
+        <!-- Header -->
+        <div class="form-header">
+          <div class="logo-circle">💍</div>
+
+          <h1>39th Bhudev Parichay Sammelan</h1>
+
+          <p class="gujarati-title">ભૂદેવ જીવનસાથી પસંદગી સંમેલન</p>
+
+          <p class="instruction">
+            તમારા ઉમેદવારનો Photo, DoB, City અને અન્ય માહિતી આપણા ગ્રુપમાં પોસ્ટ
+            કરવા માટે નીચેનું Form ભરો.
+          </p>
+        </div>
+
+        <!-- Form -->
+        <form id="candidateForm" method="POST" action="{% url 'candidate_group_posting' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <!-- Candidate Name -->
+          <div class="form-group">
+            <label for="candidate_name">
+              Candidate Name
+              <span>*</span>
+            </label>
+
+            <div class="input-box">
+              <span class="input-icon">👤</span>
+
+              <input
+                type="text"
+                id="candidate_name"
+                name="candidate_name"
+                placeholder="Enter candidate name"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Date of Birth -->
+          <div class="form-group">
+            <label for="dob">
+              Date Of Birth
+              <span>*</span>
+            </label>
+
+            <div class="input-box">
+              <span class="input-icon">📅</span>
+
+              <input type="date" id="dob" name="dob" required />
+            </div>
+          </div>
+
+          <!-- Current City -->
+          <div class="form-group">
+            <label for="city">
+              Current City
+              <span>*</span>
+            </label>
+
+            <div class="input-box">
+              <span class="input-icon">📍</span>
+
+              <input
+                type="text"
+                id="city"
+                name="city"
+                placeholder="Enter current city"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Education -->
+          <div class="form-group">
+            <label for="education">
+              Education
+              <span>*</span>
+            </label>
+
+            <div class="input-box">
+              <span class="input-icon">🎓</span>
+
+              <input
+                type="text"
+                id="education"
+                name="education"
+                placeholder="Enter education qualification"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Photo -->
+          <div class="form-group">
+            <label>
+              Candidate Photo
+              <span>*</span>
+            </label>
+
+            <div class="upload-area" id="uploadArea">
+              <input
+                type="file"
+                id="photo"
+                name="photo"
+                accept="image/jpeg,image/png,image/webp"
+                required
+              />
+
+              <div class="upload-content">
+                <div class="upload-icon">📷</div>
+
+                <h3>Upload Candidate Photo</h3>
+
+                <p>JPG, PNG or WEBP</p>
+
+                <small> Maximum size: 5 MB </small>
+
+                <button
+                  type="button"
+                  class="choose-btn"
+                  onclick="document.getElementById('photo').click()"
+                >
+                  Choose Photo
+                </button>
+              </div>
+            </div>
+
+            <!-- Preview -->
+            <div
+              id="previewContainer"
+              class="preview-container"
+              style="display: none"
+            >
+              <img id="photoPreview" src="" alt="Photo Preview" />
+
+              <div class="preview-info">
+                <strong id="fileName"></strong>
+                <span id="fileSize"></span>
+              </div>
+
+              <button type="button" class="remove-btn" id="removePhoto">
+                Remove
+              </button>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="submit-btn">
+            <span>Submit Form</span>
+            <span class="arrow">→</span>
+          </button>
+        </form>
+
+        <!-- Success -->
+        <div id="successMessage" class="success-message" style="display: none">
+          <div class="success-icon">✓</div>
+
+          <h2>Form Submitted Successfully!</h2>
+
+          <p>Thank you for submitting the candidate details.</p>
+
+          <button type="button" id="newFormBtn" class="new-form-btn">
+            Submit Another Candidate
+          </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="form-footer">
+          <p>© 2026 Bhudev Network</p>
+
+          <span> 39th Bhudev Parichay Sammelan </span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Poster Gallery -->
+    <div class="image-gallery">
+        <div class="gallery-item">
+            <img src="{% static 'images/postS.jpeg' %}" alt="Event Image 1" />
+        </div>
+        <div class="gallery-item">
+            <img src="{% static 'images/team.jpg' %}" alt="Event Image 2" />
+        </div>
+        <div class="gallery-item">
+            <img src="{% static 'images/new_ss.jpeg' %}" alt="Event Image 3" />
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer style="position: relative; z-index: 2; margin-top: 20px;">
+      {% include 'biodata/employa_footer.html' %}
+        {% include 'partials/footer.html' %}
+
+    </footer>
+
+    <script>
+      // Add your JavaScript code here
+
+      const form = document.getElementById("candidateForm");
+
+      const photoInput = document.getElementById("photo");
+
+      const uploadArea = document.getElementById("uploadArea");
+
+      const previewContainer = document.getElementById("previewContainer");
+
+      const photoPreview = document.getElementById("photoPreview");
+
+      const fileName = document.getElementById("fileName");
+
+      const fileSize = document.getElementById("fileSize");
+
+      const removePhoto = document.getElementById("removePhoto");
+
+      const successMessage = document.getElementById("successMessage");
+
+      const newFormBtn = document.getElementById("newFormBtn");
+
+      // ==========================================
+      // PHOTO UPLOAD
+      // ==========================================
+
+      photoInput.addEventListener("change", function () {
+        const file = this.files[0];
+
+        if (!file) {
+          return;
+        }
+
+        // Check file type
+
+        const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+
+        if (!allowedTypes.includes(file.type)) {
+          alert("Please upload JPG, PNG or WEBP image.");
+
+          this.value = "";
+
+          return;
+        }
+
+        // Check file size
+
+        const maxSize = 5 * 1024 * 1024;
+
+        if (file.size > maxSize) {
+          alert("Photo size must be less than 5 MB.");
+
+          this.value = "";
+
+          return;
+        }
+
+        // Preview image
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+          photoPreview.src = event.target.result;
+
+          previewContainer.style.display = "flex";
+
+          uploadArea.style.display = "none";
+
+          fileName.textContent = file.name;
+
+          fileSize.textContent = formatFileSize(file.size);
+        };
+
+        reader.readAsDataURL(file);
+      });
+
+      // ==========================================
+      // FORMAT FILE SIZE
+      // ==========================================
+
+      function formatFileSize(bytes) {
+        if (bytes < 1024) {
+          return bytes + " Bytes";
+        }
+
+        if (bytes < 1024 * 1024) {
+          return (bytes / 1024).toFixed(1) + " KB";
+        }
+
+        return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+      }
+
+      // ==========================================
+      // REMOVE PHOTO
+      // ==========================================
+
+      removePhoto.addEventListener("click", function () {
+        photoInput.value = "";
+
+        photoPreview.src = "";
+
+        previewContainer.style.display = "none";
+
+        uploadArea.style.display = "block";
+      });
+
+      // ==========================================
+      // FORM SUBMIT
+      // ==========================================
+
+      form.addEventListener("submit", function (event) {
+        const candidateName = document
+          .getElementById("candidate_name")
+          .value.trim();
+
+        const dob = document.getElementById("dob").value;
+
+        const city = document.getElementById("city").value.trim();
+
+        const education = document.getElementById("education").value.trim();
+
+        // Basic validation — stop submission if missing fields
+        if (
+          candidateName === "" ||
+          dob === "" ||
+          city === "" ||
+          education === "" ||
+          photoInput.files.length === 0
+        ) {
+          event.preventDefault();
+          alert("Please fill all required fields.");
+          return;
+        }
+
+        // Allow native form POST to Django backend
+      });
+
+      // ==========================================
+      // NEW FORM
+      // ==========================================
+
+      newFormBtn.addEventListener("click", function () {
+        form.reset();
+
+        photoInput.value = "";
+
+        photoPreview.src = "";
+
+        previewContainer.style.display = "none";
+
+        uploadArea.style.display = "block";
+
+        successMessage.style.display = "none";
+
+        form.style.display = "block";
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -526,3 +526,29 @@ class FarsanStallBookingForm(forms.ModelForm):
             'event_city': forms.RadioSelect(attrs={'class': 'form-check-input'}),
         }
 
+
+# Form for Candidate Group Posting (39th Bhudev Sammelan - WhatsApp Group Post)
+from .models import CandidateGroupPosting
+
+class CandidateGroupPostingForm(forms.ModelForm):
+    class Meta:
+        model = CandidateGroupPosting
+        fields = ['candidate_name', 'dob', 'city', 'education', 'photo']
+        widgets = {
+            'candidate_name': forms.TextInput(attrs={
+                'placeholder': 'Enter candidate name',
+                'required': True,
+            }),
+            'dob': forms.DateInput(attrs={
+                'type': 'date',
+                'required': True,
+            }),
+            'city': forms.TextInput(attrs={
+                'placeholder': 'Enter current city',
+                'required': True,
+            }),
+            'education': forms.TextInput(attrs={
+                'placeholder': 'Enter education qualification',
+                'required': True,
+            }),
+        }

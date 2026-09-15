@@ -1414,3 +1414,21 @@ class FarsanStallBooking(models.Model):
     def __str__(self):
         return f"{self.applicant_name} - {self.business_name} (₹{self.stall_fee})"
 
+
+# 39th Bhudev Sammelan - Candidate Posting in WhatsApp Group
+class CandidateGroupPosting(models.Model):
+    candidate_name = models.CharField(max_length=255, verbose_name="Candidate Name")
+    dob = models.DateField(verbose_name="Date of Birth")
+    city = models.CharField(max_length=150, verbose_name="Current City")
+    education = models.CharField(max_length=255, verbose_name="Education")
+    photo = models.ImageField(upload_to='candidate_group_photos/', verbose_name="Candidate Photo")
+    submitted_at = models.DateTimeField(auto_now_add=True, verbose_name="Submitted At")
+
+    class Meta:
+        verbose_name = "Candidate Group Posting"
+        verbose_name_plural = "Candidate Group Postings"
+        ordering = ['-submitted_at']
+
+    def __str__(self):
+        return f"{self.candidate_name} - {self.city} ({self.dob})"
+

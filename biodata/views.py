@@ -2336,3 +2336,25 @@ def farsan_stall_booking_success(request, booking_id):
     booking = get_object_or_404(FarsanStallBooking, id=booking_id)
     return render(request, 'biodata/farsan_stall_booking_success.html', {'booking': booking})
 
+
+# 39th Bhudev Sammelan - Candidate Group Posting View
+from .models import CandidateGroupPosting
+from .forms import CandidateGroupPostingForm
+
+def candidate_group_posting_view(request):
+    """Handle Candidate Posting in WhatsApp Group form submissions."""
+    if request.method == 'POST':
+        form = CandidateGroupPostingForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('candidate_group_posting_success')
+        # If invalid, fall through and render with errors
+    else:
+        form = CandidateGroupPostingForm()
+
+    return render(request, 'biodata/candidate_posting_in_group_form.html', {'form': form})
+
+
+def candidate_group_posting_success(request):
+    return render(request, 'biodata/candidate_group_posting_success.html')
+

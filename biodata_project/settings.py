@@ -32,12 +32,13 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'form.bhudevstore.com',
-    '5fa7-103-39-128-152.ngrok-free.app',
+    'edf7-103-240-207-135.ngrok-free.app',
 ]
 
 # Remove CSRF_TRUSTED_ORIGINS if not using ngrok or multiple domains
 CSRF_TRUSTED_ORIGINS = [
     'https://5fa7-103-39-128-152.ngrok-free.app',
+    'https://edf7-103-240-207-135.ngrok-free.app',
 ]
 
 # Application definition

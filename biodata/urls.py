@@ -134,6 +134,10 @@ urlpatterns = [
     path('34th-sammelan-payment/confirmation/<int:payment_id>/', views.sammelan_payment_confirmation),
     path('booklet-library/', views.booklet_library_view, name='booklet_library'),
     path('booklet-library/confirmation/<int:pk>/', views.booklet_library_confirmation, name='booklet_library_confirmation'),
+
+    # 39th Bhudev Sammelan - Candidate Group Posting
+    path('candidate-group-posting/', views.candidate_group_posting_view, name='candidate_group_posting'),
+    path('candidate-group-posting/success/', views.candidate_group_posting_success, name='candidate_group_posting_success'),
 ]
 
 if settings.DEBUG:

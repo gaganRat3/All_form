@@ -1,0 +1,82 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Submitted – 39th Bhudev Sammelan</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        min-height: 100vh;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, #1e647b, #1e647b);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        color: #fff;
+      }
+      .card {
+        width: 100%;
+        max-width: 540px;
+        background: rgba(255,255,255,0.14);
+        border: 1px solid rgba(255,255,255,0.3);
+        border-radius: 28px;
+        padding: 40px 35px;
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        box-shadow: 0 25px 70px rgba(50,10,0,0.35);
+        text-align: center;
+      }
+      .success-icon {
+        width: 80px; height: 80px;
+        margin: 0 auto 18px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 50%;
+        background: rgba(80,220,130,0.25);
+        border: 1px solid rgba(150,255,180,0.5);
+        font-size: 40px;
+      }
+      h2 { font-size: 22px; margin-bottom: 10px; }
+      p { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 6px; line-height: 1.7; }
+      .gujarati { font-size: 16px; color: #ffe7c2; margin-bottom: 24px; }
+      .btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 12px 24px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #ffd18a, #ffb15c);
+        color: #70210e;
+        font-weight: 700;
+        font-size: 14px;
+        text-decoration: none;
+        margin: 6px;
+      }
+      .btn-outline {
+        background: rgba(255,255,255,0.18);
+        color: #fff;
+      }
+      .footer { margin-top: 28px; font-size: 11px; color: rgba(255,255,255,0.45); }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="success-icon">✓</div>
+      <h2>Form Submitted Successfully!</h2>
+      <p class="gujarati">ફોર્મ સફળતાપૂર્વક સબમિટ થઈ ગયું છે.</p>
+      <p>Thank you for submitting the candidate details for the 39th Bhudev Parichay Sammelan.<br>
+         Your information will be posted to the WhatsApp group shortly.</p>
+
+      <div style="margin-top: 24px;">
+        <a href="{% url 'candidate_group_posting' %}" class="btn">Submit Another Candidate</a>
+        <a href="/" class="btn btn-outline">Home Page</a>
+      </div>
+
+      <div class="footer">
+        <p>© 2026 Bhudev Network &nbsp;|&nbsp; 39th Bhudev Parichay Sammelan</p>
+      </div>
+    </div>
+  </body>
+</html>
+
