@@ -708,10 +708,57 @@
           border-radius: 12px;
           display: block;
       }
+
+      
+		.site-header {
+			padding: 30px 16px 26px;
+			text-align: center;
+			background: linear-gradient(180deg, #8f5b28 0%, #6e3f19 100%);
+			box-shadow: 0 12px 30px rgba(78, 42, 12, 0.16);
+			margin-top: 9px;
+			position: relative;
+			overflow: hidden;
+		}
+		.site-header::after {
+			content: '';
+			position: absolute;
+			inset: auto -10% -40px -10%;
+			height: 120px;
+			background: radial-gradient(circle at center, rgba(255,255,255,0.12), transparent 62%);
+			pointer-events: none;
+		}
+		.logo-row {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 18px;
+			flex-wrap: wrap;
+			margin-bottom: 16px;
+			position: relative;
+			z-index: 1;
+		}
+		.logo-row img {
+			height: 54px;
+			width: auto;
+			max-width: 100px;
+			object-fit: contain;
+			background: rgba(255,255,255,0.96);
+			border-radius: 14px;
+			padding: 6px 10px;
+			box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+		}
     </style>
   </head>
 
   <body>
+<div class="site-header">
+	<div class="logo-row">
+		<img src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Logo">
+		<img src="{% static 'images/header_logo_1788411443.png' %}" alt="Logo">
+		{% comment %} <img src="{% static 'images/logoD.png' %}" alt="Logo"> {% endcomment %}
+		{% comment %} <img src="{% static 'images/logoMH.png' %}" alt="Logo"> {% endcomment %}
+	</div>
+
     <div class="background-shape shape-one"></div>
     <div class="background-shape shape-two"></div>
 
