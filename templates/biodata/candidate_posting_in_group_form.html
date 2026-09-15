@@ -809,7 +809,7 @@
             <div class="input-box">
               <span class="input-icon">📅</span>
 
-              <input type="text" id="dob" name="dob" placeholder="Enter Date of Birth or Age" required />
+              <input type="text" id="dob" name="dob" placeholder="DD-MM-YYYY" required maxlength="10" />
             </div>
           </div>
 
@@ -978,6 +978,36 @@
       const successMessage = document.getElementById("successMessage");
 
       const newFormBtn = document.getElementById("newFormBtn");
+
+      // ==========================================
+      // DOB AUTO FORMAT (DD-MM-YYYY)
+      // ==========================================
+      const dobInput = document.getElementById("dob");
+      dobInput.addEventListener("input", function (e) {
+        // Allow user to delete properly
+        if (e.inputType === 'deleteContentBackward') {
+          return;
+        }
+        
+        let val = this.value.replace(/\D/g, ""); // Remove non-digits
+        
+        if (val.length > 8) {
+          val = val.slice(0, 8);
+        }
+
+        let formatted = "";
+        if (val.length > 0) {
+          formatted = val.substring(0, 2);
+        }
+        if (val.length > 2) {
+          formatted += "-" + val.substring(2, 4);
+        }
+        if (val.length > 4) {
+          formatted += "-" + val.substring(4, 8);
+        }
+        
+        this.value = formatted;
+      });
 
       // ==========================================
       // PHOTO UPLOAD
