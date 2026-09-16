@@ -789,25 +789,20 @@
             <div class="notice">
 
                 <div class="notice-title">
-                    📢 મહત્વપૂર્ણ સૂચના
+                    📢 સ્ટેજ ઉપર પોતાનો પરિચય (Self-Intro) આપવા માટેનું ફોર્મ  :  (વહેલા તે પહેલા) 
                 </div>
 
                 <p>
-                    ✔️ 39મા ભૂદેવ જીવનસાથી સંમેલનમાં જે રજીસ્ટર્ડ ઉમેદવારો
-                    સ્ટેજ ઉપર આવીને પોતાનો પરિચય આપવા ઈચ્છતા હોય,
-                    તેઓએ આ ફોર્મ ભરવું જરૂરી છે.
+                    ✔️ જે ઉમેદવાર યુવક - યવતીઓ ને, તા. 20-09-2026 રવિવારે, 39મા ભૂદેવ જીવનસાથી પરિચય સંમેલન મા, Hall મા  સ્ટેજ ઉપર, સવારે 9.30 am થી 12.30 pm મા પોતાનો સ્ટેજ પરિચય આપવો હોય તો કૃપા કરીને આ ફોર્મ ભરીને 19-09-2026, બપોરે 1 પહેલા સબમિટ કરશો. આ રેજીસ્ટ્રેશન - ટોકન નંબર મુજબ ચાન્સ મળશે. 
                 </p>
 
                 <p>
-                    ✔️ જે ઉમેદવાર આ ફોર્મ પહેલેથી ભરી દેશે,
-                    તેમને સ્ટેજ પર પોતાનો પરિચય આપવા માટે
-                    <strong>પ્રથમ ચાન્સ</strong> આપવામાં આવશે.
+                    ✔️ જે ઉમેદવારો એ આ ફોર્મ ભરીને સબમિટ કર્યું હશે માત્ર તેમને સ્ટેજ ઉપર પોતાનો પરિચય ( Self-Intro) આપવાનો પ્રથમ ચાન્સ મળશે. 
                 </p>
 
                 <p>
-                    ✔️ ભેટોની સંખ્યા અને વ્યવસ્થામાં સરળતા રહે તે માટે
-                    સ્ટેજ પરિચય આપવા ઈચ્છતા તમામ યુવક-યુવતીઓએ
-                    આ ફોર્મ ભરવું જરૂરી છે.
+                    ✔️ આ વખતે, વડોદરા ખાતે, તા  20-09-2026 એ, 39મા ભૂદેવ જીવનસાથી પરિચય સંમેલન મા જે ઉમેદવાર સ્ટેજ ઉપર આવશે, તેમનો ફોટો (નામ, DoB, City સાથે)  આપણા આ ગ્રુપ મા પોસ્ટ થશે  : <br>
+                    <a href="https://whatsapp.com/channel/0029VarJCoR7oQhm3MFoTl1k" target="_blank" style="color: #0056b3; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 5px;">🔗 WhatsApp Channel Link</a>
                 </p>
 
             </div>
@@ -848,7 +843,7 @@
             </div>
 
 
-            <form id="stageForm" method="POST" action="{% url 'stage_introduction' %}" novalidate>
+            <form id="stageForm" method="POST" action="{% url 'stage_introduction' %}" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
 
                 <!-- Candidate Name -->
@@ -969,11 +964,56 @@
                 </div>
 
 
+                <!-- Education -->
+                <div class="form-group">
+                    <label class="form-label">
+                        5. Education
+                        <span class="required">*</span>
+                        <br>
+                        <small>અભ્યાસ</small>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="education" name="education"
+                        class="form-input"
+                        placeholder="Enter Education"
+                    >
+
+                    <div class="error-message" id="educationError">
+                        કૃપા કરીને અભ્યાસ દાખલ કરો.
+                    </div>
+                </div>
+
+
+                <!-- Photo -->
+                <div class="form-group">
+                    <label class="form-label">
+                        6. Photo
+                        <span class="required">*</span>
+                        <br>
+                        <small>ઉમેદવારનો ફોટો</small>
+                    </label>
+
+                    <input
+                        type="file"
+                        id="photo" name="photo"
+                        class="form-input"
+                        accept="image/*"
+                        style="padding: 10px;"
+                    >
+
+                    <div class="error-message" id="photoError">
+                        કૃપા કરીને ફોટો અપલોડ કરો.
+                    </div>
+                </div>
+
+
                 <!-- EVENT CITY -->
                 <div class="form-group">
 
                     <label class="form-label">
-                        5. You will attend the 39th Bhudev Sammelan in which city?
+                        7. You will attend the 39th Bhudev Sammelan in which city?
                         <span class="required">*</span>
                         <br>
                         <small>
@@ -1003,7 +1043,7 @@
                                     </span>
 
                                     <span class="city-sub">
-                                        વડોદરા
+                                        (20-09-2026, Sunday)
                                     </span>
                                 </span>
 
@@ -1032,7 +1072,7 @@
                                     </span>
 
                                     <span class="city-sub">
-                                        સુરત
+                                        (27-09-2026, Sunday)
                                     </span>
                                 </span>
 
@@ -1042,16 +1082,11 @@
 
                     </div>
 
-                    <div class="multiple-note">
-                        ℹ️ Multiple selection allowed
-                    </div>
-
                     <div class="error-message" id="eventCityError">
                         કૃપા કરીને ઓછામાં ઓછું એક શહેર પસંદ કરો.
                     </div>
 
                 </div>
-
 
                 <!-- CONFIRMATION -->
                 <div class="confirmation">
@@ -1293,6 +1328,34 @@
         }
 
 
+        // Education
+        const education = document.getElementById("education");
+        const educationError = document.getElementById("educationError");
+
+        if (education.value.trim() === "") {
+            education.classList.add("error");
+            educationError.style.display = "block";
+            isValid = false;
+        } else {
+            education.classList.remove("error");
+            educationError.style.display = "none";
+        }
+
+
+        // Photo
+        const photo = document.getElementById("photo");
+        const photoError = document.getElementById("photoError");
+
+        if (photo.files.length === 0) {
+            photo.classList.add("error");
+            photoError.style.display = "block";
+            isValid = false;
+        } else {
+            photo.classList.remove("error");
+            photoError.style.display = "none";
+        }
+
+
         // Event Cities
         const selectedCities = document.querySelectorAll(
             'input[name="event_city"]:checked'
@@ -1408,6 +1471,18 @@
             document.getElementById("cityError")
                 .style.display = "none";
 
+        });
+
+    document.getElementById("education")
+        .addEventListener("input", function() {
+            this.classList.remove("error");
+            document.getElementById("educationError").style.display = "none";
+        });
+
+    document.getElementById("photo")
+        .addEventListener("change", function() {
+            this.classList.remove("error");
+            document.getElementById("photoError").style.display = "none";
         });
 
 

@@ -500,7 +500,7 @@ from .models import StageIntroduction39th, FarsanStallBooking
 class StageIntroduction39thForm(forms.ModelForm):
     class Meta:
         model = StageIntroduction39th
-        fields = ['candidate_name', 'gender', 'dob', 'current_city', 'event_city', 'confirmation']
+        fields = ['candidate_name', 'gender', 'dob', 'current_city', 'education', 'photo', 'event_city', 'confirmation']
 
 
 class FarsanStallBookingForm(forms.ModelForm):

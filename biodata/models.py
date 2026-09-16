@@ -1369,6 +1369,8 @@ class StageIntroduction39th(models.Model):
     gender = models.CharField(max_length=50, choices=GENDER_CHOICES)
     dob = models.CharField(max_length=50)
     current_city = models.CharField(max_length=100)
+    education = models.CharField(max_length=255, blank=True, null=True)
+    photo = models.ImageField(upload_to='stage_intro_photos/', blank=True, null=True)
     event_city = models.CharField(max_length=255)
     confirmation = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -2276,7 +2276,7 @@ def stage_introduction_view(request):
         if event_cities:
             post_data['event_city'] = ', '.join(event_cities)
         
-        form = StageIntroduction39thForm(post_data)
+        form = StageIntroduction39thForm(post_data, request.FILES)
         if form.is_valid():
             form.save()
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':

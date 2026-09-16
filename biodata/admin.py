@@ -2891,7 +2891,7 @@ from .models import StageIntroduction39th, FarsanStallBooking
 
 @admin.register(StageIntroduction39th)
 class StageIntroduction39thAdmin(admin.ModelAdmin):
-    list_display = ['serial_number', 'candidate_name', 'gender', 'dob', 'current_city', 'event_city', 'created_at']
+    list_display = ['serial_number', 'candidate_name', 'gender', 'dob', 'current_city', 'education', 'photo', 'event_city', 'created_at']
     search_fields = ['candidate_name', 'current_city', 'event_city']
     list_filter = ['gender', 'event_city', 'created_at']
 
