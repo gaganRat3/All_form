@@ -2891,9 +2891,11 @@ from .models import StageIntroduction39th, FarsanStallBooking
 
 @admin.register(StageIntroduction39th)
 class StageIntroduction39thAdmin(admin.ModelAdmin):
-    list_display = ['serial_number', 'candidate_name', 'gender', 'dob', 'current_city', 'education', 'photo', 'event_city', 'created_at']
+    list_display = ['serial_number', 'candidate_name', 'gender', 'dob', 'current_city', 'education', 'photo_preview', 'event_city', 'created_at']
     search_fields = ['candidate_name', 'current_city', 'event_city']
     list_filter = ['gender', 'event_city', 'created_at']
+    readonly_fields = ['photo_preview']
+    actions = ['export_selected_to_excel']
 
     def get_changelist_instance(self, request):
         self.admin_view_request = request
@@ -2910,6 +2912,84 @@ class StageIntroduction39thAdmin(admin.ModelAdmin):
         except ValueError:
             return '-'
     serial_number.short_description = 'Sr. No.'
+
+    def photo_preview(self, obj):
+        if obj.photo:
+            from django.utils.html import format_html
+            return format_html(
+                '<a href="{}" target="_blank"><img src="{}" style="max-height: 80px; max-width: 80px; border-radius: 6px;" /></a>',
+                obj.photo.url, obj.photo.url
+            )
+        return "No Photo"
+    photo_preview.short_description = "Photo"
+
+    @admin.action(description='Export selected stage introductions to Excel')
+    def export_selected_to_excel(self, request, queryset):
+        import openpyxl
+        from openpyxl.utils import get_column_letter
+        from openpyxl.drawing.image import Image as OpenpyxlImage
+        from io import BytesIO
+        from django.http import HttpResponse
+        from PIL import Image as PILImage
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Stage Introductions"
+
+        headers = ['Sr. No.', 'Candidate Name', 'Gender', 'Date of Birth', 'Current City', 'Education', 'Event City', 'Photo', 'Created At']
+        ws.append(headers)
+
+        column_widths = [10, 25, 12, 15, 20, 30, 25, 20, 22]
+        for i, width in enumerate(column_widths, 1):
+            ws.column_dimensions[get_column_letter(i)].width = width
+
+        all_qs = self.get_queryset(request)
+        pk_list = list(all_qs.values_list('pk', flat=True))
+
+        row_num = 2
+        for obj in queryset:
+            try:
+                sr_no = pk_list.index(obj.pk) + 1
+            except ValueError:
+                sr_no = '-'
+            
+            row = [
+                sr_no,
+                obj.candidate_name,
+                obj.gender,
+                obj.dob if obj.dob else '',
+                obj.current_city,
+                obj.education if obj.education else '',
+                obj.event_city,
+                '',
+                obj.created_at.strftime('%Y-%m-%d %H:%M:%S') if obj.created_at else '',
+            ]
+            ws.append(row)
+
+            if obj.photo:
+                try:
+                    img_path = obj.photo.path
+                    pil_img = PILImage.open(img_path)
+                    img_byte_arr = BytesIO()
+                    pil_img.save(img_byte_arr, format='PNG')
+                    img_byte_arr.seek(0)
+                    img = OpenpyxlImage(img_byte_arr)
+                    img.width = 80
+                    img.height = 80
+                    img.anchor = f"{get_column_letter(8)}{row_num}"
+                    ws.add_image(img)
+                except Exception:
+                    pass
+            
+            ws.row_dimensions[row_num].height = 65
+            row_num += 1
+
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename="stage_introductions.xlsx"'
+        wb.save(response)
+        return response
+
+
 
 
 @admin.register(FarsanStallBooking)
