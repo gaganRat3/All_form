@@ -928,9 +928,11 @@
                     </label>
 
                     <input
-                        type="date"
+                        type="text"
                         id="dob" name="dob"
                         class="form-input"
+                        placeholder="DD-MM-YYYY"
+                        maxlength="10"
                     >
 
                     <div class="error-message" id="dobError">
@@ -1487,13 +1489,26 @@
 
 
     document.getElementById("dob")
-        .addEventListener("change", function() {
+        .addEventListener("input", function(e) {
 
             this.classList.remove("error");
+            document.getElementById("dobError").style.display = "none";
 
-            document.getElementById("dobError")
-                .style.display = "none";
+            // Auto format DD-MM-YYYY
+            let value = e.target.value.replace(/\D/g, "");
+            let formattedValue = "";
 
+            if (value.length > 0) {
+                formattedValue = value.substring(0, 2);
+            }
+            if (value.length > 2) {
+                formattedValue += "-" + value.substring(2, 4);
+            }
+            if (value.length > 4) {
+                formattedValue += "-" + value.substring(4, 8);
+            }
+
+            e.target.value = formattedValue;
         });
 
 
