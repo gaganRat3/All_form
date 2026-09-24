@@ -295,6 +295,10 @@
             <p>માત્ર ભૂદેવ બહેનો માટે - Business Woman / Entrepreneur</p>
         </div>
 
+        <div style="background: #fffdf5; border: 1px solid #ffeeba; border-left: 5px solid #ffc107; padding: 15px; margin-bottom: 22px; border-radius: 8px; font-size: 14px; line-height: 1.6; color: #856404;">
+            <strong>ℹ️ Important Info:</strong> Free Stall-Table will be given to First 5 Woman Entrepreneur doing Registration. Pls note, Payment of Rs 500 per Stall - Table is Compulsory for all. Then, later next day, Rs 500 will be Refunded 100% to each of first 5 lady. Rs 500 is Non-Refundable for all others. (First Come, First Serve basis Registration).
+        </div>
+
         <!-- ERROR ALERTS -->
         {% if error_message %}
             <div class="alert-danger">
@@ -360,16 +364,8 @@
                 <label>7. કયા શહેરમાં સ્ટોલ રાખવા ઈચ્છો છો? (Event City Selection) <span class="required">*</span></label>
                 <div class="radio-options-grid">
                     <label class="radio-card">
-                        <input type="radio" name="event_city" value="Vadodara" required {% if form.event_city.value == 'Vadodara' %}checked{% endif %}>
-                        <span>🏛️ Vadodara (20-09-2026)</span>
-                    </label>
-                    <label class="radio-card">
-                        <input type="radio" name="event_city" value="Surat" {% if form.event_city.value == 'Surat' %}checked{% endif %}>
+                        <input type="radio" name="event_city" value="Surat" required {% if form.event_city.value == 'Surat' %}checked{% endif %}>
                         <span>🏛️ Surat (27-09-2026)</span>
-                    </label>
-                    <label class="radio-card">
-                        <input type="radio" name="event_city" value="Both" {% if form.event_city.value == 'Both' %}checked{% endif %}>
-                        <span>✨ Both Vadodara &amp; Surat</span>
                     </label>
                 </div>
             </div>

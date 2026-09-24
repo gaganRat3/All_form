@@ -1382,9 +1382,7 @@ class StageIntroduction39th(models.Model):
 # 39th Sammelan - Free Business / Farsan Stall Registration (For Bhudev Sisters / Business Women)
 class FarsanStallBooking(models.Model):
     EVENT_CITY_CHOICES = [
-        ('Vadodara', 'Vadodara (20-09-2026)'),
         ('Surat', 'Surat (27-09-2026)'),
-        ('Both', 'Both Vadodara & Surat'),
     ]
 
     BUSINESS_TYPE_CHOICES = [

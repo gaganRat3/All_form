@@ -3004,6 +3004,10 @@ class FarsanStallBookingAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at', 'payment_screenshot_preview']
     actions = ['export_selected_to_excel']
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.order_by('created_at')
+
     def get_changelist_instance(self, request):
         self.admin_view_request = request
         return super().get_changelist_instance(request)
@@ -3018,7 +3022,8 @@ class FarsanStallBookingAdmin(admin.ModelAdmin):
             return pk_list.index(obj.pk) + 1
         except ValueError:
             return '-'
-    serial_number.short_description = 'Sr. No.'
+    serial_number.short_description = 'Serial No.'
+    serial_number.admin_order_field = None
 
     def payment_screenshot_preview(self, obj):
         if obj.payment_screenshot:
