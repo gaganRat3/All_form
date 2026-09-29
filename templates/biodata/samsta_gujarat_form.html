@@ -1185,7 +1185,7 @@
       </div>
 
       <!-- Form Closed Notice Card -->
-      <div class="form-closed-box" style="display: none !important; background: linear-gradient(135deg, #fff5f5 0%, #ffeef0 100%); border: 2px solid #f87171; border-radius: 16px; padding: 45px 25px; text-align: center; margin: 30px 0; box-shadow: 0 10px 30px rgba(239, 68, 68, 0.12);">
+      <div class="form-closed-box" style="background: linear-gradient(135deg, #fff5f5 0%, #ffeef0 100%); border: 2px solid #f87171; border-radius: 16px; padding: 45px 25px; text-align: center; margin: 30px 0; box-shadow: 0 10px 30px rgba(239, 68, 68, 0.12);">
         <div style="font-size: 4rem; margin-bottom: 12px; line-height: 1;">🙏</div>
         <h2 style="color: #dc2626; font-size: 1.85rem; font-weight: 800; margin-bottom: 8px;">
           🔴 ફોર્મ હાલમાં બંધ છે 🔴
@@ -1220,6 +1220,7 @@
          >
         </p>
 
+      {% comment %}
         <form id="regForm" method="post" enctype="multipart/form-data" novalidate>
          {% csrf_token %}
          <div class="grid">
@@ -1628,6 +1629,7 @@
           <button type="submit" class="btn">Preview Before Submit</button>
 </div>
         </form>
+      {% endcomment %}
 
       </div>
       <div class="image-container-card">
