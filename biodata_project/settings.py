@@ -211,7 +211,9 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # Set environment variable EMAIL_SEND_AUTOMATIC='False' to stop automated sends in this project.
 EMAIL_SEND_AUTOMATIC = os.environ.get('EMAIL_SEND_AUTOMATIC', 'True') == 'True'
 
-
+# RAZORPAY CONFIGURATION
+RAZORPAY_KEY_ID = os.environ.get('RAZORPAY_KEY_ID', 'YOUR_RAZORPAY_KEY_ID_HERE')
+RAZORPAY_KEY_SECRET = os.environ.get('RAZORPAY_KEY_SECRET', 'YOUR_RAZORPAY_KEY_SECRET_HERE')
 
 # Public base URL for media files - set to your current ngrok URL
 # Removed ngrok URL as it is no longer needed

@@ -425,6 +425,9 @@ class SamstaGujaratRegistration(models.Model):
         default='pending',
         verbose_name='Payment Status (Admin)',
     )
+    razorpay_order_id = models.CharField(max_length=100, blank=True, null=True)
+    razorpay_payment_id = models.CharField(max_length=100, blank=True, null=True)
+    razorpay_signature = models.CharField(max_length=255, blank=True, null=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
