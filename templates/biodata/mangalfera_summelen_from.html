@@ -559,16 +559,16 @@
             <input type="tel" name="motherWp" placeholder="10-digit mobile number" value="{{ form.motherWp.value|default_if_none:'' }}" required>
           </div>
           <div class="field">
-            <label><span class="field-num">24</span> Type of Brahmin</label>
+            <label><span class="field-num">24</span> Type of Cast</label>
             <input type="text" name="caste" placeholder="e.g. Anavil, Audichya, etc." value="{{ form.caste.value|default_if_none:'' }}" required>
           </div>
           <div class="field">
-            <label><span class="field-num">25</span> Gotra</label>
-            <input type="text" name="gotra" placeholder="Enter your gotra" value="{{ form.gotra.value|default_if_none:'' }}" required>
+            <label><span class="field-num">25</span> Gotra (if applicable)</label>
+            <input type="text" name="gotra" placeholder="Enter your gotra" value="{{ form.gotra.value|default_if_none:'' }}">
           </div>
           <div class="field">
-            <label><span class="field-num">26</span> Kuldevi</label>
-            <input type="text" name="kuldevi" placeholder="Enter Kuldevi name" value="{{ form.kuldevi.value|default_if_none:'' }}" required>
+            <label><span class="field-num">26</span> Kuldevi (if applicable)</label>
+            <input type="text" name="kuldevi" placeholder="Enter Kuldevi name" value="{{ form.kuldevi.value|default_if_none:'' }}">
           </div>
           <div class="field full">
             <label><span class="field-num">27</span> Siblings (Brother / Sister)</label>
@@ -661,14 +661,17 @@
             <label><span class="field-num">39</span> Current Residence Area</label>
             <select name="resCat" required>
               <option value="">Select an Option</option>
+              <option value="gujarat">Gujarat Region (North or Central or South)</option>
+              <option value="saurashtra">Saurashtra Region</option>
+              <option value="kachchh">Kachchh Region</option>
               <option value="mumbai_maharashtra">Mumbai &amp; Maharashtra Region</option>
               <option value="rest_of_india">Rest of Indian Region (except Gujarat &amp; Maharashtra)</option>
               <option value="nri">NRI (Any Visa)</option>
             </select>
           </div>
           <div class="field">
-            <label><span class="field-num">40</span> Nadi</label>
-            <select name="nadi" required>
+            <label><span class="field-num">40</span> Nadi (if applicable)</label>
+            <select name="nadi">
               <option value="">Select an Option</option>
               <option>Aadhya Nadi</option>
               <option>Madhya Nadi</option>

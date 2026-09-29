@@ -28,9 +28,9 @@ class MangalferaSammelanBiodata(models.Model):
     mother = models.CharField(max_length=100, verbose_name="Mother's Name")
     fatherWp = models.CharField(max_length=20, verbose_name="Father's Mobile No.")
     motherWp = models.CharField(max_length=20, verbose_name="Mother's Mobile No.")
-    caste = models.CharField(max_length=100, verbose_name="Type of Brahmin")
-    gotra = models.CharField(max_length=100, verbose_name="Gotra")
-    kuldevi = models.CharField(max_length=100, verbose_name="Kuldevi")
+    caste = models.CharField(max_length=100, verbose_name="Type of Cast")
+    gotra = models.CharField(max_length=100, verbose_name="Gotra (if applicable)", blank=True)
+    kuldevi = models.CharField(max_length=100, verbose_name="Kuldevi (if applicable)", blank=True)
     siblings = models.TextField(blank=True, verbose_name="Siblings (Brother / Sister)")
 
     # Lifestyle & Habits
@@ -50,7 +50,7 @@ class MangalferaSammelanBiodata(models.Model):
     who = models.CharField(max_length=100, verbose_name="Who is doing this Registration?")
     regMobile = models.CharField(max_length=20, verbose_name="Mobile No. (person registering)")
     resCat = models.CharField(max_length=100, verbose_name="Current Residence Area")
-    nadi = models.CharField(max_length=50, verbose_name="Nadi")
+    nadi = models.CharField(max_length=50, verbose_name="Nadi (if applicable)", blank=True)
     email = models.EmailField(verbose_name="Email Address")
     whatsapp = models.CharField(max_length=20, verbose_name="WhatsApp Number")
     photo = models.ImageField(upload_to='mangalfera_photos/', verbose_name="Candidate Photo")
