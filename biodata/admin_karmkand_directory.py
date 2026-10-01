@@ -182,7 +182,7 @@ class LaghuRudraYajmanRegistrationAdmin(admin.ModelAdmin):
 
         wb = openpyxl.Workbook()
         ws = wb.active
-        ws.title = 'Laghu Rudra Yajman'
+        ws.title = 'Navchandi Yajman'
         ws.append(headers)
 
         for obj in ordered_queryset:
@@ -213,7 +213,7 @@ class LaghuRudraYajmanRegistrationAdmin(admin.ModelAdmin):
         response = HttpResponse(
             content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
-        response['Content-Disposition'] = 'attachment; filename=laghu_rudra_yajman_registrations.xlsx'
+        response['Content-Disposition'] = 'attachment; filename=navchandi_yajman_registrations.xlsx'
         wb.save(response)
         return response
 

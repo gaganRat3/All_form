@@ -5,9 +5,8 @@ from pathlib import Path
 import base64
 import requests
 from django.conf import settings
-from weasyprint import HTML, CSS
-
 def generate_pdf(instance):
+    from weasyprint import HTML, CSS
     import base64
     photo_data = ''
     if instance.photograph and hasattr(instance.photograph, 'path'):

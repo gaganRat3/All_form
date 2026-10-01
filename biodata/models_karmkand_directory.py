@@ -69,8 +69,8 @@ class LaghuRudraYajmanRegistration(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = 'Laghu Rudra Yajman Registration'
-        verbose_name_plural = 'Laghu Rudra Yajman Registrations'
+        verbose_name = 'Navchandi Yajman Registration Form'
+        verbose_name_plural = 'Navchandi Yajman Registration Form'
 
     def __str__(self):
         return f"{self.husband_name} & {self.wife_name} ({self.city})"
