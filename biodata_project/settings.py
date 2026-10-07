@@ -38,9 +38,9 @@ ALLOWED_HOSTS = [
 
 # Remove CSRF_TRUSTED_ORIGINS if not using ngrok or multiple domains
 CSRF_TRUSTED_ORIGINS = [
-    'https://5fa7-103-39-128-152.ngrok-free.app',
-    'https://edf7-103-240-207-135.ngrok-free.app',
-    'https://00e7-103-228-147-84.ngrok-free.app',
+    'https://*.ngrok-free.app',
+    'https://*.ngrok.io',
+    'https://form.bhudevstore.com',
 ]
 
 # Application definition
