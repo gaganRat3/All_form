@@ -28,7 +28,7 @@ class MangalferaSammelanBiodata(models.Model):
     mother = models.CharField(max_length=100, verbose_name="Mother's Name")
     fatherWp = models.CharField(max_length=20, verbose_name="Father's Mobile No.")
     motherWp = models.CharField(max_length=20, verbose_name="Mother's Mobile No.")
-    caste = models.CharField(max_length=100, verbose_name="Type of Cast")
+    caste = models.CharField(max_length=100, verbose_name="Type of Caste")
     gotra = models.CharField(max_length=100, verbose_name="Gotra (if applicable)", blank=True)
     kuldevi = models.CharField(max_length=100, verbose_name="Kuldevi (if applicable)", blank=True)
     siblings = models.TextField(blank=True, verbose_name="Siblings (Brother / Sister)")
