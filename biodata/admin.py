@@ -848,7 +848,7 @@ class BookletLibrarySubmissionAdmin(admin.ModelAdmin):
     list_display = ('name', 'city', 'whatsapp', 'email', 'gender', 'dob', 'submitted_at')
     search_fields = ('name', 'city', 'whatsapp', 'email')
     list_filter = ('city', 'gender', 'submitted_at')
-from .models import CourierBooklet35thBooking
+from .models import CourierBooklet35thBooking, BookletEbooklet39thBooking
 from .models_picnic import PicnicRegistration
 from django.utils.html import format_html
 from .models_booklet_camp_adv import BookletCampAdvBooking
@@ -922,12 +922,121 @@ class CourierBooklet35thBookingAdmin(admin.ModelAdmin):
                     pass
             row_num += 1
 
+        output = BytesIO()
+        wb.save(output)
+        output.seek(0)
         response = HttpResponse(
-            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            output.read(),
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
-        response['Content-Disposition'] = 'attachment; filename=courier_booklet_bookings.xlsx'
-        wb.save(response)
+        response['Content-Disposition'] = 'attachment; filename="Courier_Booklet_Bookings.xlsx"'
         return response
+
+
+# Register 39th Booklet & E-Booklet Booking in Admin (Dedicated Backend)
+@admin.register(BookletEbooklet39thBooking)
+class BookletEbooklet39thBookingAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'city',
+        'whatsapp_number',
+        'email',
+        'girls_booklet_with',
+        'boys_booklet_with',
+        'girls_ebooklet',
+        'boys_ebooklet',
+        'total_amount',
+        'payment_screenshot_preview',
+        'created_at'
+    )
+    list_filter = [
+        'created_at',
+        'city',
+        'girls_booklet_with',
+        'boys_booklet_with',
+        'girls_ebooklet',
+        'boys_ebooklet'
+    ]
+    search_fields = ['name', 'city', 'whatsapp_number', 'email', 'courier_address']
+    readonly_fields = ['payment_screenshot_preview', 'created_at']
+    actions = ['export_selected_to_excel']
+
+    def payment_screenshot_preview(self, obj):
+        if obj.payment_screenshot:
+            return mark_safe(f'<img src="{obj.payment_screenshot.url}" style="max-height: 100px; max-width: 100px; border-radius: 8px;" />')
+        return "-"
+    payment_screenshot_preview.short_description = 'Payment Screenshot'
+
+    @admin.action(description='Export selected 39th Booklet & E-Booklet bookings to Excel')
+    def export_selected_to_excel(self, request, queryset):
+        import openpyxl
+        from openpyxl.utils import get_column_letter
+        from openpyxl.drawing.image import Image as OpenpyxlImage
+        from io import BytesIO
+        from django.http import HttpResponse
+        from PIL import Image as PILImage
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "39th Booklet Ebooklet"
+
+        headers = [
+            'Name', 'City', 'WhatsApp Number', 'Email',
+            'Girls Booklet (₹700)', 'Boys Booklet (₹700)',
+            'Girls E-Booklet (₹300)', 'Boys E-Booklet (₹300)',
+            'Delivery Address', 'Total Amount (₹)', 'Payment Screenshot', 'Created At'
+        ]
+        ws.append(headers)
+
+        column_widths = [22, 18, 18, 28, 18, 18, 18, 18, 38, 16, 20, 20]
+        for i, width in enumerate(column_widths, 1):
+            ws.column_dimensions[get_column_letter(i)].width = width
+
+        row_num = 2
+        for obj in queryset:
+            row = [
+                obj.name,
+                obj.city,
+                obj.whatsapp_number,
+                obj.email,
+                'Yes' if obj.girls_booklet_with else 'No',
+                'Yes' if obj.boys_booklet_with else 'No',
+                'Yes' if obj.girls_ebooklet else 'No',
+                'Yes' if obj.boys_ebooklet else 'No',
+                obj.courier_address or '',
+                float(obj.total_amount),
+                '',  # Image placeholder
+                obj.created_at.strftime('%Y-%m-%d %H:%M:%S') if obj.created_at else '',
+            ]
+            ws.append(row)
+
+            if obj.payment_screenshot:
+                try:
+                    img_path = obj.payment_screenshot.path
+                    pil_img = PILImage.open(img_path)
+                    img_byte_arr = BytesIO()
+                    pil_img.save(img_byte_arr, format='PNG')
+                    img_byte_arr.seek(0)
+                    img = OpenpyxlImage(img_byte_arr)
+                    img.width = 80
+                    img.height = 80
+                    img.anchor = f"{get_column_letter(11)}{row_num}"
+                    ws.add_image(img)
+                    ws.row_dimensions[row_num].height = 60
+                except Exception:
+                    pass
+            row_num += 1
+
+        output = BytesIO()
+        wb.save(output)
+        output.seek(0)
+        response = HttpResponse(
+            output.read(),
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response['Content-Disposition'] = 'attachment; filename="39th_Booklet_Ebooklet_Bookings.xlsx"'
+        return response
+
 
 # Register AdvancePassBooking in admin
 @admin.register(AdvancePassBooking)

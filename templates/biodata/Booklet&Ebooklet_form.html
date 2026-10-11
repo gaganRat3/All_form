@@ -1,0 +1,888 @@
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>39th Booklet & Ebooklet_form</title>
+</head>
+
+
+
+<div class="logo-bar">
+    <img id="subLogoLeft" src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Left Logo" class="logo-responsive" />
+    <img id="subLogoCenter" src="{% static 'images/NRI Matrimony(1).jpg.jpeg' %}" alt="Center Logo" class="logo-responsive" />
+    <img id="subLogoRight2" src="{% static 'images/img5.png' %}" alt="Right Logo 2" class="logo-responsive" />
+  </div>
+
+<div class="event-header-gujarati">
+   
+</div>
+<style>
+    /* ===== NEUMORPHISM DESIGN SYSTEM ===== */
+    :root {
+        --neu-bg: #e6ecf4;
+        --neu-light: #ffffff;
+        --neu-dark: #becad8;
+        --neu-darker: #a8b8cc;
+        --neu-primary: #2563eb;
+        --neu-primary-light: #3b82f6;
+        --neu-primary-dark: #1d4ed8;
+        --neu-text: #1e293b;
+        --neu-text-muted: #64748b;
+        --neu-shadow-flat: 8px 8px 18px var(--neu-dark), -8px -8px 18px var(--neu-light);
+        --neu-shadow-deep: 14px 14px 28px var(--neu-dark), -14px -14px 28px var(--neu-light);
+        --neu-shadow-sm: 5px 5px 12px var(--neu-dark), -5px -5px 12px var(--neu-light);
+        --neu-shadow-inset: inset 4px 4px 8px var(--neu-dark), inset -4px -4px 8px var(--neu-light);
+        --neu-shadow-inset-focus: inset 4px 4px 8px var(--neu-darker), inset -4px -4px 8px var(--neu-light), 0 0 0 2px rgba(37, 99, 235, 0.4);
+        --neu-radius-sm: 10px;
+        --neu-radius-md: 16px;
+        --neu-radius-lg: 22px;
+        --neu-radius-xl: 30px;
+        --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        --font-family-gujarati: 'Noto Sans Gujarati', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--neu-bg);
+        color: var(--neu-text);
+        font-family: var(--font-family);
+        min-height: 100vh;
+        line-height: 1.6;
+    }
+
+    /* Logo Bar Neumorphic */
+    .logo-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        padding: 1.2rem 1.5rem;
+        background: var(--neu-bg);
+        border-radius: 0 0 24px 24px;
+        box-shadow: 6px 6px 14px var(--neu-dark), -6px -6px 14px var(--neu-light);
+        max-width: 1100px;
+        margin: 0 auto 20px auto;
+    }
+
+    .logo-responsive {
+        height: 54px;
+        width: auto;
+        max-width: 120px;
+        object-fit: contain;
+        border-radius: 12px;
+        background: var(--neu-bg);
+        box-shadow: 4px 4px 8px var(--neu-dark), -4px -4px 8px var(--neu-light);
+        padding: 6px 10px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .logo-responsive:hover {
+        transform: translateY(-2px);
+        box-shadow: 6px 6px 12px var(--neu-dark), -6px -6px 12px var(--neu-light);
+    }
+
+    /* Gujarati Header */
+    .event-header-gujarati {
+        text-align: center;
+        margin: 15px 0 10px 0;
+        padding: 0 16px;
+    }
+
+    .event-header-gujarati span {
+        font-size: 1.7rem;
+        font-weight: 800;
+        color: var(--neu-text);
+        font-family: var(--font-family-gujarati);
+        display: inline-block;
+        padding: 10px 24px;
+        border-radius: 18px;
+        background: var(--neu-bg);
+        box-shadow: var(--neu-shadow-sm);
+        letter-spacing: 0.5px;
+    }
+
+    /* Main Neumorphic Form Container */
+    .form-container {
+        max-width: 760px;
+        margin: 30px auto 45px auto;
+        background: var(--neu-bg);
+        padding: 45px 42px;
+        border-radius: var(--neu-radius-xl);
+        box-shadow: var(--neu-shadow-deep);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        position: relative;
+    }
+
+    .form-container h2 {
+        text-align: center;
+        color: var(--neu-text);
+        font-weight: 800;
+        font-size: 1.85rem;
+        letter-spacing: 0.5px;
+        margin: 0 0 32px 0;
+        padding-bottom: 12px;
+        position: relative;
+    }
+
+    .form-container h2::after {
+        content: '';
+        display: block;
+        width: 70px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--neu-primary), var(--neu-primary-light));
+        border-radius: 4px;
+        margin: 12px auto 0 auto;
+        box-shadow: 2px 2px 4px var(--neu-dark);
+    }
+
+    /* Section Headers */
+    .section-header {
+        background: var(--neu-bg);
+        box-shadow: 6px 6px 12px var(--neu-dark), -6px -6px 12px var(--neu-light);
+        border-left: 6px solid var(--neu-primary);
+        padding: 16px 20px;
+        margin: 28px 0 20px 0;
+        border-radius: var(--neu-radius-md);
+        font-weight: 700;
+        color: var(--neu-text);
+        font-size: 1.15rem;
+        letter-spacing: 0.3px;
+        display: flex;
+        align-items: center;
+        transition: transform 0.2s ease;
+    }
+
+    .section-header:hover {
+        transform: translateX(4px);
+    }
+
+    /* Neumorphic Cards (Selection boxes, Breakdown, etc) */
+    .neumorphic-card {
+        background: var(--neu-bg);
+        box-shadow: var(--neu-shadow-sm);
+        border-radius: var(--neu-radius-md);
+        padding: 22px;
+        margin-top: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        transition: all 0.25s ease;
+    }
+
+    /* Form Groups & Labels */
+    .form-group {
+        margin-bottom: 24px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group label {
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--neu-text);
+        font-size: 1.05rem;
+        letter-spacing: 0.2px;
+    }
+
+    /* Neumorphic Inputs - Debossed / Inset Sunken */
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        min-height: 50px;
+        padding: 14px 18px;
+        font-size: 1.05rem;
+        border: none;
+        border-radius: var(--neu-radius-md);
+        background: var(--neu-bg);
+        box-shadow: var(--neu-shadow-inset);
+        color: var(--neu-text);
+        font-family: var(--font-family);
+        outline: none;
+        transition: all 0.25s ease;
+        box-sizing: border-box;
+    }
+
+    .form-group input[type="text"]:focus,
+    .form-group input[type="email"]:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        box-shadow: var(--neu-shadow-inset-focus);
+    }
+
+    .form-group input[readonly] {
+        background: var(--neu-bg);
+        color: var(--neu-text);
+        cursor: not-allowed;
+    }
+
+    .form-group textarea {
+        min-height: 90px;
+        resize: vertical;
+    }
+
+    .form-text {
+        font-size: 0.85rem;
+        color: var(--neu-text-muted);
+        margin-top: 6px;
+    }
+
+    /* File Input Neumorphic */
+    input[type="file"] {
+        padding: 14px;
+        background: var(--neu-bg);
+        box-shadow: var(--neu-shadow-inset);
+        border-radius: var(--neu-radius-md);
+        border: 1px dashed var(--neu-darker);
+        color: var(--neu-text);
+        cursor: pointer;
+        width: 100%;
+    }
+
+    /* Checkbox & Selection styling */
+    .checkbox-row {
+        display: flex;
+        align-items: center;
+        padding: 10px 14px;
+        border-radius: var(--neu-radius-sm);
+        transition: background 0.2s ease;
+    }
+
+    .checkbox-row:hover {
+        background: rgba(255, 255, 255, 0.4);
+    }
+
+    input[type='checkbox'] {
+        width: 1.45em;
+        height: 1.45em;
+        cursor: pointer;
+        accent-color: var(--neu-primary);
+        margin-right: 12px;
+    }
+
+    .checkbox-row label {
+        margin-bottom: 0 !important;
+        font-size: 1.05rem;
+        color: var(--neu-text);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .price-pill {
+        color: var(--neu-primary);
+        background: var(--neu-bg);
+        box-shadow: 3px 3px 6px var(--neu-dark), -3px -3px 6px var(--neu-light);
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        font-weight: 800;
+        margin-left: 6px;
+    }
+
+    /* Total Breakdown Section */
+    .breakdown-title {
+        border-bottom: 2px solid rgba(190, 202, 216, 0.6);
+        padding-bottom: 10px;
+        margin-bottom: 16px;
+        color: var(--neu-text);
+        font-weight: 700;
+        font-size: 1.05rem;
+        display: block;
+    }
+
+    .breakdown-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 18px;
+    }
+
+    .breakdown-item label {
+        font-size: 0.92rem;
+        color: var(--neu-text-muted);
+        margin-bottom: 8px;
+        display: block;
+        font-weight: 600;
+    }
+
+    .total-input-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .currency-symbol {
+        font-size: 1.25rem;
+        color: var(--neu-primary);
+        font-weight: 800;
+    }
+
+    .total-val-input {
+        width: 130px !important;
+        min-height: 44px !important;
+        font-weight: 800 !important;
+        font-size: 1.25rem !important;
+        color: var(--neu-text) !important;
+        background: var(--neu-bg) !important;
+        box-shadow: var(--neu-shadow-inset) !important;
+        border: none !important;
+        border-radius: var(--neu-radius-sm) !important;
+        text-align: center !important;
+        padding: 8px !important;
+    }
+
+    /* Grand Total - Prominent Neumorphic Plate */
+    .neumorphic-grand-total {
+        background: var(--neu-bg);
+        box-shadow: 8px 8px 18px var(--neu-dark), -8px -8px 18px var(--neu-light);
+        border-radius: var(--neu-radius-lg);
+        padding: 22px 24px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        margin-top: 10px;
+        margin-bottom: 24px;
+    }
+
+    .grand-total-label {
+        font-size: 1.15rem;
+        color: var(--neu-text-muted);
+        margin-bottom: 6px;
+        display: block;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+    }
+
+    .grand-total-amount {
+        font-size: 2.3rem;
+        font-weight: 900;
+        color: var(--neu-primary);
+        display: block;
+        letter-spacing: 1px;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+    }
+
+    /* Payment Info Neumorphic */
+    .payment-info {
+        text-align: center;
+        padding: 25px;
+    }
+
+    .payment-title {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: var(--neu-text);
+        margin: 0 0 6px 0;
+    }
+
+    .payment-subtitle {
+        font-size: 1.05rem;
+        color: var(--neu-text-muted);
+        font-weight: 600;
+        margin: 0 0 16px 0;
+    }
+
+    .qr-code-frame {
+        background: var(--neu-bg);
+        box-shadow: var(--neu-shadow-inset);
+        border-radius: 20px;
+        padding: 16px;
+        margin: 15px auto;
+        width: 250px;
+        height: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .qr-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 12px;
+        background: #ffffff;
+        box-shadow: var(--neu-shadow-sm);
+    }
+
+    .scan-pay-text {
+        font-size: 1rem;
+        color: var(--neu-primary);
+        font-weight: 800;
+        margin-top: 10px;
+        display: inline-block;
+        padding: 6px 18px;
+        border-radius: 20px;
+        background: var(--neu-bg);
+        box-shadow: 3px 3px 8px var(--neu-dark), -3px -3px 8px var(--neu-light);
+    }
+
+    /* Submit Button Neumorphic */
+    button[type="submit"] {
+        width: 100%;
+        padding: 18px 24px;
+        font-size: 1.25rem;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        border: none;
+        border-radius: var(--neu-radius-lg);
+        color: #ffffff;
+        background: linear-gradient(145deg, var(--neu-primary-light), var(--neu-primary));
+        box-shadow: 6px 6px 14px var(--neu-dark), -6px -6px 14px var(--neu-light);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-top: 15px;
+    }
+
+    button[type="submit"]:hover {
+        box-shadow: 8px 8px 18px var(--neu-darker), -8px -8px 18px var(--neu-light);
+        transform: translateY(-2px);
+    }
+
+    button[type="submit"]:active {
+        box-shadow: inset 4px 4px 8px var(--neu-primary-dark), inset -4px -4px 8px var(--neu-primary-light);
+        transform: translateY(1px);
+    }
+
+    /* Alerts and Errors Neumorphic */
+    .alert {
+        padding: 15px 20px;
+        border-radius: var(--neu-radius-md);
+        margin-bottom: 20px;
+        font-weight: 600;
+        box-shadow: var(--neu-shadow-sm);
+        background: var(--neu-bg);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    .alert-success {
+        border-left: 6px solid #16a34a;
+        color: #15803d;
+    }
+
+    .alert-error {
+        border-left: 6px solid #dc2626;
+        color: #b91c1c;
+    }
+
+    .form-errors {
+        background: var(--neu-bg);
+        box-shadow: var(--neu-shadow-sm);
+        border-radius: var(--neu-radius-md);
+        padding: 18px 22px;
+        margin-bottom: 24px;
+        border-left: 6px solid #ef4444;
+        color: #b91c1c;
+    }
+
+    .form-errors ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .form-errors li {
+        margin-bottom: 6px;
+        font-weight: 600;
+    }
+
+    /* Gallery Items */
+    .image-gallery {
+        max-width: 760px;
+        margin: 0 auto 40px auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .gallery-item {
+        background: var(--neu-bg);
+        padding: 14px;
+        border-radius: var(--neu-radius-lg);
+        box-shadow: var(--neu-shadow-flat);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .gallery-item:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--neu-shadow-deep);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: auto;
+        border-radius: var(--neu-radius-md);
+        display: block;
+    }
+
+    /* Footer Section */
+    .footer-section {
+        background: #dee6f2;
+        padding: 40px 16px;
+        margin-top: 50px;
+        box-shadow: inset 0 8px 16px rgba(190, 202, 216, 0.6);
+    }
+
+    .offices-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 22px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .office-box {
+        background: var(--neu-bg);
+        border-radius: var(--neu-radius-lg);
+        padding: 24px;
+        box-shadow: 6px 6px 14px var(--neu-dark), -6px -6px 14px var(--neu-light);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        transition: transform 0.25s ease;
+    }
+
+    .office-box:hover {
+        transform: translateY(-3px);
+    }
+
+    .office-header {
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: var(--neu-text);
+        margin-bottom: 10px;
+    }
+
+    .office-header hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, var(--neu-primary), transparent);
+        margin-top: 6px;
+    }
+
+    .office-details {
+        font-size: 0.95rem;
+        color: var(--neu-text-muted);
+        line-height: 1.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .form-container {
+            margin: 15px 12px;
+            padding: 30px 20px;
+            border-radius: 22px;
+        }
+
+        .form-container h2 {
+            font-size: 1.45rem;
+        }
+
+        .logo-bar {
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .logo-responsive {
+            height: 42px;
+        }
+
+        .breakdown-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="form-container">
+    <h2>39th Booklet & Ebooklet_form</h2>
+    
+    <!-- Django Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mb-3" style="
+                padding: 15px;
+                border-radius: var(--radius-md);
+                margin-bottom: var(--spacing-md);
+                {% if message.tags == 'success' %}
+                    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+                    border: 2px solid #28a745;
+                    color: #155724;
+                {% elif message.tags == 'error' %}
+                    background: linear-gradient(135deg, #f8d7da, #f1b0b7);
+                    border: 2px solid #dc3545;
+                    color: #721c24;
+                {% endif %}
+            ">
+                <strong>{% if message.tags == 'success' %}✓{% elif message.tags == 'error' %}⚠{% endif %}</strong>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% if form.errors %}
+      <div class="form-errors">
+        <h4 style="margin: 0 0 var(--spacing-sm) 0; color: #dc2626;">⚠️ Please fix the following errors:</h4>
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data" id="bookletBookingForm">
+        {% csrf_token %}
+        
+        <div class="section-header">📋 Personal Information</div>
+
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">1) Your Name</label>
+            {{ form.name }}
+            {% if form.name.help_text %}
+                <small class="form-text text-muted">{{ form.name.help_text }}</small>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.city.id_for_label }}">2) Your City</label>
+            {{ form.city }}
+            {% if form.city.help_text %}
+                <small class="form-text text-muted">{{ form.city.help_text }}</small>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.whatsapp_number.id_for_label }}">3) WhatsApp Number</label>
+            {{ form.whatsapp_number }}
+            {% if form.whatsapp_number.help_text %}
+                <small class="form-text text-muted">{{ form.whatsapp_number.help_text }}</small>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">4) Email ID</label>
+            {{ form.email }}
+            {% if form.email.help_text %}
+                <small class="form-text text-muted">{{ form.email.help_text }}</small>
+            {% endif %}
+        </div>
+        
+        <div class="section-header">Booklet Selection (Courier charges ₹100 extra)</div>
+        <div class="form-group">
+            <div class="neumorphic-card">
+                <div class="checkbox-row" style="margin-bottom: 12px;">
+                    {{ form.girls_booklet_with }}
+                    <label for="{{ form.girls_booklet_with.id_for_label }}">Girls Biodata Booklet <span class="price-pill">(₹700)</span></label>
+                </div>
+                <div class="checkbox-row">
+                    {{ form.boys_booklet_with }}
+                    <label for="{{ form.boys_booklet_with.id_for_label }}">Boys Biodata Booklet <span class="price-pill">(₹700)</span></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">E-Booklet Selection (Flip-Book)</div>
+        <div class="form-group">
+            <div class="neumorphic-card">
+                <div class="checkbox-row" style="margin-bottom: 12px;">
+                    {{ form.girls_ebooklet }}
+                    <label for="{{ form.girls_ebooklet.id_for_label }}">Girls Biodata E-Booklet <span class="price-pill">(₹300)</span></label>
+                </div>
+                <div class="checkbox-row">
+                    {{ form.boys_ebooklet }}
+                    <label for="{{ form.boys_ebooklet.id_for_label }}">Boys Biodata E-Booklet <span class="price-pill">(₹300)</span></label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="neumorphic-card">
+                <label class="breakdown-title">5) Total Amount Breakdown</label>
+                <div class="breakdown-grid">
+                    <div class="breakdown-item">
+                        <label>Booklet Total (number × 700 + 100) (₹):</label>
+                        <div class="total-input-wrapper">
+                            <span class="currency-symbol">₹</span>
+                            <input type="text" id="totalWith" readonly value="0" name="total_with" class="total-val-input" />
+                        </div>
+                    </div>
+                    <div class="breakdown-item">
+                        <label>E-Booklet Total (number × 300) (₹):</label>
+                        <div class="total-input-wrapper">
+                            <span class="currency-symbol">₹</span>
+                            <input type="text" id="totalEbooklet" readonly value="0" name="total_ebooklet" class="total-val-input" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.courier_address.id_for_label }}">6) Delivery Address (Phone number, Area pincode)</label>
+            {{ form.courier_address }}
+            {% if form.courier_address.help_text %}
+                <small class="form-text text-muted">{{ form.courier_address.help_text }}</small>
+            {% endif %}
+        </div>
+        
+        <div class="neumorphic-grand-total">
+            <span class="grand-total-label">Grand Total Payable Amount</span>
+            <span id="grandTotal" class="grand-total-amount">₹0</span>
+        </div>
+    
+        <div class="section-header">💳 Payment Information</div>
+        <div class="neumorphic-card payment-info">
+            <p class="payment-title">💰 Pay via GPay</p>
+            <p class="payment-subtitle">GPay Number: 7990208986 (Bhudev Network)</p>
+            <div class="qr-code-frame">
+                <img src="{% static 'images/payment_qr.jpeg' %}" alt="GPay QR Code" class="qr-img" />
+            </div>
+            <span class="scan-pay-text">Scan to Pay →</span>
+        </div>
+
+        <div style="height: 20px;"></div>
+        <div class="section-header">📸 Proof of Payment</div>
+        <div class="form-group">
+            <label for="{{ form.payment_screenshot.id_for_label }}">7) Attach Payment Screenshot</label>
+            {{ form.payment_screenshot }}
+            {% if form.payment_screenshot.help_text %}
+                <small class="form-text text-muted">{{ form.payment_screenshot.help_text }}</small>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <button type="submit">✓ Submit Booking</button>
+        </div>
+    </form>
+</div>
+        <div class="image-gallery">
+                <div class="gallery-item">
+                    <img src="{% static 'images/postS.jpeg' %}" alt="Event Image 1" />
+                </div>
+                <div class="gallery-item">
+                    <img src="{% static 'images/team.jpg' %}" alt="Event Image 2" />
+                </div>
+                 <div class="gallery-item">
+                    <img src="{% static 'images/new_ss.jpeg' %}" alt="Event Image 3" />
+                </div>
+                <!-- <div class="gallery-item">
+                    <img src="{% static 'images/program_schedule3.jpeg' %}" alt="Program Schedule" />
+                </div> -->
+            </div>
+        </div>
+        <!-- Footer Section -->
+            <footer class="footer-section">
+            <div class="container">
+                <div class="offices-container">
+                <div class="office-box vadodara-office">
+                    <div class="office-header">
+                    VADODARA (bhudevnetworkvivah / Employa Technologies )
+                    <hr />
+                    </div>
+                    <div class="office-details">
+                    601, 602, 603, 604 A, 6th Floor<br />Galav Chambers, Dairy Den
+                    Circle, Sayajiganj Vadodara - 390020 <br />9099798986, 9081522111
+                    </div>
+                </div>
+                <div class="office-box amdavad-office">
+                    <div class="office-header">
+                    AMDAVAD (NAVRANGPURA) (bhudevnetworkvivah / Employa Technologies )
+                    <hr />
+                    </div>
+                    <div class="office-details">
+                    A-703, 7th Floor,Nar -Naryan Complex,Near<br />Swastik Char Rasta,
+                    Opp Navrangpura Post office, Navrangpura Amdavad - 380009
+                    <br />9099798986, 9081522111
+                    </div>
+                </div>
+                </div>
+            </div>
+            {% include 'biodata/employa_footer.html' %}
+            </footer>
+
+<script>
+    // Prices
+    const pricePerBooklet = 700;
+    const courierCharge = 100;
+    const pricePerEbooklet = 300;
+
+    // Elements - these IDs are generated by Django
+    const girlsBookletWith = document.getElementById('id_girls_booklet_with');
+    const boysBookletWith = document.getElementById('id_boys_booklet_with');
+    const girlsEbooklet = document.getElementById('id_girls_ebooklet');
+    const boysEbooklet = document.getElementById('id_boys_ebooklet');
+    const totalWith = document.getElementById('totalWith');
+    const totalEbooklet = document.getElementById('totalEbooklet');
+    const grandTotal = document.getElementById('grandTotal');
+
+    function updateTotal() {
+        let bookletTotal = 0;
+        let bookletCount = 0;
+        let ebookletTotal = 0;
+        let ebookletCount = 0;
+        
+        if (girlsBookletWith && girlsBookletWith.checked) {
+            bookletTotal += pricePerBooklet;
+            bookletCount++;
+        }
+        if (boysBookletWith && boysBookletWith.checked) {
+            bookletTotal += pricePerBooklet;
+            bookletCount++;
+        }
+        if (bookletCount > 0) {
+            bookletTotal += courierCharge;
+        }
+
+        if (girlsEbooklet && girlsEbooklet.checked) {
+            ebookletTotal += pricePerEbooklet;
+            ebookletCount++;
+        }
+        if (boysEbooklet && boysEbooklet.checked) {
+            ebookletTotal += pricePerEbooklet;
+            ebookletCount++;
+        }
+
+        const overallTotal = bookletTotal + ebookletTotal;
+        
+        if (totalWith) {
+            totalWith.value = bookletTotal;
+        }
+        if (totalEbooklet) {
+            totalEbooklet.value = ebookletTotal;
+        }
+        if (grandTotal) {
+            grandTotal.textContent = '₹' + overallTotal;
+        }
+    }
+
+    // Add event listeners when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkboxElements = [
+            girlsBookletWith,
+            boysBookletWith,
+            girlsEbooklet,
+            boysEbooklet
+        ];
+
+        checkboxElements.forEach(function(el) {
+            if (el) {
+                el.addEventListener('change', updateTotal);
+            }
+        });
+        
+        // Initial calculation
+        updateTotal();
+    });
+    
+    // Also run on window load as backup
+    window.onload = function() {
+        updateTotal();
+    };
+</script>
+{% endblock %}

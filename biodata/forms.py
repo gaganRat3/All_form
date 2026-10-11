@@ -159,7 +159,7 @@ class BookletLibraryForm(forms.ModelForm):
             'gender': forms.RadioSelect(choices=[('male', 'Male'), ('female', 'Female')]),
         }
 from django import forms
-from .models import CandidateBiodata, MegaBookletCorrectionRequest, SammelanPaymentForm, AdvanceBookletBooking, CourierBooklet35thBooking
+from .models import CandidateBiodata, MegaBookletCorrectionRequest, SammelanPaymentForm, AdvanceBookletBooking, CourierBooklet35thBooking, BookletEbooklet39thBooking
 from .models import DivorceSammelanForm, PhysicalForm
 
 class CandidateBiodataForm(forms.ModelForm):
@@ -356,7 +356,115 @@ class CourierBooklet35thForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        # Set total_amount from cleaned_data calculated value
+        if 'total_amount' in self.cleaned_data:
+            instance.total_amount = self.cleaned_data['total_amount']
+        if commit:
+            instance.save()
+        return instance
+
+
+# Booklet & E-Booklet Form (39th Event - Dedicated Backend Form)
+class BookletEbooklet39thForm(forms.ModelForm):
+    class Meta:
+        model = BookletEbooklet39thBooking
+        fields = [
+            'name',
+            'city',
+            'whatsapp_number',
+            'email',
+            'girls_booklet_with',
+            'boys_booklet_with',
+            'girls_ebooklet',
+            'boys_ebooklet',
+            'courier_address',
+            'payment_screenshot',
+        ]
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your full name'
+            }),
+            'city': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your city'
+            }),
+            'whatsapp_number': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter WhatsApp number'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your email'
+            }),
+            'courier_address': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter delivery address (Phone number, area pincode)',
+                'rows': 3
+            }),
+        }
+        labels = {
+            'courier_address': 'Delivery Address (Phone number, area pincode)',
+            'girls_booklet_with': 'Girls Biodata Booklet (₹700)',
+            'boys_booklet_with': 'Boys Biodata Booklet (₹700)',
+            'girls_ebooklet': 'Girls Biodata E-Booklet (₹300)',
+            'boys_ebooklet': 'Boys Biodata E-Booklet (₹300)',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'courier_address' in self.fields:
+            self.fields['courier_address'].label = 'Delivery Address (Phone number, area pincode)'
+            self.fields['courier_address'].required = False
+        required_fields = ['name', 'city', 'whatsapp_number', 'email', 'payment_screenshot']
+        for field_name in self.fields:
+            if field_name in required_fields:
+                self.fields[field_name].required = True
+
+    def clean(self):
+        cleaned_data = super().clean()
+        girls_booklet_with = cleaned_data.get('girls_booklet_with')
+        boys_booklet_with = cleaned_data.get('boys_booklet_with')
+        girls_ebooklet = cleaned_data.get('girls_ebooklet')
+        boys_ebooklet = cleaned_data.get('boys_ebooklet')
+        courier_address = cleaned_data.get('courier_address')
+
+        # At least one booklet or ebooklet type must be chosen
+        if not (girls_booklet_with or boys_booklet_with or girls_ebooklet or boys_ebooklet):
+            raise forms.ValidationError("Please select at least one Booklet or E-Booklet option.")
+
+        # Courier address required if physical booklet selected
+        has_physical_booklet = bool(girls_booklet_with or boys_booklet_with)
+        if has_physical_booklet and not courier_address:
+            self.add_error('courier_address', 'Delivery address is required for physical booklet courier service.')
+
+        # Calculate total:
+        # Booklet: ₹700 per booklet + ₹100 courier charge
+        # E-Booklet: ₹300 per ebooklet
+        total = 0
+        price_per_booklet = 700
+        courier_charge = 100
+        price_per_ebooklet = 300
+
+        booklet_count = 0
+        if girls_booklet_with:
+            total += price_per_booklet
+            booklet_count += 1
+        if boys_booklet_with:
+            total += price_per_booklet
+            booklet_count += 1
+        if booklet_count > 0:
+            total += courier_charge
+
+        if girls_ebooklet:
+            total += price_per_ebooklet
+        if boys_ebooklet:
+            total += price_per_ebooklet
+
+        cleaned_data['total_amount'] = total
+        return cleaned_data
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
         if 'total_amount' in self.cleaned_data:
             instance.total_amount = self.cleaned_data['total_amount']
         if commit:

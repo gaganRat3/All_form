@@ -522,6 +522,29 @@ class CourierBooklet35thBooking(models.Model):
         courier_info = "With Courier" if self.courier_address else "No Courier"
         return f"{self.name} - {courier_info}"
 
+# Model for 39th Booklet & E-Booklet Booking (New Backend)
+class BookletEbooklet39thBooking(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Full Name")
+    city = models.CharField(max_length=255, verbose_name="City")
+    whatsapp_number = models.CharField(max_length=20, verbose_name="WhatsApp Number")
+    email = models.EmailField(verbose_name="Email ID")
+    girls_booklet_with = models.BooleanField(default=False, verbose_name="Girls Booklet (₹700)")
+    boys_booklet_with = models.BooleanField(default=False, verbose_name="Boys Booklet (₹700)")
+    girls_ebooklet = models.BooleanField(default=False, verbose_name="Girls E-Booklet (₹300)")
+    boys_ebooklet = models.BooleanField(default=False, verbose_name="Boys E-Booklet (₹300)")
+    courier_address = models.TextField(blank=True, null=True, verbose_name="Delivery Address (Phone number, area pincode)")
+    payment_screenshot = models.ImageField(upload_to='booklet_ebooklet_payments/', verbose_name="Payment Screenshot")
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name="Total Amount")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
+
+    class Meta:
+        verbose_name = "39th Booklet & E-Booklet Booking"
+        verbose_name_plural = "39th Booklet & E-Booklet Bookings"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.name} - ₹{self.total_amount}"
+
 class GarbaPassRegistration(models.Model):
     PASS_TYPE_CHOICES = [
         ('Garba Pass', 'Garba Pass'),

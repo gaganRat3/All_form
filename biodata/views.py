@@ -1276,8 +1276,48 @@ def courier_booklet_35th_view(request):
     
     return render(request, 'biodata/35th_Courier_Booklet.html', {'form': form})
 
-# Alias for 39th
-courier_booklet_39th_view = courier_booklet_35th_view
+def courier_booklet_39th_view(request):
+    """Handle the 39th Booklet & E-Booklet booking page (Dedicated Backend)."""
+    from .forms import BookletEbooklet39thForm
+    from django.contrib import messages
+    from .models import BookletEbooklet39thBooking
+    from django.db import transaction
+    
+    if request.method == 'POST':
+        print("POST request received for 39th Booklet & E-Booklet form.")
+        form = BookletEbooklet39thForm(request.POST, request.FILES)
+        print(f"Form data: {request.POST}, Files: {request.FILES}")
+        if form.is_valid():
+            try:
+                # Use atomic transaction to ensure commit
+                with transaction.atomic():
+                    booking = form.save()
+                    print(f"39th Booklet & E-Booklet Booking saved: {booking}")
+                    print(f"Saved object ID: {booking.id}")
+                
+                # Verify save after transaction commits
+                verify = BookletEbooklet39thBooking.objects.filter(id=booking.id).first()
+                print(f"Verification query result after transaction: {verify}")
+                
+                if verify:
+                    print("SUCCESS: Object is in database!")
+                else:
+                    print("ERROR: Object not found after transaction!")
+                    
+                return redirect('39th_courier_booklet_success')
+                
+            except Exception as e:
+                print(f"Exception during save: {e}")
+                import traceback
+                traceback.print_exc()
+                messages.error(request, 'An error occurred while saving your booking. Please try again.')
+        else:
+            print(f"BookletEbooklet39thForm errors: {form.errors}")
+            messages.error(request, 'Please correct the errors below and try again.')
+    else:
+        form = BookletEbooklet39thForm()
+    
+    return render(request, 'biodata/Booklet&Ebooklet_form.html', {'form': form})
 
 def courier_booklet_35th_success(request):
     return render(request, 'biodata/35th_Curier_booklet_success.html')
