@@ -41,11 +41,20 @@ ALLOWED_HOSTS = [
 
 # Remove CSRF_TRUSTED_ORIGINS if not using ngrok or multiple domains
 CSRF_TRUSTED_ORIGINS = [
+    'https://form.bhudevstore.com',
+    'http://form.bhudevstore.com',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'https://localhost:8000',
+    'https://127.0.0.1:8000',
+    'http://localhost',
+    'http://127.0.0.1',
     'https://stitch-rambling-proactive.ngrok-free.dev',
+    'http://stitch-rambling-proactive.ngrok-free.dev',
     'https://*.ngrok-free.dev',
+    'http://*.ngrok-free.dev',
     'https://*.ngrok-free.app',
     'https://*.ngrok.io',
-    'https://form.bhudevstore.com',
 ]
 
 # Application definition
