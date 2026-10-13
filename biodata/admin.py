@@ -976,29 +976,29 @@ class BookletEbooklet39thBookingAdmin(admin.ModelAdmin):
     actions = ['export_selected_to_excel']
 
     BOOKLET_MAP = [
-        ('girls_booklet_with', '39th Girls (₹700)'),
-        ('boys_booklet_with', '39th Boys (₹700)'),
-        ('booklet_38_girls', '38th Doctor Girls (₹500)'),
-        ('booklet_38_boys', '38th Doctor Boys (₹500)'),
-        ('booklet_37_girls', '37th Mumbai Girls (₹500)'),
-        ('booklet_37_boys', '37th Mumbai Boys (₹500)'),
-        ('booklet_36_girls', '36th Saurashtra Girls (₹500)'),
-        ('booklet_36_boys', '36th Saurashtra Boys (₹500)'),
-        ('booklet_35_girls', '35th Divorce-Widow Girls (₹500)'),
-        ('booklet_35_boys', '35th Divorce-Widow Boys (₹500)'),
+        ('girls_booklet_with', '39th Girls (456 Biodata - ₹700)'),
+        ('boys_booklet_with', '39th Boys (950 Biodata - ₹700)'),
+        ('booklet_38_girls', '38th Doctor Girls (130 Biodata - ₹500)'),
+        ('booklet_38_boys', '38th Doctor Boys (118 Biodata - ₹500)'),
+        ('booklet_37_girls', '37th Mumbai Girls (108 Biodata - ₹500)'),
+        ('booklet_37_boys', '37th Mumbai Boys (255 Biodata - ₹500)'),
+        ('booklet_36_girls', '36th Saurashtra Girls (143 Biodata - ₹500)'),
+        ('booklet_36_boys', '36th Saurashtra Boys (348 Biodata - ₹500)'),
+        ('booklet_35_girls', '35th Divorce-Widow Girls (170 Biodata - ₹500)'),
+        ('booklet_35_boys', '35th Divorce-Widow Boys (212 Biodata - ₹500)'),
     ]
 
     EBOOKLET_MAP = [
-        ('girls_ebooklet', '39th Girls (₹300)'),
-        ('boys_ebooklet', '39th Boys (₹300)'),
-        ('ebooklet_38_girls', '38th Doctor Girls (₹300)'),
-        ('ebooklet_38_boys', '38th Doctor Boys (₹300)'),
-        ('ebooklet_37_girls', '37th Mumbai Girls (₹300)'),
-        ('ebooklet_37_boys', '37th Mumbai Boys (₹300)'),
-        ('ebooklet_36_girls', '36th Saurashtra Girls (₹300)'),
-        ('ebooklet_36_boys', '36th Saurashtra Boys (₹300)'),
-        ('ebooklet_35_girls', '35th Divorce-Widow Girls (₹300)'),
-        ('ebooklet_35_boys', '35th Divorce-Widow Boys (₹300)'),
+        ('girls_ebooklet', '39th Girls (456 Biodata - ₹300)'),
+        ('boys_ebooklet', '39th Boys (950 Biodata - ₹300)'),
+        ('ebooklet_38_girls', '38th Doctor Girls (130 Biodata - ₹300)'),
+        ('ebooklet_38_boys', '38th Doctor Boys (118 Biodata - ₹300)'),
+        ('ebooklet_37_girls', '37th Mumbai Girls (108 Biodata - ₹300)'),
+        ('ebooklet_37_boys', '37th Mumbai Boys (255 Biodata - ₹300)'),
+        ('ebooklet_36_girls', '36th Saurashtra Girls (143 Biodata - ₹300)'),
+        ('ebooklet_36_boys', '36th Saurashtra Boys (348 Biodata - ₹300)'),
+        ('ebooklet_35_girls', '35th Divorce-Widow Girls (170 Biodata - ₹300)'),
+        ('ebooklet_35_boys', '35th Divorce-Widow Boys (212 Biodata - ₹300)'),
     ]
 
     def selected_booklets_display(self, obj):
