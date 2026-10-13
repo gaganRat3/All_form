@@ -1304,7 +1304,7 @@ def courier_booklet_39th_view(request):
                 else:
                     print("ERROR: Object not found after transaction!")
                     
-                return redirect('39th_courier_booklet_success')
+                return redirect('39th_booklet_ebooklet_success')
                 
             except Exception as e:
                 print(f"Exception during save: {e}")
@@ -1322,7 +1322,8 @@ def courier_booklet_39th_view(request):
 def courier_booklet_35th_success(request):
     return render(request, 'biodata/35th_Curier_booklet_success.html')
 
-courier_booklet_39th_success = courier_booklet_35th_success
+def courier_booklet_39th_success(request):
+    return render(request, 'biodata/Booklet&Ebooklet_success.html')
 
 def booklet_camp_adv_booking_view(request):
     """Handle the Booklet Camp Advanced Booking form."""

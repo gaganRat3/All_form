@@ -365,6 +365,21 @@ class CourierBooklet35thForm(forms.ModelForm):
 
 # Booklet & E-Booklet Form (39th Event - Dedicated Backend Form)
 class BookletEbooklet39thForm(forms.ModelForm):
+    BOOKLET_700_FIELDS = ['girls_booklet_with', 'boys_booklet_with']
+    BOOKLET_500_FIELDS = [
+        'booklet_38_girls', 'booklet_38_boys',
+        'booklet_37_girls', 'booklet_37_boys',
+        'booklet_36_girls', 'booklet_36_boys',
+        'booklet_35_girls', 'booklet_35_boys',
+    ]
+    EBOOKLET_300_FIELDS = [
+        'girls_ebooklet', 'boys_ebooklet',
+        'ebooklet_38_girls', 'ebooklet_38_boys',
+        'ebooklet_37_girls', 'ebooklet_37_boys',
+        'ebooklet_36_girls', 'ebooklet_36_boys',
+        'ebooklet_35_girls', 'ebooklet_35_boys',
+    ]
+
     class Meta:
         model = BookletEbooklet39thBooking
         fields = [
@@ -374,8 +389,24 @@ class BookletEbooklet39thForm(forms.ModelForm):
             'email',
             'girls_booklet_with',
             'boys_booklet_with',
+            'booklet_38_girls',
+            'booklet_38_boys',
+            'booklet_37_girls',
+            'booklet_37_boys',
+            'booklet_36_girls',
+            'booklet_36_boys',
+            'booklet_35_girls',
+            'booklet_35_boys',
             'girls_ebooklet',
             'boys_ebooklet',
+            'ebooklet_38_girls',
+            'ebooklet_38_boys',
+            'ebooklet_37_girls',
+            'ebooklet_37_boys',
+            'ebooklet_36_girls',
+            'ebooklet_36_boys',
+            'ebooklet_35_girls',
+            'ebooklet_35_boys',
             'courier_address',
             'payment_screenshot',
         ]
@@ -404,10 +435,26 @@ class BookletEbooklet39thForm(forms.ModelForm):
         }
         labels = {
             'courier_address': 'Delivery Address (Phone number, area pincode)',
-            'girls_booklet_with': 'Girls Biodata Booklet (₹700)',
-            'boys_booklet_with': 'Boys Biodata Booklet (₹700)',
-            'girls_ebooklet': 'Girls Biodata E-Booklet (₹300)',
-            'boys_ebooklet': 'Boys Biodata E-Booklet (₹300)',
+            'girls_booklet_with': 'Girls Booklet (456 Biodata) = ₹700',
+            'boys_booklet_with': 'Boys Booklet (950 Biodata) = ₹700',
+            'booklet_38_girls': 'Girls Booklet = ₹500',
+            'booklet_38_boys': 'Boys Booklet = ₹500',
+            'booklet_37_girls': 'Girls Booklet = ₹500',
+            'booklet_37_boys': 'Boys Booklet = ₹500',
+            'booklet_36_girls': 'Girls Booklet = ₹500',
+            'booklet_36_boys': 'Boys Booklet = ₹500',
+            'booklet_35_girls': 'Girls Booklet = ₹500',
+            'booklet_35_boys': 'Boys Booklet = ₹500',
+            'girls_ebooklet': 'Girls E-Booklet (456 Biodata) = ₹300',
+            'boys_ebooklet': 'Boys E-Booklet (950 Biodata) = ₹300',
+            'ebooklet_38_girls': 'Girls E-Booklet = ₹300',
+            'ebooklet_38_boys': 'Boys E-Booklet = ₹300',
+            'ebooklet_37_girls': 'Girls E-Booklet = ₹300',
+            'ebooklet_37_boys': 'Boys E-Booklet = ₹300',
+            'ebooklet_36_girls': 'Girls E-Booklet = ₹300',
+            'ebooklet_36_boys': 'Boys E-Booklet = ₹300',
+            'ebooklet_35_girls': 'Girls E-Booklet = ₹300',
+            'ebooklet_35_boys': 'Boys E-Booklet = ₹300',
         }
 
     def __init__(self, *args, **kwargs):
@@ -422,43 +469,47 @@ class BookletEbooklet39thForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        girls_booklet_with = cleaned_data.get('girls_booklet_with')
-        boys_booklet_with = cleaned_data.get('boys_booklet_with')
-        girls_ebooklet = cleaned_data.get('girls_ebooklet')
-        boys_ebooklet = cleaned_data.get('boys_ebooklet')
         courier_address = cleaned_data.get('courier_address')
 
+        all_booklet_fields = self.BOOKLET_700_FIELDS + self.BOOKLET_500_FIELDS
+        all_ebooklet_fields = self.EBOOKLET_300_FIELDS
+
+        has_physical_booklet = any(bool(cleaned_data.get(f)) for f in all_booklet_fields)
+        has_ebooklet = any(bool(cleaned_data.get(f)) for f in all_ebooklet_fields)
+
         # At least one booklet or ebooklet type must be chosen
-        if not (girls_booklet_with or boys_booklet_with or girls_ebooklet or boys_ebooklet):
+        if not (has_physical_booklet or has_ebooklet):
             raise forms.ValidationError("Please select at least one Booklet or E-Booklet option.")
 
         # Courier address required if physical booklet selected
-        has_physical_booklet = bool(girls_booklet_with or boys_booklet_with)
         if has_physical_booklet and not courier_address:
             self.add_error('courier_address', 'Delivery address is required for physical booklet courier service.')
 
         # Calculate total:
-        # Booklet: ₹700 per booklet + ₹100 courier charge
+        # 39th Booklet: ₹700 per booklet
+        # 38th-35th Booklet: ₹500 per booklet
+        # Courier charge: ₹100 if at least one physical booklet is selected
         # E-Booklet: ₹300 per ebooklet
         total = 0
-        price_per_booklet = 700
         courier_charge = 100
-        price_per_ebooklet = 300
-
         booklet_count = 0
-        if girls_booklet_with:
-            total += price_per_booklet
-            booklet_count += 1
-        if boys_booklet_with:
-            total += price_per_booklet
-            booklet_count += 1
+
+        for f in self.BOOKLET_700_FIELDS:
+            if cleaned_data.get(f):
+                total += 700
+                booklet_count += 1
+
+        for f in self.BOOKLET_500_FIELDS:
+            if cleaned_data.get(f):
+                total += 500
+                booklet_count += 1
+
         if booklet_count > 0:
             total += courier_charge
 
-        if girls_ebooklet:
-            total += price_per_ebooklet
-        if boys_ebooklet:
-            total += price_per_ebooklet
+        for f in self.EBOOKLET_300_FIELDS:
+            if cleaned_data.get(f):
+                total += 300
 
         cleaned_data['total_amount'] = total
         return cleaned_data

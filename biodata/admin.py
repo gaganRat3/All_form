@@ -941,10 +941,8 @@ class BookletEbooklet39thBookingAdmin(admin.ModelAdmin):
         'city',
         'whatsapp_number',
         'email',
-        'girls_booklet_with',
-        'boys_booklet_with',
-        'girls_ebooklet',
-        'boys_ebooklet',
+        'selected_booklets_display',
+        'selected_ebooklets_display',
         'total_amount',
         'payment_screenshot_preview',
         'created_at'
@@ -954,12 +952,64 @@ class BookletEbooklet39thBookingAdmin(admin.ModelAdmin):
         'city',
         'girls_booklet_with',
         'boys_booklet_with',
+        'booklet_38_girls',
+        'booklet_38_boys',
+        'booklet_37_girls',
+        'booklet_37_boys',
+        'booklet_36_girls',
+        'booklet_36_boys',
+        'booklet_35_girls',
+        'booklet_35_boys',
         'girls_ebooklet',
-        'boys_ebooklet'
+        'boys_ebooklet',
+        'ebooklet_38_girls',
+        'ebooklet_38_boys',
+        'ebooklet_37_girls',
+        'ebooklet_37_boys',
+        'ebooklet_36_girls',
+        'ebooklet_36_boys',
+        'ebooklet_35_girls',
+        'ebooklet_35_boys',
     ]
     search_fields = ['name', 'city', 'whatsapp_number', 'email', 'courier_address']
     readonly_fields = ['payment_screenshot_preview', 'created_at']
     actions = ['export_selected_to_excel']
+
+    BOOKLET_MAP = [
+        ('girls_booklet_with', '39th Girls (₹700)'),
+        ('boys_booklet_with', '39th Boys (₹700)'),
+        ('booklet_38_girls', '38th Doctor Girls (₹500)'),
+        ('booklet_38_boys', '38th Doctor Boys (₹500)'),
+        ('booklet_37_girls', '37th Mumbai Girls (₹500)'),
+        ('booklet_37_boys', '37th Mumbai Boys (₹500)'),
+        ('booklet_36_girls', '36th Saurashtra Girls (₹500)'),
+        ('booklet_36_boys', '36th Saurashtra Boys (₹500)'),
+        ('booklet_35_girls', '35th Divorce-Widow Girls (₹500)'),
+        ('booklet_35_boys', '35th Divorce-Widow Boys (₹500)'),
+    ]
+
+    EBOOKLET_MAP = [
+        ('girls_ebooklet', '39th Girls (₹300)'),
+        ('boys_ebooklet', '39th Boys (₹300)'),
+        ('ebooklet_38_girls', '38th Doctor Girls (₹300)'),
+        ('ebooklet_38_boys', '38th Doctor Boys (₹300)'),
+        ('ebooklet_37_girls', '37th Mumbai Girls (₹300)'),
+        ('ebooklet_37_boys', '37th Mumbai Boys (₹300)'),
+        ('ebooklet_36_girls', '36th Saurashtra Girls (₹300)'),
+        ('ebooklet_36_boys', '36th Saurashtra Boys (₹300)'),
+        ('ebooklet_35_girls', '35th Divorce-Widow Girls (₹300)'),
+        ('ebooklet_35_boys', '35th Divorce-Widow Boys (₹300)'),
+    ]
+
+    def selected_booklets_display(self, obj):
+        items = [label for field, label in self.BOOKLET_MAP if getattr(obj, field, False)]
+        return ", ".join(items) if items else "-"
+    selected_booklets_display.short_description = 'Selected Booklets'
+
+    def selected_ebooklets_display(self, obj):
+        items = [label for field, label in self.EBOOKLET_MAP if getattr(obj, field, False)]
+        return ", ".join(items) if items else "-"
+    selected_ebooklets_display.short_description = 'Selected E-Booklets'
 
     def payment_screenshot_preview(self, obj):
         if obj.payment_screenshot:
@@ -982,13 +1032,12 @@ class BookletEbooklet39thBookingAdmin(admin.ModelAdmin):
 
         headers = [
             'Name', 'City', 'WhatsApp Number', 'Email',
-            'Girls Booklet (₹700)', 'Boys Booklet (₹700)',
-            'Girls E-Booklet (₹300)', 'Boys E-Booklet (₹300)',
+            'Selected Booklets', 'Selected E-Booklets',
             'Delivery Address', 'Total Amount (₹)', 'Payment Screenshot', 'Created At'
         ]
         ws.append(headers)
 
-        column_widths = [22, 18, 18, 28, 18, 18, 18, 18, 38, 16, 20, 20]
+        column_widths = [22, 18, 18, 28, 38, 38, 38, 16, 20, 20]
         for i, width in enumerate(column_widths, 1):
             ws.column_dimensions[get_column_letter(i)].width = width
 
@@ -999,10 +1048,8 @@ class BookletEbooklet39thBookingAdmin(admin.ModelAdmin):
                 obj.city,
                 obj.whatsapp_number,
                 obj.email,
-                'Yes' if obj.girls_booklet_with else 'No',
-                'Yes' if obj.boys_booklet_with else 'No',
-                'Yes' if obj.girls_ebooklet else 'No',
-                'Yes' if obj.boys_ebooklet else 'No',
+                self.selected_booklets_display(obj),
+                self.selected_ebooklets_display(obj),
                 obj.courier_address or '',
                 float(obj.total_amount),
                 '',  # Image placeholder
@@ -1020,7 +1067,7 @@ class BookletEbooklet39thBookingAdmin(admin.ModelAdmin):
                     img = OpenpyxlImage(img_byte_arr)
                     img.width = 80
                     img.height = 80
-                    img.anchor = f"{get_column_letter(11)}{row_num}"
+                    img.anchor = f"{get_column_letter(9)}{row_num}"
                     ws.add_image(img)
                     ws.row_dimensions[row_num].height = 60
                 except Exception:

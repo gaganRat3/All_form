@@ -594,6 +594,243 @@
             grid-template-columns: 1fr;
         }
     }
+
+    /* Professional visual theme */
+    :root {
+        --neu-bg: #f5f7fa;
+        --neu-light: #ffffff;
+        --neu-dark: #d9e0e8;
+        --neu-darker: #c4ced9;
+        --neu-primary: #1f5f9e;
+        --neu-primary-light: #2f76bd;
+        --neu-primary-dark: #174a7d;
+        --neu-text: #1f2937;
+        --neu-text-muted: #64748b;
+        --neu-shadow-flat: 0 4px 14px rgba(15, 23, 42, 0.08);
+        --neu-shadow-deep: 0 12px 30px rgba(15, 23, 42, 0.12);
+        --neu-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.07);
+        --neu-shadow-inset: inset 0 1px 3px rgba(15, 23, 42, 0.08);
+        --neu-shadow-inset-focus: inset 0 1px 3px rgba(15, 23, 42, 0.08), 0 0 0 3px rgba(31, 95, 158, 0.16);
+    }
+
+    body {
+        background: #f5f7fa;
+        color: var(--neu-text);
+    }
+
+    .logo-bar {
+        gap: 2.5rem;
+        padding: 1rem 1.5rem;
+        background: #ffffff;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+        border-bottom: 1px solid #e5eaf0;
+    }
+
+    .logo-responsive {
+        background: #ffffff;
+        box-shadow: none;
+        border: 1px solid #e5eaf0;
+        padding: 5px 9px;
+    }
+
+    .logo-responsive:hover {
+        transform: none;
+        box-shadow: 0 3px 10px rgba(15, 23, 42, 0.1);
+    }
+
+    .form-container {
+        max-width: 780px;
+        margin: 32px auto 48px auto;
+        padding: 40px 42px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        border: 1px solid #e5eaf0;
+    }
+
+    .form-container h2 {
+        font-size: 1.7rem;
+        color: #17324d;
+        margin-bottom: 28px;
+    }
+
+    .form-container h2::after {
+        width: 48px;
+        height: 3px;
+        background: var(--neu-primary);
+        box-shadow: none;
+    }
+
+    .section-header {
+        background: #f8fafc;
+        box-shadow: none;
+        border: 1px solid #e2e8f0;
+        border-left: 4px solid var(--neu-primary);
+        padding: 13px 16px;
+        margin: 28px 0 18px 0;
+        border-radius: 6px;
+        font-size: 1.05rem;
+    }
+
+    .section-header:hover {
+        transform: none;
+    }
+
+    .neumorphic-card,
+    .neumorphic-grand-total,
+    .office-box,
+    .gallery-item {
+        background: #ffffff;
+        box-shadow: var(--neu-shadow-sm);
+        border: 1px solid #e5eaf0;
+        border-radius: 10px;
+    }
+
+    .neumorphic-card {
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group select,
+    .form-group textarea,
+    .total-val-input,
+    input[type="file"] {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        box-shadow: none;
+        border-radius: 6px;
+        color: var(--neu-text);
+    }
+
+    .form-group input[type="text"]:focus,
+    .form-group input[type="email"]:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        border-color: var(--neu-primary);
+        box-shadow: var(--neu-shadow-inset-focus);
+    }
+
+    input[type="file"] {
+        border-style: solid;
+    }
+
+    .checkbox-row:hover {
+        background: #f8fafc;
+    }
+
+    .price-pill {
+        background: #eef5fc;
+        box-shadow: none;
+        color: var(--neu-primary);
+        border: 1px solid #d6e6f5;
+    }
+
+    .breakdown-title {
+        border-bottom-color: #e2e8f0;
+    }
+
+    .total-val-input {
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: none !important;
+    }
+
+    .neumorphic-grand-total {
+        padding: 20px 24px;
+    }
+
+    .grand-total-amount {
+        color: var(--neu-primary);
+        text-shadow: none;
+    }
+
+    .qr-code-frame {
+        background: #f8fafc;
+        box-shadow: none;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+    }
+
+    .qr-img {
+        box-shadow: none;
+        border: 1px solid #e2e8f0;
+    }
+
+    .scan-pay-text {
+        background: #eef5fc;
+        box-shadow: none;
+        border: 1px solid #d6e6f5;
+    }
+
+    button[type="submit"] {
+        padding: 15px 22px;
+        border-radius: 6px;
+        background: var(--neu-primary);
+        box-shadow: 0 4px 10px rgba(31, 95, 158, 0.25);
+    }
+
+    button[type="submit"]:hover {
+        background: var(--neu-primary-dark);
+        box-shadow: 0 5px 12px rgba(31, 95, 158, 0.3);
+        transform: translateY(-1px);
+    }
+
+    button[type="submit"]:active {
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        transform: none;
+    }
+
+    .alert,
+    .form-errors {
+        box-shadow: none;
+        border-radius: 6px;
+    }
+
+    .image-gallery {
+        gap: 18px;
+    }
+
+    .gallery-item:hover,
+    .office-box:hover {
+        transform: none;
+        box-shadow: var(--neu-shadow-deep);
+    }
+
+    .footer-section {
+        background: #eef2f6;
+        box-shadow: inset 0 1px 0 #dce3eb;
+    }
+
+    .office-box {
+        padding: 22px;
+    }
+
+    @media (max-width: 768px) {
+        .form-container {
+            margin: 18px 12px 35px;
+            padding: 28px 20px;
+        }
+
+        .logo-bar {
+            gap: 1rem;
+            padding: 0.85rem;
+        }
+
+        .logo-responsive {
+            max-width: 30%;
+            height: 42px;
+        }
+    }
 </style>
 
 <div class="form-container">
@@ -602,20 +839,7 @@
     <!-- Django Messages -->
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} mb-3" style="
-                padding: 15px;
-                border-radius: var(--radius-md);
-                margin-bottom: var(--spacing-md);
-                {% if message.tags == 'success' %}
-                    background: linear-gradient(135deg, #d4edda, #c3e6cb);
-                    border: 2px solid #28a745;
-                    color: #155724;
-                {% elif message.tags == 'error' %}
-                    background: linear-gradient(135deg, #f8d7da, #f1b0b7);
-                    border: 2px solid #dc3545;
-                    color: #721c24;
-                {% endif %}
-            ">
+            <div class="alert alert-{{ message.tags }} mb-3">
                 <strong>{% if message.tags == 'success' %}✓{% elif message.tags == 'error' %}⚠{% endif %}</strong>
                 {{ message }}
             </div>
@@ -674,16 +898,88 @@
             {% endif %}
         </div>
         
+        <style>
+            .mela-category-group {
+                padding: 14px 16px;
+                margin-bottom: 14px;
+                background: #f8fafc;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+            }
+            .mela-category-group:last-child {
+                margin-bottom: 0;
+            }
+            .mela-category-title {
+                font-weight: 700;
+                font-size: 0.96rem;
+                color: #17324d;
+                margin-bottom: 10px;
+                padding-bottom: 6px;
+                border-bottom: 1px dashed #cbd5e1;
+            }
+        </style>
+
         <div class="section-header">Booklet Selection (Courier charges ₹100 extra)</div>
         <div class="form-group">
             <div class="neumorphic-card">
-                <div class="checkbox-row" style="margin-bottom: 12px;">
-                    {{ form.girls_booklet_with }}
-                    <label for="{{ form.girls_booklet_with.id_for_label }}">Girls Biodata Booklet <span class="price-pill">(₹700)</span></label>
+                <div class="mela-category-group">
+                    <div class="mela-category-title">(1) 39th Bhudev Sammelan (unmarried Biodata - Sep 2026)</div>
+                    <div class="checkbox-row" style="margin-bottom: 8px;">
+                        {{ form.girls_booklet_with }}
+                        <label for="{{ form.girls_booklet_with.id_for_label }}">Girls Booklet (456 Biodata) = <span class="price-pill">₹700</span></label>
+                    </div>
+                    <div class="checkbox-row">
+                        {{ form.boys_booklet_with }}
+                        <label for="{{ form.boys_booklet_with.id_for_label }}">Boys Booklet (950 Biodata) = <span class="price-pill">₹700</span></label>
+                    </div>
                 </div>
-                <div class="checkbox-row">
-                    {{ form.boys_booklet_with }}
-                    <label for="{{ form.boys_booklet_with.id_for_label }}">Boys Biodata Booklet <span class="price-pill">(₹700)</span></label>
+
+                <div class="mela-category-group">
+                    <div class="mela-category-title">(2) 38th Bhudev Sammelan (Doctor Medical Biodata - Aug 2026)</div>
+                    <div class="checkbox-row" style="margin-bottom: 8px;">
+                        {{ form.booklet_38_girls }}
+                        <label for="{{ form.booklet_38_girls.id_for_label }}">Girls Booklet = <span class="price-pill">₹500</span></label>
+                    </div>
+                    <div class="checkbox-row">
+                        {{ form.booklet_38_boys }}
+                        <label for="{{ form.booklet_38_boys.id_for_label }}">Boys Booklet = <span class="price-pill">₹500</span></label>
+                    </div>
+                </div>
+
+                <div class="mela-category-group">
+                    <div class="mela-category-title">(3) 37th Bhudev Sammelan (Mumbai-Maharashtra Biodata - June 2026)</div>
+                    <div class="checkbox-row" style="margin-bottom: 8px;">
+                        {{ form.booklet_37_girls }}
+                        <label for="{{ form.booklet_37_girls.id_for_label }}">Girls Booklet = <span class="price-pill">₹500</span></label>
+                    </div>
+                    <div class="checkbox-row">
+                        {{ form.booklet_37_boys }}
+                        <label for="{{ form.booklet_37_boys.id_for_label }}">Boys Booklet = <span class="price-pill">₹500</span></label>
+                    </div>
+                </div>
+
+                <div class="mela-category-group">
+                    <div class="mela-category-title">(4) 36th Bhudev Sammelan (Saurashtra Biodata - May 2026)</div>
+                    <div class="checkbox-row" style="margin-bottom: 8px;">
+                        {{ form.booklet_36_girls }}
+                        <label for="{{ form.booklet_36_girls.id_for_label }}">Girls Booklet = <span class="price-pill">₹500</span></label>
+                    </div>
+                    <div class="checkbox-row">
+                        {{ form.booklet_36_boys }}
+                        <label for="{{ form.booklet_36_boys.id_for_label }}">Boys Booklet = <span class="price-pill">₹500</span></label>
+                    </div>
+                </div>
+
+                <div class="mela-category-group">
+                    <div class="mela-category-title">(5) 35th Bhudev Sammelan (Divorce - Widow Biodata - Aug 2026)</div>
+                    <div class="checkbox-row" style="margin-bottom: 8px;">
+                        {{ form.booklet_35_girls }}
+                        <label for="{{ form.booklet_35_girls.id_for_label }}">Girls Booklet = <span class="price-pill">₹500</span></label>
+                    </div>
+                    <div class="checkbox-row">
+                        {{ form.booklet_35_boys }}
+                        <label for="{{ form.booklet_35_boys.id_for_label }}">Boys Booklet = <span class="price-pill">₹500</span></label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -691,13 +987,64 @@
         <div class="section-header">E-Booklet Selection (Flip-Book)</div>
         <div class="form-group">
             <div class="neumorphic-card">
-                <div class="checkbox-row" style="margin-bottom: 12px;">
-                    {{ form.girls_ebooklet }}
-                    <label for="{{ form.girls_ebooklet.id_for_label }}">Girls Biodata E-Booklet <span class="price-pill">(₹300)</span></label>
+                <div class="mela-category-group">
+                    <div class="mela-category-title">(1) 39th Bhudev Sammelan (unmarried Biodata - Sep 2026)</div>
+                    <div class="checkbox-row" style="margin-bottom: 8px;">
+                        {{ form.girls_ebooklet }}
+                        <label for="{{ form.girls_ebooklet.id_for_label }}">Girls E-Booklet (456 Biodata) = <span class="price-pill">₹300</span></label>
+                    </div>
+                    <div class="checkbox-row">
+                        {{ form.boys_ebooklet }}
+                        <label for="{{ form.boys_ebooklet.id_for_label }}">Boys E-Booklet (950 Biodata) = <span class="price-pill">₹300</span></label>
+                    </div>
                 </div>
-                <div class="checkbox-row">
-                    {{ form.boys_ebooklet }}
-                    <label for="{{ form.boys_ebooklet.id_for_label }}">Boys Biodata E-Booklet <span class="price-pill">(₹300)</span></label>
+
+                <div class="mela-category-group">
+                    <div class="mela-category-title">(2) 38th Bhudev Sammelan (Doctor Medical Biodata - Aug 2026)</div>
+                    <div class="checkbox-row" style="margin-bottom: 8px;">
+                        {{ form.ebooklet_38_girls }}
+                        <label for="{{ form.ebooklet_38_girls.id_for_label }}">Girls E-Booklet = <span class="price-pill">₹300</span></label>
+                    </div>
+                    <div class="checkbox-row">
+                        {{ form.ebooklet_38_boys }}
+                        <label for="{{ form.ebooklet_38_boys.id_for_label }}">Boys E-Booklet = <span class="price-pill">₹300</span></label>
+                    </div>
+                </div>
+
+                <div class="mela-category-group">
+                    <div class="mela-category-title">(3) 37th Bhudev Sammelan (Mumbai-Maharashtra Biodata - June 2026)</div>
+                    <div class="checkbox-row" style="margin-bottom: 8px;">
+                        {{ form.ebooklet_37_girls }}
+                        <label for="{{ form.ebooklet_37_girls.id_for_label }}">Girls E-Booklet = <span class="price-pill">₹300</span></label>
+                    </div>
+                    <div class="checkbox-row">
+                        {{ form.ebooklet_37_boys }}
+                        <label for="{{ form.ebooklet_37_boys.id_for_label }}">Boys E-Booklet = <span class="price-pill">₹300</span></label>
+                    </div>
+                </div>
+
+                <div class="mela-category-group">
+                    <div class="mela-category-title">(4) 36th Bhudev Sammelan (Saurashtra Biodata - May 2026)</div>
+                    <div class="checkbox-row" style="margin-bottom: 8px;">
+                        {{ form.ebooklet_36_girls }}
+                        <label for="{{ form.ebooklet_36_girls.id_for_label }}">Girls E-Booklet = <span class="price-pill">₹300</span></label>
+                    </div>
+                    <div class="checkbox-row">
+                        {{ form.ebooklet_36_boys }}
+                        <label for="{{ form.ebooklet_36_boys.id_for_label }}">Boys E-Booklet = <span class="price-pill">₹300</span></label>
+                    </div>
+                </div>
+
+                <div class="mela-category-group">
+                    <div class="mela-category-title">(5) 35th Bhudev Sammelan (Divorce - Widow Biodata - Aug 2026)</div>
+                    <div class="checkbox-row" style="margin-bottom: 8px;">
+                        {{ form.ebooklet_35_girls }}
+                        <label for="{{ form.ebooklet_35_girls.id_for_label }}">Girls E-Booklet = <span class="price-pill">₹300</span></label>
+                    </div>
+                    <div class="checkbox-row">
+                        {{ form.ebooklet_35_boys }}
+                        <label for="{{ form.ebooklet_35_boys.id_for_label }}">Boys E-Booklet = <span class="price-pill">₹300</span></label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -707,7 +1054,7 @@
                 <label class="breakdown-title">5) Total Amount Breakdown</label>
                 <div class="breakdown-grid">
                     <div class="breakdown-item">
-                        <label>Booklet Total (number × 700 + 100) (₹):</label>
+                        <label>Booklet Total (+ ₹100 Courier) (₹):</label>
                         <div class="total-input-wrapper">
                             <span class="currency-symbol">₹</span>
                             <input type="text" id="totalWith" readonly value="0" name="total_with" class="total-val-input" />
@@ -807,16 +1154,37 @@
             </footer>
 
 <script>
-    // Prices
-    const pricePerBooklet = 700;
     const courierCharge = 100;
-    const pricePerEbooklet = 300;
 
-    // Elements - these IDs are generated by Django
-    const girlsBookletWith = document.getElementById('id_girls_booklet_with');
-    const boysBookletWith = document.getElementById('id_boys_booklet_with');
-    const girlsEbooklet = document.getElementById('id_girls_ebooklet');
-    const boysEbooklet = document.getElementById('id_boys_ebooklet');
+    const booklet700Ids = [
+        'id_girls_booklet_with',
+        'id_boys_booklet_with'
+    ];
+
+    const booklet500Ids = [
+        'id_booklet_38_girls',
+        'id_booklet_38_boys',
+        'id_booklet_37_girls',
+        'id_booklet_37_boys',
+        'id_booklet_36_girls',
+        'id_booklet_36_boys',
+        'id_booklet_35_girls',
+        'id_booklet_35_boys'
+    ];
+
+    const ebooklet300Ids = [
+        'id_girls_ebooklet',
+        'id_boys_ebooklet',
+        'id_ebooklet_38_girls',
+        'id_ebooklet_38_boys',
+        'id_ebooklet_37_girls',
+        'id_ebooklet_37_boys',
+        'id_ebooklet_36_girls',
+        'id_ebooklet_36_boys',
+        'id_ebooklet_35_girls',
+        'id_ebooklet_35_boys'
+    ];
+
     const totalWith = document.getElementById('totalWith');
     const totalEbooklet = document.getElementById('totalEbooklet');
     const grandTotal = document.getElementById('grandTotal');
@@ -825,31 +1193,36 @@
         let bookletTotal = 0;
         let bookletCount = 0;
         let ebookletTotal = 0;
-        let ebookletCount = 0;
-        
-        if (girlsBookletWith && girlsBookletWith.checked) {
-            bookletTotal += pricePerBooklet;
-            bookletCount++;
-        }
-        if (boysBookletWith && boysBookletWith.checked) {
-            bookletTotal += pricePerBooklet;
-            bookletCount++;
-        }
+
+        booklet700Ids.forEach(function(id) {
+            const el = document.getElementById(id);
+            if (el && el.checked) {
+                bookletTotal += 700;
+                bookletCount++;
+            }
+        });
+
+        booklet500Ids.forEach(function(id) {
+            const el = document.getElementById(id);
+            if (el && el.checked) {
+                bookletTotal += 500;
+                bookletCount++;
+            }
+        });
+
         if (bookletCount > 0) {
             bookletTotal += courierCharge;
         }
 
-        if (girlsEbooklet && girlsEbooklet.checked) {
-            ebookletTotal += pricePerEbooklet;
-            ebookletCount++;
-        }
-        if (boysEbooklet && boysEbooklet.checked) {
-            ebookletTotal += pricePerEbooklet;
-            ebookletCount++;
-        }
+        ebooklet300Ids.forEach(function(id) {
+            const el = document.getElementById(id);
+            if (el && el.checked) {
+                ebookletTotal += 300;
+            }
+        });
 
         const overallTotal = bookletTotal + ebookletTotal;
-        
+
         if (totalWith) {
             totalWith.value = bookletTotal;
         }
@@ -861,26 +1234,17 @@
         }
     }
 
-    // Add event listeners when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
-        const checkboxElements = [
-            girlsBookletWith,
-            boysBookletWith,
-            girlsEbooklet,
-            boysEbooklet
-        ];
-
-        checkboxElements.forEach(function(el) {
+        const allIds = booklet700Ids.concat(booklet500Ids, ebooklet300Ids);
+        allIds.forEach(function(id) {
+            const el = document.getElementById(id);
             if (el) {
                 el.addEventListener('change', updateTotal);
             }
         });
-        
-        // Initial calculation
         updateTotal();
     });
-    
-    // Also run on window load as backup
+
     window.onload = function() {
         updateTotal();
     };
