@@ -49,18 +49,13 @@ class NriSammelanBiodata(models.Model):
     ]
 
     EDUCATION_CHOICES = [
-        ('Doctor (Clinical - Surgical - Specialist)', 'Doctor (Clinical - Surgical - Specialist)'),
-        ('Doctor (Physiotherapy)', 'Doctor (Physiotherapy)'),
-        ('Doctor (Dental)', 'Doctor (Dental)'),
-        ('Doctor (Pathology)', 'Doctor (Pathology)'),
-        ('Doctor (Veterinary)', 'Doctor (Veterinary)'),
-        ('Doctor (Ayurvedic)', 'Doctor (Ayurvedic)'),
-        ('Doctor (Homeopathy)', 'Doctor (Homeopathy)'),
-        ('Doctor (Naturopathy)', 'Doctor (Naturopathy)'),
-        ('Pharmacy Education', 'Pharmacy Education'),
-        ('Nurse - Midwifery', 'Nurse - Midwifery'),
-        ('Paramedical Staff', 'Paramedical Staff'),
-        ('Other Education Field', 'Other Education Field'),
+        ('Undergraduate (10th 12th Pass/Fail, Diploma, ITI, Not Completed Graduation)', 'Undergraduate (10th 12th Pass/Fail, Diploma, ITI, Not Completed Graduation)'),
+        ('Graduate (BA, B.Com., B.Sc., BE, BTech, LLB, B.Arch., BBA, BCA etc)', 'Graduate (BA, B.Com., B.Sc., BE, BTech, LLB, B.Arch., BBA, BCA etc)'),
+        ('Masters (MA, MCom, MSc., ME, MTech, M.Arch, M.Phil, LLM etc)', 'Masters (MA, MCom, MSc., ME, MTech, M.Arch, M.Phil, LLM etc)'),
+        ('CA, CS, ICWA, CPA, ACCA, CIMA etc', 'CA, CS, ICWA, CPA, ACCA, CIMA etc'),
+        ('Doctor - Medical - Pharmacy - Dentist - Physiotherapist - Paramedical', 'Doctor - Medical - Pharmacy - Dentist - Physiotherapist - Paramedical'),
+        ('PhD, UPSC, GPSC (IAS, IPS etc), Mayor, Civil Services etc', 'PhD, UPSC, GPSC (IAS, IPS etc), Mayor, Civil Services etc'),
+        ('Any Other Education Category', 'Any Other Education Category'),
     ]
 
     name = models.CharField(max_length=100)

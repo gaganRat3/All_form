@@ -98,23 +98,59 @@
       .event-title-band {
         position: relative;
         z-index: 1;
-        max-width: 920px;
+        max-width: 820px;
         margin: 0 auto;
       }
       .event-title-band h1 {
         color: #ffffff;
-        font-size: clamp(1.35rem, 4vw, 2.25rem);
+        font-size: clamp(1.18rem, 3.2vw, 1.85rem);
         font-weight: 800;
-        line-height: 1.25;
-        letter-spacing: 0.4px;
-        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+        line-height: 1.35;
+        letter-spacing: 0.3px;
+        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
       }
-      .event-title-band p {
-        color: #ede9fe; /* Light */
-        font-size: 0.95rem;
-        margin-top: 8px;
-        line-height: 1.65;
-        opacity: 0.9;
+      .nri-badge {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 5px 16px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        color: #ffffff;
+        font-size: clamp(0.8rem, 2.2vw, 0.92rem);
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(4px);
+      }
+      .event-highlights {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 580px;
+        margin: 16px auto 0;
+        padding: 0 6px;
+      }
+      .highlight-chip {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        text-align: left;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 12px;
+        padding: 10px 14px;
+        color: #f5f3ff;
+        font-size: clamp(0.8rem, 2.1vw, 0.88rem);
+        line-height: 1.5;
+        backdrop-filter: blur(6px);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      }
+      .highlight-chip .chk-icon {
+        color: #4ade80;
+        font-weight: 800;
+        flex-shrink: 0;
+        margin-top: 1px;
       }
 
       .info-banner {
@@ -467,17 +503,26 @@
   <body>
     <div class="site-header">
       <div class="logo-row">
-        <img src="{% static 'images/img3.png' %}" alt="Logo" />
-        <img src="{% static 'images/img4.png' %}" alt="Logo" />
-        <img src="{% static 'images/logoD.png' %}" alt="Logo" />
+        <img src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Logo" />
+        <img src="{% static 'images/NRI Matrimony(1).jpg.jpeg' %}" alt="Logo" />
+        <!-- <img src="{% static 'images/logoD.png' %}" alt="Logo" /> -->
         <!-- <img src="{% static 'images/logoMH.png' %}" alt="Logo" /> -->
       </div>
       <div class="event-title-band">
-        <h1>✨ 40th Bhudev Jivansathi Sammelan ✨</h1>
-        <p>
-          40th Samast Brahman : Bhudev Jivansathi Parichay - Meeting - Pasandgi
-          Sammelan for NRI and Looking for NRI Candidates
-        </p>
+        <h1>40th Samast Brahman - Bhudev Jivansathi Parichay Sammelan</h1>
+        <div class="nri-badge">
+          (For NRI Candidates &amp; Looking For NRI Candidates)
+        </div>
+        <div class="event-highlights">
+          <div class="highlight-chip">
+            <span class="chk-icon">✔️</span>
+            <span>This is Online Parichay Sammelan on <strong>Zoom Meet</strong></span>
+          </div>
+          <div class="highlight-chip">
+            <span class="chk-icon">✔️</span>
+            <span>This Online Parichay Sammelan is only for <strong>NRI Candidates</strong> &amp; those local Candidates who are <strong>Looking for NRI Candidates</strong></span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -499,8 +544,13 @@
 
       <p>
         <strong>Sammelan Date</strong> : 27-12-2026 (રવિવાર)<br />
-        <strong>Time</strong> : સવારે 10 AM થી 4 PM<br /><br />
-        <strong>Join WhatsApp Group</strong> :
+        <strong>Time</strong> : 10 am to 6 pm
+      </p>
+
+      <hr style="border: none; border-top: 1.5px dashed #d8bff5; margin: 16px 0;" />
+
+      <p>
+        <strong>Registration Fees Details :</strong>
       </p>
 
       <p>
@@ -712,30 +762,13 @@
                 >
                 <select id="education" name="education" required>
                   <option value="">Select an Option</option>
-                  <option value="Doctor (Clinical - Surgical - Specialist)">
-                    Doctor (Clinical - Surgical - Specialist)
-                  </option>
-                  <option value="Doctor (Physiotherapy)">
-                    Doctor (Physiotherapy)
-                  </option>
-                  <option value="Doctor (Dental)">Doctor (Dental)</option>
-                  <option value="Doctor (Pathology)">Doctor (Pathology)</option>
-                  <option value="Doctor (Veterinary)">
-                    Doctor (Veterinary)
-                  </option>
-                  <option value="Doctor (Ayurvedic)">Doctor (Ayurvedic)</option>
-                  <option value="Doctor (Homeopathy)">
-                    Doctor (Homeopathy)
-                  </option>
-                  <option value="Doctor (Naturopathy)">
-                    Doctor (Naturopathy)
-                  </option>
-                  <option value="Pharmacy Education">Pharmacy Education</option>
-                  <option value="Nurse - Midwifery">Nurse - Midwifery</option>
-                  <option value="Paramedical Staff">Paramedical Staff</option>
-                  <option value="Other Education Field">
-                    Other Education Field
-                  </option>
+                  <option value="Undergraduate (10th 12th Pass/Fail, Diploma, ITI, Not Completed Graduation)">Undergraduate (10th 12th Pass/Fail, Diploma, ITI, Not Completed Graduation)</option>
+                  <option value="Graduate (BA, B.Com., B.Sc., BE, BTech, LLB, B.Arch., BBA, BCA etc)">Graduate (BA, B.Com., B.Sc., BE, BTech, LLB, B.Arch., BBA, BCA etc)</option>
+                  <option value="Masters (MA, MCom, MSc., ME, MTech, M.Arch, M.Phil, LLM etc)">Masters (MA, MCom, MSc., ME, MTech, M.Arch, M.Phil, LLM etc)</option>
+                  <option value="CA, CS, ICWA, CPA, ACCA, CIMA etc">CA, CS, ICWA, CPA, ACCA, CIMA etc</option>
+                  <option value="Doctor - Medical - Pharmacy - Dentist - Physiotherapist - Paramedical">Doctor - Medical - Pharmacy - Dentist - Physiotherapist - Paramedical</option>
+                  <option value="PhD, UPSC, GPSC (IAS, IPS etc), Mayor, Civil Services etc">PhD, UPSC, GPSC (IAS, IPS etc), Mayor, Civil Services etc</option>
+                  <option value="Any Other Education Category">Any Other Education Category</option>
                 </select>
               </div>
               <div class="field full">
