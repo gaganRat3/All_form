@@ -6,6 +6,9 @@ class NriSammelanBiodata(models.Model):
         ('mumbai_maharashtra', 'Mumbai & Maharashtra Region'),
         ('rest_of_india', 'Rest of Indian Region (except Gujarat & Maharashtra)'),
         ('nri', 'NRI (Any Visa)'),
+        ('gujarat_region', 'Gujarat Region (North or Central or South)'),
+        ('saurashtra_region', 'Saurashtra Region'),
+        ('kachchh_region', 'Kachchh Region'),
     ]
 
     MARITAL_CHOICES = [
