@@ -230,8 +230,7 @@ RAZORPAY_KEY_ID = os.environ.get('RAZORPAY_KEY_ID', 'YOUR_RAZORPAY_KEY_ID_HERE')
 RAZORPAY_KEY_SECRET = os.environ.get('RAZORPAY_KEY_SECRET', 'YOUR_RAZORPAY_KEY_SECRET_HERE')
 
 # Public base URL for media files - set to your current ngrok URL
-# Removed ngrok URL as it is no longer needed
-PUBLIC_BASE_URL = 'https://00e7-103-228-147-84.ngrok-free.app'
+PUBLIC_BASE_URL = 'https://stitch-rambling-proactive.ngrok-free.dev'
 
 ## (Removed duplicate ALLOWED_HOSTS block above)
     
