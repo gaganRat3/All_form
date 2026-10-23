@@ -236,12 +236,13 @@
         border-radius: 14px;
         background: linear-gradient(
           135deg,
-          #4c1d95 0%,
-          #6c2bd9 100%
-        ); /* Dark to Primary */
+          #8b5cf6 0%,
+          #a855f7 50%,
+          #c084fc 100%
+        ); /* Bright Purple */
         color: #fff;
-        font-size: 1.05rem;
-        box-shadow: 0 8px 16px rgba(76, 29, 149, 0.22);
+        font-size: 1.15rem;
+        box-shadow: 0 8px 20px rgba(168, 85, 247, 0.45);
         flex-shrink: 0;
       }
       .f-section-header h2 {
@@ -282,13 +283,14 @@
         border-radius: 50%;
         background: linear-gradient(
           135deg,
-          #4c1d95 0%,
-          #6c2bd9 100%
-        ); /* Dark to Primary */
+          #8b5cf6 0%,
+          #a855f7 100%
+        ); /* Bright Purple */
         color: #fff;
         font-size: 0.7rem;
         font-weight: 800;
         flex-shrink: 0;
+        box-shadow: 0 2px 6px rgba(168, 85, 247, 0.35);
       }
       .field input,
       .field select,
@@ -557,7 +559,7 @@
         ✔️ યુવકો  - યુવતીઓ માટે Biodata Registration શુલ્ક = Rs 700 (સાથે 1 Booklet મળશે)<br />
         ✔️ યુવકો - યુવતીઓ માટે Biodata Registration શુલ્ક = Rs 500 (સાથે 1 Flipbook મળશે)<br />
         ✔️ યુવકો - યુવતીઓ માટે Biodata Registration શુલ્ક = Rs 900 (સાથે 1 Booklet &amp; 1 Flipbook મળશે)<br />
-        ✔️ આપણી Premium Website NRI.BhudevMatrimony.com મા રેજીસ્ટ્રેશન હોય તે ઉમેદવારો (Girls &amp; Boys) ને 100% Free Registration &amp; Free Flip-Book મળશે.
+        ✔️ આપણી Premium Websites (BhudevMatrimony.com, NRI.BhudevMatrimony.com, Canada.BhudevMatrimony.com, USA.BhudevMatrimony.com, Europe.BhudevMatrimony.com, Aus-NZ.BhudevMatrimony.com) મા રેજીસ્ટ્રેશન હોય તે ઉમેદવારો (Girls &amp; Boys) ને 100% Free Registration &amp; Free Flip-Book મળશે.
       </p>
 
       <p><strong>Sammelan Venue</strong> : Online Zoom Meeting</p>
@@ -674,11 +676,11 @@
                 />
               </div>
               <div class="field">
-                <label><span class="field-num">6</span> Birth Time</label>
+                <label for="tob"><span class="field-num">6</span> Birth Time</label>
                 <input
-                  type="text"
+                  type="time"
+                  id="tob"
                   name="tob"
-                  placeholder="e.g. 07:30 AM"
                   value=""
                   required
                 />
@@ -731,6 +733,7 @@
                   <option value="nri_citizenship">NRI - Citizenship</option>
                   <option value="nri_visitor_visa">NRI - Visitor Visa</option>
                   <option value="nri_h1b_usa">NRI - H1B (USA)</option>
+                  <option value="nri_h1b_usa_in_process">H1B (USA) in Process</option>
                   <option value="nri_business_visa">NRI - Business Visa</option>
                   <option value="nri_oci">NRI - OCI</option>
                   <option value="nri_f1">NRI - F1</option>
@@ -1242,7 +1245,7 @@
 
     <!-- Footer content can be placed here -->
     {% include 'partials/footer.html' %} 
-
+    
     <script>
       var dobInput = document.getElementById("dob");
       if (dobInput) {

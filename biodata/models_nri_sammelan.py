@@ -35,6 +35,7 @@ class NriSammelanBiodata(models.Model):
         ('nri_citizenship', 'NRI - Citizenship'),
         ('nri_visitor_visa', 'NRI - Visitor Visa'),
         ('nri_h1b_usa', 'NRI - H1B (USA)'),
+        ('nri_h1b_usa_in_process', 'H1B (USA) in Process'),
         ('nri_business_visa', 'NRI - Business Visa'),
         ('nri_oci', 'NRI - OCI'),
         ('nri_f1', 'NRI - F1'),
