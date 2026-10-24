@@ -1,0 +1,343 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Registration Form - Diwali Gift</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 24px 14px 40px 14px;
+        }
+
+        .form-container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            padding: 30px 32px;
+            text-align: center;
+        }
+
+        .logo-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .logo-row img {
+            height: 52px;
+            width: auto;
+            max-width: 120px;
+            object-fit: contain;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 6px 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-header h1 {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .form-header p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        .form-body {
+            padding: 32px;
+        }
+
+        .error-banner {
+            background: #fde8e8;
+            border: 1px solid #f98080;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 22px;
+            color: #9b1c1c;
+            font-size: 14px;
+        }
+
+        .error-banner strong {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .error-banner ul {
+            margin-left: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 8px;
+        }
+
+        .form-group label .required {
+            color: #d93025;
+            margin-left: 2px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 15px;
+            color: #333333;
+            background: #f8f9fa;
+            border: 1.5px solid #dadce0;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
+            background: #ffffff;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #9aa0a6;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a73e8;
+            margin-bottom: 18px;
+            margin-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8eaed;
+        }
+
+        .courier-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .courier-grid .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.2s;
+            margin-top: 10px;
+            letter-spacing: 0.3px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(26, 115, 232, 0.35);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .footer-wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 10px;
+        }
+           .poster-section {
+        max-width: 920px;
+        margin: 22px auto 8px;
+        padding: 0 12px;
+        text-align: center;
+      }
+      .poster-section img {
+        max-width: 100%;
+        border-radius: 18px;
+        box-shadow: 0 14px 35px rgba(122, 74, 30, 0.12);
+        margin-bottom: 16px;
+      }
+
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+            body {
+                padding: 14px 10px;
+            }
+
+            .form-header {
+                padding: 24px 20px;
+            }
+
+            .logo-row img {
+                height: 42px;
+                padding: 5px 10px;
+            }
+
+            .form-header h1 {
+                font-size: 19px;
+            }
+
+            .form-body {
+                padding: 24px 20px;
+            }
+
+            .courier-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                padding: 11px 14px;
+                font-size: 16px; /* prevents zoom on iOS */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <div class="form-header">
+            <div class="logo-row">
+                <img src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Logo" />
+                <img src="{% static 'images/NRI Matrimony(1).jpg.jpeg' %}" alt="Logo" />
+            </div>
+            <h1>Candidate Registration Form</h1>
+            <p>Please fill in all the required details below</p>
+        </div>
+
+        <div class="form-body">
+            {% if errors %}
+            <div class="error-banner">
+                <strong>Please correct the following:</strong>
+                <ul>
+                    {% for field, error in errors.items %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <form id="registrationForm" action="{% url 'diwali_gift_form' %}" method="POST">
+                {% csrf_token %}
+
+                <!-- Personal Details -->
+                <div class="form-group">
+                    <label for="candidateName">Candidate Name <span class="required">*</span></label>
+                    <input type="text" id="candidateName" name="candidateName" value="{{ form_data.candidateName|default:'' }}" placeholder="Enter full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dob">Date of Birth <span class="required">*</span></label>
+                    <input type="date" id="dob" name="dob" value="{{ form_data.dob|default:'' }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="currentCity">Current City <span class="required">*</span></label>
+                    <input type="text" id="currentCity" name="currentCity" value="{{ form_data.currentCity|default:'' }}" placeholder="Enter your current city" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="candidateMobile">Candidate Mobile Number <span class="required">*</span></label>
+                    <input type="tel" id="candidateMobile" name="candidateMobile" value="{{ form_data.candidateMobile|default:'' }}" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="parentsMobile">Parents Mobile Number <span class="required">*</span></label>
+                    <input type="tel" id="parentsMobile" name="parentsMobile" value="{{ form_data.parentsMobile|default:'' }}" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required>
+                </div>
+
+                <!-- Courier Address Section -->
+                <div class="section-title">Home Address for Courier Delivery</div>
+
+                <div class="courier-grid">
+                    <div class="form-group full-width">
+                        <label for="contactPerson">Contact Person <span class="required">*</span></label>
+                        <input type="text" id="contactPerson" name="contactPerson" value="{{ form_data.contactPerson|default:'' }}" placeholder="Name of person to receive courier" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="address">Full Address <span class="required">*</span></label>
+                        <textarea id="address" name="address" placeholder="House No, Street, Landmark, City, State" required>{{ form_data.address|default:'' }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactMobile">Mobile Number <span class="required">*</span></label>
+                        <input type="tel" id="contactMobile" name="contactMobile" value="{{ form_data.contactMobile|default:'' }}" placeholder="10-digit number" pattern="[0-9]{10}" maxlength="10" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pincode">Area Pincode <span class="required">*</span></label>
+                        <input type="text" id="pincode" name="pincode" value="{{ form_data.pincode|default:'' }}" placeholder="6-digit pincode" pattern="[0-9]{6}" maxlength="6" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Form</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="poster-section">
+      <!-- <img src="{% static 'images/posterN.jpg' %}" alt="Event Poster" /> -->
+      <img src="{% static 'images/team.jpg' %}" alt="Our Team" />
+    </div>
+    <!-- Footers -->
+    <div class="footer-wrapper">
+        {% include 'partials/footer.html' %}
+        {% include 'biodata/employa_footer.html' %}
+    </div>
+
+</body>
+</html>
+
+</html>

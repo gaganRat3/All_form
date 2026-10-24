@@ -9,6 +9,7 @@ from . import views_40plus_sammelan
 from . import views_marriage_done
 from . import views_mangalfera_sammelan
 from .views_samsta_gujarat import samsta_gujarat_form_view, samsta_gujarat_success
+from .views_diwali_gift import diwali_gift_form_view, diwali_gift_success_view
 from .views import astrology_form_view, technical_support, technical_support_confirmation, bk2026_registration_view, submit_bk2026_registration
 from django.views.generic import RedirectView
 from django.conf import settings
@@ -142,6 +143,11 @@ urlpatterns = [
     # 39th Bhudev Sammelan - Candidate Group Posting
     path('candidate-group-posting/', views.candidate_group_posting_view, name='candidate_group_posting'),
     path('candidate-group-posting/success/', views.candidate_group_posting_success, name='candidate_group_posting_success'),
+
+    # Diwali Gift Registration Form
+    path('diwali-gift-form/', diwali_gift_form_view, name='diwali_gift_form'),
+    path('diwali-gift-form/success/', diwali_gift_success_view, name='diwali_gift_success'),
+    path('Diwali_Gift_form/', diwali_gift_form_view),
 ]
 
 if settings.DEBUG:

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,6 +45,24 @@
       text-align: center;
       margin-bottom: 48px;
       animation: fadeSlideDown 0.8s ease both;
+    }
+    .hero .logo-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+    .hero .logo-row img {
+      height: 52px;
+      width: auto;
+      max-width: 130px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      padding: 6px 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
     }
     .hero .badge {
       display: inline-block;
@@ -266,6 +285,10 @@
 
   <!-- Hero -->
   <div class="hero">
+    <div class="logo-row">
+      <img src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Logo" />
+      <img src="{% static 'images/NRI Matrimony(1).jpg.jpeg' %}" alt="Logo" />
+    </div>
     <div class="badge">&#8226; Official Portal &#8226;</div>
     <h1>Bhudev Forms</h1>
     <p>Select a form below to get started &mdash; fast, easy &amp; secure.</p>
@@ -279,6 +302,13 @@
 
   <!-- Cards grid -->
   <div class="grid" id="cardGrid">
+
+    <!-- Diwali Gift Registration -->
+    <a href="{% url 'diwali_gift_form' %}" class="card">
+      <div class="icon-wrap">🪔</div>
+      <div class="label">Diwali Gift Form<br><span style='font-size:0.85em;font-weight:400;'>Candidate Registration</span></div>
+      <span class="arrow">OPEN &rarr;</span>
+    </a>
 
     <!-- 39th Stage Introduction -->
     <a href="{% url 'stage_introduction' %}" class="card">

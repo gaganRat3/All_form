@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Successful - Diwali Gift</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 40px 14px 40px 14px;
+        }
+
+        .success-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 580px;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+            padding: 42px 32px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .logo-row img {
+            height: 50px;
+            width: auto;
+            max-width: 120px;
+            object-fit: contain;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 5px 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #e6f4ea;
+            border: 2px solid #34a853;
+            color: #34a853;
+            font-size: 42px;
+            font-weight: 700;
+        }
+
+        h1 {
+            color: #1a73e8;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .gujarati-title {
+            color: #d97706;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            border: 1px solid #dadce0;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin: 20px 0 24px 0;
+            text-align: left;
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.7;
+        }
+
+        .info-box strong {
+            color: #111827;
+        }
+
+        p.description {
+            color: #5f6368;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 13px 26px;
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.15s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.35);
+        }
+
+        .footer-wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 10px;
+            }
+
+            .success-card {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="success-card">
+        <div class="logo-row">
+            <img src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Logo" />
+            <img src="{% static 'images/NRI Matrimony(1).jpg.jpeg' %}" alt="Logo" />
+        </div>
+        <div class="success-icon">✓</div>
+        <h1>Registration Successful!</h1>
+        <div class="gujarati-title">દિવાળી ગિફ્ટ રજીસ્ટ્રેશન સફળતાપૂર્વક થઈ ગયું છે.</div>
+
+        {% if candidate_name %}
+        <div class="info-box">
+            <div><strong>Candidate Name:</strong> {{ candidate_name }}</div>
+            {% if city %}
+            <div><strong>City:</strong> {{ city }}</div>
+            {% endif %}
+            <div style="margin-top: 6px; color: #166534; font-weight: 500;">
+                ✓ Your delivery details have been recorded for courier dispatch.
+            </div>
+        </div>
+        {% endif %}
+
+        <p class="description">
+            Thank you for registering. The Diwali gift package will be dispatched to the provided courier delivery address.
+        </p>
+
+        <div class="action-btns">
+            <a href="{% url 'diwali_gift_form' %}" class="btn-primary">Register Another Candidate</a>
+        </div>
+    </div>
+
+    <!-- Footers -->
+    <div class="footer-wrapper">
+        {% include 'partials/footer.html' %}
+        {% include 'biodata/employa_footer.html' %}
+    </div>
+
+</body>
+</html>
+
