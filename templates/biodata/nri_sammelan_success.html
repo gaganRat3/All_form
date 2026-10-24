@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registration Successful - NRI Sammelan</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       min-height: 100vh;
@@ -22,32 +25,115 @@
       border: 1px solid #d8bff5;
       border-radius: 24px;
       box-shadow: 0 18px 42px rgba(76, 29, 149, 0.12);
-      padding: 32px 28px;
+      padding: 36px 28px;
       text-align: center;
     }
+    .logo-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .logo-row img {
+      height: 50px;
+      width: auto;
+      max-width: 120px;
+      object-fit: contain;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 5px 12px;
+      box-shadow: 0 4px 12px rgba(76, 29, 149, 0.12);
+      border: 1px solid #ede9fe;
+    }
     h1 {
-      margin: 0 0 12px;
+      margin: 0 0 16px;
       font-size: clamp(1.6rem, 2vw + 1rem, 2.2rem);
       color: #4c1d95;
     }
     p {
-      margin: 0 0 22px;
+      margin: 0 0 26px;
       line-height: 1.7;
       color: #4f4b63;
+      font-size: 15px;
     }
-    a {
-      display: inline-block;
-      padding: 12px 22px;
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 24px;
       border-radius: 999px;
       text-decoration: none;
-      color: #fff;
-      background: linear-gradient(135deg, #4c1d95 0%, #6c2bd9 100%);
+      font-size: 15px;
       font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+    }
+    .btn:active {
+      transform: translateY(0);
+    }
+    .btn-wa {
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+    }
+    .btn-wa:hover {
+      background: linear-gradient(135deg, #22bf5b 0%, #0e7064 100%);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #4c1d95 0%, #6c2bd9 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(108, 43, 217, 0.25);
+    }
+    .btn-close {
+      background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(71, 85, 105, 0.2);
+    }
+    .btn-close:hover {
+      background: linear-gradient(135deg, #475569 0%, #334155 100%);
+    }
+
+    @media (max-width: 540px) {
+      .card {
+        padding: 26px 18px;
+      }
+      .btn-group {
+        flex-direction: column;
+        width: 100%;
+      }
+      .btn {
+        width: 100%;
+      }
+      .logo-row img {
+        height: 42px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="card">
+    <div class="logo-row">
+      <img src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Bhudev Matrimony Logo" />
+      <img src="{% static 'images/NRI Matrimony(1).jpg.jpeg' %}" alt="NRI Matrimony Logo" />
+    </div>
+
     <h1>Registration Successful</h1>
     <p>
       🌷 40મુ સમસ્ત બ્રાહ્મણ - ભૂદેવ જીવનસાથી Online પસંદગી સંમેલન (For NRI Candidates and Looking for NRI Candidates) મા આપનું સ્વાગત છે. 🌷<br>
@@ -62,7 +148,19 @@
 
       Data Verification થશે પછી તમારે Rs 700 (Biodata Registration + Booklet + Zoom meeting Link) પેમેન્ટ કરવાનું રહેશે. (Booklet Courier Charges Rs 100 Extra રહેશે).
     </p>
-    <a href="{% url 'nri_sammelan_form' %}">Submit Another Response</a>
+
+    <div class="btn-group">
+      <a href="https://chat.whatsapp.com/Do60KZYJ39CJwiKrO6qMyu" target="_blank" rel="noopener" class="btn btn-wa">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 8px;">
+          <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592z"/>
+        </svg>
+        Join WhatsApp Group
+      </a>
+      <a href="{% url 'nri_sammelan_form' %}" class="btn btn-primary">Submit Another Response</a>
+      <button type="button" class="btn btn-close" onclick="window.open('', '_self', ''); window.close();">Close</button>
+    </div>
   </div>
 </body>
+</html>
+
 </html>
