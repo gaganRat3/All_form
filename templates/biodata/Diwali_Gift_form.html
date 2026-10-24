@@ -75,6 +75,81 @@
             margin-top: 6px;
         }
 
+        .diwali-info-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 14px;
+            padding: 20px 22px;
+            margin-top: 18px;
+            text-align: left;
+            color: #ffffff;
+            font-size: 14.5px;
+            line-height: 1.7;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .diwali-info-card p {
+            margin: 0 0 12px 0;
+            color: #ffffff;
+            line-height: 1.65;
+            font-size: 14px;
+        }
+
+        .diwali-info-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .diwali-info-card .festive-wishes {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffe699;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .diwali-info-card .gift-headline {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.35);
+        }
+
+        .diwali-info-card .gift-intro {
+            font-size: 14px;
+            color: #f1f5f9;
+            margin-bottom: 14px;
+        }
+
+        .diwali-info-card .follow-heading {
+            font-weight: 700;
+            color: #ffeed9;
+            margin-bottom: 10px;
+        }
+
+        .diwali-info-card .step-item {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.12);
+            border-radius: 8px;
+            border-left: 3px solid #ffcc00;
+        }
+
+        .diwali-info-card a {
+            color: #ffeb99;
+            text-decoration: underline;
+            word-break: break-all;
+            font-weight: 600;
+        }
+
+        .diwali-info-card a:hover {
+            color: #ffffff;
+        }
+
         .form-body {
             padding: 32px;
         }
@@ -228,6 +303,19 @@
                 font-size: 19px;
             }
 
+            .diwali-info-card {
+                padding: 16px 14px;
+                font-size: 13.5px;
+            }
+
+            .diwali-info-card .festive-wishes {
+                font-size: 14.5px;
+            }
+
+            .diwali-info-card .gift-headline {
+                font-size: 13.5px;
+            }
+
             .form-body {
                 padding: 24px 20px;
             }
@@ -253,7 +341,29 @@
                 <img src="{% static 'images/NRI Matrimony(1).jpg.jpeg' %}" alt="Logo" />
             </div>
             <h1>Candidate Registration Form</h1>
-            <p>Please fill in all the required details below</p>
+            
+            <div class="diwali-info-card">
+                <p class="festive-wishes">⭐ તમને Advance મા દિવાળી અને નવવર્ષ ની શુભકામનાઓ ⭐</p>
+                <p class="gift-headline">🎁 Diwali Gift for You from Bhudev Network - Bhudev Matrimony</p>
+                
+                <p class="gift-intro">
+                    આ દિવાળી મા તમે, by Courier મેળવો - 1 Diwali Gift અને સાથે Rs 1000 ના 5 Gift Cards. અને આ 5 Gift Cards ની મદદ થી તમે, 31-12-2026 પહેલા, Rs 2500 નું Cashback (રિફંડ) મેળવી શકો છો.
+                </p>
+
+                <p class="follow-heading">👉 <strong>આ માટે આટલુ ફોલો કરશો :</strong></p>
+
+                <div class="steps-wrapper">
+                    <p class="step-item">
+                        ✔️ <strong>(Step - 1) :</strong> આ form ભરીને 31-10-2026 પહેલા સબમિટ કરશો : <a href="https://form.bhudevstore.com/diwali-gift-form/" target="_blank">https://form.bhudevstore.com/diwali-gift-form/</a>
+                    </p>
+                    <p class="step-item">
+                        ✔️ <strong>(Step - 2) :</strong> Google Survey &amp; Feedback ચાલી રહ્યો છે. તો આપણી ભૂદેવ સંસ્થા ને Top 5 Ranking મા લાવવા માટે અહીં લીંક ક્લિક કરીને 5 star તથા ભૂદેવ ટીમ ની સર્વિસ માટે એક સરસ કોમેન્ટ આપશો.
+                    </p>
+                    <p class="step-item">
+                        ✔️ <strong>(Step - 3) :</strong> અમને આ નંબર ઉપર ફૉન કરીને તરત જાણ કરશો : <a href="tel:9099798986"><strong>9099798986</strong></a> અને તમારો Confirmation નંબર મેળવી લેશો.
+                    </p>
+                </div>
+            </div>
         </div>
 
         <div class="form-body">
