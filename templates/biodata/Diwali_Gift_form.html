@@ -273,27 +273,27 @@
 
                 <!-- Personal Details -->
                 <div class="form-group">
-                    <label for="candidateName">Candidate Name <span class="required">*</span></label>
+                    <label for="candidateName">1. Candidate Name <span class="required">*</span></label>
                     <input type="text" id="candidateName" name="candidateName" value="{{ form_data.candidateName|default:'' }}" placeholder="Enter full name" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="dob">Date of Birth <span class="required">*</span></label>
+                    <label for="dob">2. Date of Birth <span class="required">*</span></label>
                     <input type="date" id="dob" name="dob" value="{{ form_data.dob|default:'' }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="currentCity">Current City <span class="required">*</span></label>
+                    <label for="currentCity">3. Current City <span class="required">*</span></label>
                     <input type="text" id="currentCity" name="currentCity" value="{{ form_data.currentCity|default:'' }}" placeholder="Enter your current city" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="candidateMobile">Candidate Mobile Number <span class="required">*</span></label>
+                    <label for="candidateMobile">4. Candidate Mobile Number <span class="required">*</span></label>
                     <input type="tel" id="candidateMobile" name="candidateMobile" value="{{ form_data.candidateMobile|default:'' }}" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="parentsMobile">Parents Mobile Number <span class="required">*</span></label>
+                    <label for="parentsMobile">5. Parents Mobile Number <span class="required">*</span></label>
                     <input type="tel" id="parentsMobile" name="parentsMobile" value="{{ form_data.parentsMobile|default:'' }}" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required>
                 </div>
 
@@ -302,22 +302,22 @@
 
                 <div class="courier-grid">
                     <div class="form-group full-width">
-                        <label for="contactPerson">Contact Person <span class="required">*</span></label>
+                        <label for="contactPerson">6. Contact Person <span class="required">*</span></label>
                         <input type="text" id="contactPerson" name="contactPerson" value="{{ form_data.contactPerson|default:'' }}" placeholder="Name of person to receive courier" required>
                     </div>
 
                     <div class="form-group full-width">
-                        <label for="address">Full Address <span class="required">*</span></label>
+                        <label for="address">7. Full Address <span class="required">*</span></label>
                         <textarea id="address" name="address" placeholder="House No, Street, Landmark, City, State" required>{{ form_data.address|default:'' }}</textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="contactMobile">Mobile Number <span class="required">*</span></label>
+                        <label for="contactMobile">8. Mobile Number <span class="required">*</span></label>
                         <input type="tel" id="contactMobile" name="contactMobile" value="{{ form_data.contactMobile|default:'' }}" placeholder="10-digit number" pattern="[0-9]{10}" maxlength="10" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="pincode">Area Pincode <span class="required">*</span></label>
+                        <label for="pincode">9. Area Pincode <span class="required">*</span></label>
                         <input type="text" id="pincode" name="pincode" value="{{ form_data.pincode|default:'' }}" placeholder="6-digit pincode" pattern="[0-9]{6}" maxlength="6" required>
                     </div>
                 </div>
