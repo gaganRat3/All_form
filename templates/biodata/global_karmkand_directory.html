@@ -1,4 +1,4 @@
-{% load static %}
+﻿{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -218,6 +218,24 @@
             font-family: 'Poppins', 'Inter', sans-serif;
             letter-spacing: 0.01em;
         }
+
+        /* Field serial number */
+        .field-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ea580c, #dc2626);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            margin-right: 0.35rem;
+            flex-shrink: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
 
         /* Input Styles */
         .form-input {
@@ -874,7 +892,7 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="name" class="form-label">
-                                    Name (આપનું નામ) *
+                                    <span class="field-num">1.</span> Name (આપનું નામ) *
                                 </label>
                                 <input id="name" type="text" class="form-input" placeholder="Enter your full name"
                                     name="name" required />
@@ -882,7 +900,7 @@
 
                             <div class="form-group">
                                 <label for="dob" class="form-label">
-                                    Date of Birth (જન્મ-તારીખ) *
+                                    <span class="field-num">2.</span> Date of Birth (જન્મ-તારીખ) *
                                 </label>
                                 <div class="input-with-icon">
                                     <input id="dob" name="dob" type="text" class="form-input" placeholder="DD-MM-YYYY" required />
@@ -893,7 +911,7 @@
 
                             <div class="form-group full-width">
                                 <label for="location" class="form-label">
-                                    Current City & Country (હાલ નું રહેઠાણ ગામ / શહેર નું નામ) *
+                                    <span class="field-num">3.</span> Current City & Country (હાલ નું રહેઠાણ ગામ / શહેર નું નામ) *
                                 </label>
                                 <div class="input-with-icon">
                                     <input id="location" type="text" class="form-input with-icon"
@@ -904,7 +922,7 @@
 
                             <div class="form-group">
                                 <label for="phone1" class="form-label">
-                                    Phone / WhatsApp Number 1 *
+                                    <span class="field-num">4.</span> Phone / WhatsApp Number 1 *
                                 </label>
                                 <div class="input-with-icon">
                                     <input id="phone1" type="tel" class="form-input with-icon"
@@ -915,7 +933,7 @@
 
                             <div class="form-group">
                                 <label for="phone2" class="form-label">
-                                    Phone / WhatsApp Number 2
+                                    <span class="field-num">5.</span> Phone / WhatsApp Number 2
                                 </label>
                                 <div class="input-with-icon">
                                     <input id="phone2" type="tel" class="form-input with-icon"
@@ -935,7 +953,7 @@
 
                         <div class="form-group">
                             <label class="form-label">
-                                નીચે આપેલ કઈ બ્રાહ્મણ-પ્રવૃત્તિ માં આપનો અનુભવ છે *
+                                <span class="field-num">6.</span> નીચે આપેલ કઈ બ્રાહ્મણ-પ્રવૃત્તિ માં આપનો અનુભવ છે *
                             </label>
                             <div class="checkbox-grid">
                                 <label class="checkbox-item">
@@ -973,7 +991,7 @@
 
                         <div class="form-group">
                             <label for="experience" class="form-label">
-                                Experience in Years (ઉપરોક્ત પ્રવૃત્તિ માં કેટલા વર્ષ નો અનુભવ છે ?) *
+                                <span class="field-num">7.</span> Experience in Years (ઉપરોક્ત પ્રવૃત્તિ માં કેટલા વર્ષ નો અનુભવ છે ?) *
                             </label>
                             <input id="experience" type="number" min="0" max="50" class="form-input"
                                 name="experience_years" placeholder="Years of experience" required />
@@ -981,7 +999,7 @@
 
                         <div class="form-group">
                             <label for="skills" class="form-label">
-                                અન્ય SKILL કે આવડત હોય તો અહીં લખો
+                                <span class="field-num">8.</span> અન્ય SKILL કે આવડત હોય તો અહીં લખો
                             </label>
                             <textarea id="skills" class="form-textarea"
                                 name="other_skills" placeholder="Eg. English, Computer, Music (tabla, dhol, manjira, bhajan), classical dance, etc" rows="3"></textarea>
@@ -996,7 +1014,7 @@
 
                         <div class="form-group">
                             <label class="form-label">
-                                આપ કયા સ્તરે / સ્થાને સેવા-કાર્ય કરવાની ઈચ્છા ધરાવો છો ? *
+                                <span class="field-num">9.</span> આપ કયા સ્તરે / સ્થાને સેવા-કાર્ય કરવાની ઈચ્છા ધરાવો છો ? *
                             </label>
                             <div class="checkbox-list">
                                 <label class="checkbox-item">
@@ -1024,7 +1042,7 @@
 
                         <div class="form-group">
                             <label class="form-label">
-                                Employment Status / વ્યવસાય સ્થિતિ *
+                                <span class="field-num">10.</span> Employment Status / વ્યવસાય સ્થિતિ *
                             </label>
                             <div class="checkbox-list">
                                 <label class="checkbox-item multiline">
@@ -1065,7 +1083,7 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="photo" class="form-label">
-                                    Please Upload Your Photo *
+                                    <span class="field-num">11.</span> Please Upload Your Photo *
                                 </label>
                                 <input id="photo" name="photo" type="file" class="form-file-input" accept="image/*" required />
                                 
@@ -1077,7 +1095,7 @@
 
                             <div class="form-group">
                                 <label for="visitingCard" class="form-label">
-                                    Upload Visiting Card (વિઝિટિંગ કાર્ડ) - Optional
+                                    <span class="field-num">12.</span> Upload Visiting Card (વિઝિટિંગ કાર્ડ) - Optional
                                 </label>
                                 <input id="visitingCard" name="visitingCard" type="file" class="form-file-input" accept="image/*,.pdf" />
                                 
