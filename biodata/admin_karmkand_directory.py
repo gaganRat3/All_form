@@ -5,16 +5,38 @@ from .models_karmkand_directory import GlobalKarmkandDirectoryEntry, KarmkandiMa
 @admin.register(GlobalKarmkandDirectoryEntry)
 class GlobalKarmkandDirectoryEntryAdmin(admin.ModelAdmin):
     list_display = (
-        'name', 'dob', 'location', 'phone1', 'phone2',
+        'serial_number', 'name', 'dob', 'location', 'phone1', 'phone2',
         'brahman_activities', 'experience_years', 'other_skills',
         'service_level', 'employment_status',
         'photo_preview', 'visiting_card', 'terms_agreed', 'submitted_at'
     )
     readonly_fields = ('photo_preview', 'submitted_at')
     search_fields = ('name', 'location', 'phone1', 'phone2')
-    list_filter = ('service_level', 'employment_status', 'terms_agreed')
+    list_filter = ('service_level', 'employment_status', 'terms_agreed', 'submitted_at')
+    ordering = ['-submitted_at']
 
     actions = ['export_as_excel', 'download_images_zip']
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.order_by('submitted_at')
+
+    def serial_number(self, obj):
+        request = getattr(self, 'admin_view_request', None)
+        if request is None:
+            return '-'
+        queryset = self.get_queryset(request)
+        pk_list = list(queryset.values_list('pk', flat=True))
+        try:
+            return pk_list.index(obj.pk) + 1
+        except ValueError:
+            return '-'
+    serial_number.short_description = 'Serial No.'
+    serial_number.admin_order_field = None
+
+    def get_changelist_instance(self, request):
+        self.admin_view_request = request
+        return super().get_changelist_instance(request)
 
     def photo_preview(self, obj):
         from django.utils.html import format_html
@@ -32,19 +54,30 @@ class GlobalKarmkandDirectoryEntryAdmin(admin.ModelAdmin):
         ws = wb.active
         ws.title = "Karmkand Directory"
         headers = [
-            'Name', 'DOB', 'Location', 'Phone1', 'Phone2', 'Brahman Activities',
+            'Serial No.', 'Name', 'DOB', 'Location', 'Phone1', 'Phone2', 'Brahman Activities',
             'Experience Years', 'Other Skills', 'Service Level', 'Employment Status',
             'Photo', 'Visiting Card', 'Terms Agreed', 'Submitted At'
         ]
         ws.append(headers)
-        for obj in queryset:
+
+        export_queryset = self.get_queryset(request)
+        pk_list = list(export_queryset.values_list('pk', flat=True))
+        selected_ids = set(queryset.values_list('pk', flat=True))
+        export_objs = [obj for obj in export_queryset if obj.pk in selected_ids]
+
+        for obj in export_objs:
+            try:
+                serial_no = pk_list.index(obj.pk) + 1
+            except ValueError:
+                serial_no = '-'
             ws.append([
+                serial_no,
                 obj.name, obj.dob, obj.location, obj.phone1, obj.phone2,
                 obj.brahman_activities, obj.experience_years, obj.other_skills,
                 obj.service_level, obj.employment_status,
                 obj.photo.url if obj.photo else '',
                 obj.visiting_card.url if obj.visiting_card else '',
-                obj.terms_agreed, obj.submitted_at.strftime('%Y-%m-%d %H:%M:%S')
+                obj.terms_agreed, obj.submitted_at.strftime('%Y-%m-%d %H:%M:%S') if obj.submitted_at else ''
             ])
         response = HttpResponse(
             content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
