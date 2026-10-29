@@ -365,6 +365,10 @@
 
 <!-- INFO BANNER -->
   <div class="info-banner" style="text-align: left; line-height: 1.6; font-size: 0.98em;">
+    <div style="background: #FEF2F2; color: #DC2626; padding: 12px 18px; border-radius: 10px; font-weight: 700; text-align: center; border: 1.5px dashed #F87171; margin-bottom: 18px; font-size: 1.05rem;">
+      🔴 મંગલફેરા સંમેલન રજીસ્ટ્રેશન હાલમાં બંધ છે / Registration is Closed 🔴
+    </div>
+
     <strong style="font-size: 1.1em; color: #991B1B;">સર્વજ્ઞાતિ Biodata Booklet :</strong><br>
     સનાતન ગુજરાતી હિન્દૂ સમાજ ની બાયોડેટા બુકલેટ બની રહી છે. (બ્રાહ્મણ, પટેલ, વૈષ્ણવ, જૈન, સોની વગેરે... જેમણે જ્ઞાતિબાધ નથી તેમના માટે)<br><br>
 
@@ -378,7 +382,40 @@
   
   <!-- FORM -->
 <div class="form-wrapper">
+
+  <!-- Form Closed Notice Card -->
+  <div class="form-closed-box" style="background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 2px solid #FCA5A5; border-top: 5px solid #DC2626; border-radius: 22px; padding: 48px 24px; text-align: center; margin-bottom: 24px; box-shadow: 0 12px 36px rgba(220, 38, 38, 0.1);">
+    <div style="font-size: 3.8rem; margin-bottom: 12px; line-height: 1;">🙏</div>
+    <h2 style="color: #DC2626; font-size: 1.85rem; font-weight: 800; margin-bottom: 8px; letter-spacing: 0.3px;">
+      🔴 ફોર્મ હાલમાં બંધ છે 🔴
+    </h2>
+    <h3 style="color: #991B1B; font-size: 1.15rem; font-weight: 700; margin-bottom: 20px;">
+      Registration Form for Mangalfera Sammelan is Closed
+    </h3>
+
+    <div style="background: #FFF7F8; border-radius: 14px; padding: 22px 24px; max-width: 580px; margin: 0 auto 26px; border: 1px solid #FECDD3; box-shadow: 0 2px 10px rgba(190, 18, 60, 0.04);">
+      <p style="color: #374151; font-size: 1.05rem; line-height: 1.8; margin-bottom: 10px; font-weight: 600;">
+        મંગલફેરા સમસ્ત હિન્દુ સમાજ - જીવનસાથી પરિચય સંમેલન માટેનું ઓનલાઇન રજીસ્ટ્રેશન ફોર્મ હાલમાં બંધ કરવામાં આવ્યું છે.
+      </p>
+      <p style="color: #6B7280; font-size: 0.95rem; margin: 0; line-height: 1.6;">
+        હાલ નવી નોંધણી સ્વીકારવામાં આવતી નથી. વધુ માહિતી કે વિગતો માટે કૃપા કરીને નીચે આપેલ નંબર પર સંપર્ક કરશો : <br>
+        📞 <strong>9662362626</strong> | <strong>9428642903</strong> | Admin: <strong>9099798986</strong>
+      </p>
+    </div>
+
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+      <a href="https://chat.whatsapp.com/E1ZpqtAKbIA3FSeyxryyCU" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #25D366, #128C7E); color: white; padding: 13px 26px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.98rem; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);">
+        💬 Join Official WhatsApp Group
+      </a>
+      <a href="/" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #475569, #334155); color: white; padding: 13px 26px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.98rem; box-shadow: 0 4px 12px rgba(71, 85, 105, 0.25);">
+        🏠 Go to Home Page
+      </a>
+    </div>
+  </div>
+
+
   <div class="form-card">
+    {% comment %}
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
 
@@ -722,6 +759,7 @@
         <button type="submit" class="submit-btn">🚀 Submit Registration</button>
       </div>
     </form>
+    {% endcomment %}
   </div>
 </div>
 
