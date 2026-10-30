@@ -5,17 +5,31 @@ from .models_karmkand_directory import GlobalKarmkandDirectoryEntry, KarmkandiMa
 @admin.register(GlobalKarmkandDirectoryEntry)
 class GlobalKarmkandDirectoryEntryAdmin(admin.ModelAdmin):
     list_display = (
-        'serial_number', 'name', 'dob', 'location', 'phone1', 'phone2',
+        'serial_number', 'status', 'name', 'dob', 'location', 'phone1', 'phone2',
         'brahman_activities', 'experience_years', 'other_skills',
         'service_level', 'employment_status',
         'photo_preview', 'visiting_card', 'terms_agreed', 'submitted_at'
     )
+    list_editable = ('status',)
+    list_display_links = ('name',)
     readonly_fields = ('photo_preview', 'submitted_at')
     search_fields = ('name', 'location', 'phone1', 'phone2')
-    list_filter = ('service_level', 'employment_status', 'terms_agreed', 'submitted_at')
+    list_filter = ('status', 'service_level', 'employment_status', 'terms_agreed', 'submitted_at')
     ordering = ['-submitted_at']
 
-    actions = ['export_as_excel', 'download_images_zip']
+    actions = ['mark_confirmation_done', 'mark_nr_call', 'mark_pending', 'export_as_excel', 'download_images_zip']
+
+    @admin.action(description='Mark selected as Confirmation Done')
+    def mark_confirmation_done(self, request, queryset):
+        queryset.update(status='Confirmation Done')
+
+    @admin.action(description='Mark selected as NR Call')
+    def mark_nr_call(self, request, queryset):
+        queryset.update(status='NR Call')
+
+    @admin.action(description='Mark selected as Pending')
+    def mark_pending(self, request, queryset):
+        queryset.update(status='Pending')
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -54,7 +68,7 @@ class GlobalKarmkandDirectoryEntryAdmin(admin.ModelAdmin):
         ws = wb.active
         ws.title = "Karmkand Directory"
         headers = [
-            'Serial No.', 'Name', 'DOB', 'Location', 'Phone1', 'Phone2', 'Brahman Activities',
+            'Serial No.', 'Status', 'Name', 'DOB', 'Location', 'Phone1', 'Phone2', 'Brahman Activities',
             'Experience Years', 'Other Skills', 'Service Level', 'Employment Status',
             'Photo', 'Visiting Card', 'Terms Agreed', 'Submitted At'
         ]
@@ -72,6 +86,7 @@ class GlobalKarmkandDirectoryEntryAdmin(admin.ModelAdmin):
                 serial_no = '-'
             ws.append([
                 serial_no,
+                obj.status,
                 obj.name, obj.dob, obj.location, obj.phone1, obj.phone2,
                 obj.brahman_activities, obj.experience_years, obj.other_skills,
                 obj.service_level, obj.employment_status,

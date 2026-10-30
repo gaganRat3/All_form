@@ -24,6 +24,17 @@ class GlobalKarmkandDirectoryEntry(models.Model):
     photo = models.ImageField(upload_to='karmkand_photos/')
     visiting_card = models.FileField(upload_to='karmkand_visiting_cards/', blank=True, null=True)
     terms_agreed = models.BooleanField(default=False)
+    STATUS_CHOICES = [
+        ('Confirmation Done', 'Confirmation Done'),
+        ('NR Call', 'NR Call'),
+        ('Pending', 'Pending'),
+    ]
+    status = models.CharField(
+        max_length=30,
+        choices=STATUS_CHOICES,
+        default='Pending',
+        verbose_name='Status',
+    )
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
