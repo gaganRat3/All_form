@@ -407,6 +407,7 @@ from .admin_nri_sammelan import *
 from .admin_marriage_done import *
 from .admin_mangalfera_sammelan import *
 from .admin_diwali_gift import *
+from .admin_diwali_giftcard import *
 
 @admin.register(FortyPlusSammelan)
 class FortyPlusSammelanAdmin(admin.ModelAdmin):

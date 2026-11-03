@@ -10,6 +10,7 @@ from . import views_marriage_done
 from . import views_mangalfera_sammelan
 from .views_samsta_gujarat import samsta_gujarat_form_view, samsta_gujarat_success
 from .views_diwali_gift import diwali_gift_form_view, diwali_gift_success_view
+from .views_diwali_giftcard import diwali_giftcard_form_view, diwali_giftcard_success_view
 from .views import astrology_form_view, technical_support, technical_support_confirmation, bk2026_registration_view, submit_bk2026_registration
 from django.views.generic import RedirectView
 from django.conf import settings
@@ -148,6 +149,12 @@ urlpatterns = [
     path('diwali-gift-form/', diwali_gift_form_view, name='diwali_gift_form'),
     path('diwali-gift-form/success/', diwali_gift_success_view, name='diwali_gift_success'),
     path('Diwali_Gift_form/', diwali_gift_form_view),
+
+    # Diwali Gift Card Registration Form
+    path('diwali-giftcard/', diwali_giftcard_form_view, name='diwali_giftcard_form'),
+    path('diwali-giftcard/success/', diwali_giftcard_success_view, name='diwali_giftcard_success'),
+    path('diwali-gift-card/', diwali_giftcard_form_view),
+    path('Diwali_giftcard/', diwali_giftcard_form_view),
 ]
 
 if settings.DEBUG:

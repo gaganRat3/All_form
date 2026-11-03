@@ -1,0 +1,958 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diwali Gift Card Registration - Official Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-burgundy: #590919;
+            --secondary-maroon: #7a1228;
+            --accent-gold: #d4af37;
+            --gold-light: #fbeea4;
+            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+            --header-gradient: linear-gradient(135deg, #420612 0%, #6e1025 50%, #1f0b24 100%);
+            --bg-neutral: #f6f7fb;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --error-red: #dc2626;
+            --success-green: #16a34a;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --shadow-card: 0 12px 36px rgba(66, 6, 18, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-neutral);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(122, 18, 40, 0.07) 0%, transparent 25%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 16px 50px;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 660px;
+            margin: 0 auto;
+        }
+
+        /* Festive Card Outer */
+        .form-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            position: relative;
+        }
+
+        /* Gold top accent line */
+        .gold-top-bar {
+            height: 6px;
+            background: var(--gold-gradient);
+            width: 100%;
+        }
+
+        /* Header section */
+        .form-header {
+            background: var(--header-gradient);
+            padding: 32px 28px 28px;
+            text-align: center;
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .logo-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-row img {
+            height: 52px;
+            width: auto;
+            max-width: 135px;
+            object-fit: contain;
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 6px 14px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .badge-office {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(212, 175, 55, 0.18);
+            border: 1px solid rgba(251, 238, 164, 0.45);
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #ffe699;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-header h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.3px;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-header .sub-title {
+            font-size: 14px;
+            color: #f1dfc5;
+            margin-bottom: 20px;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Gift Card Mockup inside Header */
+        .diwali-card-mockup {
+            background: linear-gradient(135deg, #1e0912 0%, #3a0a19 50%, #150208 100%);
+            border: 1.5px solid #d4af37;
+            border-radius: 14px;
+            padding: 20px 22px;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .diwali-card-mockup::after {
+            content: '🪔';
+            position: absolute;
+            right: 14px;
+            bottom: 8px;
+            font-size: 55px;
+            opacity: 0.22;
+            filter: drop-shadow(0 0 10px #d4af37);
+        }
+
+        .mockup-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .mockup-chip {
+            width: 38px;
+            height: 28px;
+            background: var(--gold-gradient);
+            border-radius: 6px;
+            box-shadow: inset 0 0 4px rgba(0,0,0,0.4);
+            position: relative;
+        }
+
+        .mockup-chip::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .mockup-badge {
+            font-size: 11px;
+            font-weight: 700;
+            color: #fcf6ba;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: rgba(212, 175, 55, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+        }
+
+        .mockup-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mockup-desc {
+            font-size: 13px;
+            color: #f6e3c5;
+            line-height: 1.5;
+        }
+
+        .mockup-gujarati {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(212, 175, 55, 0.4);
+            font-size: 13px;
+            color: #ffe699;
+            font-weight: 600;
+        }
+
+        /* Form Body */
+        .form-body {
+            padding: 34px 32px 36px;
+        }
+
+        /* Error notification */
+        .alert-box {
+            background: #fef2f2;
+            border-left: 4px solid var(--error-red);
+            padding: 14px 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+            color: #991b1b;
+            font-size: 14px;
+        }
+
+        .alert-box strong {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+
+        .alert-box ul {
+            margin-left: 24px;
+            margin-top: 4px;
+        }
+
+        /* Field groups */
+        .form-section-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 700;
+            color: var(--secondary-maroon);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .label-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .field-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #fdf2f4;
+            color: var(--secondary-maroon);
+            font-size: 12px;
+            font-weight: 700;
+            border: 1px solid #fecdd3;
+        }
+
+        .form-group label .required {
+            color: var(--error-red);
+            font-size: 15px;
+            margin-left: 2px;
+        }
+
+        .same-mobile-btn {
+            font-size: 12px;
+            color: var(--secondary-maroon);
+            background: #fdf2f4;
+            border: 1px solid #fecdd3;
+            border-radius: 4px;
+            padding: 3px 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .same-mobile-btn:hover {
+            background: var(--secondary-maroon);
+            color: #ffffff;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            color: #94a3b8;
+            font-size: 15px;
+            pointer-events: none;
+            transition: color 0.2s;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            font-size: 14.5px;
+            color: var(--text-dark);
+            background: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            outline: none;
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            padding-left: 42px;
+            min-height: 105px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .input-wrapper.textarea-wrapper .input-icon {
+            top: 15px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--secondary-maroon);
+            box-shadow: 0 0 0 3px rgba(122, 18, 40, 0.12);
+            background: #ffffff;
+        }
+
+        .form-group input:focus + .input-icon,
+        .form-group textarea:focus + .input-icon {
+            color: var(--secondary-maroon);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #94a3b8;
+            font-size: 13.5px;
+        }
+
+        .field-helper {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .field-error-msg {
+            display: none;
+            color: var(--error-red);
+            font-size: 12px;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        /* 2-column grid for numbers */
+        .fields-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Notice / Instruction Card */
+        .office-instruction-card {
+            background: #fbfbfd;
+            border: 1px dashed #cbd5e1;
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            margin: 10px 0 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .office-instruction-card i {
+            color: var(--accent-gold);
+            font-size: 18px;
+            margin-top: 2px;
+        }
+
+        .office-instruction-card p {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #7a1228 0%, #590919 100%);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(89, 9, 25, 0.3);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.3px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(89, 9, 25, 0.4);
+            background: linear-gradient(135deg, #8a152e 0%, #680a1d 100%);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #ffffff;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Poster section */
+        .poster-section {
+            width: 100%;
+            max-width: 900px;
+            margin: 28px auto 14px;
+            text-align: center;
+        }
+
+        .poster-section img {
+            max-width: 100%;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Footer Wrapper */
+        .footer-wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 15px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) {
+            body {
+                padding: 16px 10px 30px;
+            }
+
+            .form-header {
+                padding: 24px 18px 22px;
+            }
+
+            .logo-row img {
+                height: 42px;
+                padding: 4px 10px;
+            }
+
+            .form-header h1 {
+                font-size: 21px;
+            }
+
+            .form-body {
+                padding: 24px 18px;
+            }
+
+            .fields-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .diwali-card-mockup {
+                padding: 16px;
+            }
+
+            .mockup-title {
+                font-size: 14px;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                font-size: 16px; /* Prevents auto zoom on iOS */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <div class="form-card">
+            <div class="gold-top-bar"></div>
+            
+            <!-- Header -->
+            <div class="form-header">
+                <div class="logo-row">
+                    <img src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Bhudev Matrimony Logo" />
+                    <img src="{% static 'images/NRI Matrimony(1).jpg.jpeg' %}" alt="NRI Matrimony Logo" />
+                </div>
+                
+                <div class="badge-office">
+                    <i class="fa-solid fa-gift"></i> Official Office Gift Desk 2026
+                </div>
+
+                <h1>Diwali Gift Card Registration</h1>
+
+                <!-- Festive Gift Card Mockup -->
+                <!-- <div class="diwali-card-mockup">
+                    <div class="mockup-top">
+                        <div class="mockup-chip"></div>
+                        <span class="mockup-badge">SPECIAL EDITION VOUCHER</span>
+                    </div>
+                    <div class="mockup-title">
+                        <span>🪔 Diwali Gift Card Scheme</span>
+                    </div>
+                    <div class="mockup-desc">
+                        Rs. 1000 x 5 Gift Cards with Rs. 2500 Cashback Voucher benefit for eligible candidates upon office verification.
+                    </div>
+                    <div class="mockup-gujarati">
+                        ⭐ દિવાળી ગિફ્ટ કાર્ડ મેળવવા માટે નીચેની વિગતો ભરો ⭐
+                    </div>
+                </div> -->
+            </div>
+
+            <!-- Form Body -->
+            <div class="form-body">
+                {% if errors %}
+                <div class="alert-box">
+                    <strong><i class="fa-solid fa-circle-exclamation"></i> Please resolve the following errors:</strong>
+                    <ul>
+                        {% for field, error in errors.items %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <form id="giftCardForm" action="{% url 'diwali_giftcard_form' %}" method="POST" novalidate>
+                    {% csrf_token %}
+
+                    <div class="form-section-title">
+                        <i class="fa-solid fa-id-badge"></i> Candidate &amp; Office Credentials
+                    </div>
+
+                    <!-- 1. Candidate Name -->
+                    <div class="form-group">
+                        <label for="candidateName">
+                            <span class="label-left">
+                                <span class="field-number">1</span> Candidate Name <span class="required">*</span>
+                            </span>
+                        </label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-user input-icon"></i>
+                            <input type="text" id="candidateName" name="candidateName" value="{{ form_data.candidateName|default:'' }}" placeholder="Enter full name of candidate" required>
+                        </div>
+                        <div class="field-error-msg" id="err-candidateName">Please enter the candidate's full name.</div>
+                    </div>
+
+                    <!-- 2. Website Name -->
+                    <div class="form-group">
+                        <label for="websiteName">
+                            <span class="label-left">
+                                <span class="field-number">2</span> Website Name <span class="required">*</span>
+                            </span>
+                        </label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-globe input-icon"></i>
+                            <input list="websiteOptions" type="text" id="websiteName" name="websiteName" value="{{ form_data.websiteName|default:'' }}" placeholder="e.g. bhudevmatrimony.com or nrimatrimony.com" required>
+                            <datalist id="websiteOptions">
+                                <option value="bhudevmatrimony.com">
+                                <option value="nrimatrimony.com">
+                                <option value="bhudevstore.com">
+                            </datalist>
+                        </div>
+                        <div class="field-helper">
+                            <i class="fa-solid fa-circle-info"></i> Enter registered portal (e.g. bhudevmatrimony.com)
+                        </div>
+                        <div class="field-error-msg" id="err-websiteName">Please provide the website name.</div>
+                    </div>
+
+                    <!-- 3. Membership ID -->
+                    <div class="form-group">
+                        <label for="membershipId">
+                            <span class="label-left">
+                                <span class="field-number">3</span> Membership ID (Mebership ID) <span class="required">*</span>
+                            </span>
+                        </label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-hashtag input-icon"></i>
+                            <input type="text" id="membershipId" name="membershipId" value="{{ form_data.membershipId|default:'' }}" placeholder="Enter candidate's Membership / Serial ID" required>
+                        </div>
+                        <div class="field-error-msg" id="err-membershipId">Please enter the Membership ID.</div>
+                    </div>
+
+                    <div class="form-section-title" style="margin-top: 28px;">
+                        <i class="fa-solid fa-address-book"></i> Contact &amp; Courier Delivery Information
+                    </div>
+
+                    <!-- 4. WhatsApp Number -->
+                    <div class="form-group">
+                        <label for="whatsappNumber">
+                            <span class="label-left">
+                                <span class="field-number">4</span> WhatsApp Number <span class="required">*</span>
+                            </span>
+                            <!-- <a href="javascript:void(0)" class="same-mobile-btn" id="copyMobileBtn" title="Copy from Mobile Number">
+                                <i class="fa-solid fa-copy"></i> Same as Mobile
+                            </a> -->
+                        </label>
+                        <div class="input-wrapper">
+                            <i class="fa-brands fa-whatsapp input-icon"></i>
+                            <input type="tel" id="whatsappNumber" name="whatsappNumber" value="{{ form_data.whatsappNumber|default:'' }}" placeholder="10-digit WhatsApp number" maxlength="10" pattern="[0-9]{10}" required>
+                        </div>
+                        <div class="field-error-msg" id="err-whatsappNumber">Enter a valid 10-digit WhatsApp number.</div>
+                    </div>
+
+                    <!-- 5. Home Address -->
+                    <div class="form-group">
+                        <label for="homeAddress">
+                            <span class="label-left">
+                                <span class="field-number">5</span> Home Address <span class="required">*</span>
+                            </span>
+                        </label>
+                        <div class="input-wrapper textarea-wrapper">
+                            <i class="fa-solid fa-house-chimney input-icon"></i>
+                            <textarea id="homeAddress" name="homeAddress" placeholder="Complete postal address for Diwali gift card courier delivery (House/Flat No, Landmark, City, State, Pincode)" required>{{ form_data.homeAddress|default:'' }}</textarea>
+                        </div>
+                        <div class="field-helper">
+                            <i class="fa-solid fa-truck-fast"></i> Include complete address with landmark and pincode for accurate delivery.
+                        </div>
+                        <div class="field-error-msg" id="err-homeAddress">Please provide complete home address for delivery.</div>
+                    </div>
+
+                    <!-- 6. Mobile Number -->
+                    <div class="form-group">
+                        <label for="mobileNumber">
+                            <span class="label-left">
+                                <span class="field-number">6</span> Mobile Number <span class="required">*</span>
+                            </span>
+                            <a href="javascript:void(0)" class="same-mobile-btn" id="copyWhatsappBtn" title="Copy from WhatsApp Number">
+                                <i class="fa-solid fa-copy"></i> Same as WhatsApp
+                            </a>
+                        </label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-phone input-icon"></i>
+                            <input type="tel" id="mobileNumber" name="mobileNumber" value="{{ form_data.mobileNumber|default:'' }}" placeholder="10-digit mobile number" maxlength="10" pattern="[0-9]{10}" required>
+                        </div>
+                        <div class="field-error-msg" id="err-mobileNumber">Enter a valid 10-digit mobile number.</div>
+                    </div>
+
+                    <!-- Office Instruction Box -->
+                    <div class="office-instruction-card">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <p>
+                            All submitted entries are logged directly into the administrative desk database. The office team will verify your Membership ID and dispatch your official Diwali Gift Card kit accordingly.
+                        </p>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="spinner" id="btnSpinner"></span>
+                        <span id="btnText"><i class="fa-solid fa-paper-plane"></i> Submit Gift Card Registration</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Poster -->
+    <div class="poster-section">
+        <img src="{% static 'images/team.jpg' %}" alt="Bhudev Foundation Team" />
+    </div>
+
+    <!-- Standard Footers -->
+    <div class="footer-wrapper">
+        {% include 'partials/footer.html' %}
+        {% include 'biodata/employa_footer.html' %}
+    </div>
+
+    <!-- JavaScript Interactive Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('giftCardForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnSpinner = document.getElementById('btnSpinner');
+            const btnText = document.getElementById('btnText');
+            const copyMobileBtn = document.getElementById('copyMobileBtn');
+            const copyWhatsappBtn = document.getElementById('copyWhatsappBtn');
+
+            const mobileInput = document.getElementById('mobileNumber');
+            const whatsappInput = document.getElementById('whatsappNumber');
+            const membershipInput = document.getElementById('membershipId');
+
+            // Quick auto uppercase for Membership ID
+            if (membershipInput) {
+                membershipInput.addEventListener('input', function () {
+                    this.value = this.value.toUpperCase();
+                });
+            }
+
+            // Restrict Mobile and WhatsApp to 10 digits only
+            [mobileInput, whatsappInput].forEach(function (input) {
+                if (!input) return;
+                input.addEventListener('input', function () {
+                    this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+                    hideError(input.id);
+                });
+            });
+
+            // Quick "Same as Mobile" button (copies Mobile -> WhatsApp)
+            if (copyMobileBtn && mobileInput && whatsappInput) {
+                copyMobileBtn.addEventListener('click', function () {
+                    const mobileVal = mobileInput.value.trim();
+                    if (mobileVal) {
+                        whatsappInput.value = mobileVal;
+                        hideError('whatsappNumber');
+                        copyMobileBtn.style.background = '#dcfce7';
+                        copyMobileBtn.style.color = '#15803d';
+                        copyMobileBtn.style.borderColor = '#86efac';
+                        copyMobileBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                        setTimeout(function () {
+                            copyMobileBtn.style.background = '';
+                            copyMobileBtn.style.color = '';
+                            copyMobileBtn.style.borderColor = '';
+                            copyMobileBtn.innerHTML = '<i class="fa-solid fa-copy"></i> Same as Mobile';
+                        }, 2000);
+                    } else {
+                        showError('mobileNumber', 'Please enter Mobile Number first.');
+                        mobileInput.focus();
+                    }
+                });
+            }
+
+            // Quick "Same as WhatsApp" button (copies WhatsApp -> Mobile)
+            if (copyWhatsappBtn && mobileInput && whatsappInput) {
+                copyWhatsappBtn.addEventListener('click', function () {
+                    const waVal = whatsappInput.value.trim();
+                    if (waVal) {
+                        mobileInput.value = waVal;
+                        hideError('mobileNumber');
+                        copyWhatsappBtn.style.background = '#dcfce7';
+                        copyWhatsappBtn.style.color = '#15803d';
+                        copyWhatsappBtn.style.borderColor = '#86efac';
+                        copyWhatsappBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                        setTimeout(function () {
+                            copyWhatsappBtn.style.background = '';
+                            copyWhatsappBtn.style.color = '';
+                            copyWhatsappBtn.style.borderColor = '';
+                            copyWhatsappBtn.innerHTML = '<i class="fa-solid fa-copy"></i> Same as WhatsApp';
+                        }, 2000);
+                    } else {
+                        showError('whatsappNumber', 'Please enter WhatsApp Number first.');
+                        whatsappInput.focus();
+                    }
+                });
+            }
+
+            function showError(fieldId, customMsg) {
+                const errDiv = document.getElementById('err-' + fieldId);
+                const input = document.getElementById(fieldId);
+                if (errDiv) {
+                    if (customMsg) errDiv.textContent = customMsg;
+                    errDiv.style.display = 'block';
+                }
+                if (input) {
+                    input.style.borderColor = 'var(--error-red)';
+                }
+            }
+
+            function hideError(fieldId) {
+                const errDiv = document.getElementById('err-' + fieldId);
+                const input = document.getElementById(fieldId);
+                if (errDiv) {
+                    errDiv.style.display = 'none';
+                }
+                if (input) {
+                    input.style.borderColor = '';
+                }
+            }
+
+            // Realtime clear on input
+            ['candidateName', 'websiteName', 'membershipId', 'homeAddress'].forEach(function(fieldId) {
+                const el = document.getElementById(fieldId);
+                if (el) {
+                    el.addEventListener('input', function() {
+                        if (this.value.trim()) hideError(fieldId);
+                    });
+                }
+            });
+
+            // Form Submit Validation
+            form.addEventListener('submit', function (e) {
+                let isValid = true;
+
+                // Candidate Name
+                const candidateName = document.getElementById('candidateName').value.trim();
+                if (!candidateName) {
+                    showError('candidateName');
+                    isValid = false;
+                } else {
+                    hideError('candidateName');
+                }
+
+                // Website Name
+                const websiteName = document.getElementById('websiteName').value.trim();
+                if (!websiteName) {
+                    showError('websiteName');
+                    isValid = false;
+                } else {
+                    hideError('websiteName');
+                }
+
+                // Membership ID
+                const membershipId = document.getElementById('membershipId').value.trim();
+                if (!membershipId) {
+                    showError('membershipId');
+                    isValid = false;
+                } else {
+                    hideError('membershipId');
+                }
+
+                // Mobile Number
+                const mobileVal = mobileInput.value.trim();
+                if (!mobileVal || mobileVal.length !== 10 || !/^\d{10}$/.test(mobileVal)) {
+                    showError('mobileNumber', 'Please enter a valid 10-digit mobile number.');
+                    isValid = false;
+                } else {
+                    hideError('mobileNumber');
+                }
+
+                // WhatsApp Number
+                const whatsappVal = whatsappInput.value.trim();
+                if (!whatsappVal || whatsappVal.length !== 10 || !/^\d{10}$/.test(whatsappVal)) {
+                    showError('whatsappNumber', 'Please enter a valid 10-digit WhatsApp number.');
+                    isValid = false;
+                } else {
+                    hideError('whatsappNumber');
+                }
+
+                // Home Address
+                const homeAddress = document.getElementById('homeAddress').value.trim();
+                if (!homeAddress) {
+                    showError('homeAddress');
+                    isValid = false;
+                } else {
+                    hideError('homeAddress');
+                }
+
+                if (!isValid) {
+                    e.preventDefault();
+                    // Scroll to first error
+                    const firstErr = document.querySelector('.field-error-msg[style*="display: block"]');
+                    if (firstErr) {
+                        firstErr.parentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    return false;
+                }
+
+                // Submission state: show spinner & disable
+                submitBtn.disabled = true;
+                btnSpinner.style.display = 'inline-block';
+                btnText.innerHTML = 'Submitting Gift Card Details...';
+            });
+        });
+    </script>
+</body>
+</html>
+

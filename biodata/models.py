@@ -1411,6 +1411,7 @@ class GetTogetherRegistration(models.Model):
 
 from .models_marriage_done import MarriageDoneGiftSubmission
 from .models_diwali_gift import DiwaliGiftRegistration
+from .models_diwali_giftcard import DiwaliGiftCard
 
 class StageIntroduction39th(models.Model):
     GENDER_CHOICES = [

@@ -1,0 +1,339 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Confirmed - Diwali Gift Card</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-burgundy: #590919;
+            --secondary-maroon: #7a1228;
+            --accent-gold: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+            --header-gradient: linear-gradient(135deg, #420612 0%, #6e1025 50%, #1f0b24 100%);
+            --bg-neutral: #f6f7fb;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --shadow-card: 0 12px 36px rgba(66, 6, 18, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-neutral);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(122, 18, 40, 0.07) 0%, transparent 25%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 16px 50px;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        .success-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            text-align: center;
+        }
+
+        .gold-top-bar {
+            height: 6px;
+            background: var(--gold-gradient);
+            width: 100%;
+        }
+
+        .card-inner {
+            padding: 40px 32px;
+        }
+
+        .logo-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .logo-row img {
+            height: 48px;
+            width: auto;
+            max-width: 130px;
+            object-fit: contain;
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 5px 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .success-icon-wrapper {
+            width: 82px;
+            height: 82px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #f0fdf4;
+            border: 2px solid #22c55e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #16a34a;
+            font-size: 38px;
+            box-shadow: 0 8px 24px rgba(34, 197, 94, 0.2);
+            animation: popIn 0.5s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--secondary-maroon);
+            margin-bottom: 6px;
+        }
+
+        .festive-greet {
+            font-size: 15px;
+            color: #b45309;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .receipt-box {
+            background: #fafafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px 22px;
+            margin: 22px 0 24px;
+            text-align: left;
+        }
+
+        .receipt-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #64748b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+
+        .receipt-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .receipt-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .receipt-val {
+            color: #0f172a;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .badge-verified {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+            border-radius: 20px;
+            font-size: 13.5px;
+            font-weight: 600;
+            margin-bottom: 22px;
+        }
+
+        p.note {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 26px;
+        }
+
+        .action-btns {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-register-again {
+            padding: 13px 26px;
+            background: linear-gradient(135deg, #7a1228 0%, #590919 100%);
+            color: #ffffff;
+            font-size: 14.5px;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(89, 9, 25, 0.25);
+        }
+
+        .btn-register-again:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(89, 9, 25, 0.35);
+            color: #ffffff;
+        }
+
+        .footer-wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 20px;
+        }
+
+        .poster-section {
+            width: 100%;
+            max-width: 900px;
+            margin: 24px auto 10px;
+            text-align: center;
+        }
+
+        .poster-section img {
+            max-width: 100%;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 10px 30px;
+            }
+
+            .card-inner {
+                padding: 28px 18px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <div class="success-card">
+            <div class="gold-top-bar"></div>
+            <div class="card-inner">
+                <div class="logo-row">
+                    <img src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Bhudev Matrimony Logo" />
+                    <img src="{% static 'images/NRI Matrimony(1).jpg.jpeg' %}" alt="NRI Matrimony Logo" />
+                </div>
+
+                <div class="success-icon-wrapper">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+
+                <h1>Registration Successful!</h1>
+                <div class="festive-greet">🪔 દિવાળી ગિફ્ટ કાર્ડ રજીસ્ટ્રેશન સફળતાપૂર્વક થઈ ગયું છે 🪔</div>
+
+                <div class="badge-verified">
+                    <i class="fa-solid fa-shield-check"></i> Recorded in Office Administration Panel
+                </div>
+
+                {% if candidate_name %}
+                <div class="receipt-box">
+                    <div class="receipt-title">
+                        <i class="fa-solid fa-receipt"></i> Submitted Registration Details
+                    </div>
+                    <div class="receipt-item">
+                        <span class="receipt-label">Candidate Name:</span>
+                        <span class="receipt-val">{{ candidate_name }}</span>
+                    </div>
+                    {% if membership_id %}
+                    <div class="receipt-item">
+                        <span class="receipt-label">Membership ID:</span>
+                        <span class="receipt-val">{{ membership_id }}</span>
+                    </div>
+                    {% endif %}
+                    {% if website_name %}
+                    <div class="receipt-item">
+                        <span class="receipt-label">Website Name:</span>
+                        <span class="receipt-val">{{ website_name }}</span>
+                    </div>
+                    {% endif %}
+                    {% if mobile_number %}
+                    <div class="receipt-item">
+                        <span class="receipt-label">Mobile Number:</span>
+                        <span class="receipt-val">{{ mobile_number }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <p class="note">
+                    Your Diwali gift card request has been registered in the system. The administration team will verify your credentials and arrange for dispatch to your registered address.
+                </p>
+
+                <div class="action-btns">
+                    <a href="{% url 'diwali_giftcard_form' %}" class="btn-register-again">
+                        <i class="fa-solid fa-plus-circle"></i> Register Another Candidate
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Poster -->
+    <div class="poster-section">
+        <img src="{% static 'images/team.jpg' %}" alt="Bhudev Foundation Team" />
+    </div>
+
+    <!-- Standard Footers -->
+    <div class="footer-wrapper">
+        {% include 'partials/footer.html' %}
+        {% include 'biodata/employa_footer.html' %}
+    </div>
+
+</body>
+</html>
+
