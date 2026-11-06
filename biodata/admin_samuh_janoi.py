@@ -20,7 +20,6 @@ class SamuhJanoiRegistrationAdmin(admin.ModelAdmin):
         'village_city',
         'phone_number',
         'whatsapp_number',
-        'attending_members',
         'submitted_at',
     )
     search_fields = (
@@ -33,7 +32,6 @@ class SamuhJanoiRegistrationAdmin(admin.ModelAdmin):
         'home_address',
         'phone_number',
         'whatsapp_number',
-        'extra_member_notes',
     )
     list_filter = (
         'sub_caste',
@@ -56,10 +54,6 @@ class SamuhJanoiRegistrationAdmin(admin.ModelAdmin):
         }),
         ('સરનામું અને સંપર્ક (Address & Contact)', {
             'fields': ('home_address', 'village_city', 'phone_number', 'whatsapp_number')
-        }),
-        ('પ્રસંગમાં આવનાર સભ્યો (Attending Members)', {
-            'fields': ('attending_members', 'extra_member_notes'),
-            'description': 'મર્યાદા: ૩૦ સભ્યો. વધારાના સભ્યો માટે નોંધ.'
         }),
         ('સિસ્ટમ માહિતી (System Metadata)', {
             'fields': ('submitted_at',),
@@ -107,8 +101,6 @@ class SamuhJanoiRegistrationAdmin(admin.ModelAdmin):
             "ફોન નંબર",
             "વોટ્સએપ નંબર",
             "ઘરનું સરનામું (પિનકોડ)",
-            "આવનાર સભ્યો સંખ્યા",
-            "વધારાના સભ્યો નોંધ",
             "રજીસ્ટ્રેશન તારીખ / સમય",
         ]
         ws.append(headers)
@@ -157,8 +149,6 @@ class SamuhJanoiRegistrationAdmin(admin.ModelAdmin):
                 obj.phone_number,
                 obj.whatsapp_number,
                 obj.home_address,
-                obj.attending_members,
-                obj.extra_member_notes or '',
                 submitted_str,
             ]
             ws.append(row_data)
@@ -166,7 +156,7 @@ class SamuhJanoiRegistrationAdmin(admin.ModelAdmin):
             for col_idx in range(1, len(row_data) + 1):
                 cell = ws.cell(row=row_idx, column=col_idx)
                 cell.border = thin_border
-                if col_idx in (1, 3, 9, 10, 12, 14):
+                if col_idx in (1, 3, 9, 10, 12):
                     cell.alignment = Alignment(horizontal='center', vertical='center')
                 else:
                     cell.alignment = Alignment(horizontal='left', vertical='center')

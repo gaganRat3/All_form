@@ -44,8 +44,6 @@ def samuh_janoi_form_view(request):
         village_city = data.get('village_city', '').strip()
         phone_raw = data.get('phone_number', '').strip()
         whatsapp_raw = data.get('whatsapp_number', '').strip()
-        attending_members_raw = data.get('attending_members', '').strip()
-        extra_member_notes = data.get('extra_member_notes', '').strip()
 
         errors = {}
 
@@ -100,18 +98,6 @@ def samuh_janoi_form_view(request):
         elif not (clean_whatsapp.isdigit() and len(clean_whatsapp) == 10):
             errors['whatsapp_number'] = 'કૃપા કરીને માન્ય ૧૦ આંકડાનો વોટ્સએપ નંબર દાખલ કરો. (Enter valid 10-digit WhatsApp number)'
 
-        # 11. Attending Members
-        attending_members = None
-        if attending_members_raw == '':
-            errors['attending_members'] = 'કૃપા કરીને પ્રસંગમાં આવનાર સભ્યોની સંખ્યા દાખલ કરો. (Please enter number of attending members)'
-        else:
-            try:
-                attending_members = int(attending_members_raw)
-                if attending_members < 0:
-                    errors['attending_members'] = 'સભ્યોની સંખ્યા 0 અથવા તેથી વધુ હોવી જોઈએ. (Must be 0 or more)'
-            except ValueError:
-                errors['attending_members'] = 'કૃપા કરીને માત્ર સંખ્યા દાખલ કરો. (Please enter a valid number)'
-
         if errors:
             return render(request, 'biodata/Samuh_Janoi.html', {
                 'errors': errors,
@@ -130,8 +116,6 @@ def samuh_janoi_form_view(request):
             village_city=village_city,
             phone_number=clean_phone if (clean_phone.isdigit() and len(clean_phone) == 10) else phone_raw,
             whatsapp_number=clean_whatsapp if (clean_whatsapp.isdigit() and len(clean_whatsapp) == 10) else whatsapp_raw,
-            attending_members=attending_members,
-            extra_member_notes=extra_member_notes,
         )
 
         # Store in session for success display

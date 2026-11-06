@@ -33,9 +33,10 @@ def run_tests():
     assert "village_city" in html, "village_city field missing"
     assert "phone_number" in html, "phone_number field missing"
     assert "whatsapp_number" in html, "whatsapp_number field missing"
-    assert "attending_members" in html, "attending_members field missing"
-    assert "31-12-2021" in html, "Policy note missing in HTML"
-    print("-> GET /samuh-janoi/ passed successfully!")
+    # Ensure section 5 was removed
+    assert "attending_members" not in html, "attending_members field should NOT be in HTML"
+    assert "31-12-2021" not in html, "Policy note should NOT be in HTML"
+    print("-> GET /samuh-janoi/ passed successfully (Section 5 confirmed removed)!")
 
     # 2. Test aliases
     print("\n2. Testing alias URLs...")
@@ -54,7 +55,7 @@ def run_tests():
     print("-> Empty submission validation passed!")
 
     # 4. Test Invalid Phone & Date
-    print("\n4. Testing Invalid Phone & Invalid Member count...")
+    print("\n4. Testing Invalid Phone...")
     res_bad = client.post(url, {
         'batuk_name': 'આર્યન શર્મા',
         'batuk_dob': '2015-05-10',
@@ -66,13 +67,11 @@ def run_tests():
         'village_city': 'અમદાવાદ',
         'phone_number': '123', # bad
         'whatsapp_number': '9876543210',
-        'attending_members': '-5', # bad
     })
     assert res_bad.status_code == 200
     bad_content = res_bad.content.decode('utf-8')
     assert "માન્ય ૧૦ આંકડાનો ફોન નંબર" in bad_content
-    assert "સભ્યોની સંખ્યા 0 અથવા તેથી વધુ" in bad_content
-    print("-> Invalid phone & invalid members validation passed!")
+    print("-> Invalid phone validation passed!")
 
     # 5. Test Successful POST
     print("\n5. Testing Valid POST (Submission)...")
@@ -88,8 +87,6 @@ def run_tests():
         'village_city': 'અમદાવાદ',
         'phone_number': '9825012345',
         'whatsapp_number': '9825012345',
-        'attending_members': '15',
-        'extra_member_notes': 'અંદાજે ૧૫ થી ૨૦ સભ્યો ઉપસ્થિત રહેશે.',
     }
     res_post = client.post(url, valid_data, follow=True)
     assert res_post.status_code == 200, f"Expected 200 after redirect, got {res_post.status_code}"
@@ -105,7 +102,7 @@ def run_tests():
     assert new_record.village_city == valid_data['village_city']
     assert new_record.phone_number == '9825012345'
     assert new_record.whatsapp_number == '9825012345'
-    assert new_record.attending_members == 15
+    assert not hasattr(new_record, 'attending_members')
     print("-> Record verified in Database!")
 
     # Check Success Page content
@@ -114,20 +111,9 @@ def run_tests():
     assert "બટુક શૌર્ય દેવરાજભાઈ ત્રિવેદી" in success_html
     assert "15-08-2016" in success_html
     assert "દેવરાજભાઈ હરીશભાઈ ત્રિવેદી" in success_html
-    assert "31-12-2021" in success_html
-    print("-> Success page confirmed rendering all submitted fields!")
-
-    # Test 5b: Zero member count is allowed
-    print("\n5b. Testing Attending Members = 0...")
-    data_zero = dict(valid_data)
-    data_zero['attending_members'] = '0'
-    data_zero['batuk_name'] = 'ટેસ્ટ બટુક ઝીરો મેમ્બર'
-    res_zero = client.post(url, data_zero, follow=True)
-    assert res_zero.status_code == 200
-    zero_record = SamuhJanoiRegistration.objects.get(batuk_name='ટેસ્ટ બટુક ઝીરો મેમ્બર')
-    assert zero_record.attending_members == 0
-    zero_record.delete()
-    print("-> 0 attending members accepted and stored successfully!")
+    assert "attending_members" not in success_html
+    assert "31-12-2021" not in success_html
+    print("-> Success page confirmed rendering cleanly without section 5!")
 
     # 6. Test Admin Panel Registration
     print("\n6. Testing Admin Panel Registration & Methods...")
@@ -158,12 +144,11 @@ def run_tests():
     header_values = [cell.value for cell in ws[1]]
     assert "બટુક નું પૂરું નામ" in header_values
     assert "પિતા નું નામ" in header_values
-    assert "આવનાર સભ્યો સંખ્યા" in header_values
+    assert "આવનાર સભ્યો સંખ્યા" not in header_values
 
     # Row 2 is data
     row2_values = [cell.value for cell in ws[2]]
     assert valid_data['batuk_name'] in row2_values
-    assert 15 in row2_values
     print("-> Admin Excel export verified successfully!")
 
     print("\n=== ALL TESTS PASSED SUCCESSFULLY! ===")

@@ -408,83 +408,6 @@
       height: 15px;
     }
 
-    /* Highlight Member Limit Box */
-    .members-policy-card {
-      background: linear-gradient(135deg, #fff9ec 0%, #fff4da 100%);
-      border: 1.5px dashed var(--gold);
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    .policy-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #8c5b08;
-      font-weight: 700;
-      font-size: 14.5px;
-      margin-bottom: 6px;
-    }
-
-    .policy-text {
-      color: #63430c;
-      font-size: 13.5px;
-      line-height: 1.7;
-    }
-
-    .policy-text strong {
-      color: #b42318;
-      font-weight: 700;
-    }
-
-    /* Stepper for attending members */
-    .stepper-input-group {
-      display: flex;
-      align-items: center;
-      max-width: 260px;
-    }
-
-    .stepper-btn {
-      background: #f4ece1;
-      border: 1.5px solid var(--border-color);
-      color: var(--primary);
-      font-size: 20px;
-      font-weight: bold;
-      width: 48px;
-      height: 48px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-      user-select: none;
-    }
-
-    .stepper-btn.minus {
-      border-radius: 9px 0 0 9px;
-      border-right: none;
-    }
-
-    .stepper-btn.plus {
-      border-radius: 0 9px 9px 0;
-      border-left: none;
-    }
-
-    .stepper-btn:hover {
-      background: var(--gold-light);
-      color: var(--primary-dark);
-    }
-
-    .stepper-field {
-      text-align: center;
-      font-size: 18px;
-      font-weight: 700;
-      border-radius: 0 !important;
-      height: 48px;
-    }
-
     /* Global Error Banner */
     .alert-danger {
       background: var(--error-bg);
@@ -906,71 +829,6 @@
           </div>
         </div>
 
-        <!-- ================= SECTION 5: પ્રસંગમાં આવનાર સભ્યો ================= -->
-        <div class="form-section">
-          <div class="section-legend">
-            <span class="section-badge">૫</span>
-            <span>પ્રસંગમાં ઉપસ્થિત સભ્યોની વિગત (Attending Family Members)</span>
-          </div>
-
-          <!-- Highlight Policy Box -->
-          <div class="members-policy-card">
-            <div class="policy-title">
-              <span>🔔</span>
-              <span>મહત્વપૂર્ણ નિયમ / પ્રસંગ મર્યાદા નોંધ:</span>
-            </div>
-            <p class="policy-text">
-              <strong>૧૧) આપને ત્યાંથી કેટલા સભ્ય (મેમ્બર) આ પ્રસંગ માં આવશે , લિમિટ 30 મેમ્બર ની છે . એકસ્ટ્રા મેમ્બર થશે તો તે 31-12-2021 પહેલા જણાવાનું રહેશે .</strong>
-            </p>
-          </div>
-
-          <div class="grid-2">
-            <!-- Field 11: Attending Members Count -->
-            <div class="form-group">
-              <label for="attending_members" class="form-label">
-                <span>આવનાર કુલ સભ્યો (મેમ્બર) ની સંખ્યા <span class="required-star">*</span></span>
-                <span class="label-tag">Limit: 30</span>
-              </label>
-
-              <div class="stepper-input-group">
-                <button type="button" class="stepper-btn minus" id="btnMinus" aria-label="Decrease members">−</button>
-                <input
-                  type="number"
-                  id="attending_members"
-                  name="attending_members"
-                  min="0"
-                  max="100"
-                  class="form-control stepper-field {% if errors.attending_members %}is-invalid{% endif %}"
-                  value="{{ form_data.attending_members|default:'0' }}"
-                  required
-                />
-                <button type="button" class="stepper-btn plus" id="btnPlus" aria-label="Increase members">+</button>
-              </div>
-
-              {% if errors.attending_members %}
-                <div class="field-error">⚠️ {{ errors.attending_members }}</div>
-              {% else %}
-                <span class="field-hint" id="memberHint">સામાન્ય મર્યાદા: ૩૦ મેમ્બર સુધી</span>
-              {% endif %}
-            </div>
-
-            <!-- Extra Notes for Members (if any) -->
-            <div class="form-group">
-              <label for="extra_member_notes" class="form-label">
-                <span>વધારાના સભ્યો / અન્ય નોંધ (જો હોય તો)</span>
-                <span class="label-tag">Optional Notes</span>
-              </label>
-              <textarea
-                id="extra_member_notes"
-                name="extra_member_notes"
-                class="form-control"
-                placeholder="જો ૩૦ થી વધુ સભ્યો હોય અથવા કોઈ ખાસ વ્યવસ્થા કે નોંધ હોય તો અહીં જણાવો"
-                style="min-height: 48px;"
-              >{{ form_data.extra_member_notes|default:'' }}</textarea>
-            </div>
-          </div>
-        </div>
-
         <!-- Submit Button -->
         <div class="action-container">
           <button type="submit" class="submit-btn" id="submitBtn">
@@ -1003,10 +861,6 @@
     const phoneInput = document.getElementById('phone_number');
     const whatsappInput = document.getElementById('whatsapp_number');
     const sameCheckbox = document.getElementById('sameAsPhone');
-    const membersInput = document.getElementById('attending_members');
-    const btnMinus = document.getElementById('btnMinus');
-    const btnPlus = document.getElementById('btnPlus');
-    const memberHint = document.getElementById('memberHint');
     const form = document.getElementById('samuhJanoiForm');
     const submitBtn = document.getElementById('submitBtn');
 
@@ -1050,43 +904,6 @@
         whatsappInput.value = phoneInput.value;
       }
     });
-
-    // Stepper functionality
-    function updateMemberDisplay() {
-      let raw = membersInput.value;
-      let val = parseInt(raw, 10);
-      if (isNaN(val) || val < 0) {
-        val = 0;
-      }
-      membersInput.value = val;
-
-      if (val > 30) {
-        memberHint.innerHTML = '<span style="color: #b42318; font-weight:600;">⚠️ ૩૦ થી વધુ સભ્યો છે! કૃપા કરીને વધારાના સભ્યોની નોંધ ૩૧-૧૨-૨૦૨૧ પહેલા કાર્યાલયને જણાવાની રહેશે.</span>';
-      } else if (val === 0) {
-        memberHint.innerHTML = 'સામાન્ય મર્યાદા: ૩૦ મેમ્બર સુધી (સભ્યોની સંખ્યા દાખલ કરો)';
-      } else {
-        memberHint.innerHTML = 'સામાન્ય મર્યાદા: ૩૦ મેમ્બર સુધી (' + val + ' સભ્યો દાખલ કર્યા)';
-      }
-    }
-
-    btnMinus.addEventListener('click', function () {
-      let val = parseInt(membersInput.value, 10);
-      if (isNaN(val) || val <= 0) val = 0;
-      if (val > 0) {
-        membersInput.value = val - 1;
-        updateMemberDisplay();
-      }
-    });
-
-    btnPlus.addEventListener('click', function () {
-      let val = parseInt(membersInput.value, 10);
-      if (isNaN(val) || val < 0) val = 0;
-      membersInput.value = val + 1;
-      updateMemberDisplay();
-    });
-
-    membersInput.addEventListener('input', updateMemberDisplay);
-    updateMemberDisplay();
 
     // Prevent duplicate submits
     form.addEventListener('submit', function () {

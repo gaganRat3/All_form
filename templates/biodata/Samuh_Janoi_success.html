@@ -365,26 +365,10 @@
           <span class="detail-value">{{ registration.whatsapp_number }}</span>
         </div>
 
-        <div class="detail-row">
-          <span class="detail-label">૧૦) આવનાર સભ્યોની સંખ્યા</span>
-          <span class="detail-value">{{ registration.attending_members }} સભ્યો (મેમ્બર)</span>
-        </div>
-
         <div class="detail-row full">
-          <span class="detail-label">૧૧) ઘરનું સંપૂર્ણ સરનામું (પિનકોડ સાથે)</span>
+          <span class="detail-label">૧૦) ઘરનું સંપૂર્ણ સરનામું (પિનકોડ સાથે)</span>
           <span class="detail-value">{{ registration.home_address }}</span>
         </div>
-
-        {% if registration.extra_member_notes %}
-        <div class="detail-row full">
-          <span class="detail-label">વધારાના સભ્યો અંગે નોંધ</span>
-          <span class="detail-value">{{ registration.extra_member_notes }}</span>
-        </div>
-        {% endif %}
-      </div>
-
-      <div class="notice-box">
-        <strong>📌 સભ્ય મર્યાદા નોંધ:</strong> આપને ત્યાંથી કેટલા સભ્ય (મેમ્બર) આ પ્રસંગ માં આવશે , લિમિટ 30 મેમ્બર ની છે . એકસ્ટ્રા મેમ્બર થશે તો તે 31-12-2021 પહેલા જણાવાનું રહેશે .
       </div>
     </div>
     {% endif %}

@@ -40,14 +40,6 @@ class SamuhJanoiRegistration(models.Model):
         max_length=20,
         verbose_name="વોટ્સેપ નંબર (WhatsApp Number)"
     )
-    attending_members = models.PositiveIntegerField(
-        verbose_name="આવનાર સભ્યોની સંખ્યા (Attending Members)"
-    )
-    extra_member_notes = models.TextField(
-        blank=True,
-        null=True,
-        verbose_name="વધારાના સભ્યો અંગે નોંધ / વિગત (Extra Member Details if any)"
-    )
     submitted_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name="સબમિશન તારીખ / સમય (Submitted At)"
