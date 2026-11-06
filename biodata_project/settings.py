@@ -29,6 +29,7 @@ DEBUG = True
 
 # Unified ALLOWED_HOSTS (remove duplicate/conflicting definitions)
 ALLOWED_HOSTS = [
+    'testserver',
     'localhost',
     '127.0.0.1',
     'form.bhudevstore.com',

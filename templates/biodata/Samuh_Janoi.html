@@ -1,0 +1,1101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Samuh Janoi Form | સમૂહ જનોઈ મહોત્સવ રજીસ્ટ્રેશન</title>
+
+  <!-- Google Fonts: Noto Sans Gujarati & Cinzel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Noto+Sans+Gujarati:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #5c141d;
+      --primary-dark: #430c13;
+      --primary-light: #7a1d28;
+      --gold: #c8952b;
+      --gold-light: #f3dfa2;
+      --gold-dark: #9a6f19;
+      --bg-cream: #faf7f2;
+      --card-bg: #ffffff;
+      --text-main: #2b2523;
+      --text-muted: #6b635f;
+      --border-color: #ecdcc1;
+      --border-focus: #c8952b;
+      --error-color: #b91c1c;
+      --error-bg: #fef2f2;
+      --success-green: #15803d;
+      --radius: 12px;
+      --shadow-sm: 0 2px 8px rgba(92, 20, 29, 0.05);
+      --shadow-md: 0 8px 24px rgba(92, 20, 29, 0.08);
+      --shadow-lg: 0 16px 40px rgba(92, 20, 29, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans Gujarati', sans-serif;
+      background: var(--bg-cream);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 24px 16px 60px;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(200, 149, 43, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(92, 20, 29, 0.04) 0%, transparent 40%);
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Top Logos Row */
+    .brand-logos {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: nowrap;
+      width: 100%;
+    }
+
+    .brand-logos img {
+      height: 52px;
+      max-width: 48%;
+      width: auto;
+      object-fit: contain;
+      background: #ffffff;
+      padding: 6px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease;
+    }
+
+    .brand-logos img:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Main Form Card */
+    .form-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Auspicious Header */
+    .card-header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+      color: #ffffff;
+      text-align: center;
+      padding: 38px 24px 30px;
+      position: relative;
+      border-bottom: 4px solid var(--gold);
+    }
+
+    .card-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0.07;
+      background-image: radial-gradient(#ffffff 1px, transparent 1px);
+      background-size: 16px 16px;
+      pointer-events: none;
+    }
+
+    .shlok-badge {
+      display: inline-block;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: var(--gold-light);
+      background: rgba(255, 255, 255, 0.08);
+      padding: 4px 16px;
+      border-radius: 30px;
+      border: 1px solid rgba(243, 223, 162, 0.3);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .om-emblem {
+      width: 64px;
+      height: 64px;
+      line-height: 60px;
+      font-size: 38px;
+      margin: 0 auto 12px;
+      color: #ffffff;
+      background: radial-gradient(circle, var(--gold) 0%, var(--gold-dark) 100%);
+      border-radius: 50%;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .main-title {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .sub-title {
+      font-size: 16px;
+      color: var(--gold-light);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .header-tagline {
+      font-size: 13px;
+      color: #f7e6e6;
+      margin-top: 10px;
+      opacity: 0.9;
+    }
+
+    /* Form Body */
+    .card-body {
+      padding: 36px 32px 44px;
+    }
+
+    @media (max-width: 640px) {
+      .brand-logos {
+        gap: 10px;
+        margin-bottom: 16px;
+        flex-wrap: nowrap !important;
+      }
+      .brand-logos img {
+        height: 42px;
+        max-width: 48%;
+        padding: 5px 10px;
+      }
+      .card-body {
+        padding: 24px 18px 32px;
+      }
+      .main-title {
+        font-size: 24px;
+      }
+      .card-header {
+        padding: 30px 16px 24px;
+      }
+    }
+
+    /* Note Banner */
+    .intro-banner {
+      background: #fdfbf7;
+      border: 1px solid var(--border-color);
+      border-left: 5px solid var(--gold);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 30px;
+      font-size: 14px;
+      color: #554a44;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .intro-banner .icon {
+      font-size: 20px;
+      line-height: 1.4;
+      color: var(--gold-dark);
+    }
+
+    /* Fieldsets / Sections */
+    .form-section {
+      border: 1px solid #f0e6d6;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 22px 24px 26px;
+      margin-bottom: 26px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .form-section:hover {
+      border-color: #dfceb3;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-legend {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      padding: 0 8px;
+      margin-bottom: 18px;
+      border-bottom: 2px solid #f5ede1;
+      padding-bottom: 10px;
+    }
+
+    .section-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(92, 20, 29, 0.2);
+      flex-shrink: 0;
+    }
+
+    /* Grid System */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .grid-1 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 680px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    /* Form Controls */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .form-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #3b2f2f;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .label-tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: #f5ede1;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    .required-star {
+      color: var(--error-color);
+      font-weight: bold;
+      margin-left: 4px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      color: #8c827a;
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    .form-control {
+      width: 100%;
+      font-family: inherit;
+      font-size: 14.5px;
+      color: var(--text-main);
+      background: #faf8f5;
+      border: 1.5px solid var(--border-color);
+      border-radius: 9px;
+      padding: 12px 14px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-control.has-icon {
+      padding-left: 42px;
+    }
+
+    .form-control:focus {
+      background: #ffffff;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(200, 149, 43, 0.15);
+    }
+
+    .form-control::placeholder {
+      color: #a39891;
+      font-weight: 400;
+      font-size: 13.5px;
+    }
+
+    textarea.form-control {
+      min-height: 95px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    /* Error States */
+    .form-control.is-invalid {
+      border-color: var(--error-color);
+      background: var(--error-bg);
+    }
+
+    .form-control.is-invalid:focus {
+      box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.15);
+    }
+
+    .field-error {
+      color: var(--error-color);
+      font-size: 12.5px;
+      margin-top: 5px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .field-hint {
+      color: var(--text-muted);
+      font-size: 12px;
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+
+    /* WhatsApp Same As Phone Quick Toggle */
+    .quick-toggle-wrap {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--primary);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .quick-toggle-wrap input[type="checkbox"] {
+      accent-color: var(--primary);
+      cursor: pointer;
+      width: 15px;
+      height: 15px;
+    }
+
+    /* Highlight Member Limit Box */
+    .members-policy-card {
+      background: linear-gradient(135deg, #fff9ec 0%, #fff4da 100%);
+      border: 1.5px dashed var(--gold);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .policy-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #8c5b08;
+      font-weight: 700;
+      font-size: 14.5px;
+      margin-bottom: 6px;
+    }
+
+    .policy-text {
+      color: #63430c;
+      font-size: 13.5px;
+      line-height: 1.7;
+    }
+
+    .policy-text strong {
+      color: #b42318;
+      font-weight: 700;
+    }
+
+    /* Stepper for attending members */
+    .stepper-input-group {
+      display: flex;
+      align-items: center;
+      max-width: 260px;
+    }
+
+    .stepper-btn {
+      background: #f4ece1;
+      border: 1.5px solid var(--border-color);
+      color: var(--primary);
+      font-size: 20px;
+      font-weight: bold;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .stepper-btn.minus {
+      border-radius: 9px 0 0 9px;
+      border-right: none;
+    }
+
+    .stepper-btn.plus {
+      border-radius: 0 9px 9px 0;
+      border-left: none;
+    }
+
+    .stepper-btn:hover {
+      background: var(--gold-light);
+      color: var(--primary-dark);
+    }
+
+    .stepper-field {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 0 !important;
+      height: 48px;
+    }
+
+    /* Global Error Banner */
+    .alert-danger {
+      background: var(--error-bg);
+      border: 1px solid #fecaca;
+      border-left: 5px solid var(--error-color);
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      color: #991b1b;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .alert-danger ul {
+      margin-left: 20px;
+      margin-top: 6px;
+    }
+
+    /* Submit Section */
+    .action-container {
+      margin-top: 36px;
+      text-align: center;
+    }
+
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: 700;
+      padding: 16px 48px;
+      border: 2px solid var(--gold);
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(92, 20, 29, 0.25);
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(92, 20, 29, 0.35);
+      border-color: #ffd875;
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn .btn-symbol {
+      color: var(--gold-light);
+      font-size: 20px;
+    }
+
+    .submit-note {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+
+    /* Team Poster Section */
+    .poster-section {
+      width: 100%;
+      max-width: 860px;
+      margin: 32px auto 16px;
+      text-align: center;
+    }
+
+    .poster-section img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(92, 20, 29, 0.1);
+      border: 1px solid var(--border-color);
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Footer */
+    .footer-wrapper {
+      margin-top: 30px;
+      width: 100%;
+    }
+
+    /* Print optimization */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .form-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+      .submit-btn, .brand-logos, .quick-toggle-wrap, .poster-section, .footer-wrapper {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header Logos -->
+  <div class="brand-logos">
+    <img src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Bhudev Matrimony" onerror="this.style.display='none'">
+    <img src="{% static 'images/NRI Matrimony(1).jpg.jpeg' %}" alt="NRI Matrimony" onerror="this.style.display='none'">
+  </div>
+
+  <div class="form-card">
+    <!-- Auspicious Vedic Header -->
+    <header class="card-header">
+      <div class="om-emblem">ૐ</div>
+      <h1 class="main-title">સમૂહ જનોઈ રજીસ્ટ્રેશન ફોર્મ</h1>
+      <div class="sub-title">Samuh Janoi Form (યજ્ઞોપવીત સંસ્કાર મહોત્સવ)</div>
+      <p class="header-tagline">પવિત્ર યજ્ઞોપવીત ધારણ સંસ્કાર - પૂજા અને પ્રસંગ રજીસ્ટ્રેશન</p>
+    </header>
+
+    <div class="card-body">
+
+      <!-- Intro Guidance Banner -->
+      <div class="intro-banner">
+        <span class="icon">卐</span>
+        <div>
+          <strong>સામાન્ય સૂચના:</strong> કૃપા કરીને નીચે આપેલ તમામ વિગતો સાચી અને સ્પષ્ટ રીતે ભરો. લાલ તારા (<span class="required-star">*</span>) વાળી તમામ વિગતો ફરજિયાત છે.
+        </div>
+      </div>
+
+      <!-- Errors Summary Banner (if any) -->
+      {% if errors %}
+      <div class="alert-danger" role="alert">
+        <strong>⚠️ કૃપા કરીને નીચે મુજબની ભૂલો સુધારો:</strong>
+        <ul>
+          {% for field, error_msg in errors.items %}
+            <li>{{ error_msg }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      <form action="{% url 'samuh_janoi_form' %}" method="post" id="samuhJanoiForm" novalidate>
+        {% csrf_token %}
+
+        <!-- ================= SECTION 1: બટુક ની વિગત ================= -->
+        <div class="form-section">
+          <div class="section-legend">
+            <span class="section-badge">૧</span>
+            <span>બટુક ની વિગત (Batuk's Details)</span>
+          </div>
+
+          <div class="grid-2">
+            <!-- Field 1: Batuk Full Name -->
+            <div class="form-group">
+              <label for="batuk_name" class="form-label">
+                <span>૧) બટુક નું પૂરું નામ <span class="required-star">*</span></span>
+                <span class="label-tag">Full Name</span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="batuk_name"
+                  name="batuk_name"
+                  class="form-control {% if errors.batuk_name %}is-invalid{% endif %}"
+                  placeholder="દા.ત. બટુક શર્મા / દેવ ત્રિવેદી"
+                  value="{{ form_data.batuk_name|default:'' }}"
+                  required
+                />
+              </div>
+              {% if errors.batuk_name %}
+                <div class="field-error">⚠️ {{ errors.batuk_name }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Field 2: Batuk Date of Birth -->
+            <div class="form-group">
+              <label for="batuk_dob" class="form-label">
+                <span>૨) બટુક ની જન્મ-તારીખ <span class="required-star">*</span></span>
+                <span class="label-tag">DD-MM-YYYY</span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="batuk_dob"
+                  name="batuk_dob"
+                  inputmode="numeric"
+                  maxlength="10"
+                  class="form-control {% if errors.batuk_dob %}is-invalid{% endif %}"
+                  placeholder="DD-MM-YYYY (દા.ત. 15-08-2015)"
+                  value="{{ form_data.batuk_dob|default:'' }}"
+                  autocomplete="off"
+                  required
+                />
+              </div>
+              {% if errors.batuk_dob %}
+                <div class="field-error">⚠️ {{ errors.batuk_dob }}</div>
+              {% else %}
+                <span class="field-hint">તારીખ લખો, ડેશ (-) આપમેળે આવી જશે (DD-MM-YYYY)</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SECTION 2: માતા-પિતા ની વિગત ================= -->
+        <div class="form-section">
+          <div class="section-legend">
+            <span class="section-badge">૨</span>
+            <span>માતા-પિતા ની માહિતી (Parents' Details)</span>
+          </div>
+
+          <div class="grid-2">
+            <!-- Field 4: Father Full Name (shown first for cultural clarity or as requested) -->
+            <div class="form-group">
+              <label for="father_name" class="form-label">
+                <span>૪) બટુક ના પિતા નું પૂરું નામ <span class="required-star">*</span></span>
+                <span class="label-tag">Father's Name</span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="father_name"
+                  name="father_name"
+                  class="form-control {% if errors.father_name %}is-invalid{% endif %}"
+                  placeholder="પિતાનું પૂરું નામ લખો"
+                  value="{{ form_data.father_name|default:'' }}"
+                  required
+                />
+              </div>
+              {% if errors.father_name %}
+                <div class="field-error">⚠️ {{ errors.father_name }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Field 3: Mother Full Name -->
+            <div class="form-group">
+              <label for="mother_name" class="form-label">
+                <span>૩) બટુક ની માતા નું પૂરું નામ <span class="required-star">*</span></span>
+                <span class="label-tag">Mother's Name</span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="mother_name"
+                  name="mother_name"
+                  class="form-control {% if errors.mother_name %}is-invalid{% endif %}"
+                  placeholder="માતાનું પૂરું નામ લખો"
+                  value="{{ form_data.mother_name|default:'' }}"
+                  required
+                />
+              </div>
+              {% if errors.mother_name %}
+                <div class="field-error">⚠️ {{ errors.mother_name }}</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SECTION 3: જ્ઞાતિ અને ગૌત્ર ================= -->
+        <div class="form-section">
+          <div class="section-legend">
+            <span class="section-badge">૩</span>
+            <span>જ્ઞાતિ અને ગૌત્ર વિગત (Community & Gotra)</span>
+          </div>
+
+          <div class="grid-2">
+            <!-- Field 5: Brahmin Sub-Caste -->
+            <div class="form-group">
+              <label for="sub_caste" class="form-label">
+                <span>૫) આપ કેવા બ્રાહ્મણ છો (પેટા- જ્ઞાતિ ) ? <span class="required-star">*</span></span>
+                <span class="label-tag">Sub-Caste</span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="sub_caste"
+                  name="sub_caste"
+                  class="form-control {% if errors.sub_caste %}is-invalid{% endif %}"
+                  placeholder="તમારી પેટા-જ્ઞાતિ લખો (દા.ત. ઔદીચ્ય સહસ્ર / નાગર / મોઢ)"
+                  value="{{ form_data.sub_caste|default:'' }}"
+                  required
+                />
+              </div>
+              {% if errors.sub_caste %}
+                <div class="field-error">⚠️ {{ errors.sub_caste }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Field 6: Gotra -->
+            <div class="form-group">
+              <label for="gotra" class="form-label">
+                <span>૬) આપનું ગૌત્ર શું છે ? <span class="required-star">*</span></span>
+                <span class="label-tag">Gotra</span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="gotra"
+                  name="gotra"
+                  class="form-control {% if errors.gotra %}is-invalid{% endif %}"
+                  placeholder="આપનું ગૌત્ર લખો (દા.ત. કશ્યપ / ભારદ્વાજ / વસિષ્ઠ)"
+                  value="{{ form_data.gotra|default:'' }}"
+                  required
+                />
+              </div>
+              {% if errors.gotra %}
+                <div class="field-error">⚠️ {{ errors.gotra }}</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SECTION 4: સરનામું અને સંપર્ક ================= -->
+        <div class="form-section">
+          <div class="section-legend">
+            <span class="section-badge">૪</span>
+            <span>સરનામું અને સંપર્ક વિગત (Address & Contact)</span>
+          </div>
+
+          <div class="grid-1" style="margin-bottom: 20px;">
+            <!-- Field 7: Home Address with Pincode -->
+            <div class="form-group">
+              <label for="home_address" class="form-label">
+                <span>૭) આપનું ઘર નું સરનામું (પિનકોડ સાથે) <span class="required-star">*</span></span>
+                <span class="label-tag">Full Address</span>
+              </label>
+              <textarea
+                id="home_address"
+                name="home_address"
+                class="form-control {% if errors.home_address %}is-invalid{% endif %}"
+                placeholder="મકાન નં., સોસાયટી / ફ્લેટ, શેરી, વિસ્તાર અને પિનકોડ સાથે સંપૂર્ણ સરનામું લખો"
+                required
+              >{{ form_data.home_address|default:'' }}</textarea>
+              {% if errors.home_address %}
+                <div class="field-error">⚠️ {{ errors.home_address }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <!-- Field 8: Village / City -->
+            <div class="form-group">
+              <label for="village_city" class="form-label">
+                <span>૮) આપનું ગામ / શહેર નું નામ <span class="required-star">*</span></span>
+                <span class="label-tag">City / Village</span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="village_city"
+                  name="village_city"
+                  class="form-control {% if errors.village_city %}is-invalid{% endif %}"
+                  placeholder="દા.ત. અમદાવાદ / રાજકોટ / સુરત / વડોદરા"
+                  value="{{ form_data.village_city|default:'' }}"
+                  required
+                />
+              </div>
+              {% if errors.village_city %}
+                <div class="field-error">⚠️ {{ errors.village_city }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Field 9: Phone Number -->
+            <div class="form-group">
+              <label for="phone_number" class="form-label">
+                <span>૯) ફોન નંબર <span class="required-star">*</span></span>
+                <span class="label-tag">Phone Number</span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="tel"
+                  id="phone_number"
+                  name="phone_number"
+                  maxlength="10"
+                  class="form-control {% if errors.phone_number %}is-invalid{% endif %}"
+                  placeholder="૧૦ આંકડાનો મોબાઈલ નંબર"
+                  value="{{ form_data.phone_number|default:'' }}"
+                  required
+                />
+              </div>
+              {% if errors.phone_number %}
+                <div class="field-error">⚠️ {{ errors.phone_number }}</div>
+              {% else %}
+                <span class="field-hint">૧૦ અંકનો કૉલિંગ મોબાઈલ નંબર</span>
+              {% endif %}
+            </div>
+
+            <!-- Field 10: WhatsApp Number -->
+            <div class="form-group">
+              <label for="whatsapp_number" class="form-label">
+                <span>૧૦) વોટ્સેપ નંબર <span class="required-star">*</span></span>
+                <span class="label-tag">WhatsApp</span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="tel"
+                  id="whatsapp_number"
+                  name="whatsapp_number"
+                  maxlength="10"
+                  class="form-control {% if errors.whatsapp_number %}is-invalid{% endif %}"
+                  placeholder="૧૦ આંકડાનો વોટ્સએપ નંબર"
+                  value="{{ form_data.whatsapp_number|default:'' }}"
+                  required
+                />
+              </div>
+              <label class="quick-toggle-wrap">
+                <input type="checkbox" id="sameAsPhone" />
+                <span>ફોન નંબર જેવો જ વોટ્સએપ નંબર છે (Same as Phone)</span>
+              </label>
+              {% if errors.whatsapp_number %}
+                <div class="field-error">⚠️ {{ errors.whatsapp_number }}</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SECTION 5: પ્રસંગમાં આવનાર સભ્યો ================= -->
+        <div class="form-section">
+          <div class="section-legend">
+            <span class="section-badge">૫</span>
+            <span>પ્રસંગમાં ઉપસ્થિત સભ્યોની વિગત (Attending Family Members)</span>
+          </div>
+
+          <!-- Highlight Policy Box -->
+          <div class="members-policy-card">
+            <div class="policy-title">
+              <span>🔔</span>
+              <span>મહત્વપૂર્ણ નિયમ / પ્રસંગ મર્યાદા નોંધ:</span>
+            </div>
+            <p class="policy-text">
+              <strong>૧૧) આપને ત્યાંથી કેટલા સભ્ય (મેમ્બર) આ પ્રસંગ માં આવશે , લિમિટ 30 મેમ્બર ની છે . એકસ્ટ્રા મેમ્બર થશે તો તે 31-12-2021 પહેલા જણાવાનું રહેશે .</strong>
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <!-- Field 11: Attending Members Count -->
+            <div class="form-group">
+              <label for="attending_members" class="form-label">
+                <span>આવનાર કુલ સભ્યો (મેમ્બર) ની સંખ્યા <span class="required-star">*</span></span>
+                <span class="label-tag">Limit: 30</span>
+              </label>
+
+              <div class="stepper-input-group">
+                <button type="button" class="stepper-btn minus" id="btnMinus" aria-label="Decrease members">−</button>
+                <input
+                  type="number"
+                  id="attending_members"
+                  name="attending_members"
+                  min="0"
+                  max="100"
+                  class="form-control stepper-field {% if errors.attending_members %}is-invalid{% endif %}"
+                  value="{{ form_data.attending_members|default:'0' }}"
+                  required
+                />
+                <button type="button" class="stepper-btn plus" id="btnPlus" aria-label="Increase members">+</button>
+              </div>
+
+              {% if errors.attending_members %}
+                <div class="field-error">⚠️ {{ errors.attending_members }}</div>
+              {% else %}
+                <span class="field-hint" id="memberHint">સામાન્ય મર્યાદા: ૩૦ મેમ્બર સુધી</span>
+              {% endif %}
+            </div>
+
+            <!-- Extra Notes for Members (if any) -->
+            <div class="form-group">
+              <label for="extra_member_notes" class="form-label">
+                <span>વધારાના સભ્યો / અન્ય નોંધ (જો હોય તો)</span>
+                <span class="label-tag">Optional Notes</span>
+              </label>
+              <textarea
+                id="extra_member_notes"
+                name="extra_member_notes"
+                class="form-control"
+                placeholder="જો ૩૦ થી વધુ સભ્યો હોય અથવા કોઈ ખાસ વ્યવસ્થા કે નોંધ હોય તો અહીં જણાવો"
+                style="min-height: 48px;"
+              >{{ form_data.extra_member_notes|default:'' }}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="action-container">
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="btn-symbol">卐</span>
+            <span>સમૂહ જનોઈ ફોર્મ સબમિટ કરો (Submit Form)</span>
+          </button>
+          <p class="submit-note">તમારું રજીસ્ટ્રેશન સુરક્ષિત રીતે એડમિન પોર્ટલમાં નોંધાશે.</p>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Team Poster Section -->
+  <div class="poster-section">
+    <img src="{% static 'images/team.jpg' %}" alt="Our Team" />
+  </div>
+
+  <!-- Footers & Office Addresses -->
+  <div class="footer-wrapper">
+    {% include 'partials/footer.html' %}
+    {% include 'biodata/employa_footer.html' %}
+  </div>
+
+</div>
+
+<!-- Client-side Interactive JavaScript -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const phoneInput = document.getElementById('phone_number');
+    const whatsappInput = document.getElementById('whatsapp_number');
+    const sameCheckbox = document.getElementById('sameAsPhone');
+    const membersInput = document.getElementById('attending_members');
+    const btnMinus = document.getElementById('btnMinus');
+    const btnPlus = document.getElementById('btnPlus');
+    const memberHint = document.getElementById('memberHint');
+    const form = document.getElementById('samuhJanoiForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // DOB Auto-format with dashes (DD-MM-YYYY)
+    const dobInput = document.getElementById('batuk_dob');
+    if (dobInput) {
+      dobInput.addEventListener('input', function () {
+        let val = this.value.replace(/\D/g, '').slice(0, 8);
+        if (val.length > 4) {
+          this.value = val.slice(0, 2) + '-' + val.slice(2, 4) + '-' + val.slice(4);
+        } else if (val.length > 2) {
+          this.value = val.slice(0, 2) + '-' + val.slice(2);
+        } else {
+          this.value = val;
+        }
+      });
+    }
+
+    // Quick Sync Phone to WhatsApp
+    function syncWhatsapp() {
+      if (sameCheckbox.checked) {
+        whatsappInput.value = phoneInput.value;
+      }
+    }
+
+    phoneInput.addEventListener('input', function () {
+      // allow only numbers
+      this.value = this.value.replace(/\D/g, '').slice(0, 10);
+      syncWhatsapp();
+    });
+
+    whatsappInput.addEventListener('input', function () {
+      this.value = this.value.replace(/\D/g, '').slice(0, 10);
+      if (this.value !== phoneInput.value) {
+        sameCheckbox.checked = false;
+      }
+    });
+
+    sameCheckbox.addEventListener('change', function () {
+      if (this.checked) {
+        whatsappInput.value = phoneInput.value;
+      }
+    });
+
+    // Stepper functionality
+    function updateMemberDisplay() {
+      let raw = membersInput.value;
+      let val = parseInt(raw, 10);
+      if (isNaN(val) || val < 0) {
+        val = 0;
+      }
+      membersInput.value = val;
+
+      if (val > 30) {
+        memberHint.innerHTML = '<span style="color: #b42318; font-weight:600;">⚠️ ૩૦ થી વધુ સભ્યો છે! કૃપા કરીને વધારાના સભ્યોની નોંધ ૩૧-૧૨-૨૦૨૧ પહેલા કાર્યાલયને જણાવાની રહેશે.</span>';
+      } else if (val === 0) {
+        memberHint.innerHTML = 'સામાન્ય મર્યાદા: ૩૦ મેમ્બર સુધી (સભ્યોની સંખ્યા દાખલ કરો)';
+      } else {
+        memberHint.innerHTML = 'સામાન્ય મર્યાદા: ૩૦ મેમ્બર સુધી (' + val + ' સભ્યો દાખલ કર્યા)';
+      }
+    }
+
+    btnMinus.addEventListener('click', function () {
+      let val = parseInt(membersInput.value, 10);
+      if (isNaN(val) || val <= 0) val = 0;
+      if (val > 0) {
+        membersInput.value = val - 1;
+        updateMemberDisplay();
+      }
+    });
+
+    btnPlus.addEventListener('click', function () {
+      let val = parseInt(membersInput.value, 10);
+      if (isNaN(val) || val < 0) val = 0;
+      membersInput.value = val + 1;
+      updateMemberDisplay();
+    });
+
+    membersInput.addEventListener('input', updateMemberDisplay);
+    updateMemberDisplay();
+
+    // Prevent duplicate submits
+    form.addEventListener('submit', function () {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>કૃપા કરીને રાહ જુઓ... સબમિટ થઈ રહ્યું છે...</span>';
+    });
+  });
+</script>
+
+</body>
+</html>
+

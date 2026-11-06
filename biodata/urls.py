@@ -11,6 +11,7 @@ from . import views_mangalfera_sammelan
 from .views_samsta_gujarat import samsta_gujarat_form_view, samsta_gujarat_success
 from .views_diwali_gift import diwali_gift_form_view, diwali_gift_success_view
 from .views_diwali_giftcard import diwali_giftcard_form_view, diwali_giftcard_success_view
+from .views_samuh_janoi import samuh_janoi_form_view, samuh_janoi_success_view
 from .views import astrology_form_view, technical_support, technical_support_confirmation, bk2026_registration_view, submit_bk2026_registration
 from django.views.generic import RedirectView
 from django.conf import settings
@@ -155,6 +156,13 @@ urlpatterns = [
     path('diwali-giftcard/success/', diwali_giftcard_success_view, name='diwali_giftcard_success'),
     path('diwali-gift-card/', diwali_giftcard_form_view),
     path('Diwali_giftcard/', diwali_giftcard_form_view),
+
+    # Samuh Janoi Form
+    path('samuh-janoi/', samuh_janoi_form_view, name='samuh_janoi_form'),
+    path('samuh-janoi/success/', samuh_janoi_success_view, name='samuh_janoi_success'),
+    path('samuh-janoi-form/', samuh_janoi_form_view),
+    path('Samuh_Janoi/', samuh_janoi_form_view),
+    path('Samuh_Janoi.html', samuh_janoi_form_view),
 ]
 
 if settings.DEBUG:

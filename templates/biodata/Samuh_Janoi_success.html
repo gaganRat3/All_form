@@ -1,0 +1,414 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>રજીસ્ટ્રેશન સફળ | Samuh Janoi Registration Success</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #5c141d;
+      --primary-dark: #430c13;
+      --gold: #c8952b;
+      --gold-light: #fdf6e7;
+      --success-green: #15803d;
+      --border-color: #ecdcc1;
+      --text-main: #2b2523;
+      --text-muted: #6b635f;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans Gujarati', sans-serif;
+      background: #faf7f2;
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 30px 16px 60px;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(200, 149, 43, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(92, 20, 29, 0.04) 0%, transparent 40%);
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .brand-logos {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: nowrap;
+      width: 100%;
+    }
+
+    .brand-logos img {
+      height: 48px;
+      max-width: 48%;
+      width: auto;
+      object-fit: contain;
+      background: #ffffff;
+      padding: 6px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 18px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 12px 35px rgba(92, 20, 29, 0.1);
+      overflow: hidden;
+      padding: 36px 30px;
+      text-align: center;
+    }
+
+    .success-badge {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+      color: #ffffff;
+      border-radius: 50%;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      box-shadow: 0 6px 20px rgba(22, 163, 74, 0.35);
+    }
+
+    .om-tag {
+      color: var(--gold);
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      color: var(--primary);
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .card-subtitle {
+      color: var(--text-muted);
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    /* Summary Details Box */
+    .receipt-box {
+      background: #fffcf6;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 22px 24px;
+      text-align: left;
+      margin-bottom: 26px;
+    }
+
+    .receipt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid #f0e4cf;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .receipt-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .receipt-id {
+      font-size: 13px;
+      background: #f7eddc;
+      color: #7b4c10;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 20px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 580px) {
+      .brand-logos {
+        gap: 10px;
+        margin-bottom: 14px;
+        flex-wrap: nowrap !important;
+      }
+      .brand-logos img {
+        height: 38px;
+        max-width: 48%;
+        padding: 4px 8px;
+      }
+      .detail-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .card {
+        padding: 28px 18px;
+      }
+    }
+
+    .detail-row {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detail-row.full {
+      grid-column: 1 / -1;
+    }
+
+    .detail-label {
+      color: #786f6a;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .detail-value {
+      color: #2b2523;
+      font-size: 14.5px;
+      font-weight: 600;
+    }
+
+    /* Reminder Box */
+    .notice-box {
+      background: #fff8eb;
+      border-left: 4px solid var(--gold);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-top: 16px;
+      font-size: 13px;
+      color: #704f14;
+      line-height: 1.6;
+    }
+
+    /* Actions */
+    .action-group {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 14.5px;
+      font-weight: 700;
+      font-family: inherit;
+      border-radius: 30px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      border: 1px solid var(--primary-dark);
+      box-shadow: 0 4px 14px rgba(92, 20, 29, 0.2);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: #fbf5f2;
+      transform: translateY(-2px);
+    }
+
+    .footer-note {
+      margin-top: 30px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* Team Poster Section */
+    .poster-section {
+      width: 100%;
+      max-width: 720px;
+      margin: 32px auto 16px;
+      text-align: center;
+    }
+
+    .poster-section img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(92, 20, 29, 0.1);
+      border: 1px solid var(--border-color);
+      display: block;
+      margin: 0 auto;
+    }
+
+    .footer-wrapper {
+      margin-top: 24px;
+      width: 100%;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+      .action-group, .brand-logos, .poster-section, .footer-wrapper {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="brand-logos">
+    <img src="{% static 'images/BHUDEV MATRIMONY (2).png' %}" alt="Bhudev Matrimony" onerror="this.style.display='none'">
+    <img src="{% static 'images/foundation_logo.png' %}" alt="Foundation Logo" onerror="this.style.display='none'">
+  </div>
+
+  <div class="card">
+    <div class="om-tag">ૐ</div>
+    <div class="success-badge">✓</div>
+    <h1 class="card-title">રજીસ્ટ્રેશન સફળતાપૂર્વક નોંધાઈ ગયું છે</h1>
+    <p class="card-subtitle">સમૂહ જનોઈ મહોત્સવ - યજ્ઞોપવીત સંસ્કાર પૂજામાં આપનું રજીસ્ટ્રેશન સ્વીકારાયું છે.</p>
+
+    {% if registration %}
+    <div class="receipt-box">
+      <div class="receipt-header">
+        <span class="receipt-title">📋 રજીસ્ટ્રેશન વિગત રસીદ</span>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-row">
+          <span class="detail-label">૧) બટુક નું પૂરું નામ</span>
+          <span class="detail-value">{{ registration.batuk_name }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">૨) બટુક ની જન્મ-તારીખ</span>
+          <span class="detail-value">{{ registration.batuk_dob|date:"d-m-Y" }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">૩) બટુક ના પિતા નું પૂરું નામ</span>
+          <span class="detail-value">{{ registration.father_name }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">૪) બટુક ની માતા નું પૂરું નામ</span>
+          <span class="detail-value">{{ registration.mother_name }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">૫) પેટા-જ્ઞાતિ</span>
+          <span class="detail-value">{{ registration.sub_caste }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">૬) ગૌત્ર</span>
+          <span class="detail-value">{{ registration.gotra }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">૭) ગામ / શહેર</span>
+          <span class="detail-value">{{ registration.village_city }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">૮) ફોન નંબર</span>
+          <span class="detail-value">{{ registration.phone_number }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">૯) વોટ્સએપ નંબર</span>
+          <span class="detail-value">{{ registration.whatsapp_number }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">૧૦) આવનાર સભ્યોની સંખ્યા</span>
+          <span class="detail-value">{{ registration.attending_members }} સભ્યો (મેમ્બર)</span>
+        </div>
+
+        <div class="detail-row full">
+          <span class="detail-label">૧૧) ઘરનું સંપૂર્ણ સરનામું (પિનકોડ સાથે)</span>
+          <span class="detail-value">{{ registration.home_address }}</span>
+        </div>
+
+        {% if registration.extra_member_notes %}
+        <div class="detail-row full">
+          <span class="detail-label">વધારાના સભ્યો અંગે નોંધ</span>
+          <span class="detail-value">{{ registration.extra_member_notes }}</span>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="notice-box">
+        <strong>📌 સભ્ય મર્યાદા નોંધ:</strong> આપને ત્યાંથી કેટલા સભ્ય (મેમ્બર) આ પ્રસંગ માં આવશે , લિમિટ 30 મેમ્બર ની છે . એકસ્ટ્રા મેમ્બર થશે તો તે 31-12-2021 પહેલા જણાવાનું રહેશે .
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="action-group">
+      <a href="{% url 'samuh_janoi_form' %}" class="btn btn-primary">➕ નવું ફોર્મ ભરો</a>
+    </div>
+
+    <p class="footer-note">કોઈ પ્રશ્ન કે માર્ગદર્શન માટે ભુદેવ કાર્યાલયનો સંપર્ક કરવો.</p>
+  </div>
+
+  <!-- Team Poster Section -->
+  <div class="poster-section">
+    <img src="{% static 'images/team.jpg' %}" alt="Our Team" />
+  </div>
+
+  <!-- Footers & Office Addresses -->
+  <div class="footer-wrapper">
+    {% include 'partials/footer.html' %}
+    {% include 'biodata/employa_footer.html' %}
+  </div>
+
+</div>
+
+</body>
+</html>
+
